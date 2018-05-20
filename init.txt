@@ -1,0 +1,18 @@
+git clone git@github.com:KazukiOnodera/Home-Credit-Default-Risk.git
+mkdir Home-Credit-Default-Risk/input
+mkdir Home-Credit-Default-Risk/output
+mkdir Home-Credit-Default-Risk/py
+mkdir Home-Credit-Default-Risk/py/LOG
+kaggle competitions download -c home-credit-default-risk
+mv .kaggle/competitions/home-credit-default-risk/* Home-Credit-Default-Risk/input/
+cd Home-Credit-Default-Risk
+echo *.DS_Store > .gitignore
+echo input/ >> .gitignore
+echo output/ >> .gitignore
+echo data/ >> .gitignore
+echo external/ >> .gitignore
+echo py/.ipynb_checkpoints >> .gitignore
+echo py/*.model >> .gitignore
+echo py/*.p >> .gitignore
+cat .gitignore
+
