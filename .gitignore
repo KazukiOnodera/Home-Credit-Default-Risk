@@ -1,0 +1,8 @@
+*.DS_Store
+input/
+output/
+data/
+external/
+py/.ipynb_checkpoints
+py/*.model
+py/*.p
