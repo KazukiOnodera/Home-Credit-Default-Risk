@@ -8,6 +8,7 @@ Created on Wed May  9 15:28:58 2018
 
 import numpy as np
 import pandas as pd
+import itertools
 import seaborn as sns
 from matplotlib import pyplot as plt
 from matplotlib_venn import venn2
@@ -55,3 +56,14 @@ def venn_diagram(train, test, category_features):
     plt.show()
     
     return
+
+def split_seq(iterable, size):
+    """
+    In: list(split_seq(range(9), 4))
+    Out: [[0, 1, 2, 3], [4, 5, 6, 7], [8]]
+    """
+    it = iter(iterable)
+    item = list(itertools.islice(it, size))
+    while item:
+        yield item
+        item = list(itertools.islice(it, size))
