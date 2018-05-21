@@ -183,41 +183,15 @@ def load_test():
 # other API
 # =============================================================================
 def submit(file_path, comment='from API'):
-    os.system('kaggle competitions submit -c avito-demand-prediction -f {} -m "{}"'.format(file_path, comment))
+    os.system(f'kaggle competitions submit -c home-credit-default-risk -f {file_path} -m "{comment}"')
 
 import requests
 def send_line(message):
     
-    line_notify_token = 'SweGRSZkIXClyEVbkegMHtIWWmXCZOTNE3F8DP8KaDG'
+    line_notify_token = '5p5sPTY7PrQaB8Wnwp6aadfiqC8m2zh6Q8llrfNisGT'
     line_notify_api = 'https://notify-api.line.me/api/notify'
     
     payload = {'message': message}
     headers = {'Authorization': 'Bearer ' + line_notify_token}  # 発行したトークン
     requests.post(line_notify_api, data=payload, headers=headers)
-
-
-#import re
-#
-#url = 'https://translate.google.co.jp/?client=ubuntu&channel=fs&oe=utf-8&hl=ja&um=1&ie=UTF-8&hl=en&client=tw-ob#ru/en/'
-##headers = {"User-Agent": "Chrome/58.0.3029.100"}
-#pattern = "TRANSLATED_TEXT=\'(.*?)\'"
-#
-#def translate(text):
-#    params = {'q': text}
-#    headers = {"User-Agent": f"Chrome/58.0.3029.{np.random.randint(50,100)}"}
-#    r = requests.get(url, headers=headers, params=params)
-#    result = re.search(pattern, r.text).group(1)
-#    return result
-#
-#translate('Кроссовки р.25 Котофей натуральная кожа, по стельке 15.5, состояние идеальное.')
-
-#from googletrans import Translator
-#translator = Translator()
-#
-#def translate(text):
-#    try:
-#        return translator.translate(text, src='ru', dest='en').text
-#    except:
-#        return "UNABLE TO TRANSLATE"
-
 
