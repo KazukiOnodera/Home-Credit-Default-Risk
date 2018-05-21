@@ -42,16 +42,17 @@ def count_categories(df, category_features, top=30, sort='freq'):
         
     return
 
-def venn_diagram(train, test, category_features):
+def venn_diagram(train, test, category_features, figsize=(18,13)):
     """
     category_features: max==6
     """
     n = int(np.ceil(len(category_features)/2))
-    plt.figure(figsize=(18,13))
+    plt.figure(figsize=figsize)
     
     for i,c in enumerate(category_features):
         plt.subplot(int(f'{n}2{i+1}'))
-        venn2([set(train[c].unique()), set(test[c].unique())], set_labels = ('Train set', 'Test set') )
+        venn2([set(train[c].unique()), set(test[c].unique())], 
+               set_labels = ('train', 'test') )
         plt.title(f'{c}', fontsize=18)
     plt.show()
     
