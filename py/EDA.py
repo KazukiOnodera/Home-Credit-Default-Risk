@@ -42,6 +42,15 @@ def count_categories(df, category_features, top=30, sort='freq'):
         
     return
 
+def hist_continuous(df, continuous_features, bins=30):
+    
+    for c in continuous_features:
+        df[c].hist(bins=bins)
+        plt.title(f'{c}', size=30)
+        plt.show()
+        
+    return
+
 def venn_diagram(train, test, category_features, figsize=(18,13)):
     """
     category_features: max==6
