@@ -29,11 +29,11 @@ df.reset_index(inplace=True)
 # =============================================================================
 
 key = 'SK_ID_CURR'
-train = utils.load_train()[[key]]
+train = utils.load_train([key])#[[key]]
 train = pd.merge(train, df, on=key, how='left')
 
 
-test = utils.load_test()[[key]]
+test = utils.load_test([key])#[[key]]
 test = pd.merge(test, df, on=key, how='left')
 
 utils.to_pickles(train, '../data/102_train', utils.SPLIT_SIZE)
