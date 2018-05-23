@@ -63,7 +63,8 @@ for c in X.columns:
     print(f'drop {c}')
     gc.collect()
     categorical_feature_ = categorical_feature[:]
-    categorical_feature_.remove(c)
+    if c in categorical_feature_:
+        categorical_feature_.remove(c)
     dtrain = lgb.Dataset(X.drop(c, axis=1), y, 
                          categorical_feature=categorical_feature_)
     ret = lgb.cv(param, dtrain, 9999, nfold=5,
@@ -72,12 +73,6 @@ for c in X.columns:
                  seed=SEED)
     print(f"auc-mean {ret['auc-mean'][-1]}")
 
-
-yhat, imp, ret = ex.stacking(X, y, param, 9999, esr=50, seed=SEED,
-                             categorical_feature=categorical_feature)
-
-
-imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
 
 
 #==============================================================================
