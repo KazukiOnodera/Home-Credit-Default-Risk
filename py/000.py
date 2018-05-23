@@ -17,6 +17,8 @@ os.system('mkdir ../data')
 
 df = pd.read_csv('../input/application_train.csv.zip')
 utils.to_pickles(df, '../data/train', utils.SPLIT_SIZE)
+utils.to_pickles(df[['TARGET']], '../data/label', utils.SPLIT_SIZE)
+
 
 df = pd.read_csv('../input/application_test.csv.zip')
 utils.to_pickles(df, '../data/test', utils.SPLIT_SIZE)
