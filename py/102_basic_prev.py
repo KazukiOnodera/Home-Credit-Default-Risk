@@ -40,13 +40,13 @@ col_numeric = ['AMT_ANNUITY', 'AMT_APPLICATION', 'AMT_CREDIT', 'AMT_DOWN_PAYMENT
                'NFLAG_INSURED_ON_APPROVAL']
 for c in col_numeric:
     print(c)
-    df[f'{c}_min'] = gr[c].transform(np.min)
-    df[f'{c}_max'] = gr[c].transform(np.max)
+    df[f'{c}_min'] = gr[c].min()
+    df[f'{c}_max'] = gr[c].max()
     df[f'{c}_max-min'] = df[f'{c}_max'] - df[f'{c}_min']
-    df[f'{c}_mean'] = gr[c].transform(np.mean)
-    df[f'{c}_std'] = gr[c].transform(np.std)
-    df[f'{c}_sum'] = gr[c].transform(np.sum)
-    df[f'{c}_nunique'] = gr[c].transform(nunique)
+    df[f'{c}_mean'] = gr[c].mean()
+    df[f'{c}_std'] = gr[c].std()
+    df[f'{c}_sum'] = gr[c].sum()
+    df[f'{c}_nunique'] = gr[c].apply(nunique)
     
 
 
@@ -56,7 +56,8 @@ col_cat = ['NAME_CONTRACT_TYPE', 'WEEKDAY_APPR_PROCESS_START',
            'NAME_GOODS_CATEGORY', 'NAME_PORTFOLIO', 'NAME_PRODUCT_TYPE',
            'CHANNEL_TYPE', 'NAME_SELLER_INDUSTRY', 'NAME_YIELD_GROUP', 'PRODUCT_COMBINATION']
 for c in col_cat:
-    df[f'{c}_nunique'] = gr[c].transform(nunique)
+    print(c)
+    df[f'{c}_nunique'] = gr[c].apply(nunique)
     
 
 
