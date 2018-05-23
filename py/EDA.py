@@ -55,11 +55,22 @@ def count_categories(df, category_features, top=30, sort='freq', df2=None):
         
     return
 
-def hist_continuous(df, continuous_features, bins=30):
+def hist_continuous(df, continuous_features, bins=30, df2=None):
     
     for c in continuous_features:
+        if df2 is not None:
+            plt.subplot(1, 2, 1)
         df[c].hist(bins=bins)
-        plt.title(f'{c}', size=30)
+        
+        if df2 is not None:
+            plt.subplot(1, 2, 2)
+            df2[c].hist(bins=bins)
+            
+        if df2 is not None:
+            plt.suptitle(f'{c}', size=25)
+        else:
+            plt.title(f'{c}', size=25)
+        plt.tight_layout()
         plt.show()
         
     return
