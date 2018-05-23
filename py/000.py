@@ -16,28 +16,28 @@ os.system('rm -rf ../data')
 os.system('mkdir ../data')
 
 df = pd.read_csv('../input/application_train.csv.zip')
-utils.to_pickles(df, '../data/train', utils.PLIT_SIZE)
+utils.to_pickles(df, '../data/train', utils.SPLIT_SIZE)
 
 df = pd.read_csv('../input/application_test.csv.zip')
-utils.to_pickles(df, '../data/test', utils.PLIT_SIZE)
+utils.to_pickles(df, '../data/test', utils.SPLIT_SIZE)
 
 df = pd.read_csv('../input/bureau.csv.zip')
-utils.to_pickles(df, '../data/bureau', utils.PLIT_SIZE)
+utils.to_pickles(df, '../data/bureau', utils.SPLIT_SIZE)
 
 df = pd.read_csv('../input/bureau_balance.csv.zip')
-utils.to_pickles(df, '../data/bureau_balance', utils.PLIT_SIZE)
+utils.to_pickles(df, '../data/bureau_balance', utils.SPLIT_SIZE)
 
 df = pd.read_csv('../input/credit_card_balance.csv.zip')
-utils.to_pickles(df, '../data/credit_card_balance', utils.PLIT_SIZE)
+utils.to_pickles(df, '../data/credit_card_balance', utils.SPLIT_SIZE)
 
 df = pd.read_csv('../input/installments_payments.csv.zip')
-utils.to_pickles(df, '../data/installments_payments', utils.PLIT_SIZE)
+utils.to_pickles(df, '../data/installments_payments', utils.SPLIT_SIZE)
 
 df = pd.read_csv('../input/previous_application.csv.zip')
-utils.to_pickles(df, '../data/previous_application', utils.PLIT_SIZE)
+utils.to_pickles(df, '../data/previous_application', utils.SPLIT_SIZE)
 
 df = pd.read_csv('../input/POS_CASH_balance.csv.zip')
-utils.to_pickles(df, '../data/POS_CASH_balance', utils.PLIT_SIZE)
+utils.to_pickles(df, '../data/POS_CASH_balance', utils.SPLIT_SIZE)
 
 #==============================================================================
 utils.end(__file__)
