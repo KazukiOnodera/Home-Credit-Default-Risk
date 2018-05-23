@@ -45,7 +45,7 @@ for c in col_numeric:
     print(c)
     df[f'{PREF}{c}_min'] = gr[c].min()
     df[f'{PREF}{c}_max'] = gr[c].max()
-    df[f'{PREF}{c}_max-min'] = df[f'{c}_max'] - df[f'{c}_min']
+    df[f'{PREF}{c}_max-min'] = df[f'{PREF}{c}_max'] - df[f'{PREF}{c}_min']
     df[f'{PREF}{c}_mean'] = gr[c].mean()
     df[f'{PREF}{c}_std'] = gr[c].std()
     df[f'{PREF}{c}_sum'] = gr[c].sum()
