@@ -27,7 +27,7 @@ def df_info(target_df):
 def top_categories(df, category_feature, top=30):
     return df[category_feature].value_counts()[:top].index
 
-def count_categories(df, category_features, top=30, sort='freq'):
+def count_categories(df, category_features, top=30, sort='freq', df2=None):
     
     for c in category_features:
         target_value = df[c].value_counts()[:top].index
@@ -35,9 +35,19 @@ def count_categories(df, category_features, top=30, sort='freq'):
             order = target_value
         elif sort=='alphabetic':
             order = df[c].value_counts()[:top].sort_index().index
+        
+        if df2 is not None:
+            plt.subplot(1, 2, 1)
         sns.countplot(x=c, data=df[df[c].isin(order)], order=order)
         plt.title(f'{c} TOP{top}', size=30)
         plt.xticks(rotation=90)
+        
+        if df2 is not None:
+            plt.subplot(1, 2, 2)
+            sns.countplot(x=c, data=df2[df2[c].isin(order)], order=order)
+            plt.title(f'{c} TOP{top}', size=30)
+            plt.xticks(rotation=90)
+        
         plt.show()
         
     return
