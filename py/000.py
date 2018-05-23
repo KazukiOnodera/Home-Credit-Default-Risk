@@ -36,6 +36,7 @@ df = pd.read_csv('../input/installments_payments.csv.zip')
 utils.to_pickles(df, '../data/installments_payments', utils.SPLIT_SIZE)
 
 df = pd.read_csv('../input/previous_application.csv.zip')
+df['FLAG_LAST_APPL_PER_CONTRACT'] = (df['FLAG_LAST_APPL_PER_CONTRACT']=='Y')*1
 utils.to_pickles(df, '../data/previous_application', utils.SPLIT_SIZE)
 
 df = pd.read_csv('../input/POS_CASH_balance.csv.zip')
