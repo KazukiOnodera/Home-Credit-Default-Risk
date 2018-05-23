@@ -13,7 +13,7 @@ sys.path.append('/home/kazuki_onodera/Python')
 import lgbmextension as ex
 import lightgbm as lgb
 import utils
-#utils.start(__file__)
+utils.start(__file__)
 #==============================================================================
 
 SEED = 71
@@ -59,11 +59,11 @@ dtrain = lgb.Dataset(X, y, categorical_feature=categorical_feature)
 
 
 
-yhat, imp, ret = ex.stacking(X, y, param, 9999, esr=50,
+yhat, imp, ret = ex.stacking(X, y, param, 9999, esr=50, seed=SEED,
                              categorical_feature=categorical_feature)
 
 
-
+imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
 
 
 #==============================================================================
