@@ -39,7 +39,7 @@ def count_categories(df, category_features, top=30, sort='freq', df2=None):
         if df2 is not None:
             plt.subplot(1, 2, 1)
         sns.countplot(x=c, data=df[df[c].isin(order)], order=order)
-        plt.title(f'{c} TOP{top}', size=30)
+        plt.title(f'{c} TOP{top}', size=25)
         plt.xticks(rotation=90)
         
         if df2 is not None:
@@ -47,7 +47,7 @@ def count_categories(df, category_features, top=30, sort='freq', df2=None):
             sns.countplot(x=c, data=df2[df2[c].isin(order)], order=order)
 #            plt.title(f'{c} TOP{top}', size=30)
             plt.xticks(rotation=90)
-        
+        plt.tight_layout()
         plt.show()
         
     return
