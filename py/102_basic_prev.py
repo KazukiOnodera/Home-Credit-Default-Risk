@@ -57,11 +57,11 @@ for c in col_num:
     base[f'{PREF}{c}_nunique'] = gr[c].apply(nunique)
     
 
-for c in col_cat:
+for c1 in col_cat:
     gc.collect()
-    print(c)
-    df = pd.crosstab(prev[KEY], prev[c])
-    df.columns = [f'{PREF}'+c.replace(' ', '-')+'_sum' for c in df.columns]
+    print(c1)
+    df = pd.crosstab(prev[KEY], prev[c1])
+    df.columns = [f'{PREF}{c1}_{c2.replace(" ", "-")}_sum' for c2 in df.columns]
     base = pd.concat([base, df], axis=1).fillna(-1)
 
 
