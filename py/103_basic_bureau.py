@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed May 23 17:19:26 2018
+Created on Thu May 24 18:59:38 2018
 
 @author: kazuki.onodera
 
-previous_application
+bureau
 
 """
 
@@ -13,33 +13,28 @@ import numpy as np
 import pandas as pd
 import gc
 import utils
-utils.start(__file__)
+#utils.start(__file__)
 #==============================================================================
-
 KEY = 'SK_ID_CURR'
-PREF = 'prev_'
+PREF = 'bureau_'
 
-col_num = ['AMT_ANNUITY', 'AMT_APPLICATION', 'AMT_CREDIT', 'AMT_DOWN_PAYMENT', 
-           'AMT_GOODS_PRICE', 'FLAG_LAST_APPL_PER_CONTRACT', 'NFLAG_LAST_APPL_IN_DAY',
-           'RATE_DOWN_PAYMENT', 'RATE_INTEREST_PRIMARY', 'RATE_INTEREST_PRIVILEGED',
-           'DAYS_DECISION', 'DAYS_FIRST_DRAWING', 'DAYS_FIRST_DUE',
-           'DAYS_LAST_DUE_1ST_VERSION', 'DAYS_LAST_DUE', 'DAYS_TERMINATION',
-           'NFLAG_INSURED_ON_APPROVAL']
 
-col_cat = ['NAME_CONTRACT_TYPE', 'WEEKDAY_APPR_PROCESS_START',
-           'NAME_CASH_LOAN_PURPOSE', 'NAME_CONTRACT_STATUS', 'NAME_PAYMENT_TYPE',
-           'CODE_REJECT_REASON', 'NAME_TYPE_SUITE', 'NAME_CLIENT_TYPE',
-           'NAME_GOODS_CATEGORY', 'NAME_PORTFOLIO', 'NAME_PRODUCT_TYPE',
-           'CHANNEL_TYPE', 'NAME_SELLER_INDUSTRY', 'NAME_YIELD_GROUP', 'PRODUCT_COMBINATION']
+col_num = ['DAYS_CREDIT', 'CREDIT_DAY_OVERDUE', 'DAYS_CREDIT_ENDDATE',
+           'DAYS_ENDDATE_FACT', 'AMT_CREDIT_MAX_OVERDUE', 'CNT_CREDIT_PROLONG',
+           'AMT_CREDIT_SUM', 'AMT_CREDIT_SUM_DEBT', 'AMT_CREDIT_SUM_LIMIT',
+           'AMT_CREDIT_SUM_OVERDUE', 'DAYS_CREDIT_UPDATE', 'AMT_ANNUITY']
+
+col_cat = ['SK_ID_BUREAU', 'CREDIT_ACTIVE', 'CREDIT_CURRENCY', 'CREDIT_TYPE']
+
 
 # =============================================================================
 # feature
 # =============================================================================
-prev = utils.read_pickles('../data/previous_application')
+bureau = utils.read_pickles('../data/bureau')
 
-base = prev[[KEY]].drop_duplicates().set_index(KEY)
+base = bureau[[KEY]].drop_duplicates().set_index(KEY)
 
-gr = prev.groupby(KEY)
+gr = bureau.groupby(KEY)
 
 def nunique(x):
     return len(set(x))
@@ -60,10 +55,9 @@ for c in col_num:
 for c in col_cat:
     gc.collect()
     print(c)
-    df = pd.crosstab(prev[KEY], prev[c])
+    df = pd.crosstab(base[KEY], base[c])
     df.columns = ['{PREF}'+c.replace(' ', '-')+'_sum' for c in df.columns]
     base = pd.concat([base, df])
-
 
 base.reset_index(inplace=True)
 
@@ -78,8 +72,11 @@ train = pd.merge(train, base, on=KEY, how='left').drop(KEY, axis=1)
 test = utils.load_test([KEY])
 test = pd.merge(test, base, on=KEY, how='left').drop(KEY, axis=1)
 
-utils.to_pickles(train, '../data/102_train', utils.SPLIT_SIZE)
-utils.to_pickles(test,  '../data/102_test',  utils.SPLIT_SIZE)
+utils.to_pickles(train, '../data/103_train', utils.SPLIT_SIZE)
+utils.to_pickles(test,  '../data/103_test',  utils.SPLIT_SIZE)
+
+
+
 
 
 
