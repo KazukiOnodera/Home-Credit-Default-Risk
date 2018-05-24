@@ -6,6 +6,7 @@
     'CNT_INSTALMENT_FUTURE', 'NAME_CONTRACT_STATUS', 'SK_DPD', 'SK_DPD_DEF']
     
 ../input/application_train.csv.zip: 
+    Shape: (307511, 122)
     ['SK_ID_CURR', 'TARGET', 'NAME_CONTRACT_TYPE', 'CODE_GENDER', 'FLAG_OWN_CAR', 
     'FLAG_OWN_REALTY', 'CNT_CHILDREN', 'AMT_INCOME_TOTAL', 'AMT_CREDIT', 
     'AMT_ANNUITY', 'AMT_GOODS_PRICE', 'NAME_TYPE_SUITE', 'NAME_INCOME_TYPE', 
@@ -47,6 +48,7 @@
     'AMT_REQ_CREDIT_BUREAU_YEAR']
 
 ../input/application_test.csv.zip: 
+    Shape: (48744, 121)
 
 ../input/bureau.csv.zip: 
     ['SK_ID_CURR', 'SK_ID_BUREAU', 'CREDIT_ACTIVE', 'CREDIT_CURRENCY', 
