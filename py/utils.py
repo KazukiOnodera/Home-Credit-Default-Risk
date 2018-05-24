@@ -165,6 +165,8 @@ def to_pickles(df, path, split_size=3, inplace=True):
           '../output/mydf/2.p'
     
     """
+    print(f'shape: {df.shape}')
+    
     if inplace==True:
         df.reset_index(drop=True, inplace=True)
     else:

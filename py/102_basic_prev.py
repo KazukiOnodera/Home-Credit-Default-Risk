@@ -13,7 +13,7 @@ import numpy as np
 import pandas as pd
 import gc
 import utils
-utils.start(__file__)
+#utils.start(__file__)
 #==============================================================================
 
 KEY = 'SK_ID_CURR'
@@ -61,8 +61,8 @@ for c in col_cat:
     gc.collect()
     print(c)
     df = pd.crosstab(prev[KEY], prev[c])
-    df.columns = ['{PREF}'+c.replace(' ', '-')+'_sum' for c in df.columns]
-    base = pd.concat([base, df])
+    df.columns = [f'{PREF}'+c.replace(' ', '-')+'_sum' for c in df.columns]
+    base = pd.concat([base, df], axis=1)
 
 
 base.reset_index(inplace=True)

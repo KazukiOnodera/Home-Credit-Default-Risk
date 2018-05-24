@@ -56,8 +56,8 @@ for c in col_cat:
     gc.collect()
     print(c)
     df = pd.crosstab(bureau[KEY], bureau[c])
-    df.columns = ['{PREF}'+c.replace(' ', '-')+'_sum' for c in df.columns]
-    base = pd.concat([base, df])
+    df.columns = [f'{PREF}'+c.replace(' ', '-')+'_sum' for c in df.columns]
+    base = pd.concat([base, df], axis=1)
 
 base.reset_index(inplace=True)
 
