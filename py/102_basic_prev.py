@@ -13,7 +13,7 @@ import numpy as np
 import pandas as pd
 import gc
 import utils
-#utils.start(__file__)
+utils.start(__file__)
 #==============================================================================
 
 KEY = 'SK_ID_CURR'
