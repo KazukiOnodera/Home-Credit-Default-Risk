@@ -22,6 +22,8 @@ utils.to_pickles(df[['TARGET']], '../data/label', utils.SPLIT_SIZE)
 
 df = pd.read_csv('../input/application_test.csv.zip')
 utils.to_pickles(df, '../data/test', utils.SPLIT_SIZE)
+df[['SK_ID_CURR']].to_pickle('../data/sub.p')
+
 
 df = pd.read_csv('../input/bureau.csv.zip')
 utils.to_pickles(df, '../data/bureau', utils.SPLIT_SIZE)
