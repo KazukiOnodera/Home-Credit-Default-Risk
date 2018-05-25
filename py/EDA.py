@@ -13,7 +13,7 @@ import seaborn as sns
 from matplotlib import pyplot as plt
 from matplotlib_venn import venn2
 
-def df_info(target_df):
+def df_info(target_df, topN=10):
     
     print(f'Shape: {target_df.shape}')
     
@@ -22,6 +22,14 @@ def df_info(target_df):
     df['#Nulls'] = target_df.isnull().sum()
     df['#Uniques'] = target_df.nunique()
     
+    # top 10 values
+    df[f'top{topN} val'] = 0
+    df[f'top{topN} cnt'] = 0
+    for c in df.index:
+        vc = target_df[c].value_counts()
+        list(vc.[:topN].index)
+        df.loc[c, f'top{topN}'] = list(top_categories(target_df, c, topN))
+        
     return df
 
 def top_categories(df, category_feature, top=30):
