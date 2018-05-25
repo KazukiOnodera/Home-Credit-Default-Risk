@@ -26,9 +26,9 @@ def df_info(target_df, topN=10):
     df[f'top{topN} val'] = 0
     df[f'top{topN} cnt'] = 0
     for c in df.index:
-        vc = target_df[c].value_counts()
-        val = list(vc[:topN].index)
-        cnt = list(vc[:topN].values)
+        vc = target_df[c].value_counts().head(topN)
+        val = list(vc.index)
+        cnt = list(vc.values)
         df.loc[c, f'top{topN} val'] = str(val)
         df.loc[c, f'top{topN} cnt'] = str(cnt)
         
