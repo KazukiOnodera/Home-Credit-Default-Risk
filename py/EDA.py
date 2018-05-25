@@ -27,8 +27,10 @@ def df_info(target_df, topN=10):
     df[f'top{topN} cnt'] = 0
     for c in df.index:
         vc = target_df[c].value_counts()
-        list(vc.[:topN].index)
-        df.loc[c, f'top{topN}'] = list(top_categories(target_df, c, topN))
+        val = list(vc[:topN].index)
+        cnt = list(vc[:topN].values)
+        df.loc[c, f'top{topN} val'] = str(val)
+        df.loc[c, f'top{topN} cnt'] = str(cnt)
         
     return df
 
