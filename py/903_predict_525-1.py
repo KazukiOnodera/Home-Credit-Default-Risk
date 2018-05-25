@@ -88,7 +88,8 @@ models = []
 for i in range(LOOP):
     gc.collect()
     param.update({'seed':np.random.randint(9999)})
-    model = lgb.train(param, dtrain, NROUND)
+    model = lgb.train(param, dtrain, NROUND,
+                      categorical_feature=categorical_feature)
     model.save_model(f'lgb{i}.model')
     models.append(model)
     
