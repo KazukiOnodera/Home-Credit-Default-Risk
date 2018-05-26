@@ -25,6 +25,8 @@ X = pd.concat([utils.read_pickles('../data/101_train'),
                utils.read_pickles('../data/104_train')], axis=1)
 y = utils.read_pickles('../data/label').TARGET
 
+print(X.columns.tolist())
+
 param = {
          'objective': 'binary',
          'metric': 'auc',

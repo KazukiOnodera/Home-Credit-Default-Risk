@@ -16,7 +16,7 @@ import utils
 utils.start(__file__)
 #==============================================================================
 KEY = 'SK_ID_CURR'
-PREF = 'bureau_'
+PREF = 'bureau'
 
 
 col_num = ['DAYS_CREDIT', 'CREDIT_DAY_OVERDUE', 'DAYS_CREDIT_ENDDATE',
@@ -26,6 +26,7 @@ col_num = ['DAYS_CREDIT', 'CREDIT_DAY_OVERDUE', 'DAYS_CREDIT_ENDDATE',
 
 col_cat = ['CREDIT_ACTIVE', 'CREDIT_CURRENCY', 'CREDIT_TYPE']
 
+col_group = ['CREDIT_ACTIVE', 'CREDIT_CURRENCY', 'CREDIT_TYPE']
 
 # =============================================================================
 # feature
@@ -34,29 +35,97 @@ bureau = utils.read_pickles('../data/bureau')
 
 base = bureau[[KEY]].drop_duplicates().set_index(KEY)
 
-gr = bureau.groupby(KEY)
 
 def nunique(x):
     return len(set(x))
 
+# =============================================================================
+# gr2
+# =============================================================================
+for k in col_group:
+    gr2 = bureau.groupby([KEY, k])
+    gc.collect()
+    print(k)
+    keyname = 'gby-'+'-'.join([KEY, k])
+    for v in col_num:
+        # min
+        gr1 = gr2[v].min().groupby(KEY)
+        name = f'{PREF}_{keyname}_{v}_min'
+        base[f'{name}_max']     = gr1.max()
+        base[f'{name}_mean']    = gr1.mean()
+        base[f'{name}_std']     = gr1.std()
+        base[f'{name}_sum']     = gr1.sum()
+        base[f'{name}_nunique'] = gr1.apply(nunique)
+        
+        # max
+        gr1 = gr2[v].max().groupby(KEY)
+        name = f'{PREF}_{keyname}_{v}_max'
+        base[f'{name}_min']  = gr1.min()
+        base[f'{name}_mean'] = gr1.mean()
+        base[f'{name}_std']  = gr1.std()
+        base[f'{name}_sum']  = gr1.sum()
+        base[f'{name}_nunique'] = gr1.apply(nunique)
+        
+        # mean
+        gr1 = gr2[v].mean().groupby(KEY)
+        name = f'{PREF}_{keyname}_{v}_mean'
+        base[f'{name}_min']  = gr1.min()
+        base[f'{name}_max']  = gr1.max()
+        base[f'{name}_max-min']  = base[f'{name}_max'] - base[f'{name}_min']
+        base[f'{name}_mean'] = gr1.mean()
+        base[f'{name}_std']  = gr1.std()
+        base[f'{name}_sum']  = gr1.sum()
+        base[f'{name}_nunique'] = gr1.apply(nunique)
+        
+        # std
+        gr1 = gr2[v].std().groupby(KEY)
+        name = f'{PREF}_{keyname}_{v}_std'
+        base[f'{name}_min']  = gr1.min()
+        base[f'{name}_max']  = gr1.max()
+        base[f'{name}_max-min']  = base[f'{name}_max'] - base[f'{name}_min']
+        base[f'{name}_mean'] = gr1.mean()
+        base[f'{name}_std']  = gr1.std()
+        base[f'{name}_sum']  = gr1.sum()
+        base[f'{name}_nunique'] = gr1.apply(nunique)
+        
+        # sum
+        gr1 = gr2[v].sum().groupby(KEY)
+        name = f'{PREF}_{keyname}_{v}_sum'
+        base[f'{name}_min']  = gr1.min()
+        base[f'{name}_max']  = gr1.max()
+        base[f'{name}_max-min']  = base[f'{name}_max'] - base[f'{name}_min']
+        base[f'{name}_mean'] = gr1.mean()
+        base[f'{name}_std']  = gr1.std()
+        base[f'{name}_nunique'] = gr1.apply(nunique)
+        
+
+# =============================================================================
+# gr1
+# =============================================================================
+gr = bureau.groupby(KEY)
+
 # stats
+keyname = 'gby-'+KEY
 for c in col_num:
     gc.collect()
     print(c)
-    base[f'{PREF}{c}_min'] = gr[c].min()
-    base[f'{PREF}{c}_max'] = gr[c].max()
-    base[f'{PREF}{c}_max-min'] = base[f'{PREF}{c}_max'] - base[f'{PREF}{c}_min']
-    base[f'{PREF}{c}_mean'] = gr[c].mean()
-    base[f'{PREF}{c}_std'] = gr[c].std()
-    base[f'{PREF}{c}_sum'] = gr[c].sum()
-    base[f'{PREF}{c}_nunique'] = gr[c].apply(nunique)
-    
+    base[f'{PREF}_{keyname}_{c}_min'] = gr[c].min()
+    base[f'{PREF}_{keyname}_{c}_max'] = gr[c].max()
+    base[f'{PREF}_{keyname}_{c}_max-min'] = base[f'{PREF}_{keyname}_{c}_max'] - base[f'{PREF}_{keyname}_{c}_min']
+    base[f'{PREF}_{keyname}_{c}_mean'] = gr[c].mean()
+    base[f'{PREF}_{keyname}_{c}_std'] = gr[c].std()
+    base[f'{PREF}_{keyname}_{c}_sum'] = gr[c].sum()
+    base[f'{PREF}_{keyname}_{c}_nunique'] = gr[c].apply(nunique)
 
+    
+# =============================================================================
+# cat
+# =============================================================================
 for c1 in col_cat:
     gc.collect()
     print(c1)
     df = pd.crosstab(bureau[KEY], bureau[c1])
-    df.columns = [f'{PREF}{c1}_{c2.replace(" ", "-")}_sum' for c2 in df.columns]
+    df.columns = [f'{PREF}_{c1}_{c2.replace(" ", "-")}_sum' for c2 in df.columns]
     col = df.columns.tolist()
     base = pd.concat([base, df], axis=1)
     base[col] = base[col].fillna(-1)
