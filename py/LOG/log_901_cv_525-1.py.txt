@@ -1,0 +1,220 @@
+
+#==============================================================================
+# START!!! 901_cv_525-1.py    PID: 11113    time: 2018-05-25 11:39:16.498336
+#==============================================================================
+
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:00<00:08,  2.25it/s] 15%|█▌        | 3/20 [00:00<00:03,  4.36it/s] 20%|██        | 4/20 [00:00<00:03,  4.69it/s] 25%|██▌       | 5/20 [00:00<00:02,  5.16it/s] 35%|███▌      | 7/20 [00:01<00:02,  6.22it/s] 40%|████      | 8/20 [00:01<00:01,  6.32it/s] 45%|████▌     | 9/20 [00:01<00:01,  6.35it/s] 50%|█████     | 10/20 [00:01<00:01,  6.58it/s] 55%|█████▌    | 11/20 [00:01<00:01,  6.48it/s] 60%|██████    | 12/20 [00:01<00:01,  6.64it/s] 65%|██████▌   | 13/20 [00:01<00:01,  6.63it/s] 70%|███████   | 14/20 [00:02<00:00,  6.63it/s] 80%|████████  | 16/20 [00:02<00:00,  7.09it/s] 85%|████████▌ | 17/20 [00:02<00:00,  7.14it/s] 90%|█████████ | 18/20 [00:02<00:00,  6.90it/s]100%|██████████| 20/20 [00:02<00:00,  7.07it/s]
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:00<00:07,  2.47it/s] 10%|█         | 2/20 [00:00<00:05,  3.08it/s] 15%|█▌        | 3/20 [00:00<00:04,  3.74it/s] 20%|██        | 4/20 [00:01<00:04,  3.95it/s] 25%|██▌       | 5/20 [00:01<00:03,  4.08it/s] 30%|███       | 6/20 [00:01<00:03,  4.40it/s] 35%|███▌      | 7/20 [00:01<00:02,  4.62it/s] 40%|████      | 8/20 [00:01<00:02,  4.74it/s] 45%|████▌     | 9/20 [00:01<00:02,  4.77it/s] 50%|█████     | 10/20 [00:02<00:02,  4.77it/s] 55%|█████▌    | 11/20 [00:02<00:01,  4.81it/s] 60%|██████    | 12/20 [00:02<00:01,  4.92it/s] 65%|██████▌   | 13/20 [00:02<00:01,  4.96it/s] 70%|███████   | 14/20 [00:02<00:01,  4.99it/s] 75%|███████▌  | 15/20 [00:02<00:00,  5.03it/s] 80%|████████  | 16/20 [00:03<00:00,  5.03it/s] 85%|████████▌ | 17/20 [00:03<00:00,  5.10it/s] 90%|█████████ | 18/20 [00:03<00:00,  5.09it/s] 95%|█████████▌| 19/20 [00:03<00:00,  4.97it/s]100%|██████████| 20/20 [00:04<00:00,  4.87it/s]
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:00<00:03,  5.32it/s] 10%|█         | 2/20 [00:00<00:02,  6.41it/s] 15%|█▌        | 3/20 [00:00<00:02,  6.68it/s] 20%|██        | 4/20 [00:00<00:02,  6.04it/s] 25%|██▌       | 5/20 [00:00<00:02,  6.19it/s] 30%|███       | 6/20 [00:01<00:02,  5.93it/s] 35%|███▌      | 7/20 [00:01<00:02,  5.83it/s] 40%|████      | 8/20 [00:01<00:02,  5.82it/s] 45%|████▌     | 9/20 [00:01<00:01,  6.08it/s] 50%|█████     | 10/20 [00:01<00:01,  6.26it/s] 60%|██████    | 12/20 [00:01<00:01,  6.68it/s] 70%|███████   | 14/20 [00:01<00:00,  7.04it/s] 80%|████████  | 16/20 [00:02<00:00,  7.28it/s] 90%|█████████ | 18/20 [00:02<00:00,  7.70it/s]100%|██████████| 20/20 [00:02<00:00,  8.10it/s]
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:00<00:03,  6.12it/s] 20%|██        | 4/20 [00:00<00:01, 10.26it/s] 30%|███       | 6/20 [00:00<00:01, 11.80it/s] 45%|████▌     | 9/20 [00:00<00:00, 13.34it/s] 55%|█████▌    | 11/20 [00:00<00:00, 12.30it/s] 70%|███████   | 14/20 [00:01<00:00, 13.47it/s] 80%|████████  | 16/20 [00:01<00:00, 12.83it/s] 90%|█████████ | 18/20 [00:01<00:00, 12.88it/s]100%|██████████| 20/20 [00:01<00:00, 13.20it/s]
+  0%|          | 0/20 [00:00<?, ?it/s] 15%|█▌        | 3/20 [00:00<00:00, 24.39it/s] 25%|██▌       | 5/20 [00:00<00:00, 22.26it/s] 45%|████▌     | 9/20 [00:00<00:00, 27.19it/s] 75%|███████▌  | 15/20 [00:00<00:00, 34.63it/s] 95%|█████████▌| 19/20 [00:00<00:00, 33.72it/s]100%|██████████| 20/20 [00:00<00:00, 35.42it/s]
+[LightGBM] [Info] Number of positive: 19860, number of negative: 226148
+[LightGBM] [Info] Total Bins 25513
+[LightGBM] [Info] Number of data: 246008, number of used features: 545
+[LightGBM] [Info] Number of positive: 19860, number of negative: 226149
+[LightGBM] [Info] Total Bins 25513
+[LightGBM] [Info] Number of data: 246009, number of used features: 545
+[LightGBM] [Info] Number of positive: 19860, number of negative: 226149
+[LightGBM] [Info] Total Bins 25513
+[LightGBM] [Info] Number of data: 246009, number of used features: 545
+[LightGBM] [Info] Number of positive: 19860, number of negative: 226149
+[LightGBM] [Info] Total Bins 25513
+[LightGBM] [Info] Number of data: 246009, number of used features: 545
+[LightGBM] [Info] Number of positive: 19860, number of negative: 226149
+[LightGBM] [Info] Total Bins 25513
+[LightGBM] [Info] Number of data: 246009, number of used features: 545
+NO drop auc-mean 0.7710374129702966
+y/all: 24825/307511(8.07%)
+building... 1/5 of 1/1
+[LightGBM] [Info] Number of positive: 19886, number of negative: 226122
+[LightGBM] [Info] Total Bins 25449
+[LightGBM] [Info] Number of data: 246008, number of used features: 545
+Training until validation scores don't improve for 50 rounds.
+[10]	train's auc: 0.763168	valid's auc: 0.736841
+[20]	train's auc: 0.774219	valid's auc: 0.746807
+[30]	train's auc: 0.782044	valid's auc: 0.75006
+[40]	train's auc: 0.789853	valid's auc: 0.753105
+[50]	train's auc: 0.798147	valid's auc: 0.754715
+[60]	train's auc: 0.807612	valid's auc: 0.757667
+[70]	train's auc: 0.818909	valid's auc: 0.760797
+[80]	train's auc: 0.829044	valid's auc: 0.762555
+[90]	train's auc: 0.840498	valid's auc: 0.763914
+[100]	train's auc: 0.850704	valid's auc: 0.765209
+[110]	train's auc: 0.859191	valid's auc: 0.766745
+[120]	train's auc: 0.867784	valid's auc: 0.768067
+[130]	train's auc: 0.87599	valid's auc: 0.768717
+[140]	train's auc: 0.883096	valid's auc: 0.769861
+[150]	train's auc: 0.89025	valid's auc: 0.770206
+[160]	train's auc: 0.897176	valid's auc: 0.770193
+[170]	train's auc: 0.903446	valid's auc: 0.770761
+[180]	train's auc: 0.909721	valid's auc: 0.770805
+[190]	train's auc: 0.915056	valid's auc: 0.771486
+[200]	train's auc: 0.920167	valid's auc: 0.771746
+[210]	train's auc: 0.925618	valid's auc: 0.771377
+[220]	train's auc: 0.930213	valid's auc: 0.771748
+[230]	train's auc: 0.934774	valid's auc: 0.771563
+[240]	train's auc: 0.938735	valid's auc: 0.771936
+[250]	train's auc: 0.942306	valid's auc: 0.77171
+[260]	train's auc: 0.945803	valid's auc: 0.771574
+[270]	train's auc: 0.949157	valid's auc: 0.771671
+[280]	train's auc: 0.952173	valid's auc: 0.771386
+[290]	train's auc: 0.95533	valid's auc: 0.771487
+Early stopping, best iteration is:
+[244]	train's auc: 0.940207	valid's auc: 0.772043
+building... 2/5 of 1/1
+Training until validation scores don't improve for 50 rounds.
+[10]	train's auc: 0.760016	valid's auc: 0.727629
+[20]	train's auc: 0.776894	valid's auc: 0.74122
+[30]	train's auc: 0.784671	valid's auc: 0.744576
+[40]	train's auc: 0.790385	valid's auc: 0.746055
+[50]	train's auc: 0.802096	valid's auc: 0.751537
+[60]	train's auc: 0.809881	valid's auc: 0.753465
+[70]	train's auc: 0.819484	valid's auc: 0.75544
+[80]	train's auc: 0.82933	valid's auc: 0.758011
+[90]	train's auc: 0.838624	valid's auc: 0.760183
+[100]	train's auc: 0.847964	valid's auc: 0.762682
+[110]	train's auc: 0.857562	valid's auc: 0.765101
+[120]	train's auc: 0.86582	valid's auc: 0.765905
+[130]	train's auc: 0.873888	valid's auc: 0.766898
+[140]	train's auc: 0.881984	valid's auc: 0.767724
+[150]	train's auc: 0.889265	valid's auc: 0.768288
+[160]	train's auc: 0.896309	valid's auc: 0.768671
+[170]	train's auc: 0.902187	valid's auc: 0.769756
+[180]	train's auc: 0.908025	valid's auc: 0.7701
+[190]	train's auc: 0.914019	valid's auc: 0.770205
+[200]	train's auc: 0.919612	valid's auc: 0.770105
+[210]	train's auc: 0.92445	valid's auc: 0.770168
+[220]	train's auc: 0.929037	valid's auc: 0.77013
+[230]	train's auc: 0.933256	valid's auc: 0.770168
+[240]	train's auc: 0.937306	valid's auc: 0.77033
+[250]	train's auc: 0.941218	valid's auc: 0.770684
+[260]	train's auc: 0.944965	valid's auc: 0.770808
+[270]	train's auc: 0.948505	valid's auc: 0.770796
+[280]	train's auc: 0.952125	valid's auc: 0.770856
+[290]	train's auc: 0.95523	valid's auc: 0.770892
+[300]	train's auc: 0.958042	valid's auc: 0.770761
+[310]	train's auc: 0.960788	valid's auc: 0.770308
+[320]	train's auc: 0.963177	valid's auc: 0.769935
+[330]	train's auc: 0.965409	valid's auc: 0.769838
+Early stopping, best iteration is:
+[289]	train's auc: 0.954936	valid's auc: 0.770979
+building... 3/5 of 1/1
+Training until validation scores don't improve for 50 rounds.
+[10]	train's auc: 0.761367	valid's auc: 0.730344
+[20]	train's auc: 0.776618	valid's auc: 0.742073
+[30]	train's auc: 0.784399	valid's auc: 0.748068
+[40]	train's auc: 0.79147	valid's auc: 0.749924
+[50]	train's auc: 0.801713	valid's auc: 0.754471
+[60]	train's auc: 0.810202	valid's auc: 0.756449
+[70]	train's auc: 0.820566	valid's auc: 0.758464
+[80]	train's auc: 0.830198	valid's auc: 0.760373
+[90]	train's auc: 0.839449	valid's auc: 0.76179
+[100]	train's auc: 0.849067	valid's auc: 0.763278
+[110]	train's auc: 0.858597	valid's auc: 0.76533
+[120]	train's auc: 0.867311	valid's auc: 0.765542
+[130]	train's auc: 0.87524	valid's auc: 0.766421
+[140]	train's auc: 0.883004	valid's auc: 0.766933
+[150]	train's auc: 0.890122	valid's auc: 0.767545
+[160]	train's auc: 0.89712	valid's auc: 0.768272
+[170]	train's auc: 0.90399	valid's auc: 0.768473
+[180]	train's auc: 0.909809	valid's auc: 0.768653
+[190]	train's auc: 0.915462	valid's auc: 0.768854
+[200]	train's auc: 0.920629	valid's auc: 0.769112
+[210]	train's auc: 0.92562	valid's auc: 0.769512
+[220]	train's auc: 0.930185	valid's auc: 0.76978
+[230]	train's auc: 0.934656	valid's auc: 0.769557
+[240]	train's auc: 0.938731	valid's auc: 0.769739
+[250]	train's auc: 0.94267	valid's auc: 0.76949
+[260]	train's auc: 0.946081	valid's auc: 0.769688
+[270]	train's auc: 0.949414	valid's auc: 0.769944
+[280]	train's auc: 0.952477	valid's auc: 0.770024
+[290]	train's auc: 0.955518	valid's auc: 0.76997
+[300]	train's auc: 0.957999	valid's auc: 0.770263
+[310]	train's auc: 0.960792	valid's auc: 0.770313
+[320]	train's auc: 0.963161	valid's auc: 0.770514
+[330]	train's auc: 0.965188	valid's auc: 0.77082
+[340]	train's auc: 0.967472	valid's auc: 0.770743
+[350]	train's auc: 0.969574	valid's auc: 0.770795
+[360]	train's auc: 0.971427	valid's auc: 0.7709
+[370]	train's auc: 0.973137	valid's auc: 0.771061
+[380]	train's auc: 0.974764	valid's auc: 0.771083
+[390]	train's auc: 0.976353	valid's auc: 0.771215
+[400]	train's auc: 0.977763	valid's auc: 0.770796
+[410]	train's auc: 0.979143	valid's auc: 0.770233
+[420]	train's auc: 0.98034	valid's auc: 0.770438
+Early stopping, best iteration is:
+[378]	train's auc: 0.974457	valid's auc: 0.771236
+building... 4/5 of 1/1
+Training until validation scores don't improve for 50 rounds.
+[10]	train's auc: 0.76433	valid's auc: 0.737738
+[20]	train's auc: 0.777734	valid's auc: 0.745081
+[30]	train's auc: 0.78418	valid's auc: 0.749005
+[40]	train's auc: 0.791235	valid's auc: 0.751261
+[50]	train's auc: 0.801699	valid's auc: 0.756656
+[60]	train's auc: 0.810056	valid's auc: 0.758216
+[70]	train's auc: 0.819451	valid's auc: 0.760442
+[80]	train's auc: 0.829755	valid's auc: 0.763384
+[90]	train's auc: 0.838728	valid's auc: 0.764769
+[100]	train's auc: 0.8488	valid's auc: 0.76715
+[110]	train's auc: 0.857894	valid's auc: 0.76882
+[120]	train's auc: 0.866251	valid's auc: 0.769677
+[130]	train's auc: 0.874132	valid's auc: 0.770622
+[140]	train's auc: 0.881873	valid's auc: 0.771134
+[150]	train's auc: 0.888989	valid's auc: 0.772009
+[160]	train's auc: 0.895326	valid's auc: 0.772792
+[170]	train's auc: 0.901735	valid's auc: 0.773315
+[180]	train's auc: 0.907983	valid's auc: 0.773723
+[190]	train's auc: 0.91369	valid's auc: 0.773581
+[200]	train's auc: 0.918529	valid's auc: 0.773664
+[210]	train's auc: 0.923683	valid's auc: 0.773585
+[220]	train's auc: 0.928383	valid's auc: 0.773739
+[230]	train's auc: 0.932956	valid's auc: 0.773767
+[240]	train's auc: 0.936991	valid's auc: 0.773618
+[250]	train's auc: 0.941014	valid's auc: 0.773668
+[260]	train's auc: 0.944714	valid's auc: 0.773699
+Early stopping, best iteration is:
+[218]	train's auc: 0.927521	valid's auc: 0.773843
+building... 5/5 of 1/1
+Training until validation scores don't improve for 50 rounds.
+[10]	train's auc: 0.760728	valid's auc: 0.730896
+[20]	train's auc: 0.775297	valid's auc: 0.741551
+[30]	train's auc: 0.783411	valid's auc: 0.746384
+[40]	train's auc: 0.791105	valid's auc: 0.749816
+[50]	train's auc: 0.802095	valid's auc: 0.753535
+[60]	train's auc: 0.810684	valid's auc: 0.756629
+[70]	train's auc: 0.819197	valid's auc: 0.759096
+[80]	train's auc: 0.828715	valid's auc: 0.761259
+[90]	train's auc: 0.837819	valid's auc: 0.762687
+[100]	train's auc: 0.847519	valid's auc: 0.764748
+[110]	train's auc: 0.856673	valid's auc: 0.766775
+[120]	train's auc: 0.864956	valid's auc: 0.768674
+[130]	train's auc: 0.872724	valid's auc: 0.770019
+[140]	train's auc: 0.880885	valid's auc: 0.771107
+[150]	train's auc: 0.888163	valid's auc: 0.771649
+[160]	train's auc: 0.895256	valid's auc: 0.772238
+[170]	train's auc: 0.902006	valid's auc: 0.773144
+[180]	train's auc: 0.908361	valid's auc: 0.773803
+[190]	train's auc: 0.914159	valid's auc: 0.774055
+[200]	train's auc: 0.919538	valid's auc: 0.774082
+[210]	train's auc: 0.924613	valid's auc: 0.77497
+[220]	train's auc: 0.929153	valid's auc: 0.77532
+[230]	train's auc: 0.933497	valid's auc: 0.775111
+[240]	train's auc: 0.937641	valid's auc: 0.775376
+[250]	train's auc: 0.941576	valid's auc: 0.775635
+[260]	train's auc: 0.945342	valid's auc: 0.775776
+[270]	train's auc: 0.948736	valid's auc: 0.775732
+[280]	train's auc: 0.951765	valid's auc: 0.775458
+[290]	train's auc: 0.955026	valid's auc: 0.775605
+[300]	train's auc: 0.957565	valid's auc: 0.775553
+Early stopping, best iteration is:
+[255]	train's auc: 0.943458	valid's auc: 0.775912
+finish all fold
+Mean Best Score: 0.7728025775808584
+finish all loop
+mk ret
+
+#==============================================================================
+# SUCCESS !!! 901_cv_525-1.py
+#==============================================================================
+
+time: 4.22min

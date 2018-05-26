@@ -1,0 +1,23 @@
+
+#==============================================================================
+# START!!! 103_basic_bureau.py    PID: 10748    time: 2018-05-24 18:55:06.098620
+#==============================================================================
+
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:00<00:10,  1.85it/s] 10%|█         | 2/20 [00:00<00:05,  3.04it/s] 20%|██        | 4/20 [00:00<00:03,  4.43it/s] 30%|███       | 6/20 [00:01<00:02,  5.51it/s] 35%|███▌      | 7/20 [00:01<00:02,  5.78it/s] 40%|████      | 8/20 [00:01<00:02,  5.99it/s] 45%|████▌     | 9/20 [00:01<00:01,  5.63it/s] 50%|█████     | 10/20 [00:01<00:01,  5.49it/s] 60%|██████    | 12/20 [00:02<00:01,  5.51it/s] 65%|██████▌   | 13/20 [00:02<00:01,  5.65it/s] 75%|███████▌  | 15/20 [00:02<00:00,  5.97it/s] 85%|████████▌ | 17/20 [00:02<00:00,  6.45it/s] 95%|█████████▌| 19/20 [00:02<00:00,  6.63it/s]100%|██████████| 20/20 [00:02<00:00,  6.75it/s]
+DAYS_CREDIT
+CREDIT_DAY_OVERDUE
+DAYS_CREDIT_ENDDATE
+DAYS_ENDDATE_FACT
+AMT_CREDIT_MAX_OVERDUE
+CNT_CREDIT_PROLONG
+AMT_CREDIT_SUM
+AMT_CREDIT_SUM_DEBT
+AMT_CREDIT_SUM_LIMIT
+AMT_CREDIT_SUM_OVERDUE
+DAYS_CREDIT_UPDATE
+AMT_ANNUITY
+CREDIT_ACTIVE
+Traceback (most recent call last):
+  File "103_basic_bureau.py", line 58, in <module>
+    df = pd.crosstab(prev[KEY], prev[c1])
+NameError: name 'prev' is not defined
