@@ -60,6 +60,32 @@ df = df[['MONTHS_BALANCE']]
 base['pos-comp_last_month'] = df
 base['pos-comp_cnt'] = comp.groupby(KEY).size()
 
+gr = pos.groupby(KEY)
+
+def nunique(x):
+    return len(set(x))
+
+# stats
+for c in col_num:
+    gc.collect()
+    print(c)
+    base[f'{PREF}{c}_min'] = gr[c].min()
+    base[f'{PREF}{c}_max'] = gr[c].max()
+    base[f'{PREF}{c}_max-min'] = base[f'{PREF}{c}_max'] - base[f'{PREF}{c}_min']
+    base[f'{PREF}{c}_mean'] = gr[c].mean()
+    base[f'{PREF}{c}_std'] = gr[c].std()
+    base[f'{PREF}{c}_sum'] = gr[c].sum()
+    base[f'{PREF}{c}_nunique'] = gr[c].apply(nunique)
+
+for c1 in col_cat:
+    gc.collect()
+    print(c1)
+    df = pd.crosstab(pos[KEY], pos[c1])
+    df.columns = [f'{PREF}{c1}_{c2.replace(" ", "-")}_sum' for c2 in df.columns]
+    col = df.columns.tolist()
+    base = pd.concat([base, df], axis=1)
+    base[col] = base[col].fillna(-1)
+
 
 base.reset_index(inplace=True)
 
