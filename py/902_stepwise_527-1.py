@@ -16,11 +16,6 @@ from time import sleep
 import os
 import gc
 import utils
-while True:
-    if os.path.isfile('SUCCESS_901'):
-        break
-    else:
-        sleep(60*1)
 utils.start(__file__)
 #==============================================================================
 
@@ -59,7 +54,17 @@ categorical_feature = ['NAME_CONTRACT_TYPE',
                      'WALLSMATERIAL_MODE',
                      'EMERGENCYSTATE_MODE']
 
+# =============================================================================
+# wait
+# =============================================================================
 
+while True:
+    if os.path.isfile('SUCCESS_901'):
+        break
+    else:
+        sleep(60*1)
+
+utils.reset_time()
 
 # =============================================================================
 # 
@@ -105,6 +110,7 @@ print(f'features: {use_features}')
 
 for c in feature_all:
     print()
+    gc.collect()
     
     use_features_ = use_features[:]
     if c in use_features_:
