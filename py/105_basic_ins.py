@@ -15,7 +15,7 @@ import utils
 utils.start(__file__)
 #==============================================================================
 KEY = 'SK_ID_CURR'
-PREF = 'ins_'
+PREF = 'ins'
 NTHREAD = 3
 
 col_num = ['NUM_INSTALMENT_VERSION', 'NUM_INSTALMENT_NUMBER', 'DAYS_INSTALMENT', 

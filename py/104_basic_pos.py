@@ -32,40 +32,6 @@ col_group = ['SK_ID_PREV', 'NAME_CONTRACT_STATUS']
 pos = utils.read_pickles('../data/POS_CASH_balance')
 base = pos[[KEY]].drop_duplicates().set_index(KEY)
 
-#### newest ####
-for T in range(-1, -6, -1):
-    print(T)
-    pos_ = pos[pos['MONTHS_BALANCE']==T]
-    
-    gr = pos_.groupby(KEY)
-    base[f'pos-T{T}_size'] = gr.size()
-    base[f'pos-T{T}_CNT_INSTALMENT_FUTURE_sum'] = gr['CNT_INSTALMENT_FUTURE'].sum()
-    base[f'pos-T{T}_CNT_INSTALMENT_sum']        = gr['CNT_INSTALMENT'].sum()
-    base[f'pos-T{T}_CNT_INSTALMENT_ratio'] = base[f'pos-T{T}_CNT_INSTALMENT_FUTURE_sum'] / base[f'pos-T{T}_CNT_INSTALMENT_sum']
-    
-    c1 = 'NAME_CONTRACT_STATUS'
-    df = pd.crosstab(pos_[KEY], pos_[c1])
-    df.columns = [f'pos-T{T}_{c2.replace(" ", "-")}_sum' for c2 in df.columns]
-    col = df.columns.tolist()
-    base = pd.concat([base, df], axis=1)
-    base[col] = base[col].fillna(-1)
-    
-    base['pos-T{T}_SK_DPD_sum']           = gr['SK_DPD'].sum()
-    base['pos-T{T}_SK_DPD_DEF_sum']       = gr['SK_DPD_DEF'].sum()
-    base['pos-T{T}_CNT_INSTALMENT_ratio'] = base['pos-T{T}_SK_DPD_sum'] / base['pos-T{T}_SK_DPD_DEF_sum']
-    
-    base.fillna(-1, inplace=True)
-
-#### comp MONTHS_BALANCE ####
-comp = pos[pos['NAME_CONTRACT_STATUS']=='Completed']
-df = comp.sort_values(['SK_ID_CURR', 'MONTHS_BALANCE']).drop_duplicates('SK_ID_CURR', keep='last')
-df.set_index('SK_ID_CURR', inplace=True)
-df = df[['MONTHS_BALANCE']]
-base['pos-comp_last_month'] = df
-base['pos-comp_cnt'] = comp.groupby(KEY).size()
-
-
-
 def nunique(x):
     return len(set(x))
 
@@ -143,6 +109,46 @@ def multi_gr2(k):
 pool = Pool(NTHREAD)
 callback = pool.map(multi_gr2, col_group)
 pool.close()
+
+
+# =============================================================================
+# other features
+# =============================================================================
+#### newest ####
+for T in range(-1, -6, -1):
+    print(T)
+    pos_ = pos[pos['MONTHS_BALANCE']==T]
+    
+    gr = pos_.groupby(KEY)
+    base[f'pos-T{T}_size'] = gr.size()
+    base[f'pos-T{T}_CNT_INSTALMENT_FUTURE_sum'] = gr['CNT_INSTALMENT_FUTURE'].sum()
+    base[f'pos-T{T}_CNT_INSTALMENT_sum']        = gr['CNT_INSTALMENT'].sum()
+    base[f'pos-T{T}_CNT_INSTALMENT_ratio'] = base[f'pos-T{T}_CNT_INSTALMENT_FUTURE_sum'] / base[f'pos-T{T}_CNT_INSTALMENT_sum']
+    
+    c1 = 'NAME_CONTRACT_STATUS'
+    df = pd.crosstab(pos_[KEY], pos_[c1])
+    df.columns = [f'pos-T{T}_{c2.replace(" ", "-")}_sum' for c2 in df.columns]
+    col = df.columns.tolist()
+    base = pd.concat([base, df], axis=1)
+    base[col] = base[col].fillna(-1)
+    
+    base[f'pos-T{T}_SK_DPD_sum']           = gr['SK_DPD'].sum()
+    base[f'pos-T{T}_SK_DPD_DEF_sum']       = gr['SK_DPD_DEF'].sum()
+    base[f'pos-T{T}_CNT_INSTALMENT_ratio'] = base[f'pos-T{T}_SK_DPD_sum'] / base[f'pos-T{T}_SK_DPD_DEF_sum']
+    
+    base.fillna(-1, inplace=True)
+
+#### comp MONTHS_BALANCE ####
+comp = pos[pos['NAME_CONTRACT_STATUS']=='Completed']
+df = comp.sort_values(['SK_ID_CURR', 'MONTHS_BALANCE']).drop_duplicates('SK_ID_CURR', keep='last')
+df.set_index('SK_ID_CURR', inplace=True)
+df = df[['MONTHS_BALANCE']]
+base['pos-comp_last_month'] = df
+base['pos-comp_cnt'] = comp.groupby(KEY).size()
+
+if base.columns.duplicated().sum() != 0:
+    raise Exception( base.columns[base.columns.duplicated()] )
+
 
 # =============================================================================
 # gr1
