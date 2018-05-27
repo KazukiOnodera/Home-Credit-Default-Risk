@@ -82,10 +82,10 @@ for c1 in col_cat:
 # =============================================================================
 # merge
 # =============================================================================
-df = pd.concat([ pd.read_pickle(f) for f in tqdm(sorted(glob(f'../data/tmp_{PREF}*.p')))], axis=1)
-base = pd.concat([base, df], axis=1)
+#df = pd.concat([ pd.read_pickle(f) for f in tqdm(sorted(glob(f'../data/tmp_{PREF}*.p')))], axis=1)
+#base = pd.concat([base, df], axis=1)
 base.reset_index(inplace=True)
-del df; gc.collect()
+#del df; gc.collect()
 
 train = utils.load_train([KEY])
 train = pd.merge(train, base, on=KEY, how='left').drop(KEY, axis=1)

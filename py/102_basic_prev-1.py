@@ -123,10 +123,10 @@ def multi_gr2(k):
         base[f'{name}_nunique'] = gr1.apply(nunique)
     
     df = pd.merge(train, base, on=KEY, how='left').drop(KEY, axis=1)
-    utils.to_pickles(df, f'../data/tmp_{PREF}_{k}_train', utils.SPLIT_SIZE)
+    utils.to_pickles(df, f'../data/102_{k}_train', utils.SPLIT_SIZE)
     
     df = pd.merge(test, base, on=KEY, how='left').drop(KEY, axis=1)
-    utils.to_pickles(df, f'../data/tmp_{PREF}_{k}_test', utils.SPLIT_SIZE)
+    utils.to_pickles(df, f'../data/102_{k}_test', utils.SPLIT_SIZE)
     print(f'finish {k}')
     return
 
