@@ -135,7 +135,7 @@ def multi_gr2(k):
         base[f'{name}_mean'] = gr1.mean()
         base[f'{name}_std']  = gr1.std()
         base[f'{name}_nunique'] = gr1.apply(nunique)
-    base.to_pickles(f'../data/tmp_{PREF}{k}.p')
+    base.to_pickle(f'../data/tmp_{PREF}{k}.p')
     
 # =============================================================================
 # gr2
