@@ -122,6 +122,7 @@ def multi_gr2(k):
         base[f'{name}_std']  = gr1.std()
         base[f'{name}_nunique'] = gr1.apply(nunique)
     
+    base.reset_index(inplace=True)
     df = pd.merge(train, base, on=KEY, how='left').drop(KEY, axis=1)
     utils.to_pickles(df, f'../data/102_{k}_train', utils.SPLIT_SIZE)
     
