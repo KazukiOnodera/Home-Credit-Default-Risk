@@ -26,7 +26,7 @@ X = pd.concat([
 #               utils.read_pickles('../data/102_train'), 
 #               utils.read_pickles('../data/103_train'), 
 #               utils.read_pickles('../data/104_train')
-        utils.read_pickles(f) for f in tqdm(folsers)
+        utils.read_pickles(f) for f in (folsers)
                ], axis=1)
 y = utils.read_pickles('../data/label').TARGET
 
