@@ -19,14 +19,14 @@ utils.start(__file__)
 
 SEED = 71
 
-folsers = sorted(glob('../data/*_train'))
+folders = sorted(glob('../data/*_train'))
 
 X = pd.concat([
 #               utils.read_pickles('../data/101_train'), 
 #               utils.read_pickles('../data/102_train'), 
 #               utils.read_pickles('../data/103_train'), 
 #               utils.read_pickles('../data/104_train')
-        utils.read_pickles(f) for f in (folsers)
+        utils.read_pickles(f) for f in (folders)
                ], axis=1)
 y = utils.read_pickles('../data/label').TARGET
 
