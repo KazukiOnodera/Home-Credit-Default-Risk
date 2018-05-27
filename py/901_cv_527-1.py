@@ -68,7 +68,7 @@ categorical_feature = ['NAME_CONTRACT_TYPE',
 dtrain = lgb.Dataset(X, y, categorical_feature=categorical_feature)
 
 ret = lgb.cv(param, dtrain, 9999, nfold=5,
-             early_stopping_rounds=50, verbose_eval=None,
+             early_stopping_rounds=50, verbose_eval=10,
              seed=SEED)
 print(f"CV auc-mean {ret['auc-mean'][-1]}")
 
