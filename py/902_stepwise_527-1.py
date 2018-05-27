@@ -16,7 +16,7 @@ from time import sleep
 import os
 import gc
 import utils
-utils.start(__file__)
+#utils.start(__file__)
 #==============================================================================
 
 SEED = 71
@@ -58,13 +58,13 @@ categorical_feature = ['NAME_CONTRACT_TYPE',
 # wait
 # =============================================================================
 
-while True:
-    if os.path.isfile('SUCCESS_901'):
-        break
-    else:
-        sleep(60*1)
-
-utils.reset_time()
+#while True:
+#    if os.path.isfile('SUCCESS_901'):
+#        break
+#    else:
+#        sleep(60*1)
+#
+#utils.reset_time()
 
 # =============================================================================
 # 
@@ -94,7 +94,8 @@ y = utils.read_pickles('../data/label').TARGET
 # =============================================================================
 # LGB
 # =============================================================================
-use_features = feature_all[:10]
+#use_features = feature_all[:1000]
+use_features = ['EXT_SOURCE_2', 'EXT_SOURCE_3', 'ORGANIZATION_TYPE', 'EXT_SOURCE_1', 'ins_gby-SK_ID_CURR-SK_ID_PREV_AMT_PAYMENT_min_mean', 'OCCUPATION_TYPE', 'DAYS_BIRTH', 'AMT_ANNUITY', 'AMT_GOODS_PRICE', 'AMT_CREDIT', 'DAYS_EMPLOYED', 'NAME_EDUCATION_TYPE', 'OWN_CAR_AGE', 'DAYS_ID_PUBLISH', 'prev_gby-SK_ID_CURR-CODE_REJECT_REASON_DAYS_FIRST_DRAWING_sum_mean', 'bureau_gby-SK_ID_CURR-CREDIT_TYPE_DAYS_CREDIT_mean_mean', 'bureau_gby-SK_ID_CURR-CREDIT_TYPE_DAYS_CREDIT_ENDDATE_max_min', 'pos_gby-SK_ID_CURR-SK_ID_PREV_CNT_INSTALMENT_FUTURE_mean_mean', 'FLAG_DOCUMENT_3', 'bureau_gby-SK_ID_CURR_DAYS_CREDIT_max', 'pos_gby-SK_ID_CURR-SK_ID_PREV_CNT_INSTALMENT_FUTURE_mean_std', 'bureau_gby-SK_ID_CURR-CREDIT_CURRENCY_DAYS_CREDIT_mean_min', 'ins_gby-SK_ID_CURR-NUM_INSTALMENT_NUMBER_AMT_PAYMENT_mean_min', 'bureau_gby-SK_ID_CURR-CREDIT_ACTIVE_AMT_CREDIT_SUM_std_min', 'ins_gby-SK_ID_CURR-SK_ID_PREV_DAYS_INSTALMENT_sum_std', 'bureau_gby-SK_ID_CURR-CREDIT_CURRENCY_DAYS_CREDIT_mean_max', 'ins_gby-SK_ID_CURR-NUM_INSTALMENT_VERSION_AMT_PAYMENT_max_min', 'ins_gby-SK_ID_CURR-NUM_INSTALMENT_NUMBER_DAYS_ENTRY_PAYMENT_sum_max', 'bureau_gby-SK_ID_CURR-CREDIT_ACTIVE_AMT_CREDIT_MAX_OVERDUE_mean_sum', 'ins_gby-SK_ID_CURR-NUM_INSTALMENT_VERSION_AMT_PAYMENT_mean_std', 'bureau_gby-SK_ID_CURR_DAYS_CREDIT_std', 'bureau_gby-SK_ID_CURR-CREDIT_ACTIVE_AMT_CREDIT_SUM_DEBT_sum_std', 'prev_gby-SK_ID_CURR-CHANNEL_TYPE_DAYS_LAST_DUE_1ST_VERSION_min_max', 'ins_gby-SK_ID_CURR-NUM_INSTALMENT_VERSION_DAYS_ENTRY_PAYMENT_sum_mean', 'bureau_gby-SK_ID_CURR-CREDIT_ACTIVE_AMT_CREDIT_MAX_OVERDUE_min_max', 'pos_gby-SK_ID_CURR-NAME_CONTRACT_STATUS_SK_DPD_DEF_sum_std']
 
 # benchmark
 dtrain = lgb.Dataset(X[use_features], y, 
@@ -108,7 +109,7 @@ print(f'benchmark: {best_score}')
 print(f'features: {use_features}')
 
 
-for c in feature_all:
+for c in feature_all[1200:]:
     print()
     gc.collect()
     
