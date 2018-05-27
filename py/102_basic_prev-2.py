@@ -1,26 +1,21 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed May 23 17:19:26 2018
+Created on Sun May 27 15:33:03 2018
 
-@author: kazuki.onodera
-
-previous_application
-
+@author: Kazuki
 """
 
-import numpy as np
 import pandas as pd
 import gc
-from multiprocessing import Pool
 from glob import glob
+from tqdm import tqdm
 import utils
 utils.start(__file__)
 #==============================================================================
 
 KEY = 'SK_ID_CURR'
 PREF = 'prev'
-NTHREAD = 15
 
 col_num = ['AMT_ANNUITY', 'AMT_APPLICATION', 'AMT_CREDIT', 'AMT_DOWN_PAYMENT', 
            'AMT_GOODS_PRICE', 'HOUR_APPR_PROCESS_START',
@@ -53,80 +48,6 @@ base = prev[[KEY]].drop_duplicates().set_index(KEY)
 def nunique(x):
     return len(set(x))
 
-def multi_gr2(k):
-    gr2 = prev.groupby([KEY, k])
-    gc.collect()
-    print(k)
-    keyname = 'gby-'+'-'.join([KEY, k])
-    # size
-    gr1 = gr2.size().groupby(KEY)
-    name = f'{PREF}_{keyname}_size'
-    base[f'{name}_min']  = gr1.min()
-    base[f'{name}_max']  = gr1.max()
-    base[f'{name}_max-min']  = base[f'{name}_max'] - base[f'{name}_min']
-    base[f'{name}_mean'] = gr1.mean()
-    base[f'{name}_std']  = gr1.std()
-    base[f'{name}_sum']  = gr1.sum()
-    base[f'{name}_nunique']     = gr1.size()
-    for v in col_num:
-        
-        # min
-        gr1 = gr2[v].min().groupby(KEY)
-        name = f'{PREF}_{keyname}_{v}_min'
-        base[f'{name}_max']     = gr1.max()
-        base[f'{name}_mean']    = gr1.mean()
-        base[f'{name}_std']     = gr1.std()
-        base[f'{name}_sum']     = gr1.sum()
-        base[f'{name}_nunique'] = gr1.apply(nunique)
-        
-        # max
-        gr1 = gr2[v].max().groupby(KEY)
-        name = f'{PREF}_{keyname}_{v}_max'
-        base[f'{name}_min']  = gr1.min()
-        base[f'{name}_mean'] = gr1.mean()
-        base[f'{name}_std']  = gr1.std()
-        base[f'{name}_sum']  = gr1.sum()
-        base[f'{name}_nunique'] = gr1.apply(nunique)
-        
-        # mean
-        gr1 = gr2[v].mean().groupby(KEY)
-        name = f'{PREF}_{keyname}_{v}_mean'
-        base[f'{name}_min']  = gr1.min()
-        base[f'{name}_max']  = gr1.max()
-        base[f'{name}_max-min']  = base[f'{name}_max'] - base[f'{name}_min']
-        base[f'{name}_mean'] = gr1.mean()
-        base[f'{name}_std']  = gr1.std()
-        base[f'{name}_sum']  = gr1.sum()
-        base[f'{name}_nunique'] = gr1.apply(nunique)
-        
-        # std
-        gr1 = gr2[v].std().groupby(KEY)
-        name = f'{PREF}_{keyname}_{v}_std'
-        base[f'{name}_min']  = gr1.min()
-        base[f'{name}_max']  = gr1.max()
-        base[f'{name}_max-min']  = base[f'{name}_max'] - base[f'{name}_min']
-        base[f'{name}_mean'] = gr1.mean()
-        base[f'{name}_std']  = gr1.std()
-        base[f'{name}_sum']  = gr1.sum()
-        base[f'{name}_nunique'] = gr1.apply(nunique)
-        
-        # sum
-        gr1 = gr2[v].sum().groupby(KEY)
-        name = f'{PREF}_{keyname}_{v}_sum'
-        base[f'{name}_min']  = gr1.min()
-        base[f'{name}_max']  = gr1.max()
-        base[f'{name}_max-min']  = base[f'{name}_max'] - base[f'{name}_min']
-        base[f'{name}_mean'] = gr1.mean()
-        base[f'{name}_std']  = gr1.std()
-        base[f'{name}_nunique'] = gr1.apply(nunique)
-    base.to_pickle(f'../data/tmp_{PREF}{k}.p')
-    
-# =============================================================================
-# gr2
-# =============================================================================
-pool = Pool(NTHREAD)
-callback = pool.map(multi_gr2, col_group)
-pool.close()
 
 # =============================================================================
 # gr1
@@ -161,7 +82,7 @@ for c1 in col_cat:
 # =============================================================================
 # merge
 # =============================================================================
-df = pd.concat([ pd.read_pickle(f) for f in sorted(glob(f'../data/tmp_{PREF}*.p'))], axis=1)
+df = pd.concat([ pd.read_pickle(f) for f in tqdm(sorted(glob(f'../data/tmp_{PREF}*.p')))], axis=1)
 base = pd.concat([base, df], axis=1)
 base.reset_index(inplace=True)
 del df; gc.collect()
