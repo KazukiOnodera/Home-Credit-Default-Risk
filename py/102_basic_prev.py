@@ -12,12 +12,15 @@ previous_application
 import numpy as np
 import pandas as pd
 import gc
+from multiprocessing import Pool
+from glob import glob
 import utils
 utils.start(__file__)
 #==============================================================================
 
 KEY = 'SK_ID_CURR'
 PREF = 'prev'
+NTHREAD = 15
 
 col_num = ['AMT_ANNUITY', 'AMT_APPLICATION', 'AMT_CREDIT', 'AMT_DOWN_PAYMENT', 
            'AMT_GOODS_PRICE', 'HOUR_APPR_PROCESS_START',
@@ -33,7 +36,7 @@ col_cat = ['NAME_CONTRACT_TYPE', 'WEEKDAY_APPR_PROCESS_START',
            'NAME_GOODS_CATEGORY', 'NAME_PORTFOLIO', 'NAME_PRODUCT_TYPE',
            'CHANNEL_TYPE', 'NAME_SELLER_INDUSTRY', 'NAME_YIELD_GROUP', 'PRODUCT_COMBINATION']
 
-col_group = ['NAME_CONTRACT_TYPE', 'WEEKDAY_APPR_PROCESS_START',
+col_group = ['SK_ID_PREV', 'NAME_CONTRACT_TYPE', 'WEEKDAY_APPR_PROCESS_START',
            'NAME_CASH_LOAN_PURPOSE', 'NAME_CONTRACT_STATUS', 'NAME_PAYMENT_TYPE',
            'CODE_REJECT_REASON', 'NAME_TYPE_SUITE', 'NAME_CLIENT_TYPE',
            'NAME_GOODS_CATEGORY', 'NAME_PORTFOLIO', 'NAME_PRODUCT_TYPE',
@@ -50,15 +53,23 @@ base = prev[[KEY]].drop_duplicates().set_index(KEY)
 def nunique(x):
     return len(set(x))
 
-# =============================================================================
-# gr2
-# =============================================================================
-for k in col_group:
+def multi_gr2(k):
     gr2 = prev.groupby([KEY, k])
     gc.collect()
     print(k)
     keyname = 'gby-'+'-'.join([KEY, k])
+    # size
+    gr1 = gr2.size().groupby(KEY)
+    name = f'{PREF}_{keyname}_size'
+    base[f'{name}_min']  = gr1.min()
+    base[f'{name}_max']  = gr1.max()
+    base[f'{name}_max-min']  = base[f'{name}_max'] - base[f'{name}_min']
+    base[f'{name}_mean'] = gr1.mean()
+    base[f'{name}_std']  = gr1.std()
+    base[f'{name}_sum']  = gr1.sum()
+    base[f'{name}_nunique']     = gr1.size()
     for v in col_num:
+        
         # min
         gr1 = gr2[v].min().groupby(KEY)
         name = f'{PREF}_{keyname}_{v}_min'
@@ -108,7 +119,14 @@ for k in col_group:
         base[f'{name}_mean'] = gr1.mean()
         base[f'{name}_std']  = gr1.std()
         base[f'{name}_nunique'] = gr1.apply(nunique)
-        
+    base.to_pickles(f'../data/tmp_{PREF}{k}.p')
+    
+# =============================================================================
+# gr2
+# =============================================================================
+pool = Pool(NTHREAD)
+callback = pool.map(multi_gr2, col_group)
+pool.close()
 
 # =============================================================================
 # gr1
@@ -140,12 +158,13 @@ for c1 in col_cat:
     base = pd.concat([base, df], axis=1)
     base[col] = base[col].fillna(-1)
 
-
-base.reset_index(inplace=True)
-
 # =============================================================================
 # merge
 # =============================================================================
+df = pd.concat([ pd.read_pickle(f) for f in sorted(glob(f'../data/tmp_{PREF}*.p'))], axis=1)
+base = pd.concat([base, df], axis=1)
+base.reset_index(inplace=True)
+del df; gc.collect()
 
 train = utils.load_train([KEY])
 train = pd.merge(train, base, on=KEY, how='left').drop(KEY, axis=1)
