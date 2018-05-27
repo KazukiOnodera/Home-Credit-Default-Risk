@@ -17,7 +17,7 @@ PREF = 'pos'
 
 
 col_num = ['MONTHS_BALANCE', 'CNT_INSTALMENT', 'CNT_INSTALMENT_FUTURE',
-           'NAME_CONTRACT_STATUS', 'SK_DPD', 'SK_DPD_DEF']
+           'SK_DPD', 'SK_DPD_DEF']
 
 col_cat = ['NAME_CONTRACT_STATUS']
 
