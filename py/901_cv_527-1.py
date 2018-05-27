@@ -7,7 +7,7 @@ Created on Sun May 27 22:23:57 2018
 """
 
 from glob import glob
-from tqdm import tqdm
+from os import system
 import pandas as pd
 import sys
 sys.path.append('/home/kazuki_onodera/Python')
@@ -15,6 +15,7 @@ import lgbmextension as ex
 import lightgbm as lgb
 import utils
 utils.start(__file__)
+system('rm SUCCESS_901')
 #==============================================================================
 
 SEED = 71
@@ -72,13 +73,16 @@ ret = lgb.cv(param, dtrain, 9999, nfold=5,
              seed=SEED)
 print(f"CV auc-mean {ret['auc-mean'][-1]}")
 
+model = lgb.train(param, dtrain, 9999, nfold=5,
+                  verbose_eval=10,
+                  seed=SEED)
 
-yhat, imp, ret = ex.stacking(X, y, param, 9999, esr=50, seed=SEED,
-                             categorical_feature=categorical_feature)
+imp = ex.getImp(model)
 
 
 imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
 
+system('touch SUCCESS_901')
 
 #==============================================================================
 utils.end(__file__)
