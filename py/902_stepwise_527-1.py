@@ -69,7 +69,7 @@ utils.reset_time()
 # =============================================================================
 # 
 # =============================================================================
-imp = pd.read_csv('LOG/imp_901_cv_527-1.py.csv')
+imp = pd.read_csv('LOG/imp_901_cv_527-1.py.csv').set_index('index')
 feature_all = imp[imp['split'] != 0].index.tolist()
 
 folders = sorted(glob('../data/*_train'))
