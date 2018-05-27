@@ -30,7 +30,7 @@ X = pd.concat([
                ], axis=1)
 y = utils.read_pickles('../data/label').TARGET
 
-print(X.columns.tolist())
+print(f'X.shape {X.shape}')
 
 param = {
          'objective': 'binary',
