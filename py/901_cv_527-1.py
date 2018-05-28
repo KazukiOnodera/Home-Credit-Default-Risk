@@ -13,6 +13,7 @@ import sys
 sys.path.append('/home/kazuki_onodera/Python')
 import lgbmextension as ex
 import lightgbm as lgb
+import multiprocessing
 import utils
 utils.start(__file__)
 system('rm SUCCESS_901')
@@ -42,7 +43,7 @@ param = {
          'max_bin': 100,
          'colsample_bytree': 0.5,
          'subsample': 0.5,
-         'nthread': 64,
+         'nthread': multiprocessing.cpu_count(),
          'bagging_freq': 1,
          
          'seed': SEED
