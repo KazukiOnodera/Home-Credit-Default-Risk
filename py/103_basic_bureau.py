@@ -136,15 +136,18 @@ for c in col_num:
     base[f'{PREF}_{keyname}_{c}_sum'] = gr[c].sum()
     base[f'{PREF}_{keyname}_{c}_nunique'] = gr[c].apply(nunique)
 
-    
+
 # =============================================================================
 # cat
 # =============================================================================
 for c1 in col_cat:
     gc.collect()
     print(c1)
-    df = pd.crosstab(bureau[KEY], bureau[c1])
-    df.columns = [f'{PREF}_{c1}_{c2.replace(" ", "-")}_sum' for c2 in df.columns]
+    df_sum = pd.crosstab(bureau[KEY], bureau[c1])
+    df_sum.columns = [f'{PREF}_{c1}_{str(c2).replace(" ", "-")}_sum' for c2 in df_sum.columns]
+    df_norm = pd.crosstab(bureau[KEY], bureau[c1], normalize='index')
+    df_norm.columns = [f'{PREF}_{c1}_{str(c2).replace(" ", "-")}_norm' for c2 in df_norm.columns]
+    df = pd.concat([df_sum, df_norm], axis=1)
     col = df.columns.tolist()
     base = pd.concat([base, df], axis=1)
     base[col] = base[col].fillna(-1)

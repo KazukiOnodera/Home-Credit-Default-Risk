@@ -141,8 +141,11 @@ for c in col_num:
 for c1 in col_cat:
     gc.collect()
     print(c1)
-    df = pd.crosstab(cre[KEY], cre[c1])
-    df.columns = [f'{PREF}_{c1}_{c2.replace(" ", "-")}_sum' for c2 in df.columns]
+    df_sum = pd.crosstab(cre[KEY], cre[c1])
+    df_sum.columns = [f'{PREF}_{c1}_{str(c2).replace(" ", "-")}_sum' for c2 in df_sum.columns]
+    df_norm = pd.crosstab(cre[KEY], cre[c1], normalize='index')
+    df_norm.columns = [f'{PREF}_{c1}_{str(c2).replace(" ", "-")}_norm' for c2 in df_norm.columns]
+    df = pd.concat([df_sum, df_norm], axis=1)
     col = df.columns.tolist()
     base = pd.concat([base, df], axis=1)
     base[col] = base[col].fillna(-1)
