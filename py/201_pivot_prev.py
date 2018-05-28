@@ -45,20 +45,20 @@ col_group = ['SK_ID_PREV', 'NAME_CONTRACT_TYPE', 'WEEKDAY_APPR_PROCESS_START',
 
 
 # =============================================================================
-# feature
+# pivot
 # =============================================================================
 prev = utils.read_pickles('../data/previous_application')
 
 li = []
 for cat in col_cat:
     pt = pd.pivot_table(prev, index=KEY, columns=cat, values=col_num)
-    pt.columns = [c[0]+'-'+c[1]+'_mean' for c in pt.columns]
+    pt.columns = [f'{PREF}_{c[0]}-{c[1]}_mean' for c in pt.columns]
     li.append(pt)
     pt = pd.pivot_table(prev, index=KEY, columns=cat, values=col_num, aggfunc=np.sum)
-    pt.columns = [c[0]+'-'+c[1]+'_sum' for c in pt.columns]
+    pt.columns = [f'{PREF}_{c[0]}-{c[1]}_sum' for c in pt.columns]
     li.append(pt)
     pt = pd.pivot_table(prev, index=KEY, columns=cat, values=col_num, aggfunc=np.std, fill_value=-1)
-    pt.columns = [c[0]+'-'+c[1]+'_std' for c in pt.columns]
+    pt.columns = [f'{PREF}_{c[0]}-{c[1]}_std' for c in pt.columns]
     li.append(pt)
 
 base = pd.concat(li).reset_index()
