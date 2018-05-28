@@ -6,7 +6,7 @@ Created on Sat May 26 00:52:14 2018
 @author: Kazuki
 """
 
-import numpy as np
+import os
 import pandas as pd
 import gc
 from multiprocessing import Pool
@@ -158,6 +158,7 @@ test = pd.merge(test, base, on=KEY, how='left').drop(KEY, axis=1)
 utils.to_pickles(train, '../data/105_train', utils.SPLIT_SIZE)
 utils.to_pickles(test,  '../data/105_test',  utils.SPLIT_SIZE)
 
+os.system('rm ../data/tmp_ins*.p')
 
 
 

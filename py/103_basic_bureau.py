@@ -9,7 +9,7 @@ bureau
 
 """
 
-import numpy as np
+import os
 import pandas as pd
 import gc
 from multiprocessing import Pool
@@ -172,7 +172,7 @@ utils.to_pickles(train, '../data/103_train', utils.SPLIT_SIZE)
 utils.to_pickles(test,  '../data/103_test',  utils.SPLIT_SIZE)
 
 
-
+os.system('rm ../data/tmp_bureau*.p')
 
 
 
