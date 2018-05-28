@@ -99,9 +99,9 @@ for c1 in col_cat:
     gc.collect()
     print(c1)
     df_sum = pd.crosstab(merged[KEY], merged[c1])
-    df_sum.columns = [f'{PREF}_{c1}_{str(c2).replace(" ", "-")}_sum' for c2 in df_sum.columns]
+    df_sum.columns = [f'{c1}_{str(c2).replace(" ", "-")}_sum' for c2 in df_sum.columns]
     df_norm = pd.crosstab(merged[KEY], merged[c1], normalize='index')
-    df_norm.columns = [f'{PREF}_{c1}_{str(c2).replace(" ", "-")}_norm' for c2 in df_norm.columns]
+    df_norm.columns = [f'{c1}_{str(c2).replace(" ", "-")}_norm' for c2 in df_norm.columns]
     df = pd.concat([df_sum, df_norm], axis=1)
     col = df.columns.tolist()
     base = pd.concat([base, df], axis=1)
@@ -110,14 +110,20 @@ for c1 in col_cat:
 
 
 
+# =============================================================================
+# merge
+# =============================================================================
+base.reset_index(inplace=True)
+
+train = utils.load_train([KEY])
+train = pd.merge(train, base, on=KEY, how='left').drop(KEY, axis=1)
 
 
+test = utils.load_test([KEY])
+test = pd.merge(test, base, on=KEY, how='left').drop(KEY, axis=1)
 
-
-
-
-
-
+utils.to_pickles(train, '../data/107_train', utils.SPLIT_SIZE)
+utils.to_pickles(test,  '../data/107_test',  utils.SPLIT_SIZE)
 
 
 
