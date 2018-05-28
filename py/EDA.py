@@ -22,6 +22,12 @@ def df_info(target_df, topN=10):
     df['#Nulls'] = target_df.isnull().sum()
     df['#Uniques'] = target_df.nunique()
     
+    # stats
+    df['Min']   = target_df.min(numeric_only=True)
+    df['Mean']  = target_df.mean(numeric_only=True)
+    df['Max']   = target_df.max(numeric_only=True)
+    df['Std']   = target_df.std(numeric_only=True)
+    
     # top 10 values
     df[f'top{topN} val'] = 0
     df[f'top{topN} cnt'] = 0
