@@ -45,7 +45,7 @@ param = {
          'max_bin': 100,
          'colsample_bytree': 0.1,
          'subsample': 0.5,
-         'nthread': multiprocessing.cpu_count()/2,
+         'nthread': int(multiprocessing.cpu_count()/2),
          'bagging_freq': 1,
          
          'seed': SEED
