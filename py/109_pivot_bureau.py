@@ -16,6 +16,7 @@ import gc
 from glob import glob
 from multiprocessing import Pool
 from tqdm import tqdm
+import os
 import utils
 utils.start(__file__)
 #==============================================================================
@@ -56,11 +57,11 @@ def pivot(cat):
     gc.collect()
     
     df = pd.merge(train, feat, on=KEY, how='left').drop(KEY, axis=1)
-    utils.to_pickles(df, f'../data/109_{cat}_train', utils.SPLIT_SIZE)
+    utils.to_pickles(df, f'../data/tmp_109_{cat}_train', utils.SPLIT_SIZE)
     gc.collect()
     
     df = pd.merge(test, feat, on=KEY, how='left').drop(KEY, axis=1)
-    utils.to_pickles(df,  f'../data/109_{cat}_test',  utils.SPLIT_SIZE)
+    utils.to_pickles(df,  f'../data/tmp_109_{cat}_test',  utils.SPLIT_SIZE)
     gc.collect()
 
     
@@ -70,6 +71,22 @@ def pivot(cat):
 pool = Pool(NTHREAD)
 callback = pool.map(pivot, col_cat)
 pool.close()
+
+
+# =============================================================================
+# concat
+# =============================================================================
+
+
+train = pd.concat([utils.read_pickles(f) for f in sorted(glob(f'../data/tmp_109_*_train'))], axis=1)
+utils.to_pickles(train, '../data/109_train', utils.SPLIT_SIZE)
+
+
+test = pd.concat([utils.read_pickles(f) for f in sorted(glob(f'../data/tmp_109_*_test'))], axis=1)
+utils.to_pickles(test,  '../data/109_test',  utils.SPLIT_SIZE)
+
+
+os.system('rm ../data/tmp_109*')
 
 
 #==============================================================================
