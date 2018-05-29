@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed May 30 07:04:32 2018
+Created on Wed May 30 08:33:16 2018
 
 @author: Kazuki
 """
+
 
 from glob import glob
 from os import system
@@ -20,14 +21,11 @@ utils.start(__file__)
 
 SEED = 71
 
-#folders = glob('../data/103*_train')
-#folders += glob('../data/104*_train')
-#folders += glob('../data/105*_train')
-#folders += glob('../data/106*_train')
-#folders += glob('../data/107*_train')
-folders = glob('../data/108*_train')
-folders += glob('../data/109*_train')
-folders += glob('../data/110*_train')
+folders = glob('../data/103*_train')
+folders += glob('../data/104*_train')
+folders += glob('../data/105*_train')
+folders += glob('../data/106*_train')
+folders += glob('../data/107*_train')
 
 X = pd.concat([
                utils.read_pickles(f) for f in (folders)
