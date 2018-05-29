@@ -86,7 +86,7 @@ test = pd.concat([utils.read_pickles(f) for f in sorted(glob(f'../data/tmp_109_*
 utils.to_pickles(test,  '../data/109_test',  utils.SPLIT_SIZE)
 
 
-os.system('rm ../data/tmp_109*')
+os.system('rm -rf ../data/tmp_109*')
 
 
 #==============================================================================
