@@ -116,6 +116,7 @@ pos.sort_values(['SK_ID_CURR', 'MONTHS_BALANCE'], inplace=True, ascending=[True,
 pos['SK_DPD_bin'] = (pos.SK_DPD>0)*1
 pos['is_Completed'] = (pos.NAME_CONTRACT_STATUS=='Completed')*1
 
+gr = pos.groupby(KEY)
 
 def to_decimal(x):
     x = ''.join(map(str, x))
@@ -124,7 +125,8 @@ def to_decimal(x):
 ####
 def f4():
     global base
-    base[f'{PREF}_SK_DPD_bin'] = pos.groupby(KEY)['SK_DPD_bin'].apply(to_decimal)
+    base[f'{PREF}_SK_DPD_bin'] = gr['SK_DPD_bin'].apply(to_decimal)
+    base[f'{PREF}_is_Completed'] = gr['is_Completed'].apply(to_decimal)
     return
 f4()
 
