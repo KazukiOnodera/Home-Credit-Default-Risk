@@ -22,7 +22,6 @@ utils.start(__file__)
 KEY = 'SK_ID_CURR'
 PREF = 'bureau'
 
-NTHREAD = 15
 
 col_num = ['DAYS_CREDIT', 'CREDIT_DAY_OVERDUE', 'DAYS_CREDIT_ENDDATE',
            'DAYS_ENDDATE_FACT', 'AMT_CREDIT_MAX_OVERDUE', 'CNT_CREDIT_PROLONG',
@@ -31,35 +30,36 @@ col_num = ['DAYS_CREDIT', 'CREDIT_DAY_OVERDUE', 'DAYS_CREDIT_ENDDATE',
 
 col_cat = ['CREDIT_ACTIVE', 'CREDIT_CURRENCY', 'CREDIT_TYPE']
 
+NTHREAD = len(col_cat)
 
 # =============================================================================
 # pivot
 # =============================================================================
-prev = utils.read_pickles('../data/previous_application')
+base = utils.read_pickles('../data/bureau')
 train = utils.load_train([KEY])
 test = utils.load_test([KEY])
 
 def pivot(cat):
     li = []
-    pt = pd.pivot_table(prev, index=KEY, columns=cat, values=col_num)
+    pt = pd.pivot_table(base, index=KEY, columns=cat, values=col_num)
     pt.columns = [f'{PREF}_{c[0]}-{c[1]}_mean' for c in pt.columns]
     li.append(pt)
-    pt = pd.pivot_table(prev, index=KEY, columns=cat, values=col_num, aggfunc=np.sum)
+    pt = pd.pivot_table(base, index=KEY, columns=cat, values=col_num, aggfunc=np.sum)
     pt.columns = [f'{PREF}_{c[0]}-{c[1]}_sum' for c in pt.columns]
     li.append(pt)
-    pt = pd.pivot_table(prev, index=KEY, columns=cat, values=col_num, aggfunc=np.std, fill_value=-1)
+    pt = pd.pivot_table(base, index=KEY, columns=cat, values=col_num, aggfunc=np.std, fill_value=-1)
     pt.columns = [f'{PREF}_{c[0]}-{c[1]}_std' for c in pt.columns]
     li.append(pt)
-    base = pd.concat(li, axis=1).reset_index()
-    base.reset_index(inplace=True)
+    feat = pd.concat(li, axis=1).reset_index()
+    feat.reset_index(inplace=True)
     del li, pt
     gc.collect()
     
-    df = pd.merge(train, base, on=KEY, how='left').drop(KEY, axis=1)
+    df = pd.merge(train, feat, on=KEY, how='left').drop(KEY, axis=1)
     utils.to_pickles(df, f'../data/109_{cat}_train', utils.SPLIT_SIZE)
     gc.collect()
     
-    df = pd.merge(test, base, on=KEY, how='left').drop(KEY, axis=1)
+    df = pd.merge(test, feat, on=KEY, how='left').drop(KEY, axis=1)
     utils.to_pickles(df,  f'../data/109_{cat}_test',  utils.SPLIT_SIZE)
     gc.collect()
 
