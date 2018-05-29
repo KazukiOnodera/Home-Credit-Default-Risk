@@ -66,7 +66,7 @@ categorical_feature = ['NAME_CONTRACT_TYPE',
                      'WALLSMATERIAL_MODE',
                      'EMERGENCYSTATE_MODE']
 
-dtrain = lgb.Dataset(X, y, categorical_feature=categorical_feature)
+dtrain = lgb.Dataset(X, y, categorical_feature=list( set(X.columns)&set(categorical_feature)) )
 
 ret = lgb.cv(param, dtrain, 9999, nfold=5,
              early_stopping_rounds=50, verbose_eval=10,
