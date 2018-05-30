@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed May 30 22:31:33 2018
+Created on Wed May 30 23:22:51 2018
 
 @author: kazuki.onodera
 """
-
 from glob import glob
 from os import system
 import pandas as pd
@@ -22,8 +21,7 @@ utils.start(__file__)
 SEED = 71
 
 
-FOLDERS = glob('../data/108*_train')
-FOLDERS += glob('../data/109*_train')
+FOLDERS = glob('../data/111*_train')
 
 X = pd.concat([
                utils.read_pickles(f) for f in (FOLDERS)
@@ -110,6 +108,5 @@ def read_pickle(folder, usecols):
 
 #==============================================================================
 utils.end(__file__)
-
 
 

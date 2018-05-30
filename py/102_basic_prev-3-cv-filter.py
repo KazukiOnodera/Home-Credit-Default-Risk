@@ -81,6 +81,33 @@ imp = ex.getImp(model)
 
 imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
 
+# =============================================================================
+# 
+# =============================================================================
+imp = imp.set_index('index')
+feature_all = imp[imp['split'] != 0].index.tolist()
+
+import gc
+
+def read_pickle(folder, usecols):
+    df = pd.read_pickle(folder+'/000.p')
+    col = list( set(usecols) & set(df.columns))
+    if len(col)>0:
+        df = utils.read_pickles(folder, col)
+        utils.to_pickles(df, folder+'_filtered', utils.SPLIT_SIZE)
+        del df; gc.collect()
+        
+        folder = folder.replace('_train', '_test')
+        df = utils.read_pickles(folder, col)
+        utils.to_pickles(df, folder+'_filtered', utils.SPLIT_SIZE)
+        
+    else:
+        print(f'{folder} doesnt have valid features')
+        pass
+    
+
+[read_pickle(f, feature_all) for f in folders]
+
 
 #==============================================================================
 utils.end(__file__)
