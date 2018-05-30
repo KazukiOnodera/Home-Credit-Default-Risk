@@ -47,13 +47,13 @@ for cc in col_cat_comb:
 def pivot(cat):
     li = []
     pt = pd.pivot_table(base, index=KEY, columns=cat, values=col_num)
-    pt.columns = [f'{PREF}_{c[0]}-{c[1]}_mean' for c in pt.columns]
+    pt.columns = [f'{PREF}_{c[0]}-{c[1]}_mean'.replace(' ', '-') for c in pt.columns]
     li.append(pt)
     pt = pd.pivot_table(base, index=KEY, columns=cat, values=col_num, aggfunc=np.sum)
-    pt.columns = [f'{PREF}_{c[0]}-{c[1]}_sum' for c in pt.columns]
+    pt.columns = [f'{PREF}_{c[0]}-{c[1]}_sum'.replace(' ', '-') for c in pt.columns]
     li.append(pt)
     pt = pd.pivot_table(base, index=KEY, columns=cat, values=col_num, aggfunc=np.std, fill_value=-1)
-    pt.columns = [f'{PREF}_{c[0]}-{c[1]}_std' for c in pt.columns]
+    pt.columns = [f'{PREF}_{c[0]}-{c[1]}_std'.replace(' ', '-') for c in pt.columns]
     li.append(pt)
     feat = pd.concat(li, axis=1).reset_index()
     feat.reset_index(inplace=True)
