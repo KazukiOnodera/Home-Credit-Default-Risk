@@ -29,7 +29,7 @@ col_cat = ['CREDIT_ACTIVE', 'CREDIT_CURRENCY', 'CREDIT_TYPE']
 
 col_cat_comb = list(combinations(col_cat, 2))
 
-NTHREAD = len(col_cat_comb)
+NTHREAD = 3
 
 # =============================================================================
 # pivot
