@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Mon May 28 09:14:31 2018
+Created on Wed May 30 10:53:25 2018
 
 @author: Kazuki
 """
-
 
 from glob import glob
 import pandas as pd
@@ -16,31 +15,39 @@ import utils
 utils.start(__file__)
 #==============================================================================
 
-fname = 'LOG/imp_901_cv_527-1.py.csv'
+imp_name = 'LOG/imp_107_basic_bureau-balance-2-cv.py.csv'
 
+folders = glob('../data/103*_train')
+folders += glob('../data/104*_train')
+folders += glob('../data/105*_train')
+folders += glob('../data/106*_train')
+folders += glob('../data/107*_train')
 
 # =============================================================================
 # 
 # =============================================================================
-imp = pd.read_csv(fname).set_index('index')
+imp = pd.read_csv(imp_name).set_index('index')
 feature_all = imp[imp['split'] != 0].index.tolist()
 
-folders = sorted(glob('../data/*_train'))
 
 def read_pickle(folder, usecols):
     df = pd.read_pickle(folder+'/000.p')
     col = list( set(usecols) & set(df.columns))
     if len(col)>0:
         df = utils.read_pickles(folder, col)
-        utils.to_pickles(df, folder, utils.SPLIT_SIZE)
+        utils.to_pickles(df, folder+'_filtered', utils.SPLIT_SIZE)
+        del df; gc.collect()
         
         df = utils.read_pickles(folder.replace('_train', '_test'), col)
-        utils.to_pickles(df, folder, utils.SPLIT_SIZE)
+        utils.to_pickles(df, folder+'_filtered', utils.SPLIT_SIZE)
+        
     else:
         print(f'{folder} doesnt have valid features')
         pass
     
 
+[read_pickle(f, feature_all) for f in folders]
 
 #==============================================================================
 utils.end(__file__)
+
