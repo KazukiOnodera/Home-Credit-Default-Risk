@@ -18,7 +18,7 @@ utils.start(__file__)
 #==============================================================================
 KEY = 'SK_ID_CURR'
 PREF = 'prev'
-NTHREAD = 15
+NTHREAD = 55
 
 col_num = ['AMT_ANNUITY', 'AMT_APPLICATION', 'AMT_CREDIT', 'AMT_DOWN_PAYMENT', 
            'AMT_GOODS_PRICE', 'HOUR_APPR_PROCESS_START',

@@ -27,9 +27,9 @@ col_num = ['DAYS_CREDIT', 'CREDIT_DAY_OVERDUE', 'DAYS_CREDIT_ENDDATE',
 
 col_cat = ['CREDIT_ACTIVE', 'CREDIT_CURRENCY', 'CREDIT_TYPE']
 
-NTHREAD = len(col_cat)
-
 col_cat_comb = list(combinations(col_cat, 2))
+
+NTHREAD = len(col_cat_comb)
 
 # =============================================================================
 # pivot
