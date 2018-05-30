@@ -34,7 +34,7 @@ base = bureau[[KEY]].drop_duplicates().set_index(KEY)
 col_cat = []
 for cc in col_cat_comb:
     c1, c2 = cc
-    bureau[f'{c1}-{c2}'] = bureau[c1]+'-'+base[c2]
+    bureau[f'{c1}-{c2}'] = bureau[c1]+'-'+bureau[c2]
     col_cat.append(f'{c1}-{c2}')
 
 
