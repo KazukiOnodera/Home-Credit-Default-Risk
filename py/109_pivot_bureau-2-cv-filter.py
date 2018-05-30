@@ -88,6 +88,7 @@ feature_all = imp[imp['split'] != 0].index.tolist()
 
 
 def read_pickle(folder, usecols):
+    print(folder)
     df = pd.read_pickle(folder+'/000.p')
     col = list( set(usecols) & set(df.columns))
     if len(col)>0:
