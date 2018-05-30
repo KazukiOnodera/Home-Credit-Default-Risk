@@ -112,7 +112,7 @@ f3()
 # =============================================================================
 # time series features
 # =============================================================================
-pos.sort_values(['SK_ID_CURR', 'MONTHS_BALANCE'], inplace=True, ascending=[True, False])
+pos.sort_values(['SK_ID_CURR', 'MONTHS_BALANCE'], inplace=True, ascending=[True, False]) # TODO: what if same MONTHS_BALANCE?
 pos['SK_DPD_bin'] = (pos.SK_DPD>0)*1
 pos['is_Completed'] = (pos.NAME_CONTRACT_STATUS=='Completed')*1
 
