@@ -48,7 +48,7 @@ base = prev[[KEY]].drop_duplicates().set_index(KEY)
 col_cat = []
 for cc in col_cat_comb:
     c1, c2 = cc
-    prev[f'{c1}-{c2}'] = prev[c1]+'-'+prev[c2]
+    prev[f'{c1}-{c2}'] = prev[c1].map(str)+'-'+prev[c2].map(str)
     col_cat.append(f'{c1}-{c2}')
 
 train = utils.load_train([KEY])
