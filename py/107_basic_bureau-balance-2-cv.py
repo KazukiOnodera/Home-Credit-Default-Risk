@@ -76,6 +76,7 @@ print(f"CV auc-mean {ret['auc-mean'][-1]}")
 
 dtrain = lgb.Dataset(X, y, categorical_feature=list( set(X.columns)&set(categorical_feature)) )
 model = lgb.train(param, dtrain, len(ret['auc-mean']))
+#model = lgb.train(param, dtrain, 300, valid_sets=[dtrain], valid_names=['train'])
 
 imp = ex.getImp(model)
 
