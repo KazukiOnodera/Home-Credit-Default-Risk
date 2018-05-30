@@ -21,7 +21,7 @@ utils.start(__file__)
 SEED = 71
 
 
-FOLDERS = glob('../data/111*_train')
+FOLDERS = glob('../data/110*_train') + glob('../data/111*_train')
 
 X = pd.concat([
                utils.read_pickles(f) for f in (FOLDERS)
