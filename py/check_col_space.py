@@ -15,7 +15,7 @@ folders = glob('../data/*_train')
 def read(folder):
     df = pd.read_pickle(folder+'/000.p')
     for c in df.columns:
-        if 'index' == c:
+        if ' ' == c:
             print(folder)
             break
     return
