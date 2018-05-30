@@ -35,7 +35,8 @@ def read_pickle(folder, usecols):
         utils.to_pickles(df, folder+'_filtered', utils.SPLIT_SIZE)
         del df; gc.collect()
         
-        df = utils.read_pickles(folder.replace('_train', '_test'), col)
+        folder = folder.replace('_train', '_test')
+        df = utils.read_pickles(folder, col)
         utils.to_pickles(df, folder+'_filtered', utils.SPLIT_SIZE)
         
     else:
