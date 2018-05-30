@@ -41,7 +41,7 @@ param = {
          'subsample': 0.5,
          'nthread': 63,
          'bagging_freq': 1,
-         
+         'verbose': -1,
          'seed': SEED
          }
 
