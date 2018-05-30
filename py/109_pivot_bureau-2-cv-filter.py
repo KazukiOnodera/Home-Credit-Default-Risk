@@ -41,8 +41,9 @@ param = {
          'max_bin': 100,
          'colsample_bytree': 0.1,
          'subsample': 0.5,
-         'nthread': 63,
+         'nthread': 32,
          'bagging_freq': 1,
+         'verbose': -1,
          
          'seed': SEED
          }
