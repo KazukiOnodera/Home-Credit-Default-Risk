@@ -57,7 +57,6 @@ def pivot(cat):
     pt.columns = [f'{PREF}_{c[0]}-{c[1]}_std'.replace(' ', '-') for c in pt.columns]
     li.append(pt)
     base = pd.concat(li, axis=1).reset_index()
-    base.reset_index(inplace=True)
     del li, pt
     gc.collect()
     
