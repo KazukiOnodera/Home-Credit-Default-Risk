@@ -41,9 +41,9 @@ param = {
          'learning_rate': 0.01,
          'max_depth': -1,
          'num_leaves': 511,
-         'max_bin': 100,
-         'colsample_bytree': 0.1,
-         'subsample': 0.5,
+         'max_bin': 511,
+         'colsample_bytree': 0.3,
+         'subsample': 0.3,
          'nthread': multiprocessing.cpu_count(),
          'bagging_freq': 1,
          
