@@ -14,10 +14,14 @@ folders = glob('../data/*_train')
 
 def read(folder):
     df = pd.read_pickle(folder+'/000.p')
+#    if 'prev_AMT_APPLICATION-XAP_mean' in df.columns:
+#        print(folder)
     for c in df.columns:
         if ' ' == c:
             print(folder)
             break
+    if df.columns.duplicated().sum()>0:
+        print(f'duplicated: {folder} {df.columns[df.columns.duplicated()]}')
     return
 
 
