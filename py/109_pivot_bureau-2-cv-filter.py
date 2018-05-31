@@ -30,7 +30,13 @@ X = pd.concat([
                ], axis=1)
 y = utils.read_pickles('../data/label').TARGET
 
+if X.columns.duplicated().sum()>0:
+    raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
+print('no dup :) ')
+
 print(f'X.shape {X.shape}')
+
+
 
 param = {
          'objective': 'binary',
