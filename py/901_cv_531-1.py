@@ -33,6 +33,10 @@ X = pd.concat([
                ], axis=1)
 y = utils.read_pickles('../data/label').TARGET
 
+if X.columns.duplicated().sum()>0:
+    raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
+print('no dup :) ')
+
 print(f'X.shape {X.shape}')
 
 param = {
@@ -40,7 +44,7 @@ param = {
          'metric': 'auc',
          'learning_rate': 0.01,
          'max_depth': -1,
-         'num_leaves': 511,
+         'num_leaves': 127,
          'max_bin': 511,
          'colsample_bytree': 0.3,
          'subsample': 0.3,
