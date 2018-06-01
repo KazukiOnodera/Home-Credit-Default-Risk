@@ -41,7 +41,9 @@ X = pd.concat([
 y = utils.read_pickles('../data/label').TARGET
 
 
-#utils.reduce_memory(X)
+if X.columns.duplicated().sum()>0:
+    raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
+print('no dup :) ')
 print(f'X.shape {X.shape}')
 
 
@@ -80,11 +82,11 @@ categorical_feature = ['NAME_CONTRACT_TYPE',
                      'EMERGENCYSTATE_MODE']
 
 dtrain = lgb.Dataset(X, y, categorical_feature=list( set(X.columns)&set(categorical_feature)) )
-dtrain.construct()
+#dtrain.construct()
 
 ret = lgb.cv(param, dtrain, 9999, nfold=5,
              early_stopping_rounds=50, verbose_eval=10,
-             categorical_feature=list( set(X.columns)&set(categorical_feature)),
+#             categorical_feature=list( set(X.columns)&set(categorical_feature)),
              seed=SEED)
 print(f"CV auc-mean {ret['auc-mean'][-1]}")
 
