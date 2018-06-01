@@ -56,6 +56,7 @@ gr = prev.groupby(KEY)
 
 # stats
 keyname = 'gby-'+KEY
+base[f'{PREF}_{keyname}_size'] = gr.size()
 for c in col_num:
     gc.collect()
     print(c)
