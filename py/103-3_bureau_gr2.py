@@ -116,8 +116,6 @@ def multi_gr2(k):
 pool = Pool(NTHREAD)
 callback = pool.map(multi_gr2, col_group)
 pool.close()
-        
-
 
 
 # =============================================================================
@@ -135,8 +133,8 @@ train = pd.merge(train, base, on=KEY, how='left').drop(KEY, axis=1)
 test = utils.load_test([KEY])
 test = pd.merge(test, base, on=KEY, how='left').drop(KEY, axis=1)
 
-utils.to_pickles(train, '../data/103_train', utils.SPLIT_SIZE)
-utils.to_pickles(test,  '../data/103_test',  utils.SPLIT_SIZE)
+utils.to_pickles(train, '../data/103-3_train', utils.SPLIT_SIZE)
+utils.to_pickles(test,  '../data/103-3_test',  utils.SPLIT_SIZE)
 
 
 os.system('rm ../data/tmp_bureau*.p')
