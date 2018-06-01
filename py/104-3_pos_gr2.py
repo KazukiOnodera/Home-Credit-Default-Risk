@@ -111,40 +111,6 @@ callback = pool.map(multi_gr2, col_group)
 pool.close()
 
 # =============================================================================
-# gr1
-# =============================================================================
-gr = pos.groupby(KEY)
-
-# stats
-keyname = 'gby-'+KEY
-for c in col_num:
-    gc.collect()
-    print(c)
-    base[f'{PREF}_{keyname}_{c}_min'] = gr[c].min()
-    base[f'{PREF}_{keyname}_{c}_max'] = gr[c].max()
-    base[f'{PREF}_{keyname}_{c}_max-min'] = base[f'{PREF}_{keyname}_{c}_max'] - base[f'{PREF}_{keyname}_{c}_min']
-    base[f'{PREF}_{keyname}_{c}_mean'] = gr[c].mean()
-    base[f'{PREF}_{keyname}_{c}_std'] = gr[c].std()
-    base[f'{PREF}_{keyname}_{c}_sum'] = gr[c].sum()
-    base[f'{PREF}_{keyname}_{c}_nunique'] = gr[c].apply(nunique)
-
-
-# =============================================================================
-# cat
-# =============================================================================
-for c1 in col_cat:
-    gc.collect()
-    print(c1)
-    df_sum = pd.crosstab(pos[KEY], pos[c1])
-    df_sum.columns = [f'{PREF}_{c1}_{str(c2).replace(" ", "-")}_sum' for c2 in df_sum.columns]
-    df_norm = pd.crosstab(pos[KEY], pos[c1], normalize='index')
-    df_norm.columns = [f'{PREF}_{c1}_{str(c2).replace(" ", "-")}_norm' for c2 in df_norm.columns]
-    df = pd.concat([df_sum, df_norm], axis=1)
-    col = df.columns.tolist()
-    base = pd.concat([base, df], axis=1)
-    base[col] = base[col].fillna(-1)
-
-# =============================================================================
 # merge
 # =============================================================================
 df = pd.concat([ pd.read_pickle(f) for f in sorted(glob(f'../data/tmp_{PREF}*.p'))], axis=1)
@@ -159,8 +125,8 @@ train = pd.merge(train, base, on=KEY, how='left').drop(KEY, axis=1)
 test = utils.load_test([KEY])
 test = pd.merge(test, base, on=KEY, how='left').drop(KEY, axis=1)
 
-utils.to_pickles(train, '../data/104_train', utils.SPLIT_SIZE)
-utils.to_pickles(test,  '../data/104_test',  utils.SPLIT_SIZE)
+utils.to_pickles(train, '../data/104-3_train', utils.SPLIT_SIZE)
+utils.to_pickles(test,  '../data/104-3_test',  utils.SPLIT_SIZE)
 
 
 

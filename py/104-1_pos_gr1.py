@@ -1,58 +1,44 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Sun May 27 15:33:03 2018
+Created on Fri May 25 12:45:03 2018
 
-@author: Kazuki
+@author: kazuki.onodera
 """
 
+import os
 import pandas as pd
 import gc
+from multiprocessing import Pool
 from glob import glob
-from tqdm import tqdm
 import utils
 utils.start(__file__)
 #==============================================================================
-
 KEY = 'SK_ID_CURR'
-PREF = 'prev'
+PREF = 'pos'
 
-col_num = ['AMT_ANNUITY', 'AMT_APPLICATION', 'AMT_CREDIT', 'AMT_DOWN_PAYMENT', 
-           'AMT_GOODS_PRICE', 'HOUR_APPR_PROCESS_START',
-           'FLAG_LAST_APPL_PER_CONTRACT', 'NFLAG_LAST_APPL_IN_DAY',
-           'RATE_DOWN_PAYMENT', 'RATE_INTEREST_PRIMARY', 'RATE_INTEREST_PRIVILEGED',
-           'DAYS_DECISION', 'DAYS_FIRST_DRAWING', 'DAYS_FIRST_DUE',
-           'DAYS_LAST_DUE_1ST_VERSION', 'DAYS_LAST_DUE', 'DAYS_TERMINATION',
-           'NFLAG_INSURED_ON_APPROVAL']
+NTHREAD = 2
 
-col_cat = ['NAME_CONTRACT_TYPE', 'WEEKDAY_APPR_PROCESS_START',
-           'NAME_CASH_LOAN_PURPOSE', 'NAME_CONTRACT_STATUS', 'NAME_PAYMENT_TYPE',
-           'CODE_REJECT_REASON', 'NAME_TYPE_SUITE', 'NAME_CLIENT_TYPE',
-           'NAME_GOODS_CATEGORY', 'NAME_PORTFOLIO', 'NAME_PRODUCT_TYPE',
-           'CHANNEL_TYPE', 'NAME_SELLER_INDUSTRY', 'NAME_YIELD_GROUP', 'PRODUCT_COMBINATION']
+col_num = ['MONTHS_BALANCE', 'CNT_INSTALMENT', 'CNT_INSTALMENT_FUTURE',
+           'SK_DPD', 'SK_DPD_DEF']
 
-col_group = ['SK_ID_PREV', 'NAME_CONTRACT_TYPE', 'WEEKDAY_APPR_PROCESS_START',
-           'NAME_CASH_LOAN_PURPOSE', 'NAME_CONTRACT_STATUS', 'NAME_PAYMENT_TYPE',
-           'CODE_REJECT_REASON', 'NAME_TYPE_SUITE', 'NAME_CLIENT_TYPE',
-           'NAME_GOODS_CATEGORY', 'NAME_PORTFOLIO', 'NAME_PRODUCT_TYPE',
-           'CHANNEL_TYPE', 'NAME_SELLER_INDUSTRY', 'NAME_YIELD_GROUP', 'PRODUCT_COMBINATION']
+col_cat = ['NAME_CONTRACT_STATUS']
+
+col_group = ['SK_ID_PREV', 'NAME_CONTRACT_STATUS']
 
 # =============================================================================
 # feature
 # =============================================================================
-prev = utils.read_pickles('../data/previous_application')
-
-base = prev[[KEY]].drop_duplicates().set_index(KEY)
-
+pos = utils.read_pickles('../data/POS_CASH_balance')
+base = pos[[KEY]].drop_duplicates().set_index(KEY)
 
 def nunique(x):
     return len(set(x))
 
-
 # =============================================================================
 # gr1
 # =============================================================================
-gr = prev.groupby(KEY)
+gr = pos.groupby(KEY)
 
 # stats
 keyname = 'gby-'+KEY
@@ -80,8 +66,8 @@ train = pd.merge(train, base, on=KEY, how='left').drop(KEY, axis=1)
 test = utils.load_test([KEY])
 test = pd.merge(test, base, on=KEY, how='left').drop(KEY, axis=1)
 
-utils.to_pickles(train, '../data/102-1_train', utils.SPLIT_SIZE)
-utils.to_pickles(test,  '../data/102-1_test',  utils.SPLIT_SIZE)
+utils.to_pickles(train, '../data/104-1_train', utils.SPLIT_SIZE)
+utils.to_pickles(test,  '../data/104-1_test',  utils.SPLIT_SIZE)
 
 
 
