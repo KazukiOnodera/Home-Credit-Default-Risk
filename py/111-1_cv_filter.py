@@ -32,7 +32,7 @@ X = pd.concat([
 y = utils.read_pickles('../data/label').TARGET
 
 
-utils.reduce_memory(X)
+#utils.reduce_memory(X)
 print(f'X.shape {X.shape}')
 
 
@@ -45,7 +45,8 @@ param = {
          'max_bin': 255,
          'colsample_bytree': 0.1,
          'subsample': 0.5,
-         'nthread': int(multiprocessing.cpu_count()/2),
+#         'nthread': int(multiprocessing.cpu_count()/2),
+         'nthread': multiprocessing.cpu_count(),
          'bagging_freq': 1,
          
          'seed': SEED
