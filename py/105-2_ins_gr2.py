@@ -110,37 +110,6 @@ callback = pool.map(multi_gr2, col_group)
 pool.close()
 
 # =============================================================================
-# gr1
-# =============================================================================
-gr = ins.groupby(KEY)
-
-# stats
-keyname = 'gby-'+KEY
-for c in col_num:
-    gc.collect()
-    print(c)
-    base[f'{PREF}_{keyname}_{c}_min'] = gr[c].min()
-    base[f'{PREF}_{keyname}_{c}_max'] = gr[c].max()
-    base[f'{PREF}_{keyname}_{c}_max-min'] = base[f'{PREF}_{keyname}_{c}_max'] - base[f'{PREF}_{keyname}_{c}_min']
-    base[f'{PREF}_{keyname}_{c}_mean'] = gr[c].mean()
-    base[f'{PREF}_{keyname}_{c}_std'] = gr[c].std()
-    base[f'{PREF}_{keyname}_{c}_sum'] = gr[c].sum()
-    base[f'{PREF}_{keyname}_{c}_nunique'] = gr[c].apply(nunique)
-
-    
-# =============================================================================
-# cat
-# =============================================================================
-#for c1 in col_cat:
-#    gc.collect()
-#    print(c1)
-#    df = pd.crosstab(ins[KEY], ins[c1])
-#    df.columns = [f'{PREF}_{c1}_{c2.replace(" ", "-")}_sum' for c2 in df.columns]
-#    col = df.columns.tolist()
-#    base = pd.concat([base, df], axis=1)
-#    base[col] = base[col].fillna(-1)
-
-# =============================================================================
 # merge
 # =============================================================================
 df = pd.concat([ pd.read_pickle(f) for f in sorted(glob(f'../data/tmp_{PREF}*.p'))], axis=1)
@@ -155,8 +124,8 @@ train = pd.merge(train, base, on=KEY, how='left').drop(KEY, axis=1)
 test = utils.load_test([KEY])
 test = pd.merge(test, base, on=KEY, how='left').drop(KEY, axis=1)
 
-utils.to_pickles(train, '../data/105_train', utils.SPLIT_SIZE)
-utils.to_pickles(test,  '../data/105_test',  utils.SPLIT_SIZE)
+utils.to_pickles(train, '../data/105-2_train', utils.SPLIT_SIZE)
+utils.to_pickles(test,  '../data/105-2_test',  utils.SPLIT_SIZE)
 
 os.system('rm ../data/tmp_ins*.p')
 
