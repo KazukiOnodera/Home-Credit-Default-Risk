@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed May 23 17:19:26 2018
+Created on Thu May 24 18:59:38 2018
 
 @author: kazuki.onodera
 
-previous_application
+bureau
 
 """
 
-import numpy as np
+import os
 import pandas as pd
 import gc
 from multiprocessing import Pool
@@ -17,47 +17,33 @@ from glob import glob
 import utils
 utils.start(__file__)
 #==============================================================================
-
 KEY = 'SK_ID_CURR'
-PREF = 'prev'
-NTHREAD = 16
+PREF = 'bureau'
+NTHREAD = 3
 
-col_num = ['AMT_ANNUITY', 'AMT_APPLICATION', 'AMT_CREDIT', 'AMT_DOWN_PAYMENT', 
-           'AMT_GOODS_PRICE', 'HOUR_APPR_PROCESS_START',
-           'FLAG_LAST_APPL_PER_CONTRACT', 'NFLAG_LAST_APPL_IN_DAY',
-           'RATE_DOWN_PAYMENT', 'RATE_INTEREST_PRIMARY', 'RATE_INTEREST_PRIVILEGED',
-           'CNT_PAYMENT',
-           'DAYS_DECISION', 'DAYS_FIRST_DRAWING', 'DAYS_FIRST_DUE',
-           'DAYS_LAST_DUE_1ST_VERSION', 'DAYS_LAST_DUE', 'DAYS_TERMINATION',
-           'NFLAG_INSURED_ON_APPROVAL']
 
-col_cat = ['NAME_CONTRACT_TYPE', 'WEEKDAY_APPR_PROCESS_START',
-           'NAME_CASH_LOAN_PURPOSE', 'NAME_CONTRACT_STATUS', 'NAME_PAYMENT_TYPE',
-           'CODE_REJECT_REASON', 'NAME_TYPE_SUITE', 'NAME_CLIENT_TYPE',
-           'NAME_GOODS_CATEGORY', 'NAME_PORTFOLIO', 'NAME_PRODUCT_TYPE',
-           'CHANNEL_TYPE', 'NAME_SELLER_INDUSTRY', 'NAME_YIELD_GROUP', 'PRODUCT_COMBINATION']
+col_num = ['DAYS_CREDIT', 'CREDIT_DAY_OVERDUE', 'DAYS_CREDIT_ENDDATE',
+           'DAYS_ENDDATE_FACT', 'AMT_CREDIT_MAX_OVERDUE', 'CNT_CREDIT_PROLONG',
+           'AMT_CREDIT_SUM', 'AMT_CREDIT_SUM_DEBT', 'AMT_CREDIT_SUM_LIMIT',
+           'AMT_CREDIT_SUM_OVERDUE', 'DAYS_CREDIT_UPDATE', 'AMT_ANNUITY']
 
-col_group = ['SK_ID_PREV', 'NAME_CONTRACT_TYPE', 'WEEKDAY_APPR_PROCESS_START',
-           'NAME_CASH_LOAN_PURPOSE', 'NAME_CONTRACT_STATUS', 'NAME_PAYMENT_TYPE',
-           'CODE_REJECT_REASON', 'NAME_TYPE_SUITE', 'NAME_CLIENT_TYPE',
-           'NAME_GOODS_CATEGORY', 'NAME_PORTFOLIO', 'NAME_PRODUCT_TYPE',
-           'CHANNEL_TYPE', 'NAME_SELLER_INDUSTRY', 'NAME_YIELD_GROUP', 'PRODUCT_COMBINATION']
+col_cat = ['CREDIT_ACTIVE', 'CREDIT_CURRENCY', 'CREDIT_TYPE']
+
+col_group = ['CREDIT_ACTIVE', 'CREDIT_CURRENCY', 'CREDIT_TYPE']
 
 # =============================================================================
 # feature
 # =============================================================================
-prev = utils.read_pickles('../data/previous_application')
+bureau = utils.read_pickles('../data/bureau')
 
-base = prev[[KEY]].drop_duplicates().set_index(KEY)
+base = bureau[[KEY]].drop_duplicates().set_index(KEY)
 
-train = utils.load_train([KEY])
-test = utils.load_test([KEY])
 
 def nunique(x):
     return len(set(x))
 
 def multi_gr2(k):
-    gr2 = prev.groupby([KEY, k])
+    gr2 = bureau.groupby([KEY, k])
     gc.collect()
     print(k)
     keyname = 'gby-'+'-'.join([KEY, k])
@@ -122,22 +108,39 @@ def multi_gr2(k):
         base[f'{name}_mean'] = gr1.mean()
         base[f'{name}_std']  = gr1.std()
         base[f'{name}_nunique'] = gr1.apply(nunique)
+    base.to_pickle(f'../data/tmp_{PREF}_{k}.p')
     
-    base.reset_index(inplace=True)
-    df = pd.merge(train, base, on=KEY, how='left').drop(KEY, axis=1)
-    utils.to_pickles(df, f'../data/102_{k}_train', utils.SPLIT_SIZE)
-    
-    df = pd.merge(test, base, on=KEY, how='left').drop(KEY, axis=1)
-    utils.to_pickles(df, f'../data/102_{k}_test', utils.SPLIT_SIZE)
-    print(f'finish {k}')
-    return
-
 # =============================================================================
 # gr2
 # =============================================================================
 pool = Pool(NTHREAD)
 callback = pool.map(multi_gr2, col_group)
 pool.close()
+        
+
+
+
+# =============================================================================
+# merge
+# =============================================================================
+df = pd.concat([ pd.read_pickle(f) for f in sorted(glob(f'../data/tmp_{PREF}*.p'))], axis=1)
+base = pd.concat([base, df], axis=1)
+base.reset_index(inplace=True)
+del df; gc.collect()
+
+train = utils.load_train([KEY])
+train = pd.merge(train, base, on=KEY, how='left').drop(KEY, axis=1)
+
+
+test = utils.load_test([KEY])
+test = pd.merge(test, base, on=KEY, how='left').drop(KEY, axis=1)
+
+utils.to_pickles(train, '../data/103_train', utils.SPLIT_SIZE)
+utils.to_pickles(test,  '../data/103_test',  utils.SPLIT_SIZE)
+
+
+os.system('rm ../data/tmp_bureau*.p')
+
 
 
 #==============================================================================
