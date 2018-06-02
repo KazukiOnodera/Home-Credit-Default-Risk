@@ -89,6 +89,12 @@ imp = ex.getImp(model)
 
 
 imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
+"""
+
+imp = pd.read_csv('LOG/imp_111-1_cv_filter.py.csv')
+
+
+"""
 
 # =============================================================================
 # 
@@ -102,6 +108,7 @@ def read_pickle(folder, usecols):
     df = pd.read_pickle(folder+'/000.p')
     col = list( set(usecols) & set(df.columns))
     if len(col)>0:
+        print(folder)
         df = utils.read_pickles(folder, col)
         utils.to_pickles(df, folder+'_filtered', utils.SPLIT_SIZE)
         del df; gc.collect()

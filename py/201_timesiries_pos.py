@@ -60,14 +60,52 @@ base[f'{PREF}_latest_CNT_INSTALMENT_max-min'] = base[f'{PREF}_latest_CNT_INSTALM
 # =============================================================================
 # binary features
 # =============================================================================
+col_binary = []
 for i in range(1, 11):
     pos[f'SK_DPD_over{i}'] = (pos.SK_DPD>=i)*1
+    col_binary.append(f'SK_DPD_over{i}')
 
 for c in ['Completed', 'Active', 'Signed', 'Returned to the store',
        'Approved', 'Demand', 'Amortized debt', 'Canceled', 'XNA']:
-    pos[f'is_{c}'] = (pos.NAME_CONTRACT_STATUS==c)*1
+    pos[f'is_{c.replace(" ", "-")}'] = (pos.NAME_CONTRACT_STATUS==c)*1
+    col_binary.append(f'is_{c.replace(" ", "-")}')
 
 
+ids = pos.SK_ID_CURR.unique()
+all_months = pd.DataFrame(list(range(-96, 0)), columns=['MONTHS_BALANCE'])
+
+def to_decimal(x):
+    x = ''.join(map(str, x))[::-1]
+    return float(x[0] + '.' + x[1:])
+
+def multi(id_curr):
+    tmp = df[df.SK_ID_CURR==id_curr]
+    shortage = all_months[~all_months.MONTHS_BALANCE.isin(tmp['MONTHS_BALANCE'])]
+    shortage['SK_ID_CURR'] = id_curr
+    tmp2 = pd.concat([shortage, tmp]).sort_values(['MONTHS_BALANCE'], ascending=False).fillna(0)
+    tmp2[col_binary] = tmp2[col_binary].astype(int)
+    gr = tmp2.groupby(['SK_ID_CURR', 'MONTHS_BALANCE'])
+    
+    tmp_min = gr[col_binary].min().apply(to_decimal)
+    tmp_max = gr[col_binary].max().apply(to_decimal)
+    tmp_diff = tmp_max = tmp_min
+    tmp = pd.concat([
+                     tmp_min.add_prefix('pos_').add_suffix('_min-ts'), 
+                     tmp_max.add_prefix('pos_').add_suffix('_max-ts'),
+                     tmp_diff.add_prefix('pos_').add_suffix('_max-min-ts')
+                     ])
+    tmp['SK_ID_CURR'] = id_curr
+    return tmp
+
+# =============================================================================
+# main
+# =============================================================================
+pool = Pool(NTHREAD)
+callback = pool.map(multi, ids)
+pool.close()
+
+df = pd.concat(callback, axis=1).T.set_index('SK_ID_CURR')
+base = pd.concat([base, df], axis=1)
 
 # =============================================================================
 # merge
