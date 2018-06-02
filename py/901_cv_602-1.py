@@ -20,7 +20,7 @@ utils.start(__file__)
 
 SEED = 71
 
-X = utils.load_train()
+X = utils.read_pickles('../data/101_train')
 y = utils.read_pickles('../data/label').TARGET
 
 
