@@ -6,8 +6,7 @@ Created on Sat Jun  2 16:42:14 2018
 @author: Kazuki
 """
 
-from glob import glob
-from os import system
+import gc
 import pandas as pd
 import sys
 sys.path.append('/home/kazuki_onodera/Python')
@@ -33,7 +32,7 @@ print(f'X.shape {X.shape}')
 param = {
          'objective': 'binary',
          'metric': 'auc',
-         'learning_rate': 0.01,
+         'learning_rate': 0.05,
          'max_depth': -1,
          'num_leaves': 511,
          'max_bin': 511,
@@ -63,6 +62,16 @@ categorical_feature = ['NAME_CONTRACT_TYPE',
                      'WALLSMATERIAL_MODE',
                      'EMERGENCYSTATE_MODE']
 
+
+
+dtrain = lgb.Dataset(X, y, categorical_feature=list( set(X.columns)&set(categorical_feature)) )
+
+ret = lgb.cv(param, dtrain, 9999, nfold=5,
+             early_stopping_rounds=50, verbose_eval=False,
+             seed=SEED)
+print(f"BENCHMARK CV auc-mean {ret['auc-mean'][-1]}")
+
+
 le = LabelEncoder()
 
 for c in X.columns:
@@ -81,6 +90,7 @@ for c in X.columns:
 #                     categorical_feature=list( set(X.columns)&set(categorical_feature)),
                      seed=SEED)
         print(f"CV auc-mean {ret['auc-mean'][-1]}")
+        gc.collect()
 
 
 
