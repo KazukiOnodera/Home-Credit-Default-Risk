@@ -81,7 +81,7 @@ for c in X.columns:
         
         X_ = X.copy()
         X_[c].fillna('na dayo', inplace=True)
-        X_[c] = le.fit_transform( X_[c] )
+        X_[c] = le.fit_transform( X_[c].astype(str) )
         
         dtrain = lgb.Dataset(X_, y, categorical_feature=list( set(X.columns)&set(categorical_feature+[c])) )
         
