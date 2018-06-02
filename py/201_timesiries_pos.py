@@ -80,7 +80,7 @@ def to_decimal(x):
     return float(x[0] + '.' + x[1:])
 
 def multi(id_curr):
-    tmp = df[df.SK_ID_CURR==id_curr]
+    tmp = pos[pos.SK_ID_CURR==id_curr]
     shortage = all_months[~all_months.MONTHS_BALANCE.isin(tmp['MONTHS_BALANCE'])]
     shortage['SK_ID_CURR'] = id_curr
     tmp2 = pd.concat([shortage, tmp]).sort_values(['MONTHS_BALANCE'], ascending=False).fillna(0)
