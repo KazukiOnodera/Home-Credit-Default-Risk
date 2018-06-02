@@ -10,6 +10,7 @@ import os
 import pandas as pd
 import gc
 from multiprocessing import Pool
+import multiprocessing
 from glob import glob
 import utils
 utils.start(__file__)
@@ -17,7 +18,7 @@ utils.start(__file__)
 KEY = 'SK_ID_CURR'
 PREF = 'pos'
 
-NTHREAD = 2
+NTHREAD = multiprocessing.cpu_count()
 
 col_num = ['MONTHS_BALANCE', 'CNT_INSTALMENT', 'CNT_INSTALMENT_FUTURE',
            'SK_DPD', 'SK_DPD_DEF']
