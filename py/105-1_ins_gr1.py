@@ -65,7 +65,7 @@ test = utils.load_test([KEY])
 test = pd.merge(test, base, on=KEY, how='left').drop(KEY, axis=1)
 
 utils.to_pickles(train, '../data/105-1_train', utils.SPLIT_SIZE)
-utils.to_pickles(test,  '../data/105-2_test',  utils.SPLIT_SIZE)
+utils.to_pickles(test,  '../data/105-1_test',  utils.SPLIT_SIZE)
 
 os.system('rm ../data/tmp_ins*.p')
 
