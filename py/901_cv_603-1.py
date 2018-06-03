@@ -21,9 +21,9 @@ import utils
 SEED = 71
 
 folders = ['../data/101_train'] + sorted(glob('../data/*_train_filtered'))
-folders += glob('../data/201_train')
-folders += glob('../data/202_train')
-folders += glob('../data/301_train')
+folders += ['../data/201_train']
+folders += ['../data/202_train']
+folders += ['../data/301_train']
 
 
 X = pd.concat([
