@@ -13,18 +13,22 @@ sys.path.append('/home/kazuki_onodera/Python')
 import lgbmextension as ex
 import lightgbm as lgb
 import multiprocessing
+from glob import glob
 import utils
 #utils.start(__file__)
 #==============================================================================
 
 SEED = 71
 
-X = pd.concat([
-        utils.read_pickles('../data/101_train'),
-        utils.read_pickles('../data/201_train'),
-        utils.read_pickles('../data/301_train'),
-        ], axis=1)
+folders = ['../data/101_train'] + sorted(glob('../data/*_train_filtered'))
+folders += glob('../data/201_train')
+folders += glob('../data/202_train')
+folders += glob('../data/301_train')
 
+
+X = pd.concat([
+                utils.read_pickles(f) for f in (folders)
+               ], axis=1)
 y = utils.read_pickles('../data/label').TARGET
 
 
@@ -39,8 +43,8 @@ param = {
          'metric': 'auc',
          'learning_rate': 0.05,
          'max_depth': -1,
-         'num_leaves': 511,
-         'max_bin': 511,
+         'num_leaves': 127,
+         'max_bin': 127,
          'colsample_bytree': 0.5,
          'subsample': 0.5,
          'nthread': multiprocessing.cpu_count(),
