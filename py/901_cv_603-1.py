@@ -87,6 +87,7 @@ model = lgb.train(param, dtrain, len(ret['auc-mean']))
 imp = ex.getImp(model)
 
 
+imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
 
 #==============================================================================
 utils.end(__file__)
