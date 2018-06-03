@@ -23,6 +23,7 @@ SEED = 71
 folders = ['../data/101_train'] + sorted(glob('../data/102*_train_filtered'))
 folders += sorted(glob('../data/108*_train_filtered'))
 folders += ['../data/301_train']
+folders += ['../data/303-1_train']
 
 
 X = pd.concat([
