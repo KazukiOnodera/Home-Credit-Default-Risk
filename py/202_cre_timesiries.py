@@ -90,9 +90,9 @@ def multi(id_curr):
     tmp_max = gr[col_binary].max().apply(to_decimal)
     tmp_diff = tmp_max = tmp_min
     tmp = pd.concat([
-                     tmp_min.add_prefix('pos_').add_suffix('_min-ts'), 
-                     tmp_max.add_prefix('pos_').add_suffix('_max-ts'),
-                     tmp_diff.add_prefix('pos_').add_suffix('_max-min-ts')
+                     tmp_min.add_prefix(f'{PREF}_').add_suffix('_min-ts'), 
+                     tmp_max.add_prefix(f'{PREF}_').add_suffix('_max-ts'),
+                     tmp_diff.add_prefix(f'{PREF}_').add_suffix('_max-min-ts')
                      ])
     tmp['SK_ID_CURR'] = id_curr
     return tmp
