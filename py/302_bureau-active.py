@@ -16,7 +16,7 @@ import gc
 from multiprocessing import Pool
 from glob import glob
 import utils
-utils.start(__file__)
+#utils.start(__file__)
 #==============================================================================
 KEY = 'SK_ID_CURR'
 PREF = 'bureau_active_'
@@ -126,13 +126,13 @@ pool.close()
 # =============================================================================
 def pivot(cat):
     li = []
-    pt = pd.pivot_table(base, index=KEY, columns=cat, values=col_num)
+    pt = pd.pivot_table(bureau, index=KEY, columns=cat, values=col_num)
     pt.columns = [f'{PREF}_{cat}_{c[0]}-{c[1]}_mean'.replace(' ', '-') for c in pt.columns]
     li.append(pt)
-    pt = pd.pivot_table(base, index=KEY, columns=cat, values=col_num, aggfunc=np.sum)
+    pt = pd.pivot_table(bureau, index=KEY, columns=cat, values=col_num, aggfunc=np.sum)
     pt.columns = [f'{PREF}_{cat}_{c[0]}-{c[1]}_sum'.replace(' ', '-') for c in pt.columns]
     li.append(pt)
-    pt = pd.pivot_table(base, index=KEY, columns=cat, values=col_num, aggfunc=np.std, fill_value=-1)
+    pt = pd.pivot_table(bureau, index=KEY, columns=cat, values=col_num, aggfunc=np.std, fill_value=-1)
     pt.columns = [f'{PREF}_{cat}_{c[0]}-{c[1]}_std'.replace(' ', '-') for c in pt.columns]
     li.append(pt)
     feat = pd.concat(li, axis=1).reset_index()
@@ -170,6 +170,8 @@ for c in col_num:
     base[f'{PREF}_{keyname}_{c}_sum'] = gr[c].sum()
     base[f'{PREF}_{keyname}_{c}_nunique'] = gr[c].apply(nunique)
 
+'bureau_active_gby-SK_ID_CURR_AMT_CREDIT_SUM_DEBT_sum'
+
 # =============================================================================
 # cat
 # =============================================================================
@@ -192,6 +194,8 @@ df = pd.concat([ pd.read_pickle(f) for f in sorted(glob(f'../data/tmp_302_{PREF}
 base = pd.concat([base, df], axis=1)
 base.reset_index(inplace=True)
 del df; gc.collect()
+#base.columns = [c.replace('bureau_active__', 'bureau_active_') for c in base.columns]
+
 
 train = pd.merge(train, base, on=KEY, how='left').drop(KEY, axis=1)
 utils.to_pickles(train, '../data/302_train', utils.SPLIT_SIZE)
