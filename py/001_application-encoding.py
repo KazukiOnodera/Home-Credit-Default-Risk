@@ -42,8 +42,8 @@ for c in categorical_features:
     train[c] = le.transform(train[c])
     test[c]  = le.transform(test[c])
 
-utils.to_pickles(train, '../data/101_train', utils.SPLIT_SIZE)
-utils.to_pickles(test,  '../data/101_test',  utils.SPLIT_SIZE)
+utils.to_pickles(train, '../data/001_train', utils.SPLIT_SIZE)
+utils.to_pickles(test,  '../data/001_test',  utils.SPLIT_SIZE)
 
 #==============================================================================
 utils.end(__file__)

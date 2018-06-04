@@ -79,8 +79,8 @@ test  = df.loc[train.shape[0]:]
 # =============================================================================
 # write
 # =============================================================================
-utils.to_pickles(train, '../data/301_train', utils.SPLIT_SIZE)
-utils.to_pickles(test,  '../data/301_test',  utils.SPLIT_SIZE)
+utils.to_pickles(train, '../data/002_train', utils.SPLIT_SIZE)
+utils.to_pickles(test,  '../data/002_test',  utils.SPLIT_SIZE)
 
 
 

@@ -1,6 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
+Created on Sat Jun  2 01:53:33 2018
+
+@author: Kazuki
+"""
+
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
 Created on Wed May 30 08:33:16 2018
 
 @author: Kazuki
@@ -21,10 +29,11 @@ utils.start(__file__)
 
 SEED = 71
 
-folders  = glob('../data/102*_train')
-folders += glob('../data/103*_train')
-folders += glob('../data/104*_train')
-folders += glob('../data/105*_train')
+folders  = glob('../data/106*_train')
+folders += glob('../data/107*_train')
+folders += glob('../data/108*_train')
+folders += glob('../data/109*_train')
+folders += glob('../data/110*_train')
 
 X = pd.concat([
                utils.read_pickles(f) for f in (folders)
@@ -43,12 +52,12 @@ param = {
          'metric': 'auc',
          'learning_rate': 0.01,
          'max_depth': -1,
-         'num_leaves': 511,
+         'num_leaves': 255,
          'max_bin': 255,
          'colsample_bytree': 0.1,
          'subsample': 0.5,
-#         'nthread': int(multiprocessing.cpu_count()/2),
-         'nthread': multiprocessing.cpu_count(),
+         'nthread': int(multiprocessing.cpu_count()/2),
+#         'nthread': multiprocessing.cpu_count(),
          'bagging_freq': 1,
          
          'seed': SEED
@@ -89,12 +98,6 @@ imp = ex.getImp(model)
 
 
 imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
-"""
-
-imp = pd.read_csv('LOG/imp_111-1_cv_filter.py.csv')
-
-
-"""
 
 # =============================================================================
 # 
@@ -108,7 +111,6 @@ def read_pickle(folder, usecols):
     df = pd.read_pickle(folder+'/000.p')
     col = list( set(usecols) & set(df.columns))
     if len(col)>0:
-        print(folder)
         df = utils.read_pickles(folder, col)
         utils.to_pickles(df, folder+'_filtered', utils.SPLIT_SIZE)
         del df; gc.collect()
