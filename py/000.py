@@ -40,7 +40,7 @@ utils.to_pickles(df, '../data/installments_payments', utils.SPLIT_SIZE)
 df = pd.read_csv('../input/previous_application.csv.zip')
 df['FLAG_LAST_APPL_PER_CONTRACT'] = (df['FLAG_LAST_APPL_PER_CONTRACT']=='Y')*1
 for c in ['DAYS_FIRST_DRAWING', 'DAYS_FIRST_DUE', 'DAYS_LAST_DUE_1ST_VERSION', 'DAYS_LAST_DUE', 'DAYS_TERMINATION']:
-    df.loc[df[c]==365243] = np.nan
+    df.loc[df[c]==365243, c] = np.nan
 utils.to_pickles(df, '../data/previous_application', utils.SPLIT_SIZE)
 
 df = pd.read_csv('../input/POS_CASH_balance.csv.zip')
