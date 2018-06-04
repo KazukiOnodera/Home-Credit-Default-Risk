@@ -101,7 +101,7 @@ def multi_gr2(k):
         base[f'{name}_mean'] = gr1.mean()
         base[f'{name}_std']  = gr1.std()
         base[f'{name}_nunique'] = gr1.apply(nunique)
-    base.to_pickle(f'../data/tmp_{PREF}_{k}.p')
+    base.to_pickle(f'../data/tmp_201-3-{PREF}_{k}.p')
     
 # =============================================================================
 # gr2
@@ -113,7 +113,7 @@ pool.close()
 # =============================================================================
 # merge
 # =============================================================================
-df = pd.concat([ pd.read_pickle(f) for f in sorted(glob(f'../data/tmp_{PREF}*.p'))], axis=1)
+df = pd.concat([ pd.read_pickle(f) for f in sorted(glob(f'../data/tmp_201-3-{PREF}*.p'))], axis=1)
 base = pd.concat([base, df], axis=1)
 base.reset_index(inplace=True)
 del df; gc.collect()
@@ -125,12 +125,12 @@ train = pd.merge(train, base, on=KEY, how='left').drop(KEY, axis=1)
 test = utils.load_test([KEY])
 test = pd.merge(test, base, on=KEY, how='left').drop(KEY, axis=1)
 
-utils.to_pickles(train, '../data/104-3_train', utils.SPLIT_SIZE)
-utils.to_pickles(test,  '../data/104-3_test',  utils.SPLIT_SIZE)
+utils.to_pickles(train, '../data/201-3_train', utils.SPLIT_SIZE)
+utils.to_pickles(test,  '../data/201-3_test',  utils.SPLIT_SIZE)
 
 
 
-os.system('rm ../data/tmp_pos*.p')
+os.system('rm ../data/tmp_201-3-*.p')
 
 
 #==============================================================================

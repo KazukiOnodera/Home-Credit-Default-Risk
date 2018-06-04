@@ -110,13 +110,13 @@ if base.columns.duplicated().sum() != 0:
 
 train = utils.load_train([KEY])
 train = pd.merge(train, base, on=KEY, how='left').drop(KEY, axis=1)
-utils.to_pickles(train, '../data/201_train', utils.SPLIT_SIZE)
+utils.to_pickles(train, '../data/202_train', utils.SPLIT_SIZE)
 del train; gc.collect()
 
 
 test = utils.load_test([KEY])
 test = pd.merge(test, base, on=KEY, how='left').drop(KEY, axis=1)
-utils.to_pickles(test,  '../data/201_test',  utils.SPLIT_SIZE)
+utils.to_pickles(test,  '../data/202_test',  utils.SPLIT_SIZE)
 del test; gc.collect()
 
 
