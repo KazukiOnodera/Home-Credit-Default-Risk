@@ -19,7 +19,7 @@ import utils
 #utils.start(__file__)
 #==============================================================================
 KEY = 'SK_ID_CURR'
-PREF = 'bureau_active_'
+PREF = 'bureau_active'
 NTHREAD = 3
 
 
@@ -115,7 +115,7 @@ def multi_gr2(k):
         base[f'{name}_mean'] = gr1.mean()
         base[f'{name}_std']  = gr1.std()
         base[f'{name}_nunique'] = gr1.apply(nunique)
-    base.to_pickle(f'../data/tmp_302_{PREF}_{k}.p')
+    base.to_pickle(f'../data/tmp_504-gr2_{PREF}_{k}.p')
     
 pool = Pool(NTHREAD)
 callback = pool.map(multi_gr2, col_group)
@@ -140,11 +140,11 @@ def pivot(cat):
     gc.collect()
     
     df = pd.merge(train, feat, on=KEY, how='left').drop(KEY, axis=1)
-    utils.to_pickles(df, f'../data/tmp_302_{cat}_train', utils.SPLIT_SIZE)
+    utils.to_pickles(df, f'../data/tmp_504_{cat}_train', utils.SPLIT_SIZE)
     gc.collect()
     
     df = pd.merge(test, feat, on=KEY, how='left').drop(KEY, axis=1)
-    utils.to_pickles(df,  f'../data/tmp_302_{cat}_test',  utils.SPLIT_SIZE)
+    utils.to_pickles(df,  f'../data/tmp_504_{cat}_test',  utils.SPLIT_SIZE)
     gc.collect()
 
 pool = Pool(NTHREAD)
@@ -190,7 +190,7 @@ for c1 in col_cat:
 # =============================================================================
 # merge
 # =============================================================================
-df = pd.concat([ pd.read_pickle(f) for f in sorted(glob(f'../data/tmp_302_{PREF}*.p'))], axis=1)
+df = pd.concat([ pd.read_pickle(f) for f in sorted(glob(f'../data/tmp_504-gr2_{PREF}*.p'))], axis=1)
 base = pd.concat([base, df], axis=1)
 base.reset_index(inplace=True)
 del df; gc.collect()
@@ -198,15 +198,19 @@ del df; gc.collect()
 
 
 train = pd.merge(train, base, on=KEY, how='left').drop(KEY, axis=1)
-utils.to_pickles(train, '../data/302_train', utils.SPLIT_SIZE)
+train_ = pd.concat([utils.read_pickles(f) for f in sorted(glob(f'../data/tmp_504_*_train'))], axis=1)
+train = pd.concat([train, train_], axis=1)
+utils.to_pickles(train, '../data/504_train', utils.SPLIT_SIZE)
 del train; gc.collect()
 
 
 test = pd.merge(test, base, on=KEY, how='left').drop(KEY, axis=1)
-utils.to_pickles(test,  '../data/302_test',  utils.SPLIT_SIZE)
+test_ = pd.concat([utils.read_pickles(f) for f in sorted(glob(f'../data/tmp_504_*_test'))], axis=1)
+test = pd.concat([test, test_], axis=1)
+utils.to_pickles(test,  '../data/504_test',  utils.SPLIT_SIZE)
 
 
-os.system('rm ../data/tmp_302_bureau*.p')
+os.system('rm ../data/tmp_504*.p')
 
 #==============================================================================
 utils.end(__file__)

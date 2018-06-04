@@ -60,11 +60,11 @@ def pivot(cat):
     gc.collect()
     
     df = pd.merge(train, feat, on=KEY, how='left').drop(KEY, axis=1)
-    utils.to_pickles(df, f'../data/tmp_109-2_{cat}_train', utils.SPLIT_SIZE)
+    utils.to_pickles(df, f'../data/tmp_502-2-{cat}_train', utils.SPLIT_SIZE)
     gc.collect()
     
     df = pd.merge(test, feat, on=KEY, how='left').drop(KEY, axis=1)
-    utils.to_pickles(df,  f'../data/tmp_109-2_{cat}_test',  utils.SPLIT_SIZE)
+    utils.to_pickles(df,  f'../data/tmp_502-2-{cat}_test',  utils.SPLIT_SIZE)
     gc.collect()
 
     
@@ -81,15 +81,15 @@ pool.close()
 # =============================================================================
 
 
-train = pd.concat([utils.read_pickles(f) for f in sorted(glob(f'../data/tmp_109-2_*_train'))], axis=1)
-utils.to_pickles(train, '../data/109-2_train', utils.SPLIT_SIZE)
+train = pd.concat([utils.read_pickles(f) for f in sorted(glob(f'../data/tmp_502-2-*_train'))], axis=1)
+utils.to_pickles(train, '../data/502-2_train', utils.SPLIT_SIZE)
 
 
-test = pd.concat([utils.read_pickles(f) for f in sorted(glob(f'../data/tmp_109-2_*_test'))], axis=1)
-utils.to_pickles(test,  '../data/109-2_test',  utils.SPLIT_SIZE)
+test = pd.concat([utils.read_pickles(f) for f in sorted(glob(f'../data/tmp_502-2-*_test'))], axis=1)
+utils.to_pickles(test,  '../data/502-2_test',  utils.SPLIT_SIZE)
 
 
-os.system('rm -rf ../data/tmp_109-2_*')
+os.system('rm -rf ../data/tmp_502-2*')
 
 
 #==============================================================================
