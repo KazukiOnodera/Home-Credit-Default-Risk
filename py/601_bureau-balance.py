@@ -123,8 +123,8 @@ train = pd.merge(train, base, on=KEY, how='left').drop(KEY, axis=1)
 test = utils.load_test([KEY])
 test = pd.merge(test, base, on=KEY, how='left').drop(KEY, axis=1)
 
-utils.to_pickles(train, '../data/107_train', utils.SPLIT_SIZE)
-utils.to_pickles(test,  '../data/107_test',  utils.SPLIT_SIZE)
+utils.to_pickles(train, '../data/601_train', utils.SPLIT_SIZE)
+utils.to_pickles(test,  '../data/601_test',  utils.SPLIT_SIZE)
 
 
 
