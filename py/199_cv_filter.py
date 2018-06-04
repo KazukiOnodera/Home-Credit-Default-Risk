@@ -21,10 +21,7 @@ utils.start(__file__)
 
 SEED = 71
 
-folders  = glob('../data/102*_train')
-folders += glob('../data/103*_train')
-folders += glob('../data/104*_train')
-folders += glob('../data/105*_train')
+folders  = glob('../data/1*_train')
 
 X = pd.concat([
                utils.read_pickles(f) for f in (folders)
@@ -47,8 +44,8 @@ param = {
          'max_bin': 255,
          'colsample_bytree': 0.1,
          'subsample': 0.5,
-         'nthread': int(multiprocessing.cpu_count()/2),
-#         'nthread': multiprocessing.cpu_count(),
+#         'nthread': int(multiprocessing.cpu_count()/2),
+         'nthread': multiprocessing.cpu_count(),
          'bagging_freq': 1,
          
          'seed': SEED
@@ -71,6 +68,8 @@ categorical_feature = ['NAME_CONTRACT_TYPE',
                      'HOUSETYPE_MODE',
                      'WALLSMATERIAL_MODE',
                      'EMERGENCYSTATE_MODE']
+
+categorical_feature += ['prev_DL1-0NAME_CONTRACT_TYPE', 'prev_DL1-0WEEKDAY_APPR_PROCESS_START', 'prev_DL1-0NAME_CASH_LOAN_PURPOSE', 'prev_DL1-0NAME_CONTRACT_STATUS', 'prev_DL1-0NAME_PAYMENT_TYPE', 'prev_DL1-0CODE_REJECT_REASON', 'prev_DL1-0NAME_TYPE_SUITE', 'prev_DL1-0NAME_CLIENT_TYPE', 'prev_DL1-0NAME_GOODS_CATEGORY', 'prev_DL1-0NAME_PORTFOLIO', 'prev_DL1-0NAME_PRODUCT_TYPE', 'prev_DL1-0CHANNEL_TYPE', 'prev_DL1-0NAME_SELLER_INDUSTRY', 'prev_DL1-0NAME_YIELD_GROUP', 'prev_DL1-0PRODUCT_COMBINATION', 'prev_DL1-1NAME_CONTRACT_TYPE', 'prev_DL1-1WEEKDAY_APPR_PROCESS_START', 'prev_DL1-1NAME_CASH_LOAN_PURPOSE', 'prev_DL1-1NAME_CONTRACT_STATUS', 'prev_DL1-1NAME_PAYMENT_TYPE', 'prev_DL1-1CODE_REJECT_REASON', 'prev_DL1-1NAME_TYPE_SUITE', 'prev_DL1-1NAME_CLIENT_TYPE', 'prev_DL1-1NAME_GOODS_CATEGORY', 'prev_DL1-1NAME_PORTFOLIO', 'prev_DL1-1NAME_PRODUCT_TYPE', 'prev_DL1-1CHANNEL_TYPE', 'prev_DL1-1NAME_SELLER_INDUSTRY', 'prev_DL1-1NAME_YIELD_GROUP', 'prev_DL1-1PRODUCT_COMBINATION', 'prev_DL1-2NAME_CONTRACT_TYPE', 'prev_DL1-2WEEKDAY_APPR_PROCESS_START', 'prev_DL1-2NAME_CASH_LOAN_PURPOSE', 'prev_DL1-2NAME_CONTRACT_STATUS', 'prev_DL1-2NAME_PAYMENT_TYPE', 'prev_DL1-2CODE_REJECT_REASON', 'prev_DL1-2NAME_TYPE_SUITE', 'prev_DL1-2NAME_CLIENT_TYPE', 'prev_DL1-2NAME_GOODS_CATEGORY', 'prev_DL1-2NAME_PORTFOLIO', 'prev_DL1-2NAME_PRODUCT_TYPE', 'prev_DL1-2CHANNEL_TYPE', 'prev_DL1-2NAME_SELLER_INDUSTRY', 'prev_DL1-2NAME_YIELD_GROUP', 'prev_DL1-2PRODUCT_COMBINATION']
 
 dtrain = lgb.Dataset(X, y, categorical_feature=list( set(X.columns)&set(categorical_feature)) )
 #dtrain.construct()

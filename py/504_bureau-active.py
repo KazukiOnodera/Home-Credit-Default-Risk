@@ -210,7 +210,7 @@ test = pd.concat([test, test_], axis=1)
 utils.to_pickles(test,  '../data/504_test',  utils.SPLIT_SIZE)
 
 
-os.system('rm ../data/tmp_504*.p')
+os.system('rm -rf ../data/tmp_504*')
 
 #==============================================================================
 utils.end(__file__)
