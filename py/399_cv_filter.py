@@ -21,10 +21,11 @@ utils.start(__file__)
 SEED = 71
 
 base_folder = ['../data/001_train']
-folders = glob('../data/3*_train')
+target_folders = glob('../data/3*_train')
+folders = base_folder+target_folders
 
 X = pd.concat([
-               utils.read_pickles(f) for f in (base_folder+folders)
+               utils.read_pickles(f) for f in (folders)
                ], axis=1)
 y = utils.read_pickles('../data/label').TARGET
 
