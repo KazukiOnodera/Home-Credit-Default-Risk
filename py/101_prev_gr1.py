@@ -79,13 +79,13 @@ base.reset_index(inplace=True)
 
 train = utils.load_train([KEY])
 train = pd.merge(train, base, on=KEY, how='left').drop(KEY, axis=1)
-utils.to_pickles(train, '../data/101-2_train', utils.SPLIT_SIZE)
+utils.to_pickles(train, '../data/101_train', utils.SPLIT_SIZE)
 del train; gc.collect()
 
 
 test = utils.load_test([KEY])
 test = pd.merge(test, base, on=KEY, how='left').drop(KEY, axis=1)
-utils.to_pickles(test,  '../data/101-2_test',  utils.SPLIT_SIZE)
+utils.to_pickles(test,  '../data/101_test',  utils.SPLIT_SIZE)
 
 
 
