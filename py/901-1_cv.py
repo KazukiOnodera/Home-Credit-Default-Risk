@@ -38,7 +38,7 @@ print(f'X.shape {X.shape}')
 param = {
          'objective': 'binary',
          'metric': 'auc',
-         'learning_rate': 0.05,
+         'learning_rate': 0.01,
          'max_depth': -1,
          'num_leaves': 255,
          'max_bin': 255,
