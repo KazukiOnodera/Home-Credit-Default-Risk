@@ -58,15 +58,15 @@ df['DAYS_LAST_PHONE_CHANGE-DAYS_REGISTRATION']   = df['DAYS_LAST_PHONE_CHANGE'] 
 
 df['DAYS_LAST_PHONE_CHANGE-DAYS_ID_PUBLISH']   = df['DAYS_LAST_PHONE_CHANGE'] - df['DAYS_ID_PUBLISH']
 
-gr = df.groupby('REGION_POPULATION_RELATIVE')
-df['AMT_INCOME_TOTAL-rank_in-region'] = gr['AMT_INCOME_TOTAL'].rank(method='dense')
-df['AMT_CREDIT-rank_in-region']       = gr['AMT_CREDIT'].rank(method='dense')
-df['AMT_ANNUITY-rank_in-region'] = gr['AMT_ANNUITY'].rank(method='dense')
-df['AMT_GOODS_PRICE-rank_in-region'] = gr['AMT_GOODS_PRICE'].rank(method='dense')
-df['EXT_SOURCE_1-rank_in-region'] = gr['EXT_SOURCE_1'].rank(method='dense')
+#gr = df.groupby('REGION_POPULATION_RELATIVE')
+#df['AMT_INCOME_TOTAL-rank_in-region'] = gr['AMT_INCOME_TOTAL'].rank(method='dense')
+#df['AMT_CREDIT-rank_in-region']       = gr['AMT_CREDIT'].rank(method='dense')
+#df['AMT_ANNUITY-rank_in-region'] = gr['AMT_ANNUITY'].rank(method='dense')
+#df['AMT_GOODS_PRICE-rank_in-region'] = gr['AMT_GOODS_PRICE'].rank(method='dense')
+#df['EXT_SOURCE_1-rank_in-region'] = gr['EXT_SOURCE_1'].rank(method='dense')
 #df['EXT_SOURCE_2-rank_in-region'] = gr['EXT_SOURCE_2'].rank(method='dense')
-df['EXT_SOURCE_3-rank_in-region'] = gr['EXT_SOURCE_3'].rank(method='dense')
-df['CNT_CHILDREN-rank_in-region'] = gr['CNT_CHILDREN'].rank(method='dense')
+#df['EXT_SOURCE_3-rank_in-region'] = gr['EXT_SOURCE_3'].rank(method='dense')
+#df['CNT_CHILDREN-rank_in-region'] = gr['CNT_CHILDREN'].rank(method='dense')
 
 
 
