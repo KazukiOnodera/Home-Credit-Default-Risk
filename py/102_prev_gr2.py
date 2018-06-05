@@ -19,7 +19,7 @@ utils.start(__file__)
 #==============================================================================
 
 KEY = 'SK_ID_CURR'
-PREF = 'prev'
+PREF = 'prev_102'
 NTHREAD = 16
 
 col_num = ['AMT_ANNUITY', 'AMT_APPLICATION', 'AMT_CREDIT', 'AMT_DOWN_PAYMENT', 
@@ -125,10 +125,10 @@ def multi_gr2(k):
     
     base.reset_index(inplace=True)
     df = pd.merge(train, base, on=KEY, how='left').drop(KEY, axis=1)
-    utils.to_pickles(df, f'../data/101-3_{k}_train', utils.SPLIT_SIZE)
+    utils.to_pickles(df, f'../data/102_{k}_train', utils.SPLIT_SIZE)
     
     df = pd.merge(test, base, on=KEY, how='left').drop(KEY, axis=1)
-    utils.to_pickles(df, f'../data/101-3_{k}_test', utils.SPLIT_SIZE)
+    utils.to_pickles(df, f'../data/102_{k}_test', utils.SPLIT_SIZE)
     print(f'finish {k}')
     return
 

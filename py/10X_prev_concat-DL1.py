@@ -37,7 +37,7 @@ for i in range(LOOP_ORDER):
     prev_ = prev[prev['order']==i].drop_duplicates(KEY, keep='first')
     prev_ = prev_.set_index(KEY).add_prefix(f'prev_DL1-{i}')
     base = pd.concat([base, prev_], axis=1)
-    col_cat_all += list( f'prev_DL1-{i}' + col_cat )
+    col_cat_all += list( f'prev_DL1-{i}-' + col_cat )
 
 
 # =============================================================================
@@ -47,12 +47,12 @@ base.reset_index(inplace=True)
 
 train = utils.load_train([KEY])
 train = pd.merge(train, base, on=KEY, how='left').drop(KEY, axis=1)
-utils.to_pickles(train, '../data/103-1_train', utils.SPLIT_SIZE)
+utils.to_pickles(train, '../data/1XX_train', utils.SPLIT_SIZE)
 
 
 test = utils.load_test([KEY])
 test = pd.merge(test, base, on=KEY, how='left').drop(KEY, axis=1)
-utils.to_pickles(test,  '../data/103-1_test',  utils.SPLIT_SIZE)
+utils.to_pickles(test,  '../data/1XX_test',  utils.SPLIT_SIZE)
 
 print('col_cat_all:', col_cat_all)
 

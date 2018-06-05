@@ -272,6 +272,7 @@ def get_dummies(df):
     [col.remove(c) for c in col_binary]
     df = pd.get_dummies(df, columns=col)
     df = pd.get_dummies(df, columns=col_binary, drop_first=True)
+    df.columns = [c.replace(' ', '-') for c in df.columns]
     return df
 
 

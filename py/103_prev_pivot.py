@@ -19,7 +19,7 @@ import utils
 utils.start(__file__)
 #==============================================================================
 KEY = 'SK_ID_CURR'
-PREF = 'prev'
+PREF = 'prev_103'
 NTHREAD = 15
 
 col_num = ['AMT_ANNUITY', 'AMT_APPLICATION', 'AMT_CREDIT', 'AMT_DOWN_PAYMENT', 
@@ -61,11 +61,11 @@ def pivot(cat):
     gc.collect()
     
     df = pd.merge(train, base, on=KEY, how='left').drop(KEY, axis=1)
-    utils.to_pickles(df, f'../data/102_{cat}_train', utils.SPLIT_SIZE)
+    utils.to_pickles(df, f'../data/103_{cat}_train', utils.SPLIT_SIZE)
     gc.collect()
     
     df = pd.merge(test, base, on=KEY, how='left').drop(KEY, axis=1)
-    utils.to_pickles(df,  f'../data/102_{cat}_test',  utils.SPLIT_SIZE)
+    utils.to_pickles(df,  f'../data/103_{cat}_test',  utils.SPLIT_SIZE)
     gc.collect()
 
     
