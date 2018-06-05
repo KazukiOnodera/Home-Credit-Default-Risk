@@ -122,7 +122,7 @@ def read_pickle(folder, usecols):
         pass
     
 
-[read_pickle(f, feature_all) for f in folders]
+[read_pickle(f, feature_all) for f in target_folders]
 
 #==============================================================================
 utils.end(__file__)
