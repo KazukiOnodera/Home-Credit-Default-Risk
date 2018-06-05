@@ -15,7 +15,7 @@ import utils
 utils.start(__file__)
 #==============================================================================
 KEY = 'SK_ID_BUREAU'
-PREF = 'bb'
+PREF = 'bb_601'
 
 bb = utils.read_pickles('../data/bureau_balance')
 

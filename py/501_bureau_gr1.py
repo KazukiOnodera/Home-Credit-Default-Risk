@@ -18,7 +18,7 @@ import utils
 utils.start(__file__)
 #==============================================================================
 KEY = 'SK_ID_CURR'
-PREF = 'bureau'
+PREF = 'bureau_501'
 NTHREAD = 3
 
 
@@ -34,7 +34,7 @@ col_group = ['CREDIT_ACTIVE', 'CREDIT_CURRENCY', 'CREDIT_TYPE']
 # =============================================================================
 # feature
 # =============================================================================
-bureau = utils.read_pickles('../data/bureau')
+bureau = utils.get_dummies(utils.read_pickles('../data/bureau'))
 
 base = bureau[[KEY]].drop_duplicates().set_index(KEY)
 
@@ -50,16 +50,17 @@ gr = bureau.groupby(KEY)
 # stats
 keyname = 'gby-'+KEY
 base[f'{PREF}_{keyname}_size'] = gr.size()
-for c in col_num:
-    gc.collect()
-    print(c)
-    base[f'{PREF}_{keyname}_{c}_min'] = gr[c].min()
-    base[f'{PREF}_{keyname}_{c}_max'] = gr[c].max()
-    base[f'{PREF}_{keyname}_{c}_max-min'] = base[f'{PREF}_{keyname}_{c}_max'] - base[f'{PREF}_{keyname}_{c}_min']
-    base[f'{PREF}_{keyname}_{c}_mean'] = gr[c].mean()
-    base[f'{PREF}_{keyname}_{c}_std'] = gr[c].std()
-    base[f'{PREF}_{keyname}_{c}_sum'] = gr[c].sum()
-    base[f'{PREF}_{keyname}_{c}_nunique'] = gr[c].apply(nunique)
+
+base = pd.concat([
+                base,
+                gr.min().add_prefix(f'{PREF}_').add_suffix('_min'),
+                gr.max().add_prefix(f'{PREF}_').add_suffix('_max'),
+                gr.mean().add_prefix(f'{PREF}_').add_suffix('_mean'),
+                gr.std().add_prefix(f'{PREF}_').add_suffix('_std'),
+                gr.sum().add_prefix(f'{PREF}_').add_suffix('_sum'),
+#                gr.median().add_prefix(f'{PREF}_').add_suffix('_median'),
+                ], axis=1)
+
 
 
 # =============================================================================
@@ -69,13 +70,12 @@ base.reset_index(inplace=True)
 
 train = utils.load_train([KEY])
 train = pd.merge(train, base, on=KEY, how='left').drop(KEY, axis=1)
-
+utils.to_pickles(train, '../data/501_train', utils.SPLIT_SIZE)
+del train; gc.collect()
 
 test = utils.load_test([KEY])
 test = pd.merge(test, base, on=KEY, how='left').drop(KEY, axis=1)
-
-utils.to_pickles(train, '../data/501-1_train', utils.SPLIT_SIZE)
-utils.to_pickles(test,  '../data/501-1_test',  utils.SPLIT_SIZE)
+utils.to_pickles(test,  '../data/501_test',  utils.SPLIT_SIZE)
 
 
 
