@@ -244,7 +244,7 @@ def reduce_memory(df, ix_start=0):
     ## float
     col = [c for c in df.dtypes[df.dtypes==np.float64].index if '_id' not in c]
     df[col] = df[col].astype(np.float32)
-
+    
     gc.collect()
 
 def load_train(col=None):
@@ -259,9 +259,20 @@ def load_test(col=None):
     else:
         return read_pickles('../data/test', col)
 
-
-
-
+# =============================================================================
+# 
+# =============================================================================
+def get_dummies(df):
+    """
+    binary would be drop_first
+    """
+    col = df.select_dtypes('O').columns.tolist()
+    nunique = df[col].nunique()
+    col_binary = nunique[nunique==2].index.tolist()
+    [col.remove(c) for c in col_binary]
+    df = pd.get_dummies(df, columns=col)
+    df = pd.get_dummies(df, columns=col_binary, drop_first=True)
+    return df
 
 
 # =============================================================================
