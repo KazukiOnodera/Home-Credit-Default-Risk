@@ -1,0 +1,19 @@
+  0%|          | 0/20 [00:00<?, ?it/s] 20%|██        | 4/20 [00:00<00:00, 32.76it/s] 40%|████      | 8/20 [00:00<00:00, 34.54it/s] 60%|██████    | 12/20 [00:00<00:00, 35.20it/s] 80%|████████  | 16/20 [00:00<00:00, 35.53it/s]100%|██████████| 20/20 [00:00<00:00, 35.96it/s]
+  0%|          | 0/20 [00:00<?, ?it/s]100%|██████████| 20/20 [00:00<00:00, 332.41it/s]
+shape: (307511, 28)
+0it [00:00, ?it/s]17it [00:00, 164.37it/s]20it [00:00, 165.65it/s]
+shape: (48744, 28)
+0it [00:00, ?it/s]20it [00:00, 687.83it/s]
+
+#==============================================================================
+# SUCCESS !!! 002_application.py
+#==============================================================================
+
+Traceback (most recent call last):
+  File "002_application.py", line 88, in <module>
+    utils.end(__file__)
+  File "/home/kazuki_onodera/Home-Credit-Default-Risk/py/utils.py", line 147, in end
+    print('time: {:.2f}min'.format( elapsed_minute() ))
+  File "/home/kazuki_onodera/Home-Credit-Default-Risk/py/utils.py", line 152, in elapsed_minute
+    return (time() - st_time)/60
+NameError: name 'st_time' is not defined

@@ -1,0 +1,32 @@
+SK_ID_CURR,SK_ID_BUREAU,CREDIT_ACTIVE,CREDIT_CURRENCY,DAYS_CREDIT,CREDIT_DAY_OVERDUE,DAYS_CREDIT_ENDDATE,DAYS_ENDDATE_FACT,AMT_CREDIT_MAX_OVERDUE,CNT_CREDIT_PROLONG,AMT_CREDIT_SUM,AMT_CREDIT_SUM_DEBT,AMT_CREDIT_SUM_LIMIT,AMT_CREDIT_SUM_OVERDUE,CREDIT_TYPE,DAYS_CREDIT_UPDATE,AMT_ANNUITY
+130466,5120140,Closed,currency 1,-1365,0,-1180.0,-1180.0,0.0,0,74232.0,0.0,0.0,0.0,Consumer credit,-1180,
+130466,5120139,Closed,currency 1,-1366,0,-1180.0,-1171.0,,0,74232.0,0.0,0.0,0.0,Consumer credit,-952,0.0
+147788,6576270,Closed,currency 1,-2629,0,-330.0,-330.0,,0,279000.0,0.0,,0.0,Credit card,-329,0.0
+147788,6576269,Closed,currency 1,-2630,0,-578.0,-330.0,,0,279000.0,0.0,0.0,0.0,Credit card,-327,0.0
+160118,5368069,Active,currency 1,-180,0,916.0,,0.0,0,504144.0,451840.5,0.0,0.0,Consumer credit,-30,
+160118,5368067,Active,currency 1,-421,0,1041.0,,,0,1026481.5,832644.0,0.0,0.0,Consumer credit,-22,
+160118,5368066,Active,currency 1,-657,0,1157.0,,,0,976500.0,715743.0,0.0,0.0,Consumer credit,-28,
+160118,5368065,Closed,currency 1,-1009,0,89.0,-414.0,,0,675000.0,0.0,0.0,0.0,Consumer credit,-407,
+160118,5368068,Closed,currency 1,-1198,0,-298.0,-657.0,0.0,0,553500.0,,,0.0,Consumer credit,-628,
+166060,5123253,Active,currency 1,-259,0,106.0,,,0,117000.0,71221.5,0.0,0.0,Consumer credit,-69,
+166060,5123256,Active,currency 1,-660,0,6645.0,,,0,5799600.0,5703903.0,0.0,0.0,Mortgage,-69,
+166060,5123250,Closed,currency 1,-714,0,-381.0,-355.0,,0,265500.0,0.0,0.0,0.0,Credit card,-280,
+166060,5123259,Closed,currency 1,-849,0,-515.0,-515.0,0.0,0,69753.6,0.0,0.0,0.0,Consumer credit,-509,
+166060,5123254,Active,currency 1,-1033,0,63.0,,,0,450000.0,75870.0,0.0,0.0,Consumer credit,-69,
+166060,5123255,Active,currency 1,-1318,0,509.0,,,0,989100.0,429547.5,0.0,0.0,Consumer credit,-69,
+166060,5123252,Closed,currency 1,-1744,0,-648.0,-1313.0,,0,337500.0,0.0,0.0,0.0,Consumer credit,-1307,
+166060,5123251,Closed,currency 1,-1744,0,-648.0,-1313.0,,0,337500.0,0.0,0.0,0.0,Consumer credit,-491,
+166060,5123258,Closed,currency 1,-2290,0,-1985.0,-1985.0,0.0,0,65002.5,0.0,0.0,0.0,Consumer credit,-1985,
+166060,5123249,Closed,currency 1,-2405,0,-2221.0,-2219.0,,0,18315.0,0.0,,0.0,Consumer credit,-483,
+166060,5123257,Closed,currency 1,-2628,0,1025.0,-778.0,0.0,1,265500.0,0.0,0.0,0.0,Credit card,-747,
+197224,5946640,Closed,currency 1,-954,0,-589.0,-589.0,0.0,0,165330.0,0.0,0.0,0.0,Consumer credit,-585,
+197224,5946639,Closed,currency 1,-1098,0,6207.0,-580.0,,0,6075000.0,0.0,0.0,0.0,Mortgage,-296,0.0
+225505,5592243,Closed,currency 1,-564,0,12906.0,-402.0,,0,1350000.0,0.0,0.0,0.0,Credit card,-153,
+300565,6124741,Closed,currency 1,-185,0,-94.0,-127.0,,0,54450.0,0.0,0.0,0.0,Consumer credit,-27,0.0
+300565,6124744,Active,currency 1,-210,0,,,0.0,0,114090.93,0.0,114090.93,0.0,Credit card,-22,
+300565,6124745,Active,currency 1,-340,0,1487.0,,3186.27,0,1471500.0,297727.47,0.0,0.0,Consumer credit,-31,
+300565,6124743,Active,currency 1,-455,0,-273.0,,,0,143235.0,73507.5,,0.0,Consumer credit,-361,20155.5
+300565,6124742,Closed,currency 1,-1352,0,-256.0,-340.0,,0,450000.0,0.0,,0.0,Consumer credit,-340,20155.5
+344005,5303285,Active,currency 1,-2622,0,-1524.0,,0.0,0,67500.0,0.0,0.0,0.0,Credit card,-673,
+344005,5303284,Closed,currency 1,-2726,0,-2391.0,-2417.0,8640.0,0,77508.0,0.0,0.0,0.0,Consumer credit,-2390,
+356535,5385939,Active,currency 1,-367,0,1080.0,,,0,135000.0,0.0,0.0,0.0,Credit card,-15,
