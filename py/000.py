@@ -19,7 +19,7 @@ df = pd.read_csv('../input/application_train.csv.zip')
 df['CODE_GENDER'] = 1 - (df['CODE_GENDER']=='F')*1 # 4 'XNA' are converted to 'M'
 df['FLAG_OWN_CAR'] = (df['FLAG_OWN_CAR']=='Y')*1
 df['FLAG_OWN_REALTY'] = (df['FLAG_OWN_REALTY']=='Y')*1
-df['FLAG_OWN_REALTY'] = (df['FLAG_OWN_REALTY']=='Yes')*1
+df['EMERGENCYSTATE_MODE'] = (df['EMERGENCYSTATE_MODE']=='Yes')*1
 utils.to_pickles(df, '../data/train', utils.SPLIT_SIZE)
 utils.to_pickles(df[['TARGET']], '../data/label', utils.SPLIT_SIZE)
 
@@ -28,7 +28,7 @@ df = pd.read_csv('../input/application_test.csv.zip')
 df['CODE_GENDER'] = 1 - (df['CODE_GENDER']=='F')*1 # no 'XNA'
 df['FLAG_OWN_CAR'] = (df['FLAG_OWN_CAR']=='Y')*1
 df['FLAG_OWN_REALTY'] = (df['FLAG_OWN_REALTY']=='Y')*1
-df['FLAG_OWN_REALTY'] = (df['FLAG_OWN_REALTY']=='Yes')*1
+df['EMERGENCYSTATE_MODE'] = (df['EMERGENCYSTATE_MODE']=='Yes')*1
 utils.to_pickles(df, '../data/test', utils.SPLIT_SIZE)
 df[['SK_ID_CURR']].to_pickle('../data/sub.p')
 
