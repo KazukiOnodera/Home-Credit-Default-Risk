@@ -27,7 +27,7 @@ NROUND = 1700
 
 SUBMIT_FILE_PATH = '../output/606-2.csv.gz'
 
-COMMENT = 'no category features :) '
+COMMENT = 'category features :) '
 
 EXE_SUBMIT = True
 
