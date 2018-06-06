@@ -27,7 +27,7 @@ NROUND = 1700
 
 SUBMIT_FILE_PATH = '../output/606-3.csv.gz'
 
-COMMENT = 'category features :) '
+COMMENT = 'add 302'
 
 EXE_SUBMIT = True
 
