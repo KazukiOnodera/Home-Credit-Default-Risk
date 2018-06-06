@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed Jun  6 08:53:04 2018
+Created on Tue Jun  5 12:39:16 2018
 
-@author: Kazuki
+@author: kazuki.onodera
 """
-
 
 import gc
 import pandas as pd
@@ -16,13 +15,15 @@ import lightgbm as lgb
 import multiprocessing
 from glob import glob
 import utils
-utils.start(__file__)
+#utils.start(__file__)
 #==============================================================================
 
 SEED = 71
 
 #folders = sorted(glob('../data/*_train_filtered'))
 folders = sorted(glob('../data/*_train'))
+
+print(folders)
 
 X = pd.concat([
                 utils.read_pickles(f) for f in (folders)
@@ -51,7 +52,6 @@ param = {
          'seed': SEED
          }
 
-
 categorical_feature = ['NAME_CONTRACT_TYPE',
 #                     'CODE_GENDER',
 #                     'FLAG_OWN_CAR',
@@ -69,9 +69,6 @@ categorical_feature = ['NAME_CONTRACT_TYPE',
                      'WALLSMATERIAL_MODE',
 #                     'EMERGENCYSTATE_MODE'
                      ]
-
-
-#categorical_feature = X.select_dtypes('O').columns.tolist()
 
 dtrain = lgb.Dataset(X, y, categorical_feature=list( set(X.columns)&set(categorical_feature)) )
 
