@@ -71,7 +71,7 @@ categorical_feature = ['NAME_CONTRACT_TYPE',
                      ]
 
 
-categorical_feature = X.select_dtypes('O').columns.tolist()
+#categorical_feature = X.select_dtypes('O').columns.tolist()
 
 dtrain = lgb.Dataset(X, y, categorical_feature=list( set(X.columns)&set(categorical_feature)) )
 
