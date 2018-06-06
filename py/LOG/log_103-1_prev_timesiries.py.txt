@@ -1,19 +1,0 @@
-
-#==============================================================================
-# START!!! 103-1_prev_timesiries.py    PID: 3540    time: 2018-06-04 11:08:28.344261
-#==============================================================================
-
-  0%|          | 0/20 [00:00<?, ?it/s] 10%|█         | 2/20 [00:00<00:01, 13.40it/s] 20%|██        | 4/20 [00:00<00:01, 14.71it/s] 30%|███       | 6/20 [00:00<00:00, 15.79it/s] 40%|████      | 8/20 [00:00<00:00, 16.37it/s] 50%|█████     | 10/20 [00:00<00:00, 16.86it/s] 60%|██████    | 12/20 [00:00<00:00, 17.20it/s] 70%|███████   | 14/20 [00:00<00:00, 17.16it/s] 80%|████████  | 16/20 [00:00<00:00, 17.40it/s] 90%|█████████ | 18/20 [00:01<00:00, 17.55it/s]100%|██████████| 20/20 [00:01<00:00, 17.66it/s]
-  0%|          | 0/20 [00:00<?, ?it/s] 20%|██        | 4/20 [00:00<00:00, 36.13it/s] 40%|████      | 8/20 [00:00<00:00, 35.81it/s] 60%|██████    | 12/20 [00:00<00:00, 36.16it/s] 85%|████████▌ | 17/20 [00:00<00:00, 38.17it/s]100%|██████████| 20/20 [00:00<00:00, 40.21it/s]
-shape: (307511, 111)
-0it [00:00, ?it/s]4it [00:00, 39.14it/s]8it [00:00, 39.20it/s]12it [00:00, 39.45it/s]16it [00:00, 39.56it/s]20it [00:00, 39.68it/s]
-  0%|          | 0/20 [00:00<?, ?it/s]100%|██████████| 20/20 [00:00<00:00, 284.84it/s]
-shape: (48744, 111)
-0it [00:00, ?it/s]20it [00:00, 282.19it/s]
-col_cat_all: ['prev_DL1-0NAME_CONTRACT_TYPE', 'prev_DL1-0WEEKDAY_APPR_PROCESS_START', 'prev_DL1-0NAME_CASH_LOAN_PURPOSE', 'prev_DL1-0NAME_CONTRACT_STATUS', 'prev_DL1-0NAME_PAYMENT_TYPE', 'prev_DL1-0CODE_REJECT_REASON', 'prev_DL1-0NAME_TYPE_SUITE', 'prev_DL1-0NAME_CLIENT_TYPE', 'prev_DL1-0NAME_GOODS_CATEGORY', 'prev_DL1-0NAME_PORTFOLIO', 'prev_DL1-0NAME_PRODUCT_TYPE', 'prev_DL1-0CHANNEL_TYPE', 'prev_DL1-0NAME_SELLER_INDUSTRY', 'prev_DL1-0NAME_YIELD_GROUP', 'prev_DL1-0PRODUCT_COMBINATION', 'prev_DL1-1NAME_CONTRACT_TYPE', 'prev_DL1-1WEEKDAY_APPR_PROCESS_START', 'prev_DL1-1NAME_CASH_LOAN_PURPOSE', 'prev_DL1-1NAME_CONTRACT_STATUS', 'prev_DL1-1NAME_PAYMENT_TYPE', 'prev_DL1-1CODE_REJECT_REASON', 'prev_DL1-1NAME_TYPE_SUITE', 'prev_DL1-1NAME_CLIENT_TYPE', 'prev_DL1-1NAME_GOODS_CATEGORY', 'prev_DL1-1NAME_PORTFOLIO', 'prev_DL1-1NAME_PRODUCT_TYPE', 'prev_DL1-1CHANNEL_TYPE', 'prev_DL1-1NAME_SELLER_INDUSTRY', 'prev_DL1-1NAME_YIELD_GROUP', 'prev_DL1-1PRODUCT_COMBINATION', 'prev_DL1-2NAME_CONTRACT_TYPE', 'prev_DL1-2WEEKDAY_APPR_PROCESS_START', 'prev_DL1-2NAME_CASH_LOAN_PURPOSE', 'prev_DL1-2NAME_CONTRACT_STATUS', 'prev_DL1-2NAME_PAYMENT_TYPE', 'prev_DL1-2CODE_REJECT_REASON', 'prev_DL1-2NAME_TYPE_SUITE', 'prev_DL1-2NAME_CLIENT_TYPE', 'prev_DL1-2NAME_GOODS_CATEGORY', 'prev_DL1-2NAME_PORTFOLIO', 'prev_DL1-2NAME_PRODUCT_TYPE', 'prev_DL1-2CHANNEL_TYPE', 'prev_DL1-2NAME_SELLER_INDUSTRY', 'prev_DL1-2NAME_YIELD_GROUP', 'prev_DL1-2PRODUCT_COMBINATION']
-
-#==============================================================================
-# SUCCESS !!! 103-1_prev_timesiries.py
-#==============================================================================
-
-time: 0.78min
