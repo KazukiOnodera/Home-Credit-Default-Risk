@@ -12,7 +12,7 @@ import gc
 from multiprocessing import Pool
 from glob import glob
 import utils
-#utils.start(__file__)
+utils.start(__file__)
 #==============================================================================
 KEY = 'SK_ID_CURR'
 PREF = 'ins_302'
