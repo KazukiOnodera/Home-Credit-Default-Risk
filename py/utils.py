@@ -102,7 +102,7 @@ import os
 from tqdm import tqdm
 #from itertools import combinations
 from sklearn.model_selection import KFold
-from time import time
+from time import time, sleep
 from datetime import datetime
 import gc
 
@@ -303,8 +303,9 @@ def get_dummies(df):
 # other API
 # =============================================================================
 def submit(file_path, comment='from API'):
-    os.system(f'kaggle competitions submissions -c {COMPETITION_NAME} -f {file_path} -m "{comment}"')
-# 'kaggle competitions submissions -c home-credit-default-risk -v'
+    os.system(f'kaggle competitions submit -c {COMPETITION_NAME} -f {file_path} -m "{comment}"')
+    sleep(60) # tekito~~~~
+    os.system(f'kaggle competitions submissions -c {COMPETITION_NAME} -v')
 
 
 import requests
