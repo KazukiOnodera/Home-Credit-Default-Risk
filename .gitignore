@@ -1,4 +1,5 @@
 *.DS_Store
+~$*.xls*
 input/
 output/
 data/
@@ -6,3 +7,4 @@ external/
 py/.ipynb_checkpoints
 py/*.model
 py/*.p
+py/~$*.xls*
