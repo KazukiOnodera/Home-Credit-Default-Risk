@@ -18,9 +18,24 @@ import utils
 utils.start(__file__)
 #==============================================================================
 
+# setting
+
 SEED = 71
 
+remove_names = []
+
+
+#==============================================================================
+
 folders = sorted(glob('../data/*_train'))
+folders_ = []
+if len(remove_names)>0:
+    for i in remove_names:
+        for j in folders:
+            if i not in j:
+                folders_.append(j)
+    folders = folders_
+print(f'folders: {folders}')
 
 X = pd.concat([
                 utils.read_pickles(f) for f in (folders)
@@ -32,7 +47,6 @@ if X.columns.duplicated().sum()>0:
     raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
 print('no dup :) ')
 print(f'X.shape {X.shape}')
-print(f'folders: {folders}')
 
 param = {
          'objective': 'binary',
