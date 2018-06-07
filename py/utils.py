@@ -110,6 +110,7 @@ import gc
 # global variables
 # =============================================================================
 
+COMPETITION_NAME = 'home-credit-default-risk'
 
 SPLIT_SIZE = 20
 
@@ -280,7 +281,9 @@ def get_dummies(df):
 # other API
 # =============================================================================
 def submit(file_path, comment='from API'):
-    os.system(f'kaggle competitions submit -c home-credit-default-risk -f {file_path} -m "{comment}"')
+    os.system(f'kaggle competitions submissions -c {COMPETITION_NAME} -f {file_path} -m "{comment}"')
+# 'kaggle competitions submissions -c home-credit-default-risk -v'
+
 
 import requests
 def send_line(message):
