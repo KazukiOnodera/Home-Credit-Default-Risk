@@ -123,9 +123,16 @@ imp = ex.getImp(models)
 # test
 # =============================================================================
 folders = sorted(glob('../data/*_test'))
+folders_ = []
+if len(remove_names)>0:
+    for i in remove_names:
+        for j in folders:
+            if i not in j:
+                folders_.append(j)
+    folders = folders_
 
 dtest = pd.concat([
-                utils.read_pickles(f) for f in (folders)
+                utils.read_pickles(f, use_tqdm=False) for f in (folders)
                 ], axis=1)
 
 sub = pd.read_pickle('../data/sub.p')

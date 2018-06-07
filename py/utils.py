@@ -185,11 +185,12 @@ def to_pickles(df, path, split_size=3, inplace=True):
 def read_pickles(path, col=None, use_tqdm=True):
     if col is None:
         if use_tqdm:
-            df = pd.concat([pd.read_pickle(f) for f in tqdm(sorted(glob(path+'/*')))])
+            df = pd.concat([ pd.read_pickle(f) for f in tqdm(sorted(glob(path+'/*'))) ])
         else:
-            df = pd.concat([pd.read_pickle(f) for f in sorted(glob(path+'/*'))])
+            print(f'reading {path}')
+            df = pd.concat([ pd.read_pickle(f) for f in sorted(glob(path+'/*')) ])
     else:
-        df = pd.concat([pd.read_pickle(f)[col] for f in tqdm(sorted(glob(path+'/*')))])
+        df = pd.concat([ pd.read_pickle(f)[col] for f in tqdm(sorted(glob(path+'/*'))) ])
     return df
 
 #def to_feathers(df, path, split_size=3, inplace=True):
@@ -313,7 +314,7 @@ def submit(file_path, comment='from API'):
     message = 'SCORE!!!\n'
     for i,j in zip(col.split(','), values.split(',')):
         message += f'{i}: {j}\n'
-        print(f'{i}: {j}') # TODO: comment out later?
+#        print(f'{i}: {j}') # TODO: comment out later?
     send_line(message.rstrip())
 
 import requests
