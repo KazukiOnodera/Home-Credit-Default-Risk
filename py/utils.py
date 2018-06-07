@@ -182,11 +182,14 @@ def to_pickles(df, path, split_size=3, inplace=True):
         df.iloc[val_index].to_pickle(f'{path}/{i:03d}.p')
     return
 
-def read_pickles(path, col=None):
+def read_pickles(path, col=None, use_tqdm=True):
     if col is None:
         df = pd.concat([pd.read_pickle(f) for f in tqdm(sorted(glob(path+'/*')))])
     else:
-        df = pd.concat([pd.read_pickle(f)[col] for f in tqdm(sorted(glob(path+'/*')))])
+        if use_tqdm:
+            df = pd.concat([pd.read_pickle(f)[col] for f in tqdm(sorted(glob(path+'/*')))])
+        else:
+            df = pd.concat([pd.read_pickle(f) for f in sorted(glob(path+'/*'))])
     return df
 
 #def to_feathers(df, path, split_size=3, inplace=True):

@@ -82,7 +82,7 @@ if len(remove_names)>0:
 
 
 X_train = pd.concat([
-                utils.read_pickles(f) for f in (folders)
+                utils.read_pickles(f, use_tqdm=False) for f in (folders)
                 ], axis=1)
 y_train = utils.read_pickles('../data/label').TARGET
 
