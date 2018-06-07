@@ -218,7 +218,6 @@ def read_pickles(path, col=None):
 #    return df
 
 def reduce_memory(df, ix_start=0):
-    df.fillna(-1, inplace=True)
     if df.shape[0]>9999:
         df_ = df.sample(9999, random_state=71)
     else:
@@ -247,6 +246,29 @@ def reduce_memory(df, ix_start=0):
     df[col] = df[col].astype(np.float32)
     
     gc.collect()
+    return
+
+def remove_feature(df, corr_limit=1):
+    if df.shape[0]>9999:
+        df_ = df.sample(9999, random_state=71)
+    else:
+        df_ = df
+    var = df_.var()
+    var0 = var[var==0].index
+    print(f'remove var==0: {var0}')
+    df.drop(var0, axis=1, inplace=True)
+    
+    corr = df_.corr().abs()
+    a, b = np.where(corr>=corr_limit)
+    col_remove = []
+    for a_,b_ in zip(a, b):
+        if a_ != b_ and a_ not in col_remove:
+            print(a_, b_)
+            col_remove.append(b_)
+    print(f'remove corr>={corr_limit}: {col_remove}')
+    df.drop(col_remove, axis=1, inplace=True)
+    
+    return
 
 def load_train(col=None):
     if col is None:
