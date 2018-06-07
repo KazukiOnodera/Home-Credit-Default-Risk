@@ -15,7 +15,8 @@ import utils
 utils.start(__file__)
 #==============================================================================
 KEY = 'SK_ID_CURR'
-PREF = 'ins_301'
+No = '301'
+PREF = f'ins_{No}'
 NTHREAD = 3
 
 col_num = ['NUM_INSTALMENT_VERSION', 'NUM_INSTALMENT_NUMBER', 'DAYS_INSTALMENT', 
@@ -42,8 +43,7 @@ def nunique(x):
 gr = ins.groupby(KEY)
 
 # stats
-keyname = 'gby-'+KEY
-base[f'{PREF}_{keyname}_size'] = gr.size()
+base[f'{PREF}_{KEY}_size'] = gr.size()
 
 base = pd.concat([
                 base,
@@ -63,12 +63,12 @@ base.reset_index(inplace=True)
 
 train = utils.load_train([KEY])
 train = pd.merge(train, base, on=KEY, how='left').drop(KEY, axis=1)
-utils.to_pickles(train, '../data/301_train', utils.SPLIT_SIZE)
+utils.to_pickles(train, f'../data/{No}_train', utils.SPLIT_SIZE)
 del train; gc.collect()
 
 test = utils.load_test([KEY])
 test = pd.merge(test, base, on=KEY, how='left').drop(KEY, axis=1)
-utils.to_pickles(test,  '../data/301_test',  utils.SPLIT_SIZE)
+utils.to_pickles(test,  f'../data/{No}_test',  utils.SPLIT_SIZE)
 
 
 
