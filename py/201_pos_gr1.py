@@ -43,8 +43,7 @@ def nunique(x):
 gr = pos.groupby(KEY)
 
 # stats
-keyname = 'gby-'+KEY
-base[f'{PREF}_{keyname}_size'] = gr.size()
+base[f'{PREF}_{KEY}_size'] = gr.size()
 
 base = pd.concat([
                 base,
@@ -65,12 +64,13 @@ base.reset_index(inplace=True)
 
 train = utils.load_train([KEY])
 train = pd.merge(train, base, on=KEY, how='left').drop(KEY, axis=1)
-utils.to_pickles(train, '../data/201_train', utils.SPLIT_SIZE)
+utils.to_pickle_each_cols(train, '../feature/train')
 del train; gc.collect()
+
 
 test = utils.load_test([KEY])
 test = pd.merge(test, base, on=KEY, how='left').drop(KEY, axis=1)
-utils.to_pickles(test,  '../data/201_test',  utils.SPLIT_SIZE)
+utils.to_pickle_each_cols(test,  '../feature/test')
 
 
 
