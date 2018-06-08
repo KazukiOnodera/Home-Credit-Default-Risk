@@ -13,7 +13,10 @@ utils.start(__file__)
 #==============================================================================
 
 os.system('rm -rf ../data')
+os.system('rm -rf ../feature')
 os.system('mkdir ../data')
+os.system('mkdir ../feature')
+
 
 df = pd.read_csv('../input/application_train.csv.zip')
 df['CODE_GENDER'] = 1 - (df['CODE_GENDER']=='F')*1 # 4 'XNA' are converted to 'M'

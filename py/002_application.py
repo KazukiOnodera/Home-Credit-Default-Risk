@@ -13,6 +13,7 @@ import utils
 utils.start(__file__)
 #==============================================================================
 
+PREF = 'apl_002_'
 
 train = utils.load_train().drop(['SK_ID_CURR', 'TARGET'], axis=1)
 test  = utils.load_test().drop(['SK_ID_CURR'], axis=1)
@@ -79,8 +80,8 @@ test  = df.loc[train.shape[0]:]
 # =============================================================================
 # write
 # =============================================================================
-utils.to_pickles(train, '../data/002_train', utils.SPLIT_SIZE)
-utils.to_pickles(test,  '../data/002_test',  utils.SPLIT_SIZE)
+utils.to_pickle_each_cols(train.add_prefix(PREF), '../feature/train')
+utils.to_pickle_each_cols(test.add_prefix(PREF),  '../feature/test')
 
 
 

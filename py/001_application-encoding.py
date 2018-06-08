@@ -13,6 +13,7 @@ import utils
 utils.start(__file__)
 #==============================================================================
 
+PREF = 'apl_001_'
 
 train = utils.load_train().drop(['SK_ID_CURR', 'TARGET'], axis=1)
 test  = utils.load_test().drop(['SK_ID_CURR'], axis=1)
@@ -42,8 +43,8 @@ for c in categorical_features:
     train[c] = le.transform(train[c])
     test[c]  = le.transform(test[c])
 
-utils.to_pickles(train, '../data/001_train', utils.SPLIT_SIZE)
-utils.to_pickles(test,  '../data/001_test',  utils.SPLIT_SIZE)
+utils.to_pickle_each_cols(train.add_prefix(PREF), '../feature/train')
+utils.to_pickle_each_cols(test.add_prefix(PREF),  '../feature/test')
 
 #==============================================================================
 utils.end(__file__)
