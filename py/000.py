@@ -56,6 +56,8 @@ utils.to_pickles(df, '../data/bureau_balance', utils.SPLIT_SIZE)
 
 df = pd.read_csv('../input/installments_payments.csv.zip')
 df['days_delayed_payment'] = df['DAYS_INSTALMENT'] - df['DAYS_ENTRY_PAYMENT']
+df['amt_ratio'] = df['AMT_PAYMENT'] / df['AMT_INSTALMENT']
+df['amt_delta'] = df['AMT_INSTALMENT'] - df['AMT_PAYMENT']
 utils.to_pickles(df, '../data/installments_payments', utils.SPLIT_SIZE)
 
 df = pd.read_csv('../input/credit_card_balance.csv.zip')
