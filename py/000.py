@@ -54,12 +54,23 @@ utils.to_pickles(df, '../data/bureau', utils.SPLIT_SIZE)
 df = pd.read_csv('../input/bureau_balance.csv.zip')
 utils.to_pickles(df, '../data/bureau_balance', utils.SPLIT_SIZE)
 
+# =============================================================================
+# ins
+# =============================================================================
 df = pd.read_csv('../input/installments_payments.csv.zip')
 df['days_delayed_payment'] = df['DAYS_INSTALMENT'] - df['DAYS_ENTRY_PAYMENT']
 df['amt_ratio'] = df['AMT_PAYMENT'] / df['AMT_INSTALMENT']
 df['amt_delta'] = df['AMT_INSTALMENT'] - df['AMT_PAYMENT']
+df['days_weighted_delay'] = df['amt_ratio'] * df['days_delayed_payment']
+decay = 0.0003 # decay rate per a day
+feature = f'days_weighted_delay_tsw3' # Time Series Weight
+df[feature] = df['days_weighted_delay'] * (1 + (df['DAYS_ENTRY_PAYMENT']*decay) )
 utils.to_pickles(df, '../data/installments_payments', utils.SPLIT_SIZE)
 
+
+# =============================================================================
+# credit card
+# =============================================================================
 df = pd.read_csv('../input/credit_card_balance.csv.zip')
 utils.to_pickles(df, '../data/credit_card_balance', utils.SPLIT_SIZE)
 
