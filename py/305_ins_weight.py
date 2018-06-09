@@ -37,8 +37,8 @@ ins.drop('SK_ID_PREV', axis=1, inplace=True)
 
 base = ins[[KEY]].drop_duplicates().set_index(KEY)
 
-ins['num'] = 1
-ins['num'] = ins.groupby(KEY)['num'].transform('count') - ins.groupby(KEY)['num'].cumsum()
+#ins['num'] = 1
+#ins['num'] = ins.groupby(KEY)['num'].transform('count') - ins.groupby(KEY)['num'].cumsum()
 
 
 # =============================================================================
@@ -47,18 +47,22 @@ ins['num'] = ins.groupby(KEY)['num'].transform('count') - ins.groupby(KEY)['num'
 feature1 = 'days_weighted_delay'
 ins[feature1] = (ins['AMT_PAYMENT'] / ins['AMT_INSTALMENT']) * ins['days_delayed_payment']
 
-decay = 0.0001 # decay rate per a day
-feature2 = 'days_weighted_delay_tsw1' # Time Series Weight ver.1
-ins[feature2] = ins[feature1] * (1 + (ins['DAYS_ENTRY_PAYMENT']*decay) )
+features = [feature1]
+for i in range(1, 11):
+    decay = i * 0.0001 # decay rate per a day
+    feature = f'days_weighted_delay_tsw{i}' # Time Series Weight
+    ins[feature] = ins[feature1] * (1 + (ins['DAYS_ENTRY_PAYMENT']*decay) )
+    features.append(feature)
+
 
 gr = ins.groupby(KEY)
-feature = feature1
-base[f'{feature}_min'] = gr[feature].min()
-base[f'{feature}_max'] = gr[feature].max()
-base[f'{feature}_mean'] = gr[feature].mean()
-base[f'{feature}_q25'] = gr[feature].quantile(0.25)
-base[f'{feature}_q50'] = gr[feature].quantile(0.5)
-base[f'{feature}_q75'] = gr[feature].quantile(0.75)
+for feature in features:
+    base[f'{PREF}_{feature}_min'] = gr[feature].min()
+    base[f'{PREF}_{feature}_max'] = gr[feature].max()
+    base[f'{PREF}_{feature}_mean'] = gr[feature].mean()
+    base[f'{PREF}_{feature}_q25'] = gr[feature].quantile(0.25)
+    base[f'{PREF}_{feature}_q50'] = gr[feature].quantile(0.5)
+    base[f'{PREF}_{feature}_q75'] = gr[feature].quantile(0.75)
 
 
 
@@ -72,12 +76,13 @@ base.reset_index(inplace=True)
 
 train = utils.load_train([KEY])
 train = pd.merge(train, base, on=KEY, how='left').drop(KEY, axis=1)
-utils.to_pickles(train, f'../data/{No}_train', utils.SPLIT_SIZE)
+utils.to_pickle_each_cols(train, '../feature/train')
 del train; gc.collect()
+
 
 test = utils.load_test([KEY])
 test = pd.merge(test, base, on=KEY, how='left').drop(KEY, axis=1)
-utils.to_pickles(test,  f'../data/{No}_test',  utils.SPLIT_SIZE)
+utils.to_pickle_each_cols(test,  '../feature/test')
 
 
 
