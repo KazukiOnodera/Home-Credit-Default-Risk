@@ -1,0 +1,154 @@
+
+#==============================================================================
+# START!!! 901_cv_609-1.py    PID: 2728    time: 2018-06-09 11:32:19.203809
+#==============================================================================
+
+  0%|          | 0/20 [00:00<?, ?it/s] 15%|█▌        | 3/20 [00:00<00:00, 20.72it/s] 40%|████      | 8/20 [00:00<00:00, 27.46it/s] 80%|████████  | 16/20 [00:00<00:00, 40.46it/s]100%|██████████| 20/20 [00:00<00:00, 47.12it/s]
+no dup :) 
+X.shape (307511, 2427)
+[LightGBM] [Info] Number of positive: 19860, number of negative: 226148
+[LightGBM] [Info] Total Bins 266180
+[LightGBM] [Info] Number of data: 246008, number of used features: 2414
+[LightGBM] [Info] Number of positive: 19860, number of negative: 226149
+[LightGBM] [Info] Total Bins 266180
+[LightGBM] [Info] Number of data: 246009, number of used features: 2414
+[LightGBM] [Info] Number of positive: 19860, number of negative: 226149
+[LightGBM] [Info] Total Bins 266180
+[LightGBM] [Info] Number of data: 246009, number of used features: 2414
+[LightGBM] [Info] Number of positive: 19860, number of negative: 226149
+[LightGBM] [Info] Total Bins 266180
+[LightGBM] [Info] Number of data: 246009, number of used features: 2414
+[LightGBM] [Info] Number of positive: 19860, number of negative: 226149
+[LightGBM] [Info] Total Bins 266180
+[LightGBM] [Info] Number of data: 246009, number of used features: 2414
+[10]	cv_agg's auc: 0.742058 + 0.00120052
+[20]	cv_agg's auc: 0.751921 + 0.00132189
+[30]	cv_agg's auc: 0.755521 + 0.00146906
+[40]	cv_agg's auc: 0.756283 + 0.00159547
+[50]	cv_agg's auc: 0.757618 + 0.00152182
+[60]	cv_agg's auc: 0.759139 + 0.00160877
+[70]	cv_agg's auc: 0.760299 + 0.0013671
+[80]	cv_agg's auc: 0.760893 + 0.00146042
+[90]	cv_agg's auc: 0.761368 + 0.00149692
+[100]	cv_agg's auc: 0.762129 + 0.00170703
+[110]	cv_agg's auc: 0.762718 + 0.00159839
+[120]	cv_agg's auc: 0.763495 + 0.00160327
+[130]	cv_agg's auc: 0.764138 + 0.00151138
+[140]	cv_agg's auc: 0.764618 + 0.00149683
+[150]	cv_agg's auc: 0.765124 + 0.00147385
+[160]	cv_agg's auc: 0.765688 + 0.00140979
+[170]	cv_agg's auc: 0.76641 + 0.00140593
+[180]	cv_agg's auc: 0.767073 + 0.00137129
+[190]	cv_agg's auc: 0.767416 + 0.0014071
+[200]	cv_agg's auc: 0.767871 + 0.00145067
+[210]	cv_agg's auc: 0.768374 + 0.0014972
+[220]	cv_agg's auc: 0.768875 + 0.0014637
+[230]	cv_agg's auc: 0.769613 + 0.00135772
+[240]	cv_agg's auc: 0.770306 + 0.00136298
+[250]	cv_agg's auc: 0.770824 + 0.0013431
+[260]	cv_agg's auc: 0.771363 + 0.00126469
+[270]	cv_agg's auc: 0.771964 + 0.00131915
+[280]	cv_agg's auc: 0.772466 + 0.00132608
+[290]	cv_agg's auc: 0.773081 + 0.00143798
+[300]	cv_agg's auc: 0.773525 + 0.00149284
+[310]	cv_agg's auc: 0.773976 + 0.00148671
+[320]	cv_agg's auc: 0.774519 + 0.00149842
+[330]	cv_agg's auc: 0.775068 + 0.00148445
+[340]	cv_agg's auc: 0.77553 + 0.00158207
+[350]	cv_agg's auc: 0.776219 + 0.00161675
+[360]	cv_agg's auc: 0.776597 + 0.00159874
+[370]	cv_agg's auc: 0.777023 + 0.0015586
+[380]	cv_agg's auc: 0.777377 + 0.00161548
+[390]	cv_agg's auc: 0.777757 + 0.00159569
+[400]	cv_agg's auc: 0.778201 + 0.001706
+[410]	cv_agg's auc: 0.778572 + 0.00175793
+[420]	cv_agg's auc: 0.778953 + 0.00182516
+[430]	cv_agg's auc: 0.779327 + 0.00190527
+[440]	cv_agg's auc: 0.779614 + 0.00190191
+[450]	cv_agg's auc: 0.780035 + 0.00193015
+[460]	cv_agg's auc: 0.780315 + 0.00191268
+[470]	cv_agg's auc: 0.780663 + 0.00186018
+[480]	cv_agg's auc: 0.781 + 0.00185558
+[490]	cv_agg's auc: 0.781319 + 0.00183028
+[500]	cv_agg's auc: 0.78168 + 0.00186457
+[510]	cv_agg's auc: 0.781947 + 0.0018809
+[520]	cv_agg's auc: 0.782245 + 0.00189763
+[530]	cv_agg's auc: 0.782515 + 0.00189913
+[540]	cv_agg's auc: 0.782836 + 0.00194582
+[550]	cv_agg's auc: 0.783086 + 0.00191734
+[560]	cv_agg's auc: 0.783304 + 0.00187688
+[570]	cv_agg's auc: 0.783555 + 0.00179365
+[580]	cv_agg's auc: 0.783783 + 0.00176207
+[590]	cv_agg's auc: 0.784044 + 0.00172624
+[600]	cv_agg's auc: 0.784267 + 0.00172524
+[610]	cv_agg's auc: 0.784406 + 0.00171213
+[620]	cv_agg's auc: 0.78468 + 0.00178117
+[630]	cv_agg's auc: 0.784929 + 0.00177254
+[640]	cv_agg's auc: 0.785187 + 0.00176899
+[650]	cv_agg's auc: 0.785372 + 0.00181836
+[660]	cv_agg's auc: 0.785508 + 0.00177396
+[670]	cv_agg's auc: 0.785622 + 0.00179856
+[680]	cv_agg's auc: 0.785836 + 0.00177448
+[690]	cv_agg's auc: 0.785984 + 0.00181032
+[700]	cv_agg's auc: 0.786082 + 0.00181209
+[710]	cv_agg's auc: 0.786242 + 0.00181014
+[720]	cv_agg's auc: 0.786331 + 0.00179924
+[730]	cv_agg's auc: 0.786458 + 0.00175027
+[740]	cv_agg's auc: 0.786607 + 0.00180887
+[750]	cv_agg's auc: 0.786743 + 0.00181513
+[760]	cv_agg's auc: 0.786877 + 0.00180604
+[770]	cv_agg's auc: 0.786996 + 0.00177961
+[780]	cv_agg's auc: 0.787112 + 0.00175755
+[790]	cv_agg's auc: 0.787172 + 0.00171618
+[800]	cv_agg's auc: 0.787227 + 0.0016716
+[810]	cv_agg's auc: 0.787304 + 0.0016817
+[820]	cv_agg's auc: 0.787407 + 0.0016736
+[830]	cv_agg's auc: 0.787516 + 0.00168188
+[840]	cv_agg's auc: 0.787617 + 0.00169447
+[850]	cv_agg's auc: 0.787677 + 0.00169002
+[860]	cv_agg's auc: 0.787781 + 0.00166959
+[870]	cv_agg's auc: 0.787918 + 0.00171868
+[880]	cv_agg's auc: 0.787979 + 0.00173404
+[890]	cv_agg's auc: 0.788071 + 0.0017543
+[900]	cv_agg's auc: 0.788193 + 0.00172526
+[910]	cv_agg's auc: 0.788231 + 0.00169252
+[920]	cv_agg's auc: 0.788297 + 0.00165786
+[930]	cv_agg's auc: 0.788362 + 0.00165395
+[940]	cv_agg's auc: 0.788401 + 0.00165011
+[950]	cv_agg's auc: 0.788478 + 0.00158536
+[960]	cv_agg's auc: 0.788561 + 0.001593
+[970]	cv_agg's auc: 0.788618 + 0.00166549
+[980]	cv_agg's auc: 0.788676 + 0.00162572
+[990]	cv_agg's auc: 0.7887 + 0.00163596
+[1000]	cv_agg's auc: 0.788784 + 0.00160757
+[1010]	cv_agg's auc: 0.788924 + 0.00163959
+[1020]	cv_agg's auc: 0.788958 + 0.00165433
+[1030]	cv_agg's auc: 0.788991 + 0.00163878
+[1040]	cv_agg's auc: 0.789035 + 0.00164728
+[1050]	cv_agg's auc: 0.789041 + 0.00163216
+[1060]	cv_agg's auc: 0.789116 + 0.00162705
+[1070]	cv_agg's auc: 0.789121 + 0.00162083
+[1080]	cv_agg's auc: 0.78913 + 0.0016371
+[1090]	cv_agg's auc: 0.789147 + 0.00163911
+[1100]	cv_agg's auc: 0.789192 + 0.00161967
+[1110]	cv_agg's auc: 0.789241 + 0.00163453
+[1120]	cv_agg's auc: 0.789277 + 0.00164707
+[1130]	cv_agg's auc: 0.789311 + 0.00164552
+[1140]	cv_agg's auc: 0.789334 + 0.00164641
+[1150]	cv_agg's auc: 0.789331 + 0.00161515
+[1160]	cv_agg's auc: 0.789339 + 0.00162484
+[1170]	cv_agg's auc: 0.789346 + 0.00161491
+[1180]	cv_agg's auc: 0.78933 + 0.00163392
+[1190]	cv_agg's auc: 0.78932 + 0.00162455
+[1200]	cv_agg's auc: 0.789325 + 0.00163824
+CV auc-mean 0.7893560168783933
+[LightGBM] [Info] Number of positive: 24825, number of negative: 282686
+[LightGBM] [Info] Total Bins 266180
+[LightGBM] [Info] Number of data: 307511, number of used features: 2414
+sh: 1: gitupdate: not found
+
+#==============================================================================
+# SUCCESS !!! 901_cv_609-1.py
+#==============================================================================
+
+time: 42.79min
