@@ -7,6 +7,7 @@ Created on Sat Jun  9 17:53:41 2018
 """
 
 import gc
+import os
 import pandas as pd
 import sys
 sys.path.append('/home/kazuki_onodera/Python')
@@ -99,6 +100,7 @@ imp = ex.getImp(model)
 
 imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
 
+os.system('gitupdate')
 #==============================================================================
 utils.end(__file__)
 
