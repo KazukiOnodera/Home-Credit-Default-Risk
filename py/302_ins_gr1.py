@@ -54,7 +54,9 @@ base = pd.concat([
                 gr.mean().add_prefix(f'{PREF}_').add_suffix('_mean'),
                 gr.std().add_prefix(f'{PREF}_').add_suffix('_std'),
                 gr.sum().add_prefix(f'{PREF}_').add_suffix('_sum'),
-#                gr.median().add_prefix(f'{PREF}_').add_suffix('_median'),
+                gr.quantile(0.25).add_prefix(f'{PREF}_').add_suffix('_q25'),
+                gr.quantile(0.50).add_prefix(f'{PREF}_').add_suffix('_q50'),
+                gr.quantile(0.75).add_prefix(f'{PREF}_').add_suffix('_q75'),
                 ], axis=1)
 
 

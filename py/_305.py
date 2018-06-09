@@ -4,6 +4,11 @@
 Created on Fri Jun  8 08:00:34 2018
 
 @author: kazuki.onodera
+
+days_weighted_delay
+
+ins = pd.read_csv('/Users/Kazuki/Home-Credit-Default-Risk/py/sample_ins.csv')
+
 """
 
 import os
@@ -32,44 +37,28 @@ ins.drop('SK_ID_PREV', axis=1, inplace=True)
 
 base = ins[[KEY]].drop_duplicates().set_index(KEY)
 
+ins['num'] = 1
+ins['num'] = ins.groupby(KEY)['num'].transform('count') - ins.groupby(KEY)['num'].cumsum()
+
+
 # =============================================================================
 # feature
 # =============================================================================
+feature1 = 'days_weighted_delay'
+ins[feature1] = (ins['AMT_PAYMENT'] / ins['AMT_INSTALMENT']) * ins['days_delayed_payment']
 
-ins['months_installment']   = (ins['DAYS_INSTALMENT'].fillna(1)/30).map(np.floor)
-ins['months_entry_payment'] = (ins['DAYS_ENTRY_PAYMENT'].fillna(1)/30).map(np.floor)
+decay = 0.0001 # decay rate per a day
+feature2 = 'days_weighted_delay_tsw1' # Time Series Weight ver.1
+ins[feature2] = ins[feature1] * (1 + (ins['DAYS_ENTRY_PAYMENT']*decay) )
 
-gr = ins.drop_duplicates(['SK_ID_CURR', 'SK_ID_PREV', 'NUM_INSTALMENT_NUMBER']).groupby(['SK_ID_CURR', 'months_installment'])
-ins_month = gr.size()
-ins_month.name = f'{PREF}_inst_size'
-ins_month = ins_month.to_frame()
-ins_month[f'{PREF}_AMT_INSTALMENT_sum'] = gr['AMT_INSTALMENT'].sum()
-
-gr = ins.groupby(['SK_ID_CURR', 'months_entry_payment'])
-tmp = gr.size()
-tmp.name = f'{PREF}_pay_size'
-ins_month_ = pd.concat([ins_month, tmp], axis=1)
-#ins_month[f'{PREF}_pay_size'] = gr.size()
-ins_month_[f'{PREF}_AMT_PAYMENT_sum'] = gr['AMT_PAYMENT'].sum()
-
-
-
-
-
-
-ins['NUM_INSTALMENT_VERSION_diff'] = ins.groupby(['SK_ID_CURR', 'SK_ID_PREV'])['NUM_INSTALMENT_VERSION'].diff(-1)
-ins['NUM_INSTALMENT_VERSION_dec']  = (ins['NUM_INSTALMENT_VERSION_diff'] < 0)*1
-ins['NUM_INSTALMENT_VERSION_inc']  = (ins['NUM_INSTALMENT_VERSION_diff'] > 0)*1
-
-#ins['NUM_INSTALMENT_NUMBER_diff'] = ins.groupby(['SK_ID_CURR', 'SK_ID_PREV'])['NUM_INSTALMENT_NUMBER'].diff(-1)
-ins['days_delayed_payment_dec-th0']  = (ins['days_delayed_payment'] < 0)*1
-ins['days_delayed_payment_inc-th0']  = (ins['days_delayed_payment'] > 0)*1
-
-def to_decimal(x):
-    x = ''.join(map(str, x))[::-1]
-    return float(x[0] + '.' + x[1:])
-
-
+gr = ins.groupby(KEY)
+feature = feature1
+base[f'{feature}_min'] = gr[feature].min()
+base[f'{feature}_max'] = gr[feature].max()
+base[f'{feature}_mean'] = gr[feature].mean()
+base[f'{feature}_q25'] = gr[feature].quantile(0.25)
+base[f'{feature}_q50'] = gr[feature].quantile(0.5)
+base[f'{feature}_q75'] = gr[feature].quantile(0.75)
 
 
 

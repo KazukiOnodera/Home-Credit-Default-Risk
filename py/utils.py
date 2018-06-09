@@ -1,5 +1,8 @@
 
 """
+gsutil -m cp ../feature/* gs://homecredit_ko
+
+gsutil -m rsync -d -r ../feature gs://homecredit_ko
 
 ../input/POS_CASH_balance.csv.zip: 
     ['SK_ID_PREV', 'SK_ID_CURR', 'MONTHS_BALANCE', 'CNT_INSTALMENT', 
