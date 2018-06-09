@@ -48,8 +48,7 @@ def nunique(x):
 gr = bureau.groupby(KEY)
 
 # stats
-keyname = 'gby-'+KEY
-base[f'{PREF}_{keyname}_size'] = gr.size()
+base[f'{PREF}_{KEY}_size'] = gr.size()
 
 base = pd.concat([
                 base,
