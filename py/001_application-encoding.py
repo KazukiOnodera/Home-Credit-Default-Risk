@@ -13,7 +13,7 @@ import utils
 utils.start(__file__)
 #==============================================================================
 
-PREF = 'apl_001_'
+PREF = 'app_001_'
 
 train = utils.load_train().drop(['SK_ID_CURR', 'TARGET'], axis=1)
 test  = utils.load_test().drop(['SK_ID_CURR'], axis=1)
