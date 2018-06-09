@@ -4,6 +4,8 @@ gsutil -m cp ../feature/* gs://homecredit_ko
 
 gsutil -m rsync -d -r ../feature gs://homecredit_ko
 
+./mc ls gcs/homecredit_ko/
+
 ../input/POS_CASH_balance.csv.zip: 
     ['SK_ID_PREV', 'SK_ID_CURR', 'MONTHS_BALANCE', 'CNT_INSTALMENT', 
     'CNT_INSTALMENT_FUTURE', 'NAME_CONTRACT_STATUS', 'SK_DPD', 'SK_DPD_DEF']
@@ -260,13 +262,13 @@ def reduce_memory(df, ix_start=0):
     gc.collect()
     return
 
-def remove_feature(df, corr_limit=1):
+def remove_feature(df, var_limit=0, corr_limit=1):
     if df.shape[0]>9999:
         df_ = df.sample(9999, random_state=71)
     else:
         df_ = df
     var = df_.var()
-    var0 = var[var==0].index
+    var0 = var[var<=var_limit].index
     print(f'remove var==0: {var0}')
     df.drop(var0, axis=1, inplace=True)
     

@@ -36,6 +36,7 @@ if len(remove_names)>0:
                 folders_.append(j)
     folders = folders_
 
+folders = sorted(glob('../feature/train*.pkl'))
 X = pd.concat([
                 pd.read_pickle(f) for f in (folders)
                ], axis=1)
