@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed Jun  6 17:59:32 2018
+Created on Thu Jun  7 09:54:02 2018
 
-@author: kazuki.onodera
+@author: Kazuki
 """
 
 import os
@@ -15,7 +15,8 @@ import utils
 utils.start(__file__)
 #==============================================================================
 KEY = 'SK_ID_CURR'
-PREF = 'bureau_502'
+No = '504'
+PREF = f'bureau_{No}'
 NTHREAD = 3
 
 
@@ -33,8 +34,9 @@ col_group = ['CREDIT_ACTIVE', 'CREDIT_CURRENCY', 'CREDIT_TYPE']
 # =============================================================================
 bureau = utils.read_pickles('../data/bureau')
 
-bureau = bureau[bureau['DAYS_CREDIT'].between(-365, 0)]
+bureau = bureau[bureau['DAYS_CREDIT_ENDDATE'].between(-365, 0)]
 bureau = utils.get_dummies(bureau)
+
 bureau.drop('SK_ID_BUREAU', axis=1, inplace=True)
 gr = bureau.groupby(KEY)
 
@@ -91,7 +93,6 @@ def multi(p):
 pool = Pool(10)
 pool.map(multi, range(10))
 pool.close()
-
 
 
 #==============================================================================

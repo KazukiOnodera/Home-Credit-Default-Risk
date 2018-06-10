@@ -34,7 +34,7 @@ col_group = ['CREDIT_ACTIVE', 'CREDIT_CURRENCY', 'CREDIT_TYPE']
 # =============================================================================
 bureau = utils.read_pickles('../data/bureau')
 
-bureau = bureau[bureau['DAYS_ENDDATE_FACT']>-365]
+bureau = bureau[bureau['DAYS_ENDDATE_FACT'].between(-365, 0)]
 bureau = utils.get_dummies(bureau)
 bureau.drop('SK_ID_BUREAU', axis=1, inplace=True)
 gr = bureau.groupby(KEY)

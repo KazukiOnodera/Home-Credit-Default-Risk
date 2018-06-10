@@ -25,7 +25,7 @@ NTHREAD = 3
 # =============================================================================
 bureau = utils.read_pickles('../data/bureau')
 
-bureau = bureau[bureau['DAYS_CREDIT_UPDATE']>-365]
+bureau = bureau[bureau['DAYS_CREDIT_UPDATE'].between(-365, 0)]
 bureau = utils.get_dummies(bureau)
 bureau.drop('SK_ID_BUREAU', axis=1, inplace=True)
 gr = bureau.groupby(KEY)

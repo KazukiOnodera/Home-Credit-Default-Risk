@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Thu Jun  7 09:54:02 2018
+Created on Sun Jun 10 22:08:15 2018
 
 @author: Kazuki
 """
@@ -15,7 +15,7 @@ import utils
 utils.start(__file__)
 #==============================================================================
 KEY = 'SK_ID_CURR'
-No = '504'
+No = '509'
 PREF = f'bureau_{No}'
 NTHREAD = 3
 
@@ -34,7 +34,7 @@ col_group = ['CREDIT_ACTIVE', 'CREDIT_CURRENCY', 'CREDIT_TYPE']
 # =============================================================================
 bureau = utils.read_pickles('../data/bureau')
 
-bureau = bureau[bureau['DAYS_CREDIT_ENDDATE']>0]
+bureau = bureau[bureau['DAYS_CREDIT_ENDDATE'].between(0, 365)]
 bureau = utils.get_dummies(bureau)
 
 bureau.drop('SK_ID_BUREAU', axis=1, inplace=True)
@@ -97,5 +97,4 @@ pool.close()
 
 #==============================================================================
 utils.end(__file__)
-
 
