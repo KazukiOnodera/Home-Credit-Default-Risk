@@ -171,7 +171,7 @@ def mkdir_p(path):
 
 def to_feature(df, path):
     for c in df.columns:
-        df[c].to_feather(f'{path}_{c}.f')
+        df[[c]].to_feather(f'{path}_{c}.f')
     return
 
 def to_pickles(df, path, split_size=3, inplace=True):
