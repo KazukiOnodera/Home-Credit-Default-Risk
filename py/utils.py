@@ -269,7 +269,7 @@ def remove_feature(df, var_limit=0, corr_limit=1):
         df_ = df
     var = df_.var()
     var0 = var[var<=var_limit].index
-    print(f'remove var==0: {var0}')
+    print(f'remove var<={var_limit}: {var0}')
     df.drop(var0, axis=1, inplace=True)
     
     corr = df_.corr().abs()
