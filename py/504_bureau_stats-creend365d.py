@@ -58,7 +58,7 @@ def multi(p):
     if p==0:
         feature = gr.size()
         feature.name = f'{PREF}_{KEY}_size'
-        feature.reset_index(inplace=True)
+        feature = feature.reset_index()
     elif p==1:
         feature = gr.min().add_prefix(f'{PREF}_').add_suffix('_min').reset_index()
     elif p==2:
