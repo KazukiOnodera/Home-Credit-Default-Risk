@@ -22,11 +22,15 @@ utils.start(__file__)
 
 SEED = 71
 
-imp_file = 'LOG/imp_901_cv_610-1.py.csv'
+#imp_file = 'LOG/imp_901_cv_610-1.py.csv'
+imp_file = None
 
 #==============================================================================
-imp = pd.read_csv(imp_file).set_index('index')
-remove_names = imp[imp['split']==0].index.tolist()
+if imp_file is None:
+    remove_names = []
+else:
+    imp = pd.read_csv(imp_file).set_index('index')
+    remove_names = imp[imp['split']==0].index.tolist()
 
 folders = sorted(glob('../feature/train*.pkl'))
 folders_ = []
