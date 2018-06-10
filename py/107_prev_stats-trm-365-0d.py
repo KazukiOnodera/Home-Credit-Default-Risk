@@ -27,6 +27,7 @@ prev = utils.read_pickles('../data/previous_application')
 prev = prev[prev['DAYS_TERMINATION'].between(-365, 0)]
 
 prev = utils.get_dummies(prev)
+prev.columns = [c.replace('/', '') for c in prev.columns]
 prev.drop('SK_ID_PREV', axis=1, inplace=True)
 
 base = prev[[KEY]].drop_duplicates().set_index(KEY)

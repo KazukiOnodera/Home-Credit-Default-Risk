@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed Jun  6 15:17:26 2018
+Created on Thu Jun  7 17:41:31 2018
 
 @author: kazuki.onodera
 """
@@ -15,7 +15,7 @@ import utils
 utils.start(__file__)
 #==============================================================================
 KEY = 'SK_ID_CURR'
-No = '302'
+No = '303'
 PREF = f'ins_{No}'
 
 col_num = ['NUM_INSTALMENT_VERSION', 'NUM_INSTALMENT_NUMBER', 'DAYS_INSTALMENT', 
@@ -28,7 +28,7 @@ col_group = ['SK_ID_PREV', 'NUM_INSTALMENT_VERSION', 'NUM_INSTALMENT_NUMBER']
 # feature
 # =============================================================================
 ins = utils.read_pickles('../data/installments_payments')
-ins = ins[ins['DAYS_INSTALMENT']>-365]
+ins = ins[ins['DAYS_ENTRY_PAYMENT'].between(-365, 0)]
 
 ins = utils.get_dummies(ins)
 ins.drop('SK_ID_PREV', axis=1, inplace=True)
