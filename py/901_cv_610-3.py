@@ -8,6 +8,7 @@ Created on Sun Jun 10 23:08:07 2018
 
 
 import gc
+from tqdm import tqdm
 import pandas as pd
 import sys
 sys.path.append('/home/kazuki_onodera/Python')
@@ -16,7 +17,7 @@ import lightgbm as lgb
 import multiprocessing
 from glob import glob
 import utils
-utils.start(__file__)
+#utils.start(__file__)
 #==============================================================================
 
 # setting
@@ -33,18 +34,20 @@ else:
     imp = pd.read_csv(imp_file).set_index('index')
     remove_names = imp[imp['split']==0].index.tolist()
 
-folders = sorted(glob('../feature/train*.pkl'))
-folders_ = []
+files = sorted(glob('../feature/train*.pkl'))
+remove_files = []
 if len(remove_names)>0:
-    for i in remove_names:
-        for j in folders:
+    for i in files:
+        for j in remove_names:
 #            if i not in j:
-            if not j.endswith(i):
-                folders_.append(j)
-    folders = folders_
+            if i.endswith(j):
+                remove_files.append(i)
+                break
+            
+    files = sorted(list( set(files)-set(remove_files) ))
 
 X = pd.concat([
-                pd.read_pickle(f) for f in (folders)
+                pd.read_pickle(f) for f in tqdm(files, miniters=300)
                ], axis=1)
 y = utils.read_pickles('../data/label').TARGET
 
