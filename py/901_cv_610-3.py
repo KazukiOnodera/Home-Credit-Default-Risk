@@ -17,7 +17,7 @@ import lightgbm as lgb
 import multiprocessing
 from glob import glob
 import utils
-#utils.start(__file__)
+utils.start(__file__)
 #==============================================================================
 
 # setting
