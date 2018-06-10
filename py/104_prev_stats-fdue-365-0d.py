@@ -74,10 +74,10 @@ def multi(p):
         return
     
     train_ = pd.merge(train, feature, on=KEY, how='left').drop(KEY, axis=1)
-    utils.to_pickle_each_cols(train_, '../feature/train')
+    utils.to_feature(train_, '../feature/train')
     
     test_ = pd.merge(test, feature, on=KEY, how='left').drop(KEY, axis=1)
-    utils.to_pickle_each_cols(test_,  '../feature/test')
+    utils.to_feature(test_,  '../feature/test')
     
     return
 

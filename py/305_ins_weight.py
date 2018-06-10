@@ -76,13 +76,13 @@ base.reset_index(inplace=True)
 
 train = utils.load_train([KEY])
 train = pd.merge(train, base, on=KEY, how='left').drop(KEY, axis=1)
-utils.to_pickle_each_cols(train, '../feature/train')
+utils.to_feature(train, '../feature/train')
 del train; gc.collect()
 
 
 test = utils.load_test([KEY])
 test = pd.merge(test, base, on=KEY, how='left').drop(KEY, axis=1)
-utils.to_pickle_each_cols(test,  '../feature/test')
+utils.to_feature(test,  '../feature/test')
 
 
 

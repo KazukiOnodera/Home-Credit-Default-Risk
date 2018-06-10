@@ -43,8 +43,8 @@ for c in categorical_features:
     train[c] = le.transform(train[c])
     test[c]  = le.transform(test[c])
 
-utils.to_pickle_each_cols(train.add_prefix(PREF), '../feature/train')
-utils.to_pickle_each_cols(test.add_prefix(PREF),  '../feature/test')
+utils.to_feature(train.add_prefix(PREF), '../feature/train')
+utils.to_feature(test.add_prefix(PREF),  '../feature/test')
 
 #==============================================================================
 utils.end(__file__)

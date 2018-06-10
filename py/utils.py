@@ -164,9 +164,14 @@ def mkdir_p(path):
     except:
         os.mkdir(path)
 
-def to_pickle_each_cols(df, path):
+#def to_pickle_each_cols(df, path):
+#    for c in df.columns:
+#        df[c].to_pickle(f'{path}_{c}.pkl')
+#    return
+
+def to_feature(df, path):
     for c in df.columns:
-        df[c].to_pickle(f'{path}_{c}.pkl')
+        df[c].to_feather(f'{path}_{c}.f')
     return
 
 def to_pickles(df, path, split_size=3, inplace=True):

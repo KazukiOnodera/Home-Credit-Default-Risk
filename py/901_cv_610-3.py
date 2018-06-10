@@ -39,11 +39,11 @@ remove_files = []
 if len(remove_names)>0:
     for i in files:
         for j in remove_names:
-#            if i not in j:
-            if i.endswith(j):
+            if i.endswith(j+'.pkl'):
                 remove_files.append(i)
                 break
-            
+    
+    print(f'remove {len(remove_files)} files')
     files = sorted(list( set(files)-set(remove_files) ))
 
 X = pd.concat([

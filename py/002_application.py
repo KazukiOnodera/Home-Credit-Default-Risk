@@ -80,8 +80,8 @@ test  = df.loc[train.shape[0]:]
 # =============================================================================
 # write
 # =============================================================================
-utils.to_pickle_each_cols(train.add_prefix(PREF), '../feature/train')
-utils.to_pickle_each_cols(test.add_prefix(PREF),  '../feature/test')
+utils.to_feature(train.add_prefix(PREF), '../feature/train')
+utils.to_feature(test.add_prefix(PREF),  '../feature/test')
 
 
 
