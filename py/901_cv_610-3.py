@@ -47,7 +47,7 @@ if len(remove_names)>0:
     files = sorted(list( set(files)-set(remove_files) ))
 
 X = pd.concat([
-                pd.read_pickle(f) for f in tqdm(files, miniters=300)
+                pd.read_pickle(f) for f in tqdm(files, mininterval=30)
                ], axis=1)
 y = utils.read_pickles('../data/label').TARGET
 
