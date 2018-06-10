@@ -35,15 +35,25 @@ df['EMERGENCYSTATE_MODE'] = (df['EMERGENCYSTATE_MODE']=='Yes')*1
 utils.to_pickles(df, '../data/test', utils.SPLIT_SIZE)
 df[['SK_ID_CURR']].to_pickle('../data/sub.p')
 
-
+# =============================================================================
+# prev
+# =============================================================================
 df = pd.read_csv('../input/previous_application.csv.zip')
 df['FLAG_LAST_APPL_PER_CONTRACT'] = (df['FLAG_LAST_APPL_PER_CONTRACT']=='Y')*1
-#for c in ['DAYS_FIRST_DRAWING', 'DAYS_FIRST_DUE', 'DAYS_LAST_DUE_1ST_VERSION', 
-#          'DAYS_LAST_DUE', 'DAYS_TERMINATION']:
-#    df.loc[df[c]==365243, c] = np.nan
+for c in ['DAYS_FIRST_DRAWING', 'DAYS_FIRST_DUE', 'DAYS_LAST_DUE_1ST_VERSION', 
+          'DAYS_LAST_DUE', 'DAYS_TERMINATION']:
+    c_ = c + '_without_365243'
+    df[c_] = df[c]
+    df.loc[df[c_]==365243, c_] = np.nan
+df['amt_cre-by-app'] = df['AMT_CREDIT'] / df['AMT_APPLICATION']
+df['amt_ann-by-app'] = df['AMT_ANNUITY'] / df['AMT_CREDIT']
+
 utils.to_pickles(df, '../data/previous_application', utils.SPLIT_SIZE)
 
 
+# =============================================================================
+# 
+# =============================================================================
 df = pd.read_csv('../input/POS_CASH_balance.csv.zip')
 utils.to_pickles(df, '../data/POS_CASH_balance', utils.SPLIT_SIZE)
 
