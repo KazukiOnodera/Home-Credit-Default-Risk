@@ -36,7 +36,13 @@ col_group = ['CREDIT_ACTIVE', 'CREDIT_CURRENCY', 'CREDIT_TYPE']
 # =============================================================================
 bureau = utils.get_dummies(utils.read_pickles('../data/bureau'))
 
-base = bureau[[KEY]].drop_duplicates().set_index(KEY)
+bureau.drop('SK_ID_BUREAU', axis=1, inplace=True)
+gr = bureau.groupby(KEY)
+
+train = utils.load_train([KEY])
+
+test = utils.load_test([KEY])
+
 
 
 def nunique(x):
@@ -45,39 +51,47 @@ def nunique(x):
 # =============================================================================
 # gr1
 # =============================================================================
-gr = bureau.groupby(KEY)
 
-# stats
-base[f'{PREF}_{KEY}_size'] = gr.size()
-
-base = pd.concat([
-                base,
-                gr.min().add_prefix(f'{PREF}_').add_suffix('_min'),
-                gr.max().add_prefix(f'{PREF}_').add_suffix('_max'),
-                gr.mean().add_prefix(f'{PREF}_').add_suffix('_mean'),
-                gr.std().add_prefix(f'{PREF}_').add_suffix('_std'),
-                gr.sum().add_prefix(f'{PREF}_').add_suffix('_sum'),
-                gr.quantile(0.25).add_prefix(f'{PREF}_').add_suffix('_q25'),
-                gr.quantile(0.50).add_prefix(f'{PREF}_').add_suffix('_q50'),
-                gr.quantile(0.75).add_prefix(f'{PREF}_').add_suffix('_q75'),
-                ], axis=1)
-
+def multi(p):
+    
+    if p==0:
+        feature = gr.size()
+        feature.name = f'{PREF}_{KEY}_size'
+        feature.reset_index(inplace=True)
+    elif p==1:
+        feature = gr.min().add_prefix(f'{PREF}_').add_suffix('_min').reset_index()
+    elif p==2:
+        feature = gr.max().add_prefix(f'{PREF}_').add_suffix('_max').reset_index()
+    elif p==3:
+        feature = gr.mean().add_prefix(f'{PREF}_').add_suffix('_mean').reset_index()
+    elif p==4:
+        feature = gr.std().add_prefix(f'{PREF}_').add_suffix('_std').reset_index()
+    elif p==5:
+        feature = gr.sum().add_prefix(f'{PREF}_').add_suffix('_sum').reset_index()
+    elif p==6:
+        feature = gr.quantile(0.25).add_prefix(f'{PREF}_').add_suffix('_q25').reset_index()
+    elif p==7:
+        feature = gr.quantile(0.50).add_prefix(f'{PREF}_').add_suffix('_q50').reset_index()
+    elif p==8:
+        feature = gr.quantile(0.75).add_prefix(f'{PREF}_').add_suffix('_q75').reset_index()
+    else:
+        return
+    
+    train_ = pd.merge(train, feature, on=KEY, how='left').drop(KEY, axis=1)
+    utils.to_pickle_each_cols(train_, '../feature/train')
+    
+    test_ = pd.merge(test, feature, on=KEY, how='left').drop(KEY, axis=1)
+    utils.to_pickle_each_cols(test_,  '../feature/test')
+    
+    return
 
 
 # =============================================================================
-# merge
+# main
 # =============================================================================
-base.reset_index(inplace=True)
-
-train = utils.load_train([KEY])
-train = pd.merge(train, base, on=KEY, how='left').drop(KEY, axis=1)
-utils.to_pickle_each_cols(train, '../feature/train')
-del train; gc.collect()
-
-
-test = utils.load_test([KEY])
-test = pd.merge(test, base, on=KEY, how='left').drop(KEY, axis=1)
-utils.to_pickle_each_cols(test,  '../feature/test')
+pool = Pool(10)
+pool.map(multi, range(10))
+pool.close()
 
 
 
