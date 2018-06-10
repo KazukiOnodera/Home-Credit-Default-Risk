@@ -8,4 +8,5 @@ external/
 py/.ipynb_checkpoints
 py/*.model
 py/*.p
+py/__pycache__/*
 py/~$*.xls*
