@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed Jun  6 13:37:59 2018
+Created on Sun Jun 10 21:18:29 2018
 
-@author: kazuki.onodera
+@author: Kazuki
 """
 
 import pandas as pd
@@ -16,7 +16,7 @@ utils.start(__file__)
 #==============================================================================
 
 KEY = 'SK_ID_CURR'
-PREF = 'prev_102'
+PREF = 'prev_103'
 
 
 # =============================================================================
@@ -24,7 +24,7 @@ PREF = 'prev_102'
 # =============================================================================
 prev = utils.read_pickles('../data/previous_application')
 
-prev = prev[prev['NAME_CONTRACT_STATUS']=='Refused']
+prev = prev[prev['DAYS_FIRST_DRAWING'].between(-365, 0)]
 
 prev = utils.get_dummies(prev)
 prev.drop('SK_ID_PREV', axis=1, inplace=True)
@@ -88,9 +88,9 @@ pool.map(multi, range(10))
 pool.close()
 
 
-
-
 #==============================================================================
 utils.end(__file__)
+
+
 
 

@@ -40,13 +40,37 @@ df[['SK_ID_CURR']].to_pickle('../data/sub.p')
 # =============================================================================
 df = pd.read_csv('../input/previous_application.csv.zip')
 df['FLAG_LAST_APPL_PER_CONTRACT'] = (df['FLAG_LAST_APPL_PER_CONTRACT']=='Y')*1
+
 for c in ['DAYS_FIRST_DRAWING', 'DAYS_FIRST_DUE', 'DAYS_LAST_DUE_1ST_VERSION', 
           'DAYS_LAST_DUE', 'DAYS_TERMINATION']:
     c_ = c + '_without_365243'
     df[c_] = df[c]
     df.loc[df[c_]==365243, c_] = np.nan
+
+df['days_fdue-fdrw'] = df['DAYS_FIRST_DUE_without_365243'] - df['DAYS_FIRST_DRAWING_without_365243']
+df['days_ldue1-fdrw'] = df['DAYS_LAST_DUE_1ST_VERSION_without_365243'] - df['DAYS_FIRST_DRAWING_without_365243']
+df['days_ldue-fdrw'] = df['DAYS_LAST_DUE_without_365243'] - df['DAYS_FIRST_DRAWING_without_365243']
+df['days_trm-fdrw'] = df['DAYS_TERMINATION_without_365243'] - df['DAYS_FIRST_DRAWING_without_365243']
+
+df['days_ldue1-fdue'] = df['DAYS_LAST_DUE_1ST_VERSION_without_365243'] - df['DAYS_FIRST_DUE_without_365243']
+df['days_ldue-fdue'] = df['DAYS_LAST_DUE_without_365243'] - df['DAYS_FIRST_DUE_without_365243']
+df['days_trm-fdue'] = df['DAYS_TERMINATION_without_365243'] - df['DAYS_FIRST_DUE_without_365243']
+
+df['days_ldue-ldue1'] = df['DAYS_LAST_DUE_without_365243'] - df['DAYS_LAST_DUE_1ST_VERSION_without_365243']
+df['days_trm-ldue1'] = df['DAYS_TERMINATION_without_365243'] - df['DAYS_LAST_DUE_1ST_VERSION_without_365243']
+
+df['days_trm-ldue'] = df['DAYS_TERMINATION_without_365243'] - df['DAYS_LAST_DUE_without_365243']
+
+
 df['amt_cre-by-app'] = df['AMT_CREDIT'] / df['AMT_APPLICATION']
 df['amt_ann-by-app'] = df['AMT_ANNUITY'] / df['AMT_CREDIT']
+df['amt_dwn-by-ann'] = df['AMT_DOWN_PAYMENT'] / df['AMT_ANNUITY']
+df['amt_dwn-by-app'] = df['AMT_DOWN_PAYMENT'] / df['AMT_APPLICATION']
+df['amt_dwn-by-cre'] = df['AMT_DOWN_PAYMENT'] / df['AMT_CREDIT']
+df['amt_gds-by-ann'] = df['AMT_GOODS_PRICE'] / df['AMT_ANNUITY']
+df['amt_gds-by-app'] = df['AMT_GOODS_PRICE'] / df['AMT_APPLICATION']
+df['amt_gds-by-cre'] = df['AMT_GOODS_PRICE'] / df['AMT_CREDIT']
+df['amt_dwn-by-gds'] = df['AMT_DOWN_PAYMENT'] / df['AMT_GOODS_PRICE']
 
 utils.to_pickles(df, '../data/previous_application', utils.SPLIT_SIZE)
 
