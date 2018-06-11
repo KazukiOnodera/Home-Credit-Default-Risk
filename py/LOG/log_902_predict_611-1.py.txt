@@ -1,0 +1,38 @@
+
+#==============================================================================
+# START!!! 902_predict_611-1.py    PID: 15322    time: 2018-06-11 14:55:50.639495
+#==============================================================================
+
+All files are exist :)
+seed: 71
+remove 4244 files
+read 5217 files
+  0%|          | 0/5217 [00:00<?, ?it/s] 28%|██▊       | 1458/5217 [01:40<04:17, 14.58it/s] 28%|██▊       | 1458/5217 [01:50<04:43, 13.24it/s] 58%|█████▊    | 3039/5217 [03:20<02:23, 15.19it/s] 58%|█████▊    | 3039/5217 [03:30<02:30, 14.46it/s] 89%|████████▉ | 4658/5217 [05:00<00:36, 15.52it/s] 89%|████████▉ | 4658/5217 [05:10<00:37, 15.01it/s]100%|██████████| 5217/5217 [05:40<00:00, 15.31it/s]
+  0%|          | 0/20 [00:00<?, ?it/s] 25%|██▌       | 5/20 [00:00<00:00, 40.12it/s] 45%|████▌     | 9/20 [00:00<00:00, 37.09it/s] 80%|████████  | 16/20 [00:00<00:00, 46.04it/s]100%|██████████| 20/20 [00:00<00:00, 52.06it/s]
+no dup :) 
+X_train.shape (307511, 5217)
+[LightGBM] [Info] Number of positive: 24825, number of negative: 282686
+[LightGBM] [Info] Total Bins 781458
+[LightGBM] [Info] Number of data: 307511, number of used features: 5217
+[LightGBM] [Info] Number of positive: 24825, number of negative: 282686
+[LightGBM] [Info] Total Bins 781458
+[LightGBM] [Info] Number of data: 307511, number of used features: 5217
+[LightGBM] [Info] Number of positive: 24825, number of negative: 282686
+[LightGBM] [Info] Total Bins 781458
+[LightGBM] [Info] Number of data: 307511, number of used features: 5217
+[LightGBM] [Info] Number of positive: 24825, number of negative: 282686
+[LightGBM] [Info] Total Bins 781458
+[LightGBM] [Info] Number of data: 307511, number of used features: 5217
+[LightGBM] [Info] Number of positive: 24825, number of negative: 282686
+[LightGBM] [Info] Total Bins 781458
+[LightGBM] [Info] Number of data: 307511, number of used features: 5217
+remove 4244 files
+read 5217 files
+  0%|          | 0/5217 [00:00<?, ?it/s] 58%|█████▊    | 3040/5217 [01:40<01:11, 30.40it/s] 58%|█████▊    | 3040/5217 [01:50<01:18, 27.61it/s]100%|██████████| 5217/5217 [02:36<00:00, 33.31it/s]
+submit
+Successfully submitted to Home Credit Default Risk
+#==============================================================================
+# SUCCESS !!! 902_predict_611-1.py
+#==============================================================================
+
+time: 144.02min
