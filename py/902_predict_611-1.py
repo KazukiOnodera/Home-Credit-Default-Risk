@@ -22,7 +22,7 @@ utils.start(__file__)
 
 SEED = 71
 
-LOOP = 3
+LOOP = 5
 
 NROUND = 2000
 
@@ -32,7 +32,7 @@ COMMENT = 'r2000'
 
 EXE_SUBMIT = True
 
-imp_file = 'LOG/imp_901_cv_610-3.py.csv'
+imp_file = 'LOG/imp_901_cv_611-1.py.csv'
 
 param = {
          'objective': 'binary',
