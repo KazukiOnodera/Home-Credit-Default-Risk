@@ -74,8 +74,8 @@ df['DAYS_LAST_PHONE_CHANGE-DAYS_ID_PUBLISH']   = df['DAYS_LAST_PHONE_CHANGE'] - 
 
 df.drop(col_init, axis=1, inplace=True)
 
-train = df.loc[:train.shape[0]-1]
-test  = df.loc[train.shape[0]:]
+train = df.loc[:train.shape[0]-1].reset_index(drop=True)
+test  = df.loc[train.shape[0]:].reset_index(drop=True)
 
 # =============================================================================
 # write
