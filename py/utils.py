@@ -301,6 +301,28 @@ def load_test(col=None):
     else:
         return read_pickles('../data/test', col)
 
+def check_feature():
+    
+    sw = False
+    files = sorted(glob('../feature/train*.f'))
+    for f in files:
+        path = f.replace('train_', 'test_')
+        if not os.path.isfile(path):
+            print(f)
+            sw = True
+    
+    files = sorted(glob('../feature/test*.f'))
+    for f in files:
+        path = f.replace('test_', 'train_')
+        if not os.path.isfile(path):
+            print(f)
+            sw = True
+    
+    if sw:
+        raise Exception('Miising file :(')
+    else:
+        print('All files are exist :)')
+
 # =============================================================================
 # 
 # =============================================================================
