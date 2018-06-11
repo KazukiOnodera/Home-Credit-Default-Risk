@@ -1,0 +1,37 @@
+
+#==============================================================================
+# START!!! 902_predict_610-3.py    PID: 44483    time: 2018-06-11 00:50:42.497725
+#==============================================================================
+
+seed: 71
+remove 6411 files
+read 8238 files
+  0%|          | 0/8238 [00:00<?, ?it/s] 15%|█▍        | 1211/8238 [01:40<09:40, 12.11it/s] 15%|█▍        | 1211/8238 [01:50<10:38, 11.00it/s] 32%|███▏      | 2597/8238 [03:20<07:14, 12.98it/s] 32%|███▏      | 2597/8238 [03:30<07:36, 12.35it/s] 53%|█████▎    | 4344/8238 [05:00<04:29, 14.48it/s] 53%|█████▎    | 4344/8238 [05:10<04:38, 14.00it/s] 66%|██████▌   | 5414/8238 [06:40<03:28, 13.53it/s] 66%|██████▌   | 5414/8238 [06:50<03:34, 13.19it/s] 79%|███████▉  | 6505/8238 [08:20<02:13, 13.00it/s] 79%|███████▉  | 6505/8238 [08:30<02:16, 12.74it/s] 92%|█████████▏| 7565/8238 [10:00<00:53, 12.60it/s] 92%|█████████▏| 7565/8238 [10:10<00:54, 12.39it/s]100%|██████████| 8238/8238 [10:57<00:00, 12.53it/s]
+  0%|          | 0/20 [00:00<?, ?it/s] 20%|██        | 4/20 [00:00<00:00, 30.37it/s] 50%|█████     | 10/20 [00:00<00:00, 42.27it/s]100%|██████████| 20/20 [00:00<00:00, 54.17it/s]
+no dup :) 
+X_train.shape (307511, 8238)
+[LightGBM] [Info] Number of positive: 24825, number of negative: 282686
+[LightGBM] [Info] Total Bins 1090221
+[LightGBM] [Info] Number of data: 307511, number of used features: 8238
+[LightGBM] [Info] Number of positive: 24825, number of negative: 282686
+[LightGBM] [Info] Total Bins 1090221
+[LightGBM] [Info] Number of data: 307511, number of used features: 8238
+[LightGBM] [Info] Number of positive: 24825, number of negative: 282686
+[LightGBM] [Info] Total Bins 1090221
+[LightGBM] [Info] Number of data: 307511, number of used features: 8238
+[LightGBM] [Info] Number of positive: 24825, number of negative: 282686
+[LightGBM] [Info] Total Bins 1090221
+[LightGBM] [Info] Number of data: 307511, number of used features: 8238
+[LightGBM] [Info] Number of positive: 24825, number of negative: 282686
+[LightGBM] [Info] Total Bins 1090221
+[LightGBM] [Info] Number of data: 307511, number of used features: 8238
+remove 6411 files
+read 8238 files
+  0%|          | 0/8238 [00:00<?, ?it/s] 36%|███▋      | 2991/8238 [01:40<02:55, 29.89it/s] 36%|███▋      | 2991/8238 [01:50<03:13, 27.16it/s] 72%|███████▏  | 5907/8238 [03:20<01:18, 29.52it/s] 72%|███████▏  | 5907/8238 [03:30<01:22, 28.10it/s]100%|██████████| 8238/8238 [04:53<00:00, 28.06it/s]
+submit
+Successfully submitted to Home Credit Default Risk
+#==============================================================================
+# SUCCESS !!! 902_predict_610-3.py
+#==============================================================================
+
+time: 178.76min
