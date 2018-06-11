@@ -9,6 +9,7 @@ Created on Mon Jun 11 09:05:47 2018
 
 import numpy as np
 import pandas as pd
+from tqdm import tqdm
 import sys
 sys.path.append('/home/kazuki_onodera/Python')
 import lgbmextension as ex
@@ -17,7 +18,7 @@ import lightgbm as lgb
 import multiprocessing
 import gc
 import utils
-#utils.start(__file__)
+utils.start(__file__)
 #==============================================================================
 
 SEED = 71
@@ -92,7 +93,7 @@ if len(remove_names)>0:
 
 
 X_train = pd.concat([
-                pd.read_feather(f) for f in (files)
+                pd.read_feather(f) for f in tqdm(files, mininterval=100)
                 ], axis=1)
 y_train = utils.read_pickles('../data/label').TARGET
 
@@ -148,7 +149,7 @@ if len(remove_names)>0:
     print(f'read {len(files)} files')
 
 dtest = pd.concat([
-                pd.read_feather(f) for f in (files)
+                pd.read_feather(f) for f in tqdm(files, mininterval=100)
                 ], axis=1)
 
 sub = pd.read_pickle('../data/sub.p')
