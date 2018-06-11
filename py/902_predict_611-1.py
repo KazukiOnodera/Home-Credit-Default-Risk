@@ -1,59 +1,38 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Mon Jun 11 20:25:05 2018
+Created on Mon Jun 11 20:48:51 2018
 
 @author: Kazuki
 """
-import gc
-from tqdm import tqdm
+
+import numpy as np
 import pandas as pd
+from tqdm import tqdm
 import sys
 sys.path.append('/home/kazuki_onodera/Python')
 import lgbmextension as ex
+from glob import glob
 import lightgbm as lgb
 import multiprocessing
-from glob import glob
+import gc
 import utils
 utils.start(__file__)
 #==============================================================================
 
-# setting
-
 SEED = 71
 
-#imp_file = 'LOG/imp_901_cv_610-2.py.csv'
-imp_file = None
+LOOP = 3
 
-#==============================================================================
-if imp_file is None:
-    remove_names = []
-else:
-    imp = pd.read_csv(imp_file).set_index('index')
-    remove_names = imp[imp['split']==0].index.tolist()
+NROUND = 2000
 
-files = sorted(glob('../feature/train*.pkl'))
-remove_files = []
-if len(remove_names)>0:
-    for i in files:
-        for j in remove_names:
-            if i.endswith(j+'.pkl'):
-                remove_files.append(i)
-                break
-    
-    print(f'remove {len(remove_files)} files')
-    files = sorted(list( set(files)-set(remove_files) ))
+SUBMIT_FILE_PATH = '../output/611-1.csv.gz'
 
-X = pd.concat([
-                pd.read_pickle(f) for f in tqdm(files, mininterval=100)
-               ], axis=1)
-y = utils.read_pickles('../data/label').TARGET
+COMMENT = 'r2000'
 
+EXE_SUBMIT = True
 
-if X.columns.duplicated().sum()>0:
-    raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
-print('no dup :) ')
-print(f'X.shape {X.shape}')
+imp_file = 'LOG/imp_901_cv_610-3.py.csv'
 
 param = {
          'objective': 'binary',
@@ -67,9 +46,7 @@ param = {
          'nthread': multiprocessing.cpu_count(),
          'bagging_freq': 1,
 #         'verbose':-1,
-         'seed': SEED
          }
-
 
 categorical_feature = ['app_001_NAME_CONTRACT_TYPE',
                      'app_001_CODE_GENDER',
@@ -88,23 +65,118 @@ categorical_feature = ['app_001_NAME_CONTRACT_TYPE',
                      'app_001_WALLSMATERIAL_MODE',
                      'app_001_EMERGENCYSTATE_MODE']
 
+# =============================================================================
+# train
+# =============================================================================
+utils.check_feature()
 
-dtrain = lgb.Dataset(X, y, categorical_feature=list( set(X.columns)&set(categorical_feature)) )
+
+print(f'seed: {SEED}')
+np.random.seed(SEED)
+
+if imp_file is None:
+    remove_names = []
+else:
+    imp = pd.read_csv(imp_file).set_index('index')
+    remove_names = imp[imp['split']==0].index.tolist()
+
+files = sorted(glob('../feature/train*.f'))
+remove_files = []
+if len(remove_names)>0:
+    for i in files:
+        for j in remove_names:
+            if i.endswith(j+'.f'):
+                remove_files.append(i)
+                break
+    
+    print(f'remove {len(remove_files)} files')
+    files = sorted(list( set(files)-set(remove_files) ))
+    print(f'read {len(files)} files')
+
+
+X_train = pd.concat([
+                pd.read_feather(f) for f in tqdm(files, mininterval=100)
+                ], axis=1)
+y_train = utils.read_pickles('../data/label').TARGET
+
+if X_train.columns.duplicated().sum()>0:
+    raise Exception(f'duplicated!: { X_train.columns[X_train.columns.duplicated()] }')
+print('no dup :) ')
+print(f'X_train.shape {X_train.shape}')
+
+dtrain = lgb.Dataset(X_train, y_train, 
+                     categorical_feature=categorical_feature)
+COL = X_train.columns.tolist()
+del X_train, y_train; gc.collect()
+
+
+
+models = []
+for i in range(LOOP):
+    gc.collect()
+    param.update({'seed':np.random.randint(9999)})
+    model = lgb.train(param, dtrain, NROUND,
+                      categorical_feature=categorical_feature)
+    model.save_model(f'lgb{i}.model')
+    models.append(model)
+    
+del dtrain; gc.collect()
+
+"""
+
+models = []
+for i in range(LOOP):
+    bst = lgb.Booster(model_file=f'lgb{i}.model')
+    models.append(bst)
+
+imp = ex.getImp(models)
+
+"""
+
+
+# =============================================================================
+# test
+# =============================================================================
+files = sorted(glob('../feature/test*.f'))
+remove_files = []
+if len(remove_names)>0:
+    for i in files:
+        for j in remove_names:
+            if i.endswith(j+'.f'):
+                remove_files.append(i)
+                break
+    
+    print(f'remove {len(remove_files)} files')
+    files = sorted(list( set(files)-set(remove_files) ))
+    print(f'read {len(files)} files')
+
+dtest = pd.concat([
+                pd.read_feather(f) for f in tqdm(files, mininterval=100)
+                ], axis=1)[COL]
+
+sub = pd.read_pickle('../data/sub.p')
+
 gc.collect()
 
-ret = lgb.cv(param, dtrain, 9999, nfold=5,
-             early_stopping_rounds=50, verbose_eval=10,
-             seed=SEED)
-print(f"CV auc-mean {ret['auc-mean'][-1]}")
+label_name = 'TARGET'
 
+sub[label_name] = 0
+for model in models:
+    y_pred = model.predict(dtest)
+    sub[label_name] += pd.Series(y_pred).rank()
+sub[label_name] /= LOOP
+sub[label_name] /= sub[label_name].max()
+sub['SK_ID_CURR'] = sub['SK_ID_CURR'].map(int)
 
-dtrain = lgb.Dataset(X, y, categorical_feature=list( set(X.columns)&set(categorical_feature)) )
-model = lgb.train(param, dtrain, len(ret['auc-mean']))
+sub.to_csv(SUBMIT_FILE_PATH, index=False, compression='gzip')
 
-imp = ex.getImp(model)
+# =============================================================================
+# submission
+# =============================================================================
+if EXE_SUBMIT:
+    print('submit')
+    utils.submit(SUBMIT_FILE_PATH, COMMENT)
 
-
-imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
 
 #==============================================================================
 utils.end(__file__)
