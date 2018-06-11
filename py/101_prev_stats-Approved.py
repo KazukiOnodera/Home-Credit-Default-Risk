@@ -21,7 +21,11 @@ PREF = 'prev_101'
 # =============================================================================
 # feature
 # =============================================================================
-prev = utils.get_dummies(utils.read_pickles('../data/previous_application'))
+prev = utils.read_pickles('../data/previous_application')
+
+prev = prev[prev['NAME_CONTRACT_STATUS']=='Approved']
+
+prev = utils.get_dummies(prev)
 prev.columns = [c.replace('/', '') for c in prev.columns]
 prev.drop('SK_ID_PREV', axis=1, inplace=True)
 
