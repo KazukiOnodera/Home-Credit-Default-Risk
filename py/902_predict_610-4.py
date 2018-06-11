@@ -68,6 +68,9 @@ categorical_feature = ['app_001_NAME_CONTRACT_TYPE',
 # =============================================================================
 # train
 # =============================================================================
+utils.check_feature()
+
+
 print(f'seed: {SEED}')
 np.random.seed(SEED)
 
