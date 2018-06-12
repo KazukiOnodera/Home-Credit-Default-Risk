@@ -321,7 +321,7 @@ def check_feature():
     if sw:
         raise Exception('Miising file :(')
     else:
-        print('All files are exist :)')
+        print('All files exist :)')
 
 # =============================================================================
 # 
