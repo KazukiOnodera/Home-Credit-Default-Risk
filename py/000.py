@@ -112,7 +112,10 @@ df['AMT_CREDIT-dby-AMT_APPLICATION'] = df['AMT_CREDIT'] / df['AMT_APPLICATION']
 df['remain_year'] = df['AMT_CREDIT-dby-AMT_ANNUITY'] + (df['DAYS_FIRST_DUE']/365) # TODO: DAYS_FIRST_DUE?
 df['remain_debt'] = df['remain_year'] * df['AMT_ANNUITY']
 df.loc[df['remain_debt']<0, 'remain_debt'] = np.nan # TODO: np.nan?
-
+df['completed'] = (df['remain_year'] < 0)*1
+df['elapsed_year'] = np.nan
+df.loc[df['remain_year']<0, 'elapsed_year'] = df.loc[df['remain_year']<0]
+df.loc[df['remain_year']<0, 'remain_year'] = np.nan
 
 
 utils.to_pickles(df, '../data/previous_application', utils.SPLIT_SIZE)
