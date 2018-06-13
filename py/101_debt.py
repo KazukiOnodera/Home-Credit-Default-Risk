@@ -25,7 +25,8 @@ gr = prev.groupby(KEY)
 
 base = gr['remain_debt'].sum()
 base.name = 'remain_debt_sum'
-base[''] = gr.size()
+base = base.to_frame()
+base['remain_debt_mean'] = gr['remain_debt'].mean()
 
 
 

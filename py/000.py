@@ -113,7 +113,7 @@ df['AMT_CREDIT-dby-AMT_APPLICATION'] = df['AMT_CREDIT'] / df['AMT_APPLICATION']
 
 df['remain_year'] = df['AMT_CREDIT-dby-AMT_ANNUITY'] + (df['DAYS_FIRST_DUE']/365) # TODO: DAYS_FIRST_DUE?
 df['remain_debt'] = df['remain_year'] * df['AMT_ANNUITY']
-df.loc[df['remain_debt']<0, 'remain_debt'] = 0
+df.loc[df['remain_debt']<0, 'remain_debt'] = np.nan # TODO: np.nan?
 
 
 
