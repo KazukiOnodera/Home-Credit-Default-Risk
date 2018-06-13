@@ -1,17 +1,0 @@
-
-#==============================================================================
-# START!!! 002_application.py    PID: 11018    time: 2018-06-10 23:23:04.118461
-#==============================================================================
-
-  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:00<00:06,  2.71it/s] 10%|█         | 2/20 [00:00<00:05,  3.21it/s] 15%|█▌        | 3/20 [00:00<00:04,  3.54it/s] 20%|██        | 4/20 [00:01<00:04,  3.84it/s] 25%|██▌       | 5/20 [00:01<00:03,  4.14it/s] 30%|███       | 6/20 [00:01<00:03,  4.48it/s] 35%|███▌      | 7/20 [00:01<00:02,  4.58it/s] 40%|████      | 8/20 [00:01<00:02,  4.84it/s] 45%|████▌     | 9/20 [00:01<00:02,  4.89it/s] 50%|█████     | 10/20 [00:01<00:01,  5.04it/s] 55%|█████▌    | 11/20 [00:02<00:01,  4.70it/s] 65%|██████▌   | 13/20 [00:02<00:01,  4.87it/s] 70%|███████   | 14/20 [00:02<00:01,  4.83it/s] 75%|███████▌  | 15/20 [00:03<00:01,  4.95it/s] 80%|████████  | 16/20 [00:03<00:00,  4.87it/s] 85%|████████▌ | 17/20 [00:03<00:00,  4.91it/s] 90%|█████████ | 18/20 [00:03<00:00,  4.99it/s] 95%|█████████▌| 19/20 [00:03<00:00,  5.00it/s]100%|██████████| 20/20 [00:03<00:00,  5.01it/s]
-  0%|          | 0/20 [00:00<?, ?it/s] 35%|███▌      | 7/20 [00:00<00:00, 38.93it/s] 65%|██████▌   | 13/20 [00:00<00:00, 32.59it/s] 85%|████████▌ | 17/20 [00:00<00:00, 33.14it/s]100%|██████████| 20/20 [00:00<00:00, 29.13it/s]
-Traceback (most recent call last):
-  File "002_application.py", line 84, in <module>
-    utils.to_feature(test.add_prefix(PREF),  '../feature/test')
-  File "/home/kazuki_onodera/Home-Credit-Default-Risk/py/utils.py", line 174, in to_feature
-    df[[c]].to_feather(f'{path}_{c}.f')
-  File "/home/kazuki_onodera/anaconda3/lib/python3.6/site-packages/pandas/core/frame.py", line 1625, in to_feather
-    to_feather(self, fname)
-  File "/home/kazuki_onodera/anaconda3/lib/python3.6/site-packages/pandas/io/feather_format.py", line 67, in to_feather
-    raise ValueError("feather does not support serializing a "
-ValueError: feather does not support serializing a non-default index for the index; you can .reset_index() to make the index into column(s)

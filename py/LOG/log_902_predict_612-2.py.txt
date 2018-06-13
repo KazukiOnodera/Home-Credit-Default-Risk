@@ -20,3 +20,19 @@ X_train.shape (307511, 7091)
 [LightGBM] [Info] Number of positive: 24825, number of negative: 282686
 [LightGBM] [Info] Total Bins 801564
 [LightGBM] [Info] Number of data: 307511, number of used features: 6913
+[LightGBM] [Info] Number of positive: 24825, number of negative: 282686
+[LightGBM] [Info] Total Bins 801564
+[LightGBM] [Info] Number of data: 307511, number of used features: 6913
+[LightGBM] [Info] Number of positive: 24825, number of negative: 282686
+[LightGBM] [Info] Total Bins 801564
+[LightGBM] [Info] Number of data: 307511, number of used features: 6913
+remove 402 files
+read 7091 files
+  0%|          | 0/7091 [00:00<?, ?it/s] 46%|████▌     | 3262/7091 [01:40<01:57, 32.61it/s] 46%|████▌     | 3262/7091 [01:50<02:09, 29.62it/s]100%|██████████| 7091/7091 [02:59<00:00, 39.60it/s]
+submit
+Successfully submitted to Home Credit Default Risk
+#==============================================================================
+# SUCCESS !!! 902_predict_612-2.py
+#==============================================================================
+
+time: 177.82min
