@@ -87,23 +87,21 @@ df['FLAG_LAST_APPL_PER_CONTRACT'] = (df['FLAG_LAST_APPL_PER_CONTRACT']=='Y')*1
 
 for c in ['DAYS_FIRST_DRAWING', 'DAYS_FIRST_DUE', 'DAYS_LAST_DUE_1ST_VERSION', 
           'DAYS_LAST_DUE', 'DAYS_TERMINATION']:
-    c_ = c + '_without_365243'
-    df[c_] = df[c]
-    df.loc[df[c_]==365243, c_] = np.nan
+    df.loc[df[c]==365243, c] = np.nan
 
-df['days_fdue-m-fdrw'] = df['DAYS_FIRST_DUE_without_365243'] - df['DAYS_FIRST_DRAWING_without_365243']
-df['days_ldue1-m-fdrw'] = df['DAYS_LAST_DUE_1ST_VERSION_without_365243'] - df['DAYS_FIRST_DRAWING_without_365243']
-df['days_ldue-m-fdrw'] = df['DAYS_LAST_DUE_without_365243'] - df['DAYS_FIRST_DRAWING_without_365243']
-df['days_trm-m-fdrw'] = df['DAYS_TERMINATION_without_365243'] - df['DAYS_FIRST_DRAWING_without_365243']
+df['days_fdue-m-fdrw'] = df['DAYS_FIRST_DUE'] - df['DAYS_FIRST_DRAWING']
+df['days_ldue1-m-fdrw'] = df['DAYS_LAST_DUE_1ST_VERSION'] - df['DAYS_FIRST_DRAWING']
+df['days_ldue-m-fdrw'] = df['DAYS_LAST_DUE'] - df['DAYS_FIRST_DRAWING']
+df['days_trm-m-fdrw'] = df['DAYS_TERMINATION'] - df['DAYS_FIRST_DRAWING']
 
-df['days_ldue1-m-fdue'] = df['DAYS_LAST_DUE_1ST_VERSION_without_365243'] - df['DAYS_FIRST_DUE_without_365243']
-df['days_ldue-m-fdue'] = df['DAYS_LAST_DUE_without_365243'] - df['DAYS_FIRST_DUE_without_365243']
-df['days_trm-m-fdue'] = df['DAYS_TERMINATION_without_365243'] - df['DAYS_FIRST_DUE_without_365243']
+df['days_ldue1-m-fdue'] = df['DAYS_LAST_DUE_1ST_VERSION'] - df['DAYS_FIRST_DUE']
+df['days_ldue-m-fdue'] = df['DAYS_LAST_DUE'] - df['DAYS_FIRST_DUE']
+df['days_trm-m-fdue'] = df['DAYS_TERMINATION'] - df['DAYS_FIRST_DUE']
 
-df['days_ldue-m-ldue1'] = df['DAYS_LAST_DUE_without_365243'] - df['DAYS_LAST_DUE_1ST_VERSION_without_365243']
-df['days_trm-m-ldue1'] = df['DAYS_TERMINATION_without_365243'] - df['DAYS_LAST_DUE_1ST_VERSION_without_365243']
+df['days_ldue-m-ldue1'] = df['DAYS_LAST_DUE'] - df['DAYS_LAST_DUE_1ST_VERSION']
+df['days_trm-m-ldue1'] = df['DAYS_TERMINATION'] - df['DAYS_LAST_DUE_1ST_VERSION']
 
-df['days_trm-m-ldue'] = df['DAYS_TERMINATION_without_365243'] - df['DAYS_LAST_DUE_without_365243']
+df['days_trm-m-ldue'] = df['DAYS_TERMINATION'] - df['DAYS_LAST_DUE']
 
 
 df['AMT_APPLICATION-dby-AMT_ANNUITY'] = df['AMT_APPLICATION'] / df['AMT_ANNUITY']
