@@ -4,6 +4,12 @@
 Created on Wed May 23 11:11:57 2018
 
 @author: kazuki.onodera
+
+-dby- -> devide by
+-x- -> *
+-p- -> +
+-m- -> -
+
 """
 
 import numpy as np
@@ -18,20 +24,58 @@ os.system('mkdir ../data')
 os.system('mkdir ../feature')
 
 
+# =============================================================================
+# application
+# =============================================================================
 df = pd.read_csv('../input/application_train.csv.zip')
-df['CODE_GENDER'] = 1 - (df['CODE_GENDER']=='F')*1 # 4 'XNA' are converted to 'M'
-df['FLAG_OWN_CAR'] = (df['FLAG_OWN_CAR']=='Y')*1
-df['FLAG_OWN_REALTY'] = (df['FLAG_OWN_REALTY']=='Y')*1
-df['EMERGENCYSTATE_MODE'] = (df['EMERGENCYSTATE_MODE']=='Yes')*1
+
+def f1(df):
+    df['CODE_GENDER'] = 1 - (df['CODE_GENDER']=='F')*1 # 4 'XNA' are converted to 'M'
+    df['FLAG_OWN_CAR'] = (df['FLAG_OWN_CAR']=='Y')*1
+    df['FLAG_OWN_REALTY'] = (df['FLAG_OWN_REALTY']=='Y')*1
+    df['EMERGENCYSTATE_MODE'] = (df['EMERGENCYSTATE_MODE']=='Yes')*1
+    
+    df['AMT_CREDIT-dby-AMT_INCOME_TOTAL'] = df['AMT_CREDIT'] / df['AMT_INCOME_TOTAL']
+    df['AMT_ANNUITY-dby-AMT_INCOME_TOTAL'] = df['AMT_ANNUITY'] / df['AMT_INCOME_TOTAL']
+    df['AMT_GOODS_PRICE-dby-AMT_INCOME_TOTAL'] = df['AMT_GOODS_PRICE'] / df['AMT_INCOME_TOTAL']
+    df['AMT_CREDIT-dby-AMT_ANNUITY']    = df['AMT_CREDIT'] / df['AMT_ANNUITY'] # how long should user pay?(year)
+    df['AMT_GOODS_PRICE-dby-AMT_ANNUITY']    = df['AMT_GOODS_PRICE'] / df['AMT_ANNUITY']# how long should user pay?(year)
+    df['AMT_GOODS_PRICE-dby-AMT_CREDIT']    = df['AMT_GOODS_PRICE'] / df['AMT_CREDIT']
+    df['AMT_GOODS_PRICE-m-AMT_CREDIT']    = df['AMT_GOODS_PRICE'] - df['AMT_CREDIT']
+    
+    df['AMT_GOODS_PRICE-m-AMT_CREDIT-dby-AMT_INCOME_TOTAL'] = df['AMT_GOODS_PRICE-m-AMT_CREDIT'] / df['AMT_INCOME_TOTAL']
+    
+    df['age'] = df['DAYS_BIRTH'] / -365
+    df['AMT_CREDIT-dby-AMT_ANNUITY-p-age'] = df['AMT_CREDIT-dby-AMT_ANNUITY'] + df['age'] # age when user finish the loan
+    df.loc[df['DAYS_EMPLOYED']==365243, 'DAYS_EMPLOYED'] = np.nan
+    df['DAYS_EMPLOYED-m-DAYS_BIRTH']            = df['DAYS_EMPLOYED'] - df['DAYS_BIRTH']
+    df['DAYS_REGISTRATION-m-DAYS_BIRTH']        = df['DAYS_REGISTRATION'] - df['DAYS_BIRTH']
+    df['DAYS_ID_PUBLISH-m-DAYS_BIRTH']          = df['DAYS_ID_PUBLISH'] - df['DAYS_BIRTH']
+    df['DAYS_LAST_PHONE_CHANGE-m-DAYS_BIRTH']   = df['DAYS_LAST_PHONE_CHANGE'] - df['DAYS_BIRTH']
+    
+    df['DAYS_REGISTRATION-m-DAYS_EMPLOYED']        = df['DAYS_REGISTRATION'] - df['DAYS_EMPLOYED']
+    df['DAYS_ID_PUBLISH-m-DAYS_EMPLOYED']          = df['DAYS_ID_PUBLISH'] - df['DAYS_EMPLOYED']
+    df['DAYS_LAST_PHONE_CHANGE-m-DAYS_EMPLOYED']   = df['DAYS_LAST_PHONE_CHANGE'] - df['DAYS_EMPLOYED']
+    
+    df['DAYS_ID_PUBLISH-m-DAYS_REGISTRATION']          = df['DAYS_ID_PUBLISH'] - df['DAYS_REGISTRATION']
+    df['DAYS_LAST_PHONE_CHANGE-m-DAYS_REGISTRATION']   = df['DAYS_LAST_PHONE_CHANGE'] - df['DAYS_REGISTRATION']
+    
+    df['DAYS_LAST_PHONE_CHANGE-m-DAYS_ID_PUBLISH']   = df['DAYS_LAST_PHONE_CHANGE'] - df['DAYS_ID_PUBLISH']
+    
+    df['cnt_adults'] = df['CNT_FAM_MEMBERS'] - df['CNT_CHILDREN']
+    df.loc[df['CNT_CHILDREN']==0, 'CNT_CHILDREN'] = np.nan
+    df['AMT_INCOME_TOTAL-by-CNT_CHILDREN'] = df['AMT_INCOME_TOTAL']  / df['CNT_CHILDREN']
+    df['AMT_CREDIT-by-CNT_CHILDREN']       = df['AMT_CREDIT']        / df['CNT_CHILDREN']
+    df['AMT_ANNUITY-by-CNT_CHILDREN']      = df['AMT_ANNUITY']       / df['CNT_CHILDREN']
+    df['AMT_GOODS_PRICE-by-CNT_CHILDREN']  = df['AMT_GOODS_PRICE']   / df['CNT_CHILDREN']
+
+f1(df)
 utils.to_pickles(df, '../data/train', utils.SPLIT_SIZE)
 utils.to_pickles(df[['TARGET']], '../data/label', utils.SPLIT_SIZE)
 
 
 df = pd.read_csv('../input/application_test.csv.zip')
-df['CODE_GENDER'] = 1 - (df['CODE_GENDER']=='F')*1 # no 'XNA'
-df['FLAG_OWN_CAR'] = (df['FLAG_OWN_CAR']=='Y')*1
-df['FLAG_OWN_REALTY'] = (df['FLAG_OWN_REALTY']=='Y')*1
-df['EMERGENCYSTATE_MODE'] = (df['EMERGENCYSTATE_MODE']=='Yes')*1
+f1(df)
 utils.to_pickles(df, '../data/test', utils.SPLIT_SIZE)
 df[['SK_ID_CURR']].to_pickle('../data/sub.p')
 
@@ -47,30 +91,31 @@ for c in ['DAYS_FIRST_DRAWING', 'DAYS_FIRST_DUE', 'DAYS_LAST_DUE_1ST_VERSION',
     df[c_] = df[c]
     df.loc[df[c_]==365243, c_] = np.nan
 
-df['days_fdue-fdrw'] = df['DAYS_FIRST_DUE_without_365243'] - df['DAYS_FIRST_DRAWING_without_365243']
-df['days_ldue1-fdrw'] = df['DAYS_LAST_DUE_1ST_VERSION_without_365243'] - df['DAYS_FIRST_DRAWING_without_365243']
-df['days_ldue-fdrw'] = df['DAYS_LAST_DUE_without_365243'] - df['DAYS_FIRST_DRAWING_without_365243']
-df['days_trm-fdrw'] = df['DAYS_TERMINATION_without_365243'] - df['DAYS_FIRST_DRAWING_without_365243']
+df['days_fdue-m-fdrw'] = df['DAYS_FIRST_DUE_without_365243'] - df['DAYS_FIRST_DRAWING_without_365243']
+df['days_ldue1-m-fdrw'] = df['DAYS_LAST_DUE_1ST_VERSION_without_365243'] - df['DAYS_FIRST_DRAWING_without_365243']
+df['days_ldue-m-fdrw'] = df['DAYS_LAST_DUE_without_365243'] - df['DAYS_FIRST_DRAWING_without_365243']
+df['days_trm-m-fdrw'] = df['DAYS_TERMINATION_without_365243'] - df['DAYS_FIRST_DRAWING_without_365243']
 
-df['days_ldue1-fdue'] = df['DAYS_LAST_DUE_1ST_VERSION_without_365243'] - df['DAYS_FIRST_DUE_without_365243']
-df['days_ldue-fdue'] = df['DAYS_LAST_DUE_without_365243'] - df['DAYS_FIRST_DUE_without_365243']
-df['days_trm-fdue'] = df['DAYS_TERMINATION_without_365243'] - df['DAYS_FIRST_DUE_without_365243']
+df['days_ldue1-m-fdue'] = df['DAYS_LAST_DUE_1ST_VERSION_without_365243'] - df['DAYS_FIRST_DUE_without_365243']
+df['days_ldue-m-fdue'] = df['DAYS_LAST_DUE_without_365243'] - df['DAYS_FIRST_DUE_without_365243']
+df['days_trm-m-fdue'] = df['DAYS_TERMINATION_without_365243'] - df['DAYS_FIRST_DUE_without_365243']
 
-df['days_ldue-ldue1'] = df['DAYS_LAST_DUE_without_365243'] - df['DAYS_LAST_DUE_1ST_VERSION_without_365243']
-df['days_trm-ldue1'] = df['DAYS_TERMINATION_without_365243'] - df['DAYS_LAST_DUE_1ST_VERSION_without_365243']
+df['days_ldue-m-ldue1'] = df['DAYS_LAST_DUE_without_365243'] - df['DAYS_LAST_DUE_1ST_VERSION_without_365243']
+df['days_trm-m-ldue1'] = df['DAYS_TERMINATION_without_365243'] - df['DAYS_LAST_DUE_1ST_VERSION_without_365243']
 
-df['days_trm-ldue'] = df['DAYS_TERMINATION_without_365243'] - df['DAYS_LAST_DUE_without_365243']
+df['days_trm-m-ldue'] = df['DAYS_TERMINATION_without_365243'] - df['DAYS_LAST_DUE_without_365243']
 
 
-df['amt_cre-by-app'] = df['AMT_CREDIT'] / df['AMT_APPLICATION']
-df['amt_ann-by-app'] = df['AMT_ANNUITY'] / df['AMT_CREDIT']
-df['amt_dwn-by-ann'] = df['AMT_DOWN_PAYMENT'] / df['AMT_ANNUITY']
-df['amt_dwn-by-app'] = df['AMT_DOWN_PAYMENT'] / df['AMT_APPLICATION']
-df['amt_dwn-by-cre'] = df['AMT_DOWN_PAYMENT'] / df['AMT_CREDIT']
-df['amt_gds-by-ann'] = df['AMT_GOODS_PRICE'] / df['AMT_ANNUITY']
-df['amt_gds-by-app'] = df['AMT_GOODS_PRICE'] / df['AMT_APPLICATION']
-df['amt_gds-by-cre'] = df['AMT_GOODS_PRICE'] / df['AMT_CREDIT']
-df['amt_dwn-by-gds'] = df['AMT_DOWN_PAYMENT'] / df['AMT_GOODS_PRICE']
+df['AMT_APPLICATION-dby-AMT_ANNUITY'] = df['AMT_APPLICATION'] / df['AMT_ANNUITY']
+df['AMT_CREDIT-dby-AMT_ANNUITY'] = df['AMT_CREDIT'] / df['AMT_ANNUITY'] # year
+df['AMT_DOWN_PAYMENT-dby-AMT_APPLICATION'] = df['AMT_DOWN_PAYMENT'] / df['AMT_APPLICATION']
+df['AMT_CREDIT-dby-AMT_APPLICATION'] = df['AMT_CREDIT'] / df['AMT_APPLICATION']
+
+df['remain_year'] = df['AMT_CREDIT-dby-AMT_ANNUITY'] + (df['DAYS_FIRST_DUE']/365) # TODO: DAYS_FIRST_DUE?
+df['remain_debt'] = df['remain_year'] * df['AMT_ANNUITY']
+df.loc[df['remain_debt']<0, 'remain_debt'] = 0
+
+
 
 utils.to_pickles(df, '../data/previous_application', utils.SPLIT_SIZE)
 
