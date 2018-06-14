@@ -27,7 +27,6 @@ os.system('mkdir ../feature')
 # =============================================================================
 # application
 # =============================================================================
-df = pd.read_csv('../input/application_train.csv.zip')
 
 def f1(df):
     df['CODE_GENDER'] = 1 - (df['CODE_GENDER']=='F')*1 # 4 'XNA' are converted to 'M'
@@ -69,6 +68,7 @@ def f1(df):
     df['AMT_ANNUITY-by-CNT_CHILDREN']      = df['AMT_ANNUITY']       / df['CNT_CHILDREN']
     df['AMT_GOODS_PRICE-by-CNT_CHILDREN']  = df['AMT_GOODS_PRICE']   / df['CNT_CHILDREN']
 
+df = pd.read_csv('../input/application_train.csv.zip')
 f1(df)
 utils.to_pickles(df, '../data/train', utils.SPLIT_SIZE)
 utils.to_pickles(df[['TARGET']], '../data/label', utils.SPLIT_SIZE)
