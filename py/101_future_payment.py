@@ -58,6 +58,11 @@ base['elapsed_year_max']  = gr['elapsed_year'].max()
 base['DAYS_DECISION_min'] = gr['DAYS_DECISION'].min()
 base['DAYS_DECISION_max'] = gr['DAYS_DECISION'].max()
 
+base['remain_debt_min']  = gr['remain_debt'].min()
+base['remain_debt_mean'] = gr['remain_debt'].mean()
+base['remain_debt_max']  = gr['remain_debt'].max()
+
+
 # future payment
 col = prev.head().filter(regex='^AMT_ANNUITY_').columns
 col_rem = []
