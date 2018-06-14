@@ -5,10 +5,11 @@ Created on Thu Jun 14 11:15:31 2018
 
 @author: Kazuki
 """
+
 import numpy as np
 import pandas as pd
 import utils
-utils.start(__file__)
+#utils.start(__file__)
 #==============================================================================
 
 PREF = 'prev_102_'
@@ -39,11 +40,15 @@ col_init = train.columns.tolist()
 # =============================================================================
 base['cnt_approved'] = gr_app.size()
 
+base['DAYS_DECISION_app_min'] = gr_app['DAYS_DECISION'].min()
+base['DAYS_DECISION_app_max'] = gr_app['DAYS_DECISION'].max()
 
 
 
 
-
+base['cnt_refused'] = gr_ref.size()
+base['DAYS_DECISION_ref_min'] = gr_ref['DAYS_DECISION'].min()
+base['DAYS_DECISION_ref_max'] = gr_ref['DAYS_DECISION'].max()
 
 
 
@@ -51,9 +56,11 @@ base.reset_index(inplace=True)
 # =============================================================================
 # merge
 # =============================================================================
+train2 = pd.merge(train, base, on=KEY, how='left')
 
 
 
+test2 = pd.merge(test, base, on=KEY, how='left')
 
 
 # =============================================================================
