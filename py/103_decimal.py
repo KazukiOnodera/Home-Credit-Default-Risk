@@ -1,0 +1,94 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Jun 15 00:02:39 2018
+
+@author: Kazuki
+"""
+
+import numpy as np
+import pandas as pd
+from multiprocessing import Pool, cpu_count
+NTHREAD = cpu_count()
+import utils
+#utils.start(__file__)
+#==============================================================================
+
+PREF = 'prev_103_'
+
+KEY = 'SK_ID_CURR'
+
+col_binary = ['NAME_CONTRACT_TYPE', 'NAME_CONTRACT_STATUS', 'CODE_REJECT_REASON']
+
+
+# =============================================================================
+# 
+# =============================================================================
+prev = utils.read_pickles('../data/previous_application', ['SK_ID_CURR', 'DAYS_DECISION']+col_binary)
+#base = prev[[KEY]].drop_duplicates().set_index(KEY)
+
+prev.sort_values(['SK_ID_CURR', 'DAYS_DECISION'], inplace=True, ascending=[True, False])
+
+col_binary_di = {}
+
+for c in col_binary:
+    col_binary_di[c] = list(prev[c].unique())
+
+ids = prev.SK_ID_CURR.unique()
+
+def to_decimal(x):
+    x = ''.join(map(str, x))
+    return float(x[0] + '.' + x[1:])
+
+
+def multi(id_curr):
+    """
+    id_curr = 101043
+    """
+    tmp = prev[prev.SK_ID_CURR==id_curr]
+    di = {}
+    for c in col_binary:
+        for v in col_binary_di[c]:
+            x = ((tmp[c]==v)*1).tolist()
+            di[f'{c}-{v}'] = to_decimal(x)
+    tmp = pd.DataFrame.from_dict(di, orient='index').T
+    tmp['SK_ID_CURR'] = id_curr
+    return tmp.set_index('SK_ID_CURR')
+
+
+# =============================================================================
+# main
+# =============================================================================
+pool = Pool(NTHREAD)
+callback = pool.map(multi, ids)
+pool.close()
+
+
+base = pd.concat(callback)
+
+# =============================================================================
+# merge
+# =============================================================================
+base.reset_index(inplace=True)
+if base.columns.duplicated().sum() != 0:
+    raise Exception( base.columns[base.columns.duplicated()] )
+
+train = utils.load_train([KEY])
+train = pd.merge(train, base, on=KEY, how='left').drop(KEY, axis=1)
+utils.to_feature(train.add_prefix(PREF), '../feature/train')
+
+
+test = utils.load_test([KEY])
+test = pd.merge(test, base, on=KEY, how='left').drop(KEY, axis=1)
+utils.to_feature(test.add_prefix(PREF),  '../feature/test')
+
+# =============================================================================
+# output
+# =============================================================================
+#train2.drop(col_init, axis=1, inplace=True)
+#test2.drop(col_init, axis=1, inplace=True)
+#utils.to_feature(train2.add_prefix(PREF), '../feature/train')
+#utils.to_feature(test2.add_prefix(PREF),  '../feature/test')
+
+#==============================================================================
+utils.end(__file__)
