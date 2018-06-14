@@ -7,6 +7,7 @@ Created on Tue Jun  5 12:39:16 2018
 """
 
 import gc
+from tqdm import tqdm
 import pandas as pd
 import sys
 sys.path.append('/home/kazuki_onodera/Python')
@@ -20,13 +21,10 @@ import utils
 
 SEED = 71
 
-#folders = sorted(glob('../data/*_train_filtered'))
-folders = sorted(glob('../data/*_train'))
-
-print(folders)
+files = sorted(glob('../feature/train*.f'))
 
 X = pd.concat([
-                utils.read_pickles(f) for f in (folders)
+                pd.read_feather(f) for f in tqdm(files, mininterval=100)
                ], axis=1)
 y = utils.read_pickles('../data/label').TARGET
 
@@ -35,7 +33,6 @@ if X.columns.duplicated().sum()>0:
     raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
 print('no dup :) ')
 print(f'X.shape {X.shape}')
-
 
 param = {
          'objective': 'binary',
@@ -52,25 +49,27 @@ param = {
          'seed': SEED
          }
 
-categorical_feature = ['NAME_CONTRACT_TYPE',
-#                     'CODE_GENDER',
-#                     'FLAG_OWN_CAR',
-#                     'FLAG_OWN_REALTY',
-                     'NAME_TYPE_SUITE',
-                     'NAME_INCOME_TYPE',
-                     'NAME_EDUCATION_TYPE',
-                     'NAME_FAMILY_STATUS',
-                     'NAME_HOUSING_TYPE',
-                     'OCCUPATION_TYPE',
-                     'WEEKDAY_APPR_PROCESS_START',
-                     'ORGANIZATION_TYPE',
-                     'FONDKAPREMONT_MODE',
-                     'HOUSETYPE_MODE',
-                     'WALLSMATERIAL_MODE',
-#                     'EMERGENCYSTATE_MODE'
-                     ]
+
+categorical_feature = ['app_001_NAME_CONTRACT_TYPE',
+                     'app_001_CODE_GENDER',
+                     'app_001_FLAG_OWN_CAR',
+                     'app_001_FLAG_OWN_REALTY',
+                     'app_001_NAME_TYPE_SUITE',
+                     'app_001_NAME_INCOME_TYPE',
+                     'app_001_NAME_EDUCATION_TYPE',
+                     'app_001_NAME_FAMILY_STATUS',
+                     'app_001_NAME_HOUSING_TYPE',
+                     'app_001_OCCUPATION_TYPE',
+                     'app_001_WEEKDAY_APPR_PROCESS_START',
+                     'app_001_ORGANIZATION_TYPE',
+                     'app_001_FONDKAPREMONT_MODE',
+                     'app_001_HOUSETYPE_MODE',
+                     'app_001_WALLSMATERIAL_MODE',
+                     'app_001_EMERGENCYSTATE_MODE']
+
 
 dtrain = lgb.Dataset(X, y, categorical_feature=list( set(X.columns)&set(categorical_feature)) )
+gc.collect()
 
 ret = lgb.cv(param, dtrain, 9999, nfold=5,
              early_stopping_rounds=50, verbose_eval=10,
@@ -82,6 +81,20 @@ dtrain = lgb.Dataset(X, y, categorical_feature=list( set(X.columns)&set(categori
 model = lgb.train(param, dtrain, len(ret['auc-mean']))
 
 imp = ex.getImp(model)
+
+# =============================================================================
+# 
+# =============================================================================
+col = imp['index'][:20].tolist()
+dtrain = lgb.Dataset(X[col], y, categorical_feature=list( set(col)&set(categorical_feature)) )
+gc.collect()
+
+ret = lgb.cv(param, dtrain, 9999, nfold=5,
+             early_stopping_rounds=50, verbose_eval=10,
+             seed=SEED)
+print(f"CV auc-mean {ret['auc-mean'][-1]}")
+
+
 
 
 imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)

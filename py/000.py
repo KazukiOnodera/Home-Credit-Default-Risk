@@ -110,13 +110,27 @@ df['AMT_DOWN_PAYMENT-dby-AMT_APPLICATION'] = df['AMT_DOWN_PAYMENT'] / df['AMT_AP
 df['AMT_CREDIT-dby-AMT_APPLICATION'] = df['AMT_CREDIT'] / df['AMT_APPLICATION']
 
 df['remain_year'] = df['AMT_CREDIT-dby-AMT_ANNUITY'] + (df['DAYS_FIRST_DUE']/365) # TODO: DAYS_FIRST_DUE?
+df.loc[df['remain_year']==np.inf, 'remain_year'] = np.nan
 df['remain_debt'] = df['remain_year'] * df['AMT_ANNUITY']
 df.loc[df['remain_debt']<0, 'remain_debt'] = np.nan # TODO: np.nan?
-df['completed'] = (df['remain_year'] < 0)*1
+df['completed'] = (df['remain_year'] <= 0)*1
+df['active'] = (df['remain_year'] > 0)*1
 df['elapsed_year'] = np.nan
-df.loc[df['remain_year']<0, 'elapsed_year'] = df.loc[df['remain_year']<0]
+df.loc[df['remain_year']<0, 'elapsed_year'] = df.loc[df['remain_year']<0, 'remain_year']
 df.loc[df['remain_year']<0, 'remain_year'] = np.nan
 
+# future payment
+rem_max = df['remain_year'].max()
+df['remain_year_curr'] = df['remain_year']
+for i in range(int( rem_max )):
+    df[f'AMT_ANNUITY_{i+1}y'] = df['remain_year_curr'].map(lambda x: min(x, 1)) * df['AMT_ANNUITY']
+    df.loc[df[f'AMT_ANNUITY_{i+1}y']==0, f'AMT_ANNUITY_{i+1}y'] = np.nan
+    df['remain_year_curr'] -= 1
+    df['remain_year_curr'] = df['remain_year_curr'].map(lambda x: max(x, 0))
+
+del df['remain_year_curr']
+
+#df.filter(regex='^AMT_ANNUITY_')
 
 utils.to_pickles(df, '../data/previous_application', utils.SPLIT_SIZE)
 
