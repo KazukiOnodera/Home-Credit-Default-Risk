@@ -145,23 +145,25 @@ utils.to_pickles(df, '../data/POS_CASH_balance', utils.SPLIT_SIZE)
 # bureau
 # =============================================================================
 df = pd.read_csv('../input/bureau.csv.zip')
-df['days_end-cre'] = df['DAYS_CREDIT_ENDDATE'] - df['DAYS_CREDIT']
-df['days_fact-cre'] = df['DAYS_ENDDATE_FACT'] - df['DAYS_CREDIT']
-df['days_fact-end'] = df['DAYS_ENDDATE_FACT'] - df['DAYS_CREDIT_ENDDATE']
-df['days_update-cre'] = df['DAYS_CREDIT_UPDATE'] - df['DAYS_CREDIT']
-df['days_update-end'] = df['DAYS_CREDIT_UPDATE'] - df['DAYS_CREDIT_ENDDATE']
-df['days_update-fact'] = df['DAYS_CREDIT_UPDATE'] - df['DAYS_ENDDATE_FACT']
+df['DAYS_CREDIT_ENDDATE-m-DAYS_CREDIT'] = df['DAYS_CREDIT_ENDDATE'] - df['DAYS_CREDIT']
+df['DAYS_ENDDATE_FACT-m-DAYS_CREDIT'] = df['DAYS_ENDDATE_FACT'] - df['DAYS_CREDIT']
+df['DAYS_ENDDATE_FACT-m-DAYS_CREDIT_ENDDATE'] = df['DAYS_ENDDATE_FACT'] - df['DAYS_CREDIT_ENDDATE']
+df['DAYS_CREDIT_UPDATE-m-DAYS_CREDIT'] = df['DAYS_CREDIT_UPDATE'] - df['DAYS_CREDIT']
+df['DAYS_CREDIT_UPDATE-m-DAYS_CREDIT_ENDDATE'] = df['DAYS_CREDIT_UPDATE'] - df['DAYS_CREDIT_ENDDATE']
+df['DAYS_CREDIT_UPDATE-m-DAYS_ENDDATE_FACT'] = df['DAYS_CREDIT_UPDATE'] - df['DAYS_ENDDATE_FACT']
 
-df['ant_cre-debt'] = df['AMT_CREDIT_SUM'] - df['AMT_CREDIT_SUM_DEBT']
-df['ant_cre-debt-by-limit'] = df['ant_cre-debt'] / df['AMT_CREDIT_SUM_LIMIT']
-df['ant_debt-p-limit'] = df['AMT_CREDIT_SUM_DEBT'] + df['AMT_CREDIT_SUM_LIMIT']
-df['ant_cre-by-debt-p-limit'] = df['AMT_CREDIT_SUM'] / df['ant_debt-p-limit']
+df['AMT_CREDIT_SUM-m-AMT_CREDIT_SUM_DEBT'] = df['AMT_CREDIT_SUM'] - df['AMT_CREDIT_SUM_DEBT']
+df['AMT_CREDIT_SUM_DEBT-dby-AMT_CREDIT_SUM'] = df['AMT_CREDIT_SUM_DEBT'] / df['AMT_CREDIT_SUM']
+df['AMT_CREDIT_SUM-m-AMT_CREDIT_SUM_DEBT-dby-AMT_CREDIT_SUM_LIMIT'] = df['AMT_CREDIT_SUM-m-AMT_CREDIT_SUM_DEBT'] / df['AMT_CREDIT_SUM_LIMIT']
+df['AMT_CREDIT_SUM_DEBT-dby-AMT_CREDIT_SUM_LIMIT'] = df['AMT_CREDIT_SUM_DEBT'] / df['AMT_CREDIT_SUM_LIMIT']
+df['AMT_CREDIT_SUM_DEBT-p-AMT_CREDIT_SUM_LIMIT'] = df['AMT_CREDIT_SUM_DEBT'] + df['AMT_CREDIT_SUM_LIMIT']
+df['AMT_CREDIT_SUM-dby-debt-p-AMT_CREDIT_SUM_DEBT-p-AMT_CREDIT_SUM_LIMIT'] = df['AMT_CREDIT_SUM'] / df['AMT_CREDIT_SUM_DEBT-p-AMT_CREDIT_SUM_LIMIT']
 
-df['AMT_CREDIT_SUM-by-days_end-cre'] = df['AMT_CREDIT_SUM'] / df['days_end-cre']
-df['AMT_CREDIT_SUM-by-days_fact-cre'] = df['AMT_CREDIT_SUM'] / df['days_fact-cre']
-df['AMT_CREDIT_SUM-by-days_fact-end'] = df['AMT_CREDIT_SUM'] / df['days_fact-end']
-df['AMT_CREDIT_SUM-by-days_update-cre'] = df['AMT_CREDIT_SUM'] / df['days_update-cre']
-df['AMT_CREDIT_SUM-by-days_update-end'] = df['AMT_CREDIT_SUM'] / df['days_update-end']
+#df['AMT_CREDIT_SUM-by-days_end-cre'] = df['AMT_CREDIT_SUM'] / df['days_end-m-cre']
+#df['AMT_CREDIT_SUM-by-days_fact-cre'] = df['AMT_CREDIT_SUM'] / df['days_fact-m-cre']
+#df['AMT_CREDIT_SUM-by-days_fact-end'] = df['AMT_CREDIT_SUM'] / df['days_fact-m-end']
+#df['AMT_CREDIT_SUM-by-days_update-cre'] = df['AMT_CREDIT_SUM'] / df['days_update-m-cre']
+#df['AMT_CREDIT_SUM-by-days_update-end'] = df['AMT_CREDIT_SUM'] / df['days_update-m-end']
 
 utils.to_pickles(df, '../data/bureau', utils.SPLIT_SIZE)
 
