@@ -83,6 +83,7 @@ dtrain = lgb.Dataset(X, y, categorical_feature=list( set(X.columns)&set(categori
 model = lgb.train(param, dtrain, len(ret['auc-mean']))
 
 imp = ex.getImp(model)
+imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
 
 # =============================================================================
 # 
@@ -94,12 +95,11 @@ gc.collect()
 ret = lgb.cv(param, dtrain, 9999, nfold=5,
              early_stopping_rounds=50, verbose_eval=10,
              seed=SEED)
-print(f"CV auc-mean {ret['auc-mean'][-1]}")
 
+result = f"CV auc-mean(20 features) {ret['auc-mean'][-1]}"
+print(result)
+utils.send_line(result)
 
-
-
-imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
 
 #==============================================================================
 utils.end(__file__)

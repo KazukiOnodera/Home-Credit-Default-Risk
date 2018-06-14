@@ -23,7 +23,8 @@ prev = utils.read_pickles('../data/previous_application')
 
 gr = prev.groupby(KEY)
 
-col = ['AMT_INCOME_TOTAL', 'AMT_CREDIT', 'AMT_ANNUITY', 'AMT_CREDIT-dby-AMT_ANNUITY']
+col = ['AMT_INCOME_TOTAL', 'AMT_CREDIT', 'AMT_ANNUITY', 
+       'AMT_CREDIT-dby-AMT_ANNUITY', 'DAYS_BIRTH']
 #col = ['AMT_CREDIT']
 train = utils.load_train([KEY]+col)
 test = utils.load_test([KEY]+col)
@@ -72,23 +73,14 @@ for c in col:
 
 
 
-
-
-
-
-
-
 base.reset_index(inplace=True)
+
 # =============================================================================
 # merge
 # =============================================================================
 
-train2 = pd.merge(train, base, on=KEY, how='left')
-train2[col_rem] = train2[col_rem].fillna(0)
-train2['debt_sum_rem-p-app'] = train2['app_AMT_CREDIT'] + train2['remain_debt_sum']
-
-# future payment
-def future_payment(df):
+def mk_feature(df):
+    # future payment
     #rem_max = df['app_AMT_CREDIT-dby-AMT_ANNUITY'].max() # train:45y test:32y
     df['remain_year_curr'] = df['app_AMT_CREDIT-dby-AMT_ANNUITY']
     for i,c in enumerate( col_rem ): # TODO: 45y?
@@ -101,8 +93,19 @@ def future_payment(df):
         df['remain_year_curr'] = df['remain_year_curr'].map(lambda x: max(x, 0))
     
     del df['remain_year_curr']
+    
+    df['DAYS_DECISION_min-m-DAYS_BIRTH'] = df['DAYS_DECISION_min'] - df['app_DAYS_BIRTH']
+    df['DAYS_DECISION_max-m-DAYS_BIRTH'] = df['DAYS_DECISION_max'] - df['app_DAYS_BIRTH']
+    df['remain_year_max-p-DAYS_BIRTH'] = (df['remain_year_max'] * 365) - df['app_DAYS_BIRTH']
+    df['remain_year_min-p-DAYS_BIRTH'] = (df['remain_year_min'] * 365) - df['app_DAYS_BIRTH']
 
-future_payment(train2)
+
+
+train2 = pd.merge(train, base, on=KEY, how='left')
+train2[col_rem] = train2[col_rem].fillna(0)
+train2['debt_sum_rem-p-app'] = train2['app_AMT_CREDIT'] + train2['remain_debt_sum']
+
+mk_feature(train2)
 
 
 
@@ -112,8 +115,7 @@ test2 = pd.merge(test, base, on=KEY, how='left')
 test2[col_rem] = test2[col_rem].fillna(0)
 test2['debt_sum_rem-p-app'] = test2['app_AMT_CREDIT'] + test2['remain_debt_sum']
 
-# future payment
-future_payment(test2)
+mk_feature(test2)
 
 # =============================================================================
 # output

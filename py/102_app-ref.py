@@ -25,8 +25,9 @@ base = prev[[KEY]].drop_duplicates().set_index(KEY)
 gr_app = prev[prev['NAME_CONTRACT_STATUS']=='Approved'].groupby(KEY)
 gr_ref = prev[prev['NAME_CONTRACT_STATUS']=='Refused'].groupby(KEY)
 
-col = ['AMT_INCOME_TOTAL', 'AMT_CREDIT', 'AMT_ANNUITY', 'AMT_CREDIT-dby-AMT_ANNUITY']
-#col = ['AMT_CREDIT']
+col = ['AMT_INCOME_TOTAL', 'AMT_CREDIT', 'AMT_ANNUITY', 
+       'AMT_CREDIT-dby-AMT_ANNUITY', 'DAYS_BIRTH']
+
 train = utils.load_train([KEY]+col)
 test = utils.load_test([KEY]+col)
 
@@ -56,6 +57,17 @@ base.reset_index(inplace=True)
 # =============================================================================
 # merge
 # =============================================================================
+
+def mk_feature(df):
+    
+    df['DAYS_DECISION_app_min-m-DAYS_BIRTH'] = df['DAYS_DECISION_app_min'] - df['app_DAYS_BIRTH']
+    df['DAYS_DECISION_app_max-m-DAYS_BIRTH'] = df['DAYS_DECISION_app_max'] - df['app_DAYS_BIRTH']
+    
+    df['DAYS_DECISION_ref_min-m-DAYS_BIRTH'] = df['DAYS_DECISION_ref_min'] - df['app_DAYS_BIRTH']
+    df['DAYS_DECISION_ref_max-m-DAYS_BIRTH'] = df['DAYS_DECISION_ref_max'] - df['app_DAYS_BIRTH']
+    
+    return
+
 train2 = pd.merge(train, base, on=KEY, how='left')
 
 
