@@ -11,7 +11,7 @@ import pandas as pd
 from multiprocessing import Pool, cpu_count
 NTHREAD = cpu_count()
 import utils
-#utils.start(__file__)
+utils.start(__file__)
 #==============================================================================
 
 PREF = 'prev_103_'
@@ -82,13 +82,6 @@ test = utils.load_test([KEY])
 test = pd.merge(test, base, on=KEY, how='left').drop(KEY, axis=1)
 utils.to_feature(test.add_prefix(PREF),  '../feature/test')
 
-# =============================================================================
-# output
-# =============================================================================
-#train2.drop(col_init, axis=1, inplace=True)
-#test2.drop(col_init, axis=1, inplace=True)
-#utils.to_feature(train2.add_prefix(PREF), '../feature/train')
-#utils.to_feature(test2.add_prefix(PREF),  '../feature/test')
 
 #==============================================================================
 utils.end(__file__)
