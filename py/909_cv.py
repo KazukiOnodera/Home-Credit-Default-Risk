@@ -74,8 +74,10 @@ gc.collect()
 ret = lgb.cv(param, dtrain, 9999, nfold=5,
              early_stopping_rounds=50, verbose_eval=10,
              seed=SEED)
-print(f"CV auc-mean {ret['auc-mean'][-1]}")
 
+result = f"CV auc-mean {ret['auc-mean'][-1]}"
+print(result)
+utils.send_line(result)
 
 dtrain = lgb.Dataset(X, y, categorical_feature=list( set(X.columns)&set(categorical_feature)) )
 model = lgb.train(param, dtrain, len(ret['auc-mean']))
