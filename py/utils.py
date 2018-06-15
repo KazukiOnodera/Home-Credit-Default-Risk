@@ -170,6 +170,7 @@ def mkdir_p(path):
 #    return
 
 def to_feature(df, path):
+    df.columns = [c.replace('/', '-') for c in df.columns]
     for c in df.columns:
         df[[c]].to_feather(f'{path}_{c}.f')
     return
