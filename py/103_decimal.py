@@ -8,6 +8,7 @@ Created on Fri Jun 15 00:02:39 2018
 
 import numpy as np
 import pandas as pd
+import os
 from multiprocessing import Pool, cpu_count
 NTHREAD = cpu_count()
 import utils
@@ -18,9 +19,12 @@ PREF = 'prev_103_'
 
 KEY = 'SK_ID_CURR'
 
-col_binary = ['NAME_CONTRACT_TYPE', 'NAME_CONTRACT_STATUS', 'CODE_REJECT_REASON']
+col_binary = ['NAME_CONTRACT_TYPE', 'NAME_CONTRACT_STATUS', 'CODE_REJECT_REASON',
+              'NAME_YIELD_GROUP', 'NAME_GOODS_CATEGORY', 'NAME_PORTFOLIO', 
+              'NAME_PRODUCT_TYPE', 'NAME_SELLER_INDUSTRY', 'CHANNEL_TYPE',
+              'NAME_PAYMENT_TYPE']
 
-
+os.system(f'rm ../feature/t*_{PREF}*')
 # =============================================================================
 # 
 # =============================================================================
@@ -46,11 +50,16 @@ def multi(id_curr):
     id_curr = 101043
     """
     tmp = prev[prev.SK_ID_CURR==id_curr]
+    tmp_app = tmp[tmp['NAME_CONTRACT_STATUS']=='Approved']
+    tmp_ref = tmp[tmp['NAME_CONTRACT_STATUS']=='Refused']
+    tmp_appref = tmp[tmp['NAME_CONTRACT_STATUS'].isin(['Approved', 'Refused'])]
     di = {}
     for c in col_binary:
         for v in col_binary_di[c]:
-            x = ((tmp[c]==v)*1).tolist()
-            di[f'{c}-{v}'] = to_decimal(x)
+            di[f'{c}-{v}']        = to_decimal( ((tmp[c]==v)*1).tolist() )
+            di[f'{c}-{v}_app']    = to_decimal( ((tmp_app[c]==v)*1).tolist() )
+            di[f'{c}-{v}_ref']    = to_decimal( ((tmp_ref[c]==v)*1).tolist() )
+            di[f'{c}-{v}_appref'] = to_decimal( ((tmp_appref[c]==v)*1).tolist() )
     tmp = pd.DataFrame.from_dict(di, orient='index').T
     tmp['SK_ID_CURR'] = id_curr
     return tmp.set_index('SK_ID_CURR')

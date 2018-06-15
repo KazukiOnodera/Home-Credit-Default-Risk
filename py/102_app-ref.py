@@ -8,14 +8,16 @@ Created on Thu Jun 14 11:15:31 2018
 
 import numpy as np
 import pandas as pd
+import os
 import utils
-#utils.start(__file__)
+utils.start(__file__)
 #==============================================================================
 
 PREF = 'prev_102_'
 
 KEY = 'SK_ID_CURR'
 
+os.system(f'rm ../feature/t*_{PREF}*')
 # =============================================================================
 # 
 # =============================================================================
@@ -51,7 +53,7 @@ base['cnt_refused'] = gr_ref.size()
 base['DAYS_DECISION_ref_min'] = gr_ref['DAYS_DECISION'].min()
 base['DAYS_DECISION_ref_max'] = gr_ref['DAYS_DECISION'].max()
 
-
+base['approved_ratio'] = base['cnt_approved'] / base['cnt_approved'] + base['cnt_refused'] 
 
 base.reset_index(inplace=True)
 # =============================================================================
