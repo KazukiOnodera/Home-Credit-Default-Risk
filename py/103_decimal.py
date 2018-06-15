@@ -41,6 +41,8 @@ for c in col_binary:
 ids = prev.SK_ID_CURR.unique()
 
 def to_decimal(x):
+    if len(x)==0:
+        return -1
     x = ''.join(map(str, x))
     return float(x[0] + '.' + x[1:])
 
@@ -54,12 +56,16 @@ def multi(id_curr):
     tmp_ref = tmp[tmp['NAME_CONTRACT_STATUS']=='Refused']
     tmp_appref = tmp[tmp['NAME_CONTRACT_STATUS'].isin(['Approved', 'Refused'])]
     di = {}
-    for c in col_binary:
-        for v in col_binary_di[c]:
-            di[f'{c}-{v}']        = to_decimal( ((tmp[c]==v)*1).tolist() )
-            di[f'{c}-{v}_app']    = to_decimal( ((tmp_app[c]==v)*1).tolist() )
-            di[f'{c}-{v}_ref']    = to_decimal( ((tmp_ref[c]==v)*1).tolist() )
-            di[f'{c}-{v}_appref'] = to_decimal( ((tmp_appref[c]==v)*1).tolist() )
+    try:
+        for c in col_binary:
+            for v in col_binary_di[c]:
+                di[f'{c}-{v}']        = to_decimal( ((tmp[c]==v)*1).tolist() )
+                di[f'{c}-{v}_app']    = to_decimal( ((tmp_app[c]==v)*1).tolist() )
+                di[f'{c}-{v}_ref']    = to_decimal( ((tmp_ref[c]==v)*1).tolist() )
+                di[f'{c}-{v}_appref'] = to_decimal( ((tmp_appref[c]==v)*1).tolist() )
+    except:
+        print(id_curr, c)
+        raise
     tmp = pd.DataFrame.from_dict(di, orient='index').T
     tmp['SK_ID_CURR'] = id_curr
     return tmp.set_index('SK_ID_CURR')
