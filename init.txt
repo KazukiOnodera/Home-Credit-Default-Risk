@@ -8,6 +8,7 @@ mv .kaggle/competitions/home-credit-default-risk/* Home-Credit-Default-Risk/inpu
 cd Home-Credit-Default-Risk
 echo *.DS_Store > .gitignore
 echo ~$*.xls* >> .gitignore
+echo feature/ >> .gitignore
 echo input/ >> .gitignore
 echo output/ >> .gitignore
 echo data/ >> .gitignore
