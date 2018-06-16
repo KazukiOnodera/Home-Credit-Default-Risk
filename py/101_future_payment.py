@@ -42,7 +42,7 @@ col_init = train.columns.tolist()
 base = gr['remain_debt'].sum()
 base.name = 'remain_debt_sum'
 base = base.to_frame()
-#base['remain_debt_mean'] = gr['remain_debt'].mean()
+
 
 base['remain_year_sum'] = gr['remain_year'].sum()
 base['remain_debt_per_year'] = base['remain_debt_sum'] / base['remain_year_sum']

@@ -112,6 +112,8 @@ df['AMT_CREDIT-dby-AMT_APPLICATION'] = df['AMT_CREDIT'] / df['AMT_APPLICATION']
 df['remain_year'] = df['AMT_CREDIT-dby-AMT_ANNUITY'] + (df['DAYS_FIRST_DUE']/365) # TODO: DAYS_FIRST_DUE?
 df.loc[df['remain_year']==np.inf, 'remain_year'] = np.nan
 df['remain_debt'] = df['remain_year'] * df['AMT_ANNUITY']
+df['amt_paid'] = df['AMT_CREDIT'] - df['remain_debt']
+df['amt_paid_ratio'] = 1 - (df['remain_debt']/df['AMT_CREDIT'])
 df.loc[df['remain_debt']<0, 'remain_debt'] = np.nan # TODO: np.nan?
 df['completed'] = (df['remain_year'] <= 0)*1
 df['active'] = (df['remain_year'] > 0)*1

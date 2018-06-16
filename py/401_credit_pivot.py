@@ -39,11 +39,12 @@ gr = cre.groupby(['SK_ID_CURR', 'month_round'])
 cre_ = gr.size()
 cre_.name = 'cc_size'
 cre_ = pd.concat([cre_, gr.sum()], axis=1).reset_index() # TODO:NAME_CONTRACT_STATUS
-cre_.sort_values(['SK_ID_CURR', 'month_round'], ascending=[True, False], inplace=True)
 
-col_app = ['AMT_INCOME_TOTAL', 'AMT_CREDIT', 'AMT_ANNUITY', 
+col_app = ['SK_ID_CURR', 'AMT_INCOME_TOTAL', 'AMT_CREDIT', 'AMT_ANNUITY', 
            'AMT_CREDIT-dby-AMT_ANNUITY', 'DAYS_BIRTH']
 cre_ = utils.merge(cre_, col_app)
+
+cre_.sort_values(['SK_ID_CURR', 'month_round'], ascending=[True, False], inplace=True)
 
 
 cre_['AMT_BALANCE-dby-AMT_CREDIT_LIMIT_ACTUAL']                   = cre_['AMT_BALANCE'] / cre_['AMT_CREDIT_LIMIT_ACTUAL']
@@ -52,6 +53,8 @@ cre_['AMT_DRAWINGS_CURRENT-dby-CNT_DRAWINGS_CURRENT']             = cre_['AMT_DR
 cre_['AMT_DRAWINGS_OTHER_CURRENT-dby-CNT_DRAWINGS_OTHER_CURRENT'] = cre_['AMT_DRAWINGS_OTHER_CURRENT'] / cre_['CNT_DRAWINGS_OTHER_CURRENT']
 cre_['AMT_DRAWINGS_POS_CURRENT-dby-CNT_DRAWINGS_POS_CURRENT']     = cre_['AMT_DRAWINGS_POS_CURRENT'] / cre_['CNT_DRAWINGS_POS_CURRENT']
 cre_['AMT_BALANCE-dby-AMT_INCOME_TOTAL'] = cre_['AMT_BALANCE'] / cre_['AMT_INCOME_TOTAL']
+cre_['AMT_BALANCE-dby-AMT_INCOME_TOTAL'] = cre_['AMT_BALANCE'] / cre_['AMT_CREDIT']
+cre_['AMT_BALANCE-dby-AMT_INCOME_TOTAL'] = cre_['AMT_BALANCE'] / cre_['AMT_ANNUITY']
 #cre_['-dby-'] = cre_[''] / cre_['']
 #cre_['-dby-'] = cre_[''] / cre_['']
 #cre_['-dby-'] = cre_[''] / cre_['']
@@ -65,7 +68,7 @@ cre_['AMT_DRAWINGS_CURRENT_pctchng-1'] = gr['AMT_DRAWINGS_CURRENT'].pct_change(-
 #cre_['AMT_BALANCE_pctchng-1'] = gr['AMT_BALANCE'].pct_change(-1)
 
 
-cre_.drop(col_app, axis=1, inplace=True)
+cre_.drop(col_app[1:], axis=1, inplace=True)
 
 # =============================================================================
 # pivot

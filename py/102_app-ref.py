@@ -46,6 +46,9 @@ base['cnt_approved'] = gr_app.size()
 base['DAYS_DECISION_app_min'] = gr_app['DAYS_DECISION'].min()
 base['DAYS_DECISION_app_max'] = gr_app['DAYS_DECISION'].max()
 
+base['paid_sum'] = gr_app['amt_paid'].sum()
+base['paid_sum_ratio'] = (base['paid_sum'] / gr_app['AMT_CREDIT'].sum())
+base['debt_sum'] = (gr_app['AMT_CREDIT'].sum() - base['paid_sum'])
 
 
 
@@ -67,6 +70,11 @@ def mk_feature(df):
     
     df['DAYS_DECISION_ref_min-m-DAYS_BIRTH'] = df['DAYS_DECISION_ref_min'] - df['app_DAYS_BIRTH']
     df['DAYS_DECISION_ref_max-m-DAYS_BIRTH'] = df['DAYS_DECISION_ref_max'] - df['app_DAYS_BIRTH']
+    
+    df['paid_sum-dby-AMT_INCOME_TOTAL'] = df['paid_sum'] / df['AMT_INCOME_TOTAL']
+    df['debt_sum-dby-AMT_INCOME_TOTAL'] = df['debt_sum'] / df['AMT_INCOME_TOTAL']
+    df['paid_sum-dby-AMT_ANNUITY'] = df['paid_sum'] / df['AMT_ANNUITY']
+    df['debt_sum-dby-AMT_ANNUITY'] = df['debt_sum'] / df['AMT_ANNUITY']
     
     return
 
