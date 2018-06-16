@@ -71,10 +71,10 @@ def mk_feature(df):
     df['DAYS_DECISION_ref_min-m-DAYS_BIRTH'] = df['DAYS_DECISION_ref_min'] - df['app_DAYS_BIRTH']
     df['DAYS_DECISION_ref_max-m-DAYS_BIRTH'] = df['DAYS_DECISION_ref_max'] - df['app_DAYS_BIRTH']
     
-    df['paid_sum-dby-AMT_INCOME_TOTAL'] = df['paid_sum'] / df['AMT_INCOME_TOTAL']
-    df['debt_sum-dby-AMT_INCOME_TOTAL'] = df['debt_sum'] / df['AMT_INCOME_TOTAL']
-    df['paid_sum-dby-AMT_ANNUITY'] = df['paid_sum'] / df['AMT_ANNUITY']
-    df['debt_sum-dby-AMT_ANNUITY'] = df['debt_sum'] / df['AMT_ANNUITY']
+    df['paid_sum-dby-AMT_INCOME_TOTAL'] = df['paid_sum'] / df['app_AMT_INCOME_TOTAL']
+    df['debt_sum-dby-AMT_INCOME_TOTAL'] = df['debt_sum'] / df['app_AMT_INCOME_TOTAL']
+    df['paid_sum-dby-AMT_ANNUITY'] = df['paid_sum'] / df['app_AMT_ANNUITY']
+    df['debt_sum-dby-AMT_ANNUITY'] = df['debt_sum'] / df['app_AMT_ANNUITY']
     
     return
 
