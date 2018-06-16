@@ -22,12 +22,16 @@ os.system(f'rm ../feature/t*_{PREF}*')
 # 
 # =============================================================================
 prev = utils.read_pickles('../data/previous_application')
+base = prev[[KEY]].drop_duplicates().set_index(KEY)
 
 gr = prev.groupby(KEY)
+gr_app = prev[prev['NAME_CONTRACT_STATUS']=='Approved'].groupby(KEY)
+gr_ref = prev[prev['NAME_CONTRACT_STATUS']=='Refused'].groupby(KEY)
+gr_act = prev[prev['active']==1].groupby(KEY)
+gr_cmp = prev[prev['completed']==1].groupby(KEY)
 
 col = ['AMT_INCOME_TOTAL', 'AMT_CREDIT', 'AMT_ANNUITY', 
        'AMT_CREDIT-dby-AMT_ANNUITY', 'DAYS_BIRTH']
-#col = ['AMT_CREDIT']
 train = utils.load_train([KEY]+col)
 test = utils.load_test([KEY]+col)
 
@@ -39,40 +43,87 @@ col_init = train.columns.tolist()
 # =============================================================================
 # feature
 # =============================================================================
-base = gr['remain_debt'].sum()
-base.name = 'remain_debt_sum'
-base = base.to_frame()
 
+c = 'total_debt'
+base[f'{c}_min']  = gr[c].min()
+base[f'{c}_mean'] = gr[c].mean()
+base[f'{c}_max']  = gr[c].max()
+base[f'{c}_sum'] = gr[c].sum()
 
-base['remain_year_sum'] = gr['remain_year'].sum()
-base['remain_debt_per_year'] = base['remain_debt_sum'] / base['remain_year_sum']
+c = 'amt_paid'
+base[f'{c}_min']  = gr[c].min()
+base[f'{c}_mean'] = gr[c].mean()
+base[f'{c}_max']  = gr[c].max()
+base[f'{c}_sum'] = gr[c].sum()
+
+c = 'amt_unpaid'
+base[f'{c}_min']  = gr[c].min()
+base[f'{c}_mean'] = gr[c].mean()
+base[f'{c}_max']  = gr[c].max()
+base[f'{c}_sum'] = gr[c].sum()
+
+c = 'cnt_paid'
+base[f'{c}_min']  = gr[c].min()
+base[f'{c}_mean'] = gr[c].mean()
+base[f'{c}_max']  = gr[c].max()
+base[f'{c}_sum'] = gr[c].sum()
+
+c = 'cnt_unpaid'
+base[f'{c}_min']  = gr[c].min()
+base[f'{c}_mean'] = gr[c].mean()
+base[f'{c}_max']  = gr[c].max()
+base[f'{c}_sum'] = gr[c].sum()
+
+c = 'AMT_ANNUITY'
+base[f'{c}_act_min']  = gr_act[c].min()
+base[f'{c}_act_mean'] = gr_act[c].mean()
+base[f'{c}_act_max']  = gr_act[c].max()
+base[f'{c}_act_sum'] = gr_act[c].sum()
+
+c = 'DAYS_LAST_DUE_1ST_VERSION'
+base[f'{c}_act_min']  = gr_act[c].min()
+base[f'{c}_act_mean'] = gr_act[c].mean()
+base[f'{c}_act_max']  = gr_act[c].max()
+base[f'{c}_act_sum'] = gr_act[c].sum()
+
 
 base['active_cnt'] = gr['active'].sum()
+base['active_ratio'] = gr['active'].mean()
 base['completed_cnt'] = gr['completed'].sum()
-
-base['remain_year_min']  = gr['remain_year'].min()
-base['remain_year_mean'] = gr['remain_year'].mean()
-base['remain_year_max']  = gr['remain_year'].max()
-
-base['elapsed_year_min']  = gr['elapsed_year'].min()
-base['elapsed_year_mean'] = gr['elapsed_year'].mean()
-base['elapsed_year_max']  = gr['elapsed_year'].max()
 
 base['DAYS_DECISION_min'] = gr['DAYS_DECISION'].min()
 base['DAYS_DECISION_max'] = gr['DAYS_DECISION'].max()
 
-base['remain_debt_min']  = gr['remain_debt'].min()
-base['remain_debt_mean'] = gr['remain_debt'].mean()
-base['remain_debt_max']  = gr['remain_debt'].max()
+base['amt_paid_sum-dby-total_debt_sum'] = base['amt_paid_sum'] / base['total_debt_sum']
+base['amt_paid_sum-dby-amt_unpaid_sum'] = base['amt_paid_sum'] / base['amt_unpaid_sum']
+
+
+# app, ref
+base['cnt_approved'] = gr_app.size()
+base['cnt_refused'] = gr_ref.size()
+base['approved_ratio'] = base['cnt_approved'] / base['cnt_approved'] + base['cnt_refused'] 
+
+base['DAYS_DECISION_app_min'] = gr_app['DAYS_DECISION'].min()
+base['DAYS_DECISION_app_max'] = gr_app['DAYS_DECISION'].max()
+
+base['DAYS_DECISION_ref_min'] = gr_ref['DAYS_DECISION'].min()
+base['DAYS_DECISION_ref_max'] = gr_ref['DAYS_DECISION'].max()
+
 
 
 # future payment
-col = prev.head().filter(regex='^AMT_ANNUITY_').columns
-col_rem = []
+col = prev.head().filter(regex='^amt_future_payment_').columns
+col_future = []
 for c in col:
-    base[f'{c}_sum'] = gr[c].sum()
-    col_rem.append(f'{c}_sum')
+    base[f'{c}_sum'] = gr_app[c].sum()
+    col_future.append(f'{c}_sum')
 
+# past payment
+col = prev.head().filter(regex='^amt_past_payment_').columns
+col_past = []
+for c in col:
+    base[f'{c}_sum'] = gr_app[c].sum()
+    col_past.append(f'{c}_sum')
 
 
 base.reset_index(inplace=True)
@@ -82,48 +133,51 @@ base.reset_index(inplace=True)
 # =============================================================================
 
 def mk_feature(df):
-    # future payment
-    #rem_max = df['app_AMT_CREDIT-dby-AMT_ANNUITY'].max() # train:45y test:32y
-    df['remain_year_curr'] = df['app_AMT_CREDIT-dby-AMT_ANNUITY']
-    for i,c in enumerate( col_rem ): # TODO: 45y?
-        c1 = f'AMT_ANNUITY_rem-p-app_{i+1}y'
-        c2 = f'AMT_ANNUITY_rem-p-app_{i+1}y-dby-AMT_INCOME_TOTAL'
-        df[c1] = df[c] + df['remain_year_curr'].map(lambda x: min(x, 1)) * df['app_AMT_ANNUITY']
-        df[c2] = df[c1] / df['app_AMT_INCOME_TOTAL']
-    #    df.loc[train[c1]==0, c1] = np.nan
-        df['remain_year_curr'] -= 1
-        df['remain_year_curr'] = df['remain_year_curr'].map(lambda x: max(x, 0))
     
-    del df['remain_year_curr']
+    df[col_future+col_past] = df[col_future+col_past].fillna(0)
+    df['total_debt_sum-p-app']            = df['total_debt_sum'] + df['app_AMT_CREDIT']
+    df['total_debt_sum-p-app-dby-income'] = df['total_debt_sum-p-app'] / df['app_AMT_INCOME_TOTAL']
+    df['amt_unpaid_sum-p-app']            = df['amt_unpaid_sum'] + df['app_AMT_CREDIT']
+    df['amt_unpaid_sum-p-app-dby-income'] = df['amt_unpaid_sum-p-app'] / df['app_AMT_INCOME_TOTAL']
+
+    # future payment
+    col_1 = []
+    col_2 = []
+    df['tmp'] = df['app_AMT_CREDIT-dby-AMT_ANNUITY'].map(np.ceil)
+    for i,c in enumerate( col_future ):
+        c1 = f'amt_future_payment-p-app_{i+1}m'
+        c2 = f'amt_future_payment-p-app_{i+1}m-dby-AMT_INCOME_TOTAL'
+        df[c1] = df[c] + df['tmp'].map(lambda x: min(x, 1)) * df['app_AMT_ANNUITY']
+        df[c2] = df[c1] / df['app_AMT_INCOME_TOTAL']
+        df['tmp'] -= 1
+        df['tmp'] = df['tmp'].map(lambda x: max(x, 0))
+        col_1.append(c1); col_2.append(c2)
+        
+    del df['tmp']
+    
+    df['amt_future_payment-p-app_max'] = df[col_1].max(1)
+    df['amt_future_payment-p-app-dby-AMT_INCOME_TOTAL_max'] = df[col_2].max(1)
+    df['amt_past_payment_sum_max'] = df[col_past].max(1)
+    
+    df['amt_future_payment-p-app_max-dby-amt_past_payment_sum_max'] = df['amt_future_payment-p-app_max'] / df['amt_past_payment_sum_max']
     
     df['DAYS_DECISION_min-m-DAYS_BIRTH'] = df['DAYS_DECISION_min'] - df['app_DAYS_BIRTH']
     df['DAYS_DECISION_max-m-DAYS_BIRTH'] = df['DAYS_DECISION_max'] - df['app_DAYS_BIRTH']
-    df['remain_year_max-p-DAYS_BIRTH'] = (df['remain_year_max'] * 365) - df['app_DAYS_BIRTH']
-    df['remain_year_min-p-DAYS_BIRTH'] = (df['remain_year_min'] * 365) - df['app_DAYS_BIRTH']
 
 
 
 train2 = pd.merge(train, base, on=KEY, how='left')
-train2[col_rem] = train2[col_rem].fillna(0)
-train2['debt_sum_rem-p-app'] = train2['app_AMT_CREDIT'] + train2['remain_debt_sum']
-
 mk_feature(train2)
 
 
-
-
-
 test2 = pd.merge(test, base, on=KEY, how='left')
-test2[col_rem] = test2[col_rem].fillna(0)
-test2['debt_sum_rem-p-app'] = test2['app_AMT_CREDIT'] + test2['remain_debt_sum']
-
 mk_feature(test2)
 
 # =============================================================================
 # output
 # =============================================================================
-train2.drop(col_init+col_rem, axis=1, inplace=True)
-test2.drop(col_init+col_rem, axis=1, inplace=True)
+train2.drop(col_init, axis=1, inplace=True)
+test2.drop(col_init, axis=1, inplace=True)
 utils.to_feature(train2.add_prefix(PREF), '../feature/train')
 utils.to_feature(test2.add_prefix(PREF),  '../feature/test')
 
