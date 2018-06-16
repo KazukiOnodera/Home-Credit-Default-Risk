@@ -20,15 +20,26 @@ KEY = 'SK_ID_CURR'
 # =============================================================================
 # 
 # =============================================================================
-train = pd.read_feather('../feature/train_prev_101_debt_sum_rem-p-app.f')
-test = pd.read_feather('../feature/test_prev_101_debt_sum_rem-p-app.f')
+col = ['AMT_INCOME_TOTAL', 'AMT_CREDIT', 'AMT_ANNUITY', 
+       'AMT_CREDIT-dby-AMT_ANNUITY', 'DAYS_BIRTH']
+
+train = utils.load_train([KEY]+col)
+test = utils.load_test([KEY]+col)
+
 
 col_init = train.columns.tolist()
 # =============================================================================
 # 
 # =============================================================================
-train[f'{PREF}_total_debt-app-prev-bure'] = train['prev_101_debt_sum_rem-p-app'] + pd.read_feather('../feature/train_bure_501_AMT_CREDIT_SUM_DEBT_sum.f')['bure_501_AMT_CREDIT_SUM_DEBT_sum']
-test[f'{PREF}_total_debt-app-prev-bure']  = test['prev_101_debt_sum_rem-p-app'] + pd.read_feather('../feature/test_bure_501_AMT_CREDIT_SUM_DEBT_sum.f')['bure_501_AMT_CREDIT_SUM_DEBT_sum']
+
+c1 = 'prev_101_debt_sum_rem-p-app'
+c2 = 'bure_501_AMT_CREDIT_SUM_DEBT_sum'
+train[f'{PREF}_total_debt-app-prev-bure'] = pd.read_feather(f'../feature/train_{c1}.f')[c1] + pd.read_feather(f'../feature/train_{c2}.f')[c2]
+test[f'{PREF}_total_debt-app-prev-bure']  = pd.read_feather(f'../feature/test_{c1}.f')[c1]  + pd.read_feather(f'../feature/test_{c2}.f')[c2]
+
+train[f'{PREF}_total_debt-app-prev-bure-dby-AMT_INCOME_TOTAL'] = train[f'{PREF}_total_debt-app-prev-bure'] / train['AMT_INCOME_TOTAL']
+test[f'{PREF}_total_debt-app-prev-bure-dby-AMT_INCOME_TOTAL']  = test[f'{PREF}_total_debt-app-prev-bure']  / test['AMT_INCOME_TOTAL']
+
 
 
 # =============================================================================

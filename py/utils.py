@@ -302,6 +302,12 @@ def load_test(col=None):
     else:
         return read_pickles('../data/test', col)
 
+def merge(df, col):
+    trte = pd.concat([load_train(col=col), #.drop('TARGET', axis=1), 
+                      load_test(col=col)])
+    df_ = pd.merge(df, trte, on='SK_ID_CURR', how='left')
+    return df_
+
 def check_feature():
     
     sw = False
