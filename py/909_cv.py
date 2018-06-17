@@ -82,7 +82,7 @@ utils.send_line(result)
 dtrain = lgb.Dataset(X, y, categorical_feature=list( set(X.columns)&set(categorical_feature)) )
 model = lgb.train(param, dtrain, len(ret['auc-mean']))
 
-imp = ex.getImp(model)
+imp = ex.getImp(model).sort_values(['gain', 'index'], ascending=[False, True])
 imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
 
 # =============================================================================

@@ -1,0 +1,103 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Jun 17 12:00:05 2018
+
+@author: Kazuki
+"""
+
+import numpy as np
+import pandas as pd
+import os
+import utils
+utils.start(__file__)
+#==============================================================================
+
+# setting
+PREF = 'pos_202_'
+
+KEY = 'SK_ID_CURR'
+
+os.system(f'rm ../feature/t*_{PREF}*')
+# =============================================================================
+# 
+# =============================================================================
+pos = pd.read_csv('/Users/Kazuki/Home-Credit-Default-Risk/sample/sample_POS.csv')
+#pos = utils.read_pickles('../data/POS_CASH_balance')
+base = pos[[KEY]].drop_duplicates().set_index(KEY)
+
+gr_c   = pos.groupby('SK_ID_CURR')
+gr_cp  = pos.groupby(['SK_ID_CURR', 'SK_ID_PREV'])
+gr_cm  = pos.groupby(['SK_ID_CURR', 'MONTHS_BALANCE'])
+
+# =============================================================================
+# 
+# =============================================================================
+# size feature
+base['c_size'] = gr_c.size()
+
+cp_size = gr_cp.size().groupby('SK_ID_CURR')
+base['cp_size_min']  = cp_size.min()
+base['cp_size_mean'] = cp_size.mean()
+base['cp_size_max']  = cp_size.max()
+base['cp_size_max-min'] = base['cp_size_max'] - base['cp_size_min']
+base['p_nunique'] = cp_size.size()
+
+
+gr_cm.size().max()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# =============================================================================
+# merge
+# =============================================================================
+
+train = utils.load_train([KEY])
+
+test = utils.load_test([KEY])
+
+
+train_ = pd.merge(train, pt, on=KEY, how='left').drop(KEY, axis=1)
+utils.to_feature(train_, '../feature/train')
+
+test_ = pd.merge(test, pt, on=KEY, how='left').drop(KEY, axis=1)
+utils.to_feature(test_,  '../feature/test')
+
+
+#==============================================================================
+utils.end(__file__)
+
