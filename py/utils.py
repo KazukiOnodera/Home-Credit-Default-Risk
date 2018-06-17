@@ -274,8 +274,9 @@ def remove_feature(df, var_limit=0, corr_limit=1):
         df_ = df
     var = df_.var()
     var0 = var[var<=var_limit].index
-    print(f'remove var<={var_limit}: {var0}')
-    df.drop(var0, axis=1, inplace=True)
+    if len(var0)>0:
+        print(f'remove var<={var_limit}: {var0}')
+        df.drop(var0, axis=1, inplace=True)
     
     corr = df_.corr().abs()
     a, b = np.where(corr>=corr_limit)
@@ -284,9 +285,10 @@ def remove_feature(df, var_limit=0, corr_limit=1):
         if a_ != b_ and a_ not in col_remove:
 #            print(a_, b_)
             col_remove.append(b_)
-    col_remove = df.iloc[:,col_remove].columns
-    print(f'remove corr>={corr_limit}: {col_remove}')
-    df.drop(col_remove, axis=1, inplace=True)
+    if len(col_remove)>0:
+        col_remove = df.iloc[:,col_remove].columns
+        print(f'remove corr>={corr_limit}: {col_remove}')
+        df.drop(col_remove, axis=1, inplace=True)
     
     return
 
