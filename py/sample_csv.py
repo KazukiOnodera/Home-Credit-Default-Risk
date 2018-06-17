@@ -11,28 +11,41 @@ import utils
 
 def sample(n=10):
     df = utils.load_train()
-    ids = np.random.choice(df.SK_ID_CURR.unique(), size=n, replace=False)
-    df[df.SK_ID_CURR.isin(ids)].sort_values('SK_ID_CURR').to_csv('sample_tr.csv', index=False)
+#    ids = np.random.choice(df.SK_ID_CURR.unique(), size=n, replace=False)
+    ids0 = np.random.choice(df[df['TARGET']==0].SK_ID_CURR.unique(), size=n, replace=False)
+    ids1 = np.random.choice(df[df['TARGET']==1].SK_ID_CURR.unique(), size=n, replace=False)
+    df[df.SK_ID_CURR.isin(ids0)].sort_values('SK_ID_CURR').to_csv('sample_tr_0.csv', index=False)
+    df[df.SK_ID_CURR.isin(ids1)].sort_values('SK_ID_CURR').to_csv('sample_tr_1.csv', index=False)
     
     df = utils.read_pickles('../data/POS_CASH_balance')
-    df = df[df.SK_ID_CURR.isin(ids)]
-    df.sort_values(['SK_ID_CURR', 'MONTHS_BALANCE'], ascending=[True, False]).to_csv('sample_POS.csv', index=False)
+    df = df[df.SK_ID_CURR.isin(ids0)]
+    df.sort_values(['SK_ID_CURR', 'MONTHS_BALANCE'], ascending=[True, False]).to_csv('../sample/sample_POS_0.csv', index=False)
+    df = df[df.SK_ID_CURR.isin(ids1)]
+    df.sort_values(['SK_ID_CURR', 'MONTHS_BALANCE'], ascending=[True, False]).to_csv('../sample/sample_POS_1.csv', index=False)
     
     df = utils.read_pickles('../data/bureau')
-    df = df[df.SK_ID_CURR.isin(ids)]
-    df.sort_values(['SK_ID_CURR', 'DAYS_CREDIT'], ascending=[True, False]).to_csv('sample_bure.csv', index=False)
+    df = df[df.SK_ID_CURR.isin(ids0)]
+    df.sort_values(['SK_ID_CURR', 'DAYS_CREDIT'], ascending=[True, False]).to_csv('../sample/sample_bure_0.csv', index=False)
+    df = df[df.SK_ID_CURR.isin(ids1)]
+    df.sort_values(['SK_ID_CURR', 'DAYS_CREDIT'], ascending=[True, False]).to_csv('../sample/sample_bure_1.csv', index=False)
     
     df = utils.read_pickles('../data/credit_card_balance')
-    df = df[df.SK_ID_CURR.isin(ids)]
-    df.sort_values(['SK_ID_CURR', 'MONTHS_BALANCE'], ascending=[True, False]).to_csv('sample_cre.csv', index=False)
+    df = df[df.SK_ID_CURR.isin(ids0)]
+    df.sort_values(['SK_ID_CURR', 'MONTHS_BALANCE'], ascending=[True, False]).to_csv('../sample/sample_cre_0.csv', index=False)
+    df = df[df.SK_ID_CURR.isin(ids1)]
+    df.sort_values(['SK_ID_CURR', 'MONTHS_BALANCE'], ascending=[True, False]).to_csv('../sample/sample_cre_1.csv', index=False)
     
     df = utils.read_pickles('../data/installments_payments')
-    df = df[df.SK_ID_CURR.isin(ids)]
-    df.sort_values(['SK_ID_CURR', 'DAYS_INSTALMENT'], ascending=[True, False]).to_csv('sample_ins.csv', index=False)
+    df = df[df.SK_ID_CURR.isin(ids0)]
+    df.sort_values(['SK_ID_CURR', 'DAYS_INSTALMENT'], ascending=[True, False]).to_csv('../sample/sample_ins_0.csv', index=False)
+    df = df[df.SK_ID_CURR.isin(ids1)]
+    df.sort_values(['SK_ID_CURR', 'DAYS_INSTALMENT'], ascending=[True, False]).to_csv('../sample/sample_ins_1.csv', index=False)
     
     df = utils.read_pickles('../data/previous_application')
-    df = df[df.SK_ID_CURR.isin(ids)]
-    df.sort_values(['SK_ID_CURR', 'DAYS_DECISION'], ascending=[True, False]).to_csv('sample_prev.csv', index=False)
+    df = df[df.SK_ID_CURR.isin(ids0)]
+    df.sort_values(['SK_ID_CURR', 'DAYS_DECISION'], ascending=[True, False]).to_csv('../sample/sample_prev_0.csv', index=False)
+    df = df[df.SK_ID_CURR.isin(ids1)]
+    df.sort_values(['SK_ID_CURR', 'DAYS_DECISION'], ascending=[True, False]).to_csv('../sample/sample_prev_1.csv', index=False)
     
     return
 
