@@ -32,8 +32,8 @@ col_init = train.columns.tolist()
 # 
 # =============================================================================
 
-c1 = 'prev_101_debt_sum_rem-p-app'
-c2 = 'bure_501_AMT_CREDIT_SUM_DEBT_sum'
+c1 = 'prev_101_total_debt_sum-p-app'
+c2 = 'bure_501_AMT_CREDIT_SUM_sum'
 train[f'{PREF}_total_debt-app-prev-bure'] = pd.read_feather(f'../feature/train_{c1}.f')[c1] + pd.read_feather(f'../feature/train_{c2}.f')[c2]
 test[f'{PREF}_total_debt-app-prev-bure']  = pd.read_feather(f'../feature/test_{c1}.f')[c1]  + pd.read_feather(f'../feature/test_{c2}.f')[c2]
 

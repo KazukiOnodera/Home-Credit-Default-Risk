@@ -41,6 +41,7 @@ col_init = train.columns.tolist()
 # =============================================================================
 base['cnt_total'] = gr.size()
 
+base['AMT_CREDIT_SUM_sum'] = gr['AMT_CREDIT_SUM'].sum()
 base['AMT_CREDIT_SUM_DEBT_sum'] = gr['AMT_CREDIT_SUM_DEBT'].sum()
 
 base['DAYS_CREDIT_min'] = gr['DAYS_CREDIT'].min()
