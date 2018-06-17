@@ -37,18 +37,18 @@ def multi(p):
             df['FLAG_OWN_REALTY'] = (df['FLAG_OWN_REALTY']=='Y')*1
             df['EMERGENCYSTATE_MODE'] = (df['EMERGENCYSTATE_MODE']=='Yes')*1
             
-            df['AMT_CREDIT-dby-AMT_INCOME_TOTAL'] = df['AMT_CREDIT'] / df['AMT_INCOME_TOTAL']
-            df['AMT_ANNUITY-dby-AMT_INCOME_TOTAL'] = df['AMT_ANNUITY'] / df['AMT_INCOME_TOTAL']
-            df['AMT_GOODS_PRICE-dby-AMT_INCOME_TOTAL'] = df['AMT_GOODS_PRICE'] / df['AMT_INCOME_TOTAL']
-            df['AMT_CREDIT-dby-AMT_ANNUITY']    = df['AMT_CREDIT'] / df['AMT_ANNUITY'] # how long should user pay?(month)
-            df['AMT_GOODS_PRICE-dby-AMT_ANNUITY']    = df['AMT_GOODS_PRICE'] / df['AMT_ANNUITY']# how long should user pay?(month)
-            df['AMT_GOODS_PRICE-dby-AMT_CREDIT']    = df['AMT_GOODS_PRICE'] / df['AMT_CREDIT']
-            df['AMT_GOODS_PRICE-m-AMT_CREDIT']    = df['AMT_GOODS_PRICE'] - df['AMT_CREDIT']
+            df['credit-dby-income']       = df['AMT_CREDIT'] / df['AMT_INCOME_TOTAL']
+            df['annuity-dby-income']      = df['AMT_ANNUITY'] / df['AMT_INCOME_TOTAL']
+            df['goods_price-dby-income']  = df['AMT_GOODS_PRICE'] / df['AMT_INCOME_TOTAL']
+            df['credit-dby-annuity']      = df['AMT_CREDIT'] / df['AMT_ANNUITY'] # how long should user pay?(month)
+            df['goods_price-dby-annuity'] = df['AMT_GOODS_PRICE'] / df['AMT_ANNUITY']# how long should user pay?(month)
+            df['goods_price-dby-credit']  = df['AMT_GOODS_PRICE'] / df['AMT_CREDIT']
+            df['goods_price-m-credit']    = df['AMT_GOODS_PRICE'] - df['AMT_CREDIT']
             
-            df['AMT_GOODS_PRICE-m-AMT_CREDIT-dby-AMT_INCOME_TOTAL'] = df['AMT_GOODS_PRICE-m-AMT_CREDIT'] / df['AMT_INCOME_TOTAL']
+            df['goods_price-m-credit-dby-income'] = df['AMT_GOODS_PRICE-m-credit'] / df['AMT_INCOME_TOTAL']
             
 #            df['age'] = df['DAYS_BIRTH']/-365
-            df['age_finish_payment'] = df['DAYS_BIRTH'].abs() + (df['AMT_CREDIT-dby-AMT_ANNUITY']*30)
+            df['age_finish_payment'] = df['DAYS_BIRTH'].abs() + (df['credit-dby-annuity']*30)
             df.loc[df['DAYS_EMPLOYED']==365243, 'DAYS_EMPLOYED'] = np.nan
             df['DAYS_EMPLOYED-m-DAYS_BIRTH']            = df['DAYS_EMPLOYED'] - df['DAYS_BIRTH']
             df['DAYS_REGISTRATION-m-DAYS_BIRTH']        = df['DAYS_REGISTRATION'] - df['DAYS_BIRTH']
@@ -66,10 +66,10 @@ def multi(p):
             
             df['cnt_adults'] = df['CNT_FAM_MEMBERS'] - df['CNT_CHILDREN']
             df.loc[df['CNT_CHILDREN']==0, 'CNT_CHILDREN'] = np.nan
-            df['AMT_INCOME_TOTAL-by-CNT_CHILDREN'] = df['AMT_INCOME_TOTAL']  / df['CNT_CHILDREN']
-            df['AMT_CREDIT-by-CNT_CHILDREN']       = df['AMT_CREDIT']        / df['CNT_CHILDREN']
-            df['AMT_ANNUITY-by-CNT_CHILDREN']      = df['AMT_ANNUITY']       / df['CNT_CHILDREN']
-            df['AMT_GOODS_PRICE-by-CNT_CHILDREN']  = df['AMT_GOODS_PRICE']   / df['CNT_CHILDREN']
+            df['income-by-CNT_CHILDREN'] = df['AMT_INCOME_TOTAL']  / df['CNT_CHILDREN']
+            df['credit-by-CNT_CHILDREN']       = df['AMT_CREDIT']        / df['CNT_CHILDREN']
+            df['annuity-by-CNT_CHILDREN']      = df['AMT_ANNUITY']       / df['CNT_CHILDREN']
+            df['goods_price-by-CNT_CHILDREN']  = df['AMT_GOODS_PRICE']   / df['CNT_CHILDREN']
         
         df = pd.read_csv('../input/application_train.csv.zip')
         f1(df)

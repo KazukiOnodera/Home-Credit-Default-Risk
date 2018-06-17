@@ -59,7 +59,7 @@ def multi(id_curr):
     try:
         for c in col_binary:
             for v in col_binary_di[c]:
-                di[f'{c}-{v}']        = to_decimal( ((tmp[c]==v)*1).tolist() )
+#                di[f'{c}-{v}']        = to_decimal( ((tmp[c]==v)*1).tolist() )
                 di[f'{c}-{v}_app']    = to_decimal( ((tmp_app[c]==v)*1).tolist() )
                 di[f'{c}-{v}_ref']    = to_decimal( ((tmp_ref[c]==v)*1).tolist() )
                 di[f'{c}-{v}_appref'] = to_decimal( ((tmp_appref[c]==v)*1).tolist() )
@@ -80,7 +80,7 @@ pool.close()
 
 
 base = pd.concat(callback)
-
+utils.remove_feature(base)
 # =============================================================================
 # merge
 # =============================================================================
