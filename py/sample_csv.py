@@ -14,8 +14,8 @@ def sample(n=10):
 #    ids = np.random.choice(df.SK_ID_CURR.unique(), size=n, replace=False)
     ids0 = np.random.choice(df[df['TARGET']==0].SK_ID_CURR.unique(), size=n, replace=False)
     ids1 = np.random.choice(df[df['TARGET']==1].SK_ID_CURR.unique(), size=n, replace=False)
-    df[df.SK_ID_CURR.isin(ids0)].sort_values('SK_ID_CURR').to_csv('sample_tr_0.csv', index=False)
-    df[df.SK_ID_CURR.isin(ids1)].sort_values('SK_ID_CURR').to_csv('sample_tr_1.csv', index=False)
+    df[df.SK_ID_CURR.isin(ids0)].sort_values('SK_ID_CURR').to_csv('../sample/sample_tr_0.csv', index=False)
+    df[df.SK_ID_CURR.isin(ids1)].sort_values('SK_ID_CURR').to_csv('../sample/sample_tr_1.csv', index=False)
     collect()
     
     base = utils.read_pickles('../data/POS_CASH_balance')

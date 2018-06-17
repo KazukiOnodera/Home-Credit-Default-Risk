@@ -24,43 +24,77 @@ KEY = 'SK_ID_CURR'
 
 os.system(f'rm ../feature/t*_{PREF}*')
 # =============================================================================
-# 
+# load
 # =============================================================================
-#ins = pd.read_csv('/Users/Kazuki/Home-Credit-Default-Risk/sample/sample_ins.csv')
+#ins = pd.read_csv('/Users/Kazuki/Home-Credit-Default-Risk/sample/sample_ins_0.csv')
 ins = utils.read_pickles('../data/installments_payments')
 #ins.drop('SK_ID_PREV', axis=1, inplace=True)
 ins = ins[ins['DAYS_INSTALMENT'].between(day_start, day_end)]
 
-# =============================================================================
-# only forcus on delay
-# =============================================================================
-col_delayed = []
+
+col_delayed_day = []
+col_delayed_money = []
+col_delayed_money_ratio = []
 for i in range(0, 50, 5):
-    ins[f'delayed_over{i}'] = (ins['days_delayed_payment']>i)*1
-    col_delayed.append(f'delayed_over{i}')
+    c1 = f'delayed_day_{i}'
+    ins[c1] = (ins['days_delayed_payment']>i)*1
+    col_delayed_day.append(c1)
+    
+    c2 = f'delayed_money_{i}'
+    ins[c2] = ins[c1] * ins.AMT_PAYMENT
+    col_delayed_money.append(c2)
+    
+    c3 = f'delayed_money_ratio_{i}'
+    ins[c3] = ins[c1] * ins.amt_ratio
+    col_delayed_money_ratio.append(c3)
 
-gr = ins.groupby(['SK_ID_PREV', 'SK_ID_CURR', 'NUM_INSTALMENT_NUMBER'])
-gr = gr[col_delayed].sum().groupby('SK_ID_CURR')
 
-feature = pd.concat([
-                     gr[col_delayed].min().add_suffix('_min'),
-                     gr[col_delayed].mean().add_suffix('_mean'),
-                     gr[col_delayed].max().add_suffix('_max'),
-                     gr[col_delayed].std().add_suffix('_std'),
-                     gr[col_delayed].sum().add_suffix('_sum'),
-                     ], axis=1)
+col_not_delayed_day = []
+col_not_delayed_money = []
+col_not_delayed_money_ratio = []
+for i in range(0, 50, 5):
+    c1 = f'not-delayed_day_{i}'
+    ins[c1] = (ins['days_delayed_payment']<=i)*1
+    col_not_delayed_day.append(c1)
+    
+    c2 = f'not-delayed_money_{i}'
+    ins[c2] = ins[c1] * ins.AMT_PAYMENT
+    col_not_delayed_money.append(c2)
+    
+    c3 = f'not-delayed_money_ratio_{i}'
+    ins[c3] = ins[c1] * ins.amt_ratio
+    col_not_delayed_money_ratio.append(c3)
+
+gr1 = ins.groupby(['SK_ID_PREV', 'SK_ID_CURR', 'NUM_INSTALMENT_NUMBER'])
 
 # =============================================================================
-# 
+# features
 # =============================================================================
-1
+
+def mk_feature(col):
+    
+    gr2 = gr1[col].sum().groupby('SK_ID_CURR')
+    
+    feature = pd.concat([
+                         gr2.min().add_suffix('_min'),
+                         gr2.mean().add_suffix('_mean'),
+                         gr2.max().add_suffix('_max'),
+                         gr2.std().add_suffix('_std'),
+                         gr2.sum().add_suffix('_sum'),
+                         ], axis=1)
+    return feature
+
+col_list = [col_delayed_day, col_delayed_money, col_delayed_money_ratio,
+            col_not_delayed_day, col_not_delayed_money, col_not_delayed_money_ratio]
+
+feature = [mk_feature(col) for col in col_list]
+
+feature = pd.concat(feature, axis=1)
 
 
-
-
-
-
+utils.remove_feature(feature)
 feature.reset_index(inplace=True)
+
 
 # =============================================================================
 # merge

@@ -282,8 +282,9 @@ def remove_feature(df, var_limit=0, corr_limit=1):
     col_remove = []
     for a_,b_ in zip(a, b):
         if a_ != b_ and a_ not in col_remove:
-            print(a_, b_)
+#            print(a_, b_)
             col_remove.append(b_)
+    col_remove = df.iloc[:,col_remove].columns
     print(f'remove corr>={corr_limit}: {col_remove}')
     df.drop(col_remove, axis=1, inplace=True)
     
