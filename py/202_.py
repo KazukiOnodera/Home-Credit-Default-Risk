@@ -71,8 +71,8 @@ base['s_nunique'] = cs_size.size()
 # NAME_CONTRACT_STATUS
 # =============================================================================
 
-ct1 = pd.crosstab(pos[KEY], pos['NAME_CONTRACT_STATUS'])
-ct2 = pd.crosstab(pos[KEY], pos['NAME_CONTRACT_STATUS'], normalize='index')
+ct1 = pd.crosstab(pos[KEY], pos['NAME_CONTRACT_STATUS']).add_suffix('_cnt')
+ct2 = pd.crosstab(pos[KEY], pos['NAME_CONTRACT_STATUS'], normalize='index').add_suffix('_nrm')
 
 base = pd.concat([base, ct1, ct2], axis=1)
 

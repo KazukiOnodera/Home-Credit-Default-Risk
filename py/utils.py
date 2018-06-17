@@ -164,12 +164,11 @@ def mkdir_p(path):
     except:
         os.mkdir(path)
 
-#def to_pickle_each_cols(df, path):
-#    for c in df.columns:
-#        df[c].to_pickle(f'{path}_{c}.pkl')
-#    return
-
 def to_feature(df, path):
+    
+    if df.columns.duplicated().sum()>0:
+        raise Exception(f'duplicated!: { df.columns[df.columns.duplicated()] }')
+        
     df.columns = [c.replace('/', '-') for c in df.columns]
     for c in df.columns:
         df[[c]].to_feather(f'{path}_{c}.f')
