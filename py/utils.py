@@ -278,6 +278,10 @@ def remove_feature(df, var_limit=0, corr_limit=1):
         print(f'remove var<={var_limit}: {var0}')
         df.drop(var0, axis=1, inplace=True)
     
+    if df.shape[0]>9999:
+        df_ = df.sample(9999, random_state=71)
+    else:
+        df_ = df
     corr = df_.corr().abs()
     a, b = np.where(corr>=corr_limit)
     col_remove = []

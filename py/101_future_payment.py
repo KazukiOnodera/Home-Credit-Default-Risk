@@ -181,7 +181,6 @@ def mk_feature(df):
 #    df['DAYS_DECISION_max-m-DAYS_BIRTH'] = df['DAYS_DECISION_max'] - df['app_DAYS_BIRTH']
 
 
-utils.remove_feature(base)
 
 train2 = pd.merge(train, base, on=KEY, how='left')
 mk_feature(train2)
@@ -189,6 +188,9 @@ mk_feature(train2)
 
 test2 = pd.merge(test, base, on=KEY, how='left')
 mk_feature(test2)
+
+utils.remove_feature(train2)
+utils.remove_feature(test2)
 
 # =============================================================================
 # output
