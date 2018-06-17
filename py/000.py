@@ -199,7 +199,7 @@ def multi(p):
         # ins
         # =============================================================================
         df = pd.read_csv('../input/installments_payments.csv.zip')
-        df['days_delayed_payment'] = df['DAYS_INSTALMENT'] - df['DAYS_ENTRY_PAYMENT']
+        df['days_delayed_payment'] = df['DAYS_ENTRY_PAYMENT'] - df['DAYS_INSTALMENT']
         df['amt_ratio'] = df['AMT_PAYMENT'] / df['AMT_INSTALMENT']
         df['amt_delta'] = df['AMT_INSTALMENT'] - df['AMT_PAYMENT']
         df['days_weighted_delay'] = df['amt_ratio'] * df['days_delayed_payment']
