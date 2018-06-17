@@ -45,7 +45,7 @@ def multi(p):
             df['goods_price-dby-credit']  = df['AMT_GOODS_PRICE'] / df['AMT_CREDIT']
             df['goods_price-m-credit']    = df['AMT_GOODS_PRICE'] - df['AMT_CREDIT']
             
-            df['goods_price-m-credit-dby-income'] = df['AMT_GOODS_PRICE-m-credit'] / df['AMT_INCOME_TOTAL']
+            df['goods_price-m-credit-dby-income'] = df['goods_price-m-credit'] / df['AMT_INCOME_TOTAL']
             
 #            df['age'] = df['DAYS_BIRTH']/-365
             df['age_finish_payment'] = df['DAYS_BIRTH'].abs() + (df['credit-dby-annuity']*30)
