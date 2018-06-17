@@ -190,7 +190,7 @@ test2 = pd.merge(test, base, on=KEY, how='left')
 mk_feature(test2)
 
 utils.remove_feature(train2)
-utils.remove_feature(test2)
+train2, test2 = train2.align(test2, join='inner', axis=1)
 
 # =============================================================================
 # output
