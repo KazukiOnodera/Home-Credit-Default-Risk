@@ -10,7 +10,7 @@ from glob import glob
 import sys
 argv = sys.argv
 
-files = glob(f'../feature/{argv[2]}')
+files = glob(f'../feature/{argv[2]}*.f')
 
 print(len(files))
 
