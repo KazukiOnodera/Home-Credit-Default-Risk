@@ -117,10 +117,10 @@ test = utils.load_test([KEY])
 
 
 train_ = pd.merge(train, base, on=KEY, how='left').drop(KEY, axis=1)
-utils.to_feature(train_, '../feature/train')
+utils.to_feature(train_.add_prefix(PREF), '../feature/train')
 
 test_ = pd.merge(test, base, on=KEY, how='left').drop(KEY, axis=1)
-utils.to_feature(test_,  '../feature/test')
+utils.to_feature(test_.add_prefix(PREF),  '../feature/test')
 
 
 #==============================================================================

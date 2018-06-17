@@ -21,19 +21,6 @@ import utils
 
 SEED = 71
 
-files = sorted(glob('../feature/train*.f'))
-
-X = pd.concat([
-                pd.read_feather(f) for f in tqdm(files, mininterval=100)
-               ], axis=1)
-y = utils.read_pickles('../data/label').TARGET
-
-
-if X.columns.duplicated().sum()>0:
-    raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
-print('no dup :) ')
-print(f'X.shape {X.shape}')
-
 param = {
          'objective': 'binary',
          'metric': 'auc',
@@ -66,6 +53,23 @@ categorical_feature = ['app_001_NAME_CONTRACT_TYPE',
                      'app_001_HOUSETYPE_MODE',
                      'app_001_WALLSMATERIAL_MODE',
                      'app_001_EMERGENCYSTATE_MODE']
+
+# =============================================================================
+# 
+# =============================================================================
+
+files = sorted(glob('../feature/train*.f'))
+
+X = pd.concat([
+                pd.read_feather(f) for f in tqdm(files, mininterval=100)
+               ], axis=1)
+y = utils.read_pickles('../data/label').TARGET
+
+
+if X.columns.duplicated().sum()>0:
+    raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
+print('no dup :) ')
+print(f'X.shape {X.shape}')
 
 
 dtrain = lgb.Dataset(X, y, categorical_feature=list( set(X.columns)&set(categorical_feature)) )

@@ -1,25 +1,24 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Sat Jun 16 05:48:14 2018
+Created on Sun Jun 17 19:06:57 2018
 
 @author: Kazuki
 """
-
 import numpy as np
 import pandas as pd
 import os
 import utils
-#utils.start(__file__)
+utils.start(__file__)
 #==============================================================================
 
 # setting
-day_start = -365 # min: -2922
-day_end   = 0 # min: -2922
+day_start = -365*3 # min: -2922
+day_end   = -365*2 # min: -2922
 
 month_round = 1
 
-PREF = 'ins_301_'
+PREF = 'ins_303_'
 
 KEY = 'SK_ID_CURR'
 
@@ -80,4 +79,6 @@ utils.to_feature(test.add_prefix(PREF),  '../feature/test')
 
 #==============================================================================
 utils.end(__file__)
+
+
 
