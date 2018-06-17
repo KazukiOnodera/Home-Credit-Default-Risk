@@ -48,6 +48,7 @@ feature = pd.concat([
                      gr[col_delayed].mean().add_suffix('_mean'),
                      gr[col_delayed].max().add_suffix('_max'),
                      gr[col_delayed].std().add_suffix('_std'),
+                     gr[col_delayed].sum().add_suffix('_sum'),
                      ], axis=1)
 
 # =============================================================================
