@@ -50,8 +50,9 @@ base['resfused_cnt']  = gr_ref.size()
 base['active_cnt']  = gr_act.size()
 base['completed_cnt']  = gr_cmp.size()
 
-
-
+base['app-p-ref_cnt'] = base['approved_cnt'] + base['resfused_cnt']
+base['approved_ratio'] = base['approved_cnt'] / base['app-p-ref_cnt']
+base['active_ratio']   = base['active_cnt'] / base['approved_cnt']
 
 
 c = 'total_debt'
