@@ -22,8 +22,8 @@ os.system(f'rm ../feature/t*_{PREF}*')
 # =============================================================================
 # 
 # =============================================================================
-pos = pd.read_csv('/Users/Kazuki/Home-Credit-Default-Risk/sample/sample_POS.csv')
-#pos = utils.read_pickles('../data/POS_CASH_balance')
+#pos = pd.read_csv('/Users/Kazuki/Home-Credit-Default-Risk/sample/sample_POS.csv')
+pos = utils.read_pickles('../data/POS_CASH_balance')
 base = pos[[KEY]].drop_duplicates().set_index(KEY)
 
 gr_c   = pos.groupby('SK_ID_CURR')
