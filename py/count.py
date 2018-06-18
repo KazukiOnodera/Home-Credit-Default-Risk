@@ -24,7 +24,7 @@ else:
     for k in keys:
         di[k] += 1
     for k,v in di.items():
-        print(k, v)
+        print(f'{k}: {v}')
     
     print('\ntest files')
     keys = sorted([f.split('/')[-1].split('_')[2] for f in files if 'test_' in f])
@@ -32,5 +32,5 @@ else:
     for k in keys:
         di[k] += 1
     for k,v in di.items():
-        print(k, v)
+        print(f'{k}: {v}')
     

@@ -5,6 +5,7 @@ Created on Mon Jun 18 13:19:47 2018
 
 @author: kazuki.onodera
 
+based on
 https://www.kaggle.com/jsaguiar/updated-0-792-lb-lightgbm-with-simple-features/code
 """
 
@@ -27,17 +28,13 @@ os.system(f'rm ../feature/t*_{PREF}*')
 # 
 # =============================================================================
 prev = utils.read_pickles('../data/previous_application')
-#base = prev[[KEY]].drop_duplicates().set_index(KEY)
+
 
 #prev['APP_CREDIT_PERC'] = prev['AMT_APPLICATION'] / prev['AMT_CREDIT']
 prev.sort_values(['SK_ID_CURR', 'DAYS_DECISION'], inplace=True, ascending=[True, False])
 
-#prev_app = utils.get_dummies(prev[prev['NAME_CONTRACT_STATUS']=='Approved'])
-#prev_ref = utils.get_dummies(prev[prev['NAME_CONTRACT_STATUS']=='Refused'])
-#prev_act = utils.get_dummies(prev[prev['active']==1])
-#prev_cmp = utils.get_dummies(prev[prev['completed']==1])
-
 num_aggregations = {
+    # TODO: optimize stats
     'AMT_ANNUITY': ['min', 'max', 'mean'],
     'AMT_APPLICATION': ['min', 'max', 'mean'],
     'AMT_CREDIT': ['min', 'max', 'mean'],

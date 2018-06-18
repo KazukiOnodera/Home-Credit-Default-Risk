@@ -17,7 +17,7 @@ import multiprocessing
 from glob import glob
 import count
 import utils
-#utils.start(__file__)
+utils.start(__file__)
 #==============================================================================
 
 SEED = 71
@@ -93,17 +93,17 @@ imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
 # =============================================================================
 # 
 # =============================================================================
-#col = imp['index'][:20].tolist()
-#dtrain = lgb.Dataset(X[col], y, categorical_feature=list( set(col)&set(categorical_feature)) )
-#gc.collect()
-#
-#ret = lgb.cv(param, dtrain, 9999, nfold=5,
-#             early_stopping_rounds=50, verbose_eval=10,
-#             seed=SEED)
-#
-#result = f"CV auc-mean(20 features) {ret['auc-mean'][-1]}"
-#print(result)
-#utils.send_line(result)
+col = imp['index'][:20].tolist()
+dtrain = lgb.Dataset(X[col], y, categorical_feature=list( set(col)&set(categorical_feature)) )
+gc.collect()
+
+ret = lgb.cv(param, dtrain, 9999, nfold=5,
+             early_stopping_rounds=50, verbose_eval=10,
+             seed=SEED)
+
+result = f"CV auc-mean(20 features) {ret['auc-mean'][-1]}"
+print(result)
+utils.send_line(result)
 
 
 #==============================================================================
