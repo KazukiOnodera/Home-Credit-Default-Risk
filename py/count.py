@@ -17,4 +17,5 @@ if len(argv)>1:
 else:
     files = glob(f'../feature/*.f')
     files = sorted(list( set([f.split('/')[-1].split('_')[2] for f in files]) ))
+    [print(f) for f in files]
     
