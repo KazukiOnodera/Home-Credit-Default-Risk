@@ -377,3 +377,7 @@ def send_line(message):
     headers = {'Authorization': 'Bearer ' + line_notify_token}
     requests.post(line_notify_api, data=payload, headers=headers)
 
+def stop_instance():
+    os.system('gcloud compute instances stop instance-1 --zone us-east1-b')
+    
+    

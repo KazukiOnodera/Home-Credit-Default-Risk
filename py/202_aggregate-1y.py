@@ -33,7 +33,6 @@ os.system(f'rm ../feature/t*_{PREF}*')
 pos = utils.read_pickles('../data/POS_CASH_balance')
 pos = pos[pos['MONTHS_BALANCE'].between(month_start, month_end)]
 
-pos.sort_values(['SK_ID_CURR', 'DAYS_DECISION'], inplace=True, ascending=[True, False])
 
 num_aggregations = {
     # TODO: optimize stats
