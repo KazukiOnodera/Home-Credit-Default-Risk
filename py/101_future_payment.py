@@ -161,8 +161,8 @@ def mk_feature(df):
     col_2 = []
     df['tmp'] = df['app_credit-dby-annuity'].map(np.ceil)
     for i,c in enumerate( col_future ):
-        c1 = f'amt_future_payment-p-app_{i+1}m'
-        c2 = f'amt_future_payment-p-app_{i+1}m-dby-income'
+        c1 = f'prev-app_future_payment_{i+1}m'
+        c2 = f'prev-app_future_payment_{i+1}m-dby-income'
         df[c1] = df[c] + df['tmp'].map(lambda x: min(x, 1)) * df['app_AMT_ANNUITY']
         df[c2] = df[c1] / df['app_AMT_INCOME_TOTAL']
         df['tmp'] -= 1
