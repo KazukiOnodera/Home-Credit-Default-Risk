@@ -16,7 +16,7 @@ import os
 from multiprocessing import Pool, cpu_count
 NTHREAD = cpu_count()
 import utils
-#utils.start(__file__)
+utils.start(__file__)
 #==============================================================================
 PREF = 'prev_103_'
 
