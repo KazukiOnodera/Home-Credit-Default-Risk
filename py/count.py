@@ -18,6 +18,7 @@ if len(argv)>1:
 else:
     files = glob(f'../feature/*.f')
     
+    print('train files')
     keys = [f.split('/')[-1].split('_')[2] for f in files if 'train_' in f]
     di = defaultdict(int)
     for k in keys:
@@ -25,6 +26,7 @@ else:
     for k,v in di.items():
         print(k, v)
     
+    print('\ntest files')
     keys = [f.split('/')[-1].split('_')[2] for f in files if 'test_' in f]
     di = defaultdict(int)
     for k in keys:
