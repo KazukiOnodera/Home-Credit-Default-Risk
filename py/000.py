@@ -142,7 +142,7 @@ def multi(p):
             df.loc[df[c]==0, c] = np.nan
             df['cnt_unpaid_tmp'] -= 1
             df['cnt_unpaid_tmp'] = df['cnt_unpaid_tmp'].map(lambda x: max(x, 0))
-        df['prev_future_payment_max'] = df.filter(regex='^prev_future_payment_').max(1)
+#        df['prev_future_payment_max'] = df.filter(regex='^prev_future_payment_').max(1)
         
         del df['cnt_unpaid_tmp']
         
@@ -156,7 +156,7 @@ def multi(p):
             df.loc[df[c]==0, c] = np.nan
             df['cnt_paid_tmp'] -= 1
             df['cnt_paid_tmp'] = df['cnt_paid_tmp'].map(lambda x: max(x, 0))
-        df['prev_past_payment_max'] = df.filter(regex='^prev_past_payment_').max(1)
+#        df['prev_past_payment_max'] = df.filter(regex='^prev_past_payment_').max(1)
         
         del df['cnt_paid_tmp']
         

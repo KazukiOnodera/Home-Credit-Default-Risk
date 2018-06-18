@@ -171,11 +171,12 @@ def mk_feature(df):
         
     del df['tmp']
     
-    df['amt_future_payment-p-app_max'] = df[col_1].max(1)
-    df['amt_future_payment-p-app-dby-income_max'] = df[col_2].max(1)
+    df['prev-app_future_payment_max'] = df[col_1].max(1)
+    df['prev-app_future_payment-dby-income_max'] = df[col_2].max(1)
     df['amt_past_payment_sum_max'] = df[col_past].max(1)
     
-    df['amt_future_payment-p-app_max-dby-amt_past_payment_sum_max'] = df['amt_future_payment-p-app_max'] / df['amt_past_payment_sum_max']
+    # future vs past
+    df['amt_future_payment-p-app_max-dby-amt_past_payment_sum_max'] = df['prev-app_future_payment_max'] / df['amt_past_payment_sum_max']
     
 #    df['DAYS_DECISION_min-m-DAYS_BIRTH'] = df['DAYS_DECISION_min'] - df['app_DAYS_BIRTH']
 #    df['DAYS_DECISION_max-m-DAYS_BIRTH'] = df['DAYS_DECISION_max'] - df['app_DAYS_BIRTH']
