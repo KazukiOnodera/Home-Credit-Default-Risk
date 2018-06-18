@@ -16,6 +16,7 @@ import lightgbm as lgb
 import multiprocessing
 from glob import glob
 import count
+import os
 import utils
 utils.start(__file__)
 #==============================================================================
@@ -61,6 +62,18 @@ categorical_feature = ['app_001_NAME_CONTRACT_TYPE',
 
 files = sorted(glob('../feature/train*.f'))
 
+unuse_files = [f.split('/')[-1] for f in sorted(glob('../unuse_feature/*.f'))]
+files_ = []
+if len(unuse_files):
+    for f1 in files:
+        for f2 in unuse_files:
+            if f1.endswith(f2):
+                files_.append(f1)
+                break
+
+files = sorted(set(files) - set(files_))
+
+
 X = pd.concat([
                 pd.read_feather(f) for f in tqdm(files, mininterval=100)
                ], axis=1)
@@ -89,6 +102,14 @@ model = lgb.train(param, dtrain, len(ret['auc-mean']))
 
 imp = ex.getImp(model).sort_values(['gain', 'index'], ascending=[False, True])
 imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
+
+"""
+imp = pd.read_csv('LOG/imp_909_cv.py.csv')
+"""
+
+col = imp[imp['split']==0]['index'].tolist()
+for c in col:
+    os.system(f'touch "../unuse_feature/{c}.f"')
 
 # =============================================================================
 # 
