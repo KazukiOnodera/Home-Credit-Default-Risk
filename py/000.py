@@ -40,12 +40,22 @@ def multi(p):
             df['credit-dby-income']       = df['AMT_CREDIT'] / df['AMT_INCOME_TOTAL']
             df['annuity-dby-income']      = df['AMT_ANNUITY'] / df['AMT_INCOME_TOTAL']
             df['goods_price-dby-income']  = df['AMT_GOODS_PRICE'] / df['AMT_INCOME_TOTAL']
+            
+            df['income-dby-credit']       = df['AMT_INCOME_TOTAL'] / df['AMT_CREDIT']
+            df['income-dby-annuity']      = df['AMT_INCOME_TOTAL'] / df['AMT_ANNUITY']
+            df['income-dby-goods_price']  = df['AMT_INCOME_TOTAL'] / df['AMT_GOODS_PRICE']
+            
             df['credit-dby-annuity']      = df['AMT_CREDIT'] / df['AMT_ANNUITY'] # how long should user pay?(month)
             df['goods_price-dby-annuity'] = df['AMT_GOODS_PRICE'] / df['AMT_ANNUITY']# how long should user pay?(month)
             df['goods_price-dby-credit']  = df['AMT_GOODS_PRICE'] / df['AMT_CREDIT']
             df['goods_price-m-credit']    = df['AMT_GOODS_PRICE'] - df['AMT_CREDIT']
             
             df['goods_price-m-credit-dby-income'] = df['goods_price-m-credit'] / df['AMT_INCOME_TOTAL']
+            
+            # https://www.kaggle.com/jsaguiar/updated-0-792-lb-lightgbm-with-simple-features/code
+            df['DAYS_EMPLOYED_PERC'] = df['DAYS_EMPLOYED'] / df['DAYS_BIRTH']
+            df['INCOME_PER_PERSON'] = df['AMT_INCOME_TOTAL'] / df['CNT_FAM_MEMBERS']
+            df['PAYMENT_RATE'] = df['AMT_ANNUITY'] / df['AMT_CREDIT']
             
 #            df['age'] = df['DAYS_BIRTH']/-365
             df['age_finish_payment'] = df['DAYS_BIRTH'].abs() + (df['credit-dby-annuity']*30)
@@ -65,6 +75,7 @@ def multi(p):
             df['DAYS_LAST_PHONE_CHANGE-m-DAYS_ID_PUBLISH']   = df['DAYS_LAST_PHONE_CHANGE'] - df['DAYS_ID_PUBLISH']
             
             df['cnt_adults'] = df['CNT_FAM_MEMBERS'] - df['CNT_CHILDREN']
+            df['income_per_adult'] = df['AMT_INCOME_TOTAL'] / df['cnt_adults']
             df.loc[df['CNT_CHILDREN']==0, 'CNT_CHILDREN'] = np.nan
             df['income-by-CNT_CHILDREN'] = df['AMT_INCOME_TOTAL']  / df['CNT_CHILDREN']
             df['credit-by-CNT_CHILDREN']       = df['AMT_CREDIT']        / df['CNT_CHILDREN']
@@ -126,11 +137,12 @@ def multi(p):
         rem_max = df['cnt_unpaid'].max() # 80
         df['cnt_unpaid_tmp'] = df['cnt_unpaid']
         for i in range(int( rem_max )):
-            c = f'amt_future_payment_{i+1}m'
+            c = f'prev_future_payment_{i+1}m'
             df[c] = df['cnt_unpaid_tmp'].map(lambda x: min(x, 1)) * df['AMT_ANNUITY']
             df.loc[df[c]==0, c] = np.nan
             df['cnt_unpaid_tmp'] -= 1
             df['cnt_unpaid_tmp'] = df['cnt_unpaid_tmp'].map(lambda x: max(x, 0))
+        df['prev_future_payment_max'] = df.filter(regex='^prev_future_payment_').max(1)
         
         del df['cnt_unpaid_tmp']
         
@@ -139,11 +151,12 @@ def multi(p):
         rem_max = df['cnt_paid'].max() # 72
         df['cnt_paid_tmp'] = df['cnt_paid']
         for i in range(int( rem_max )):
-            c = f'amt_past_payment_{i+1}m'
+            c = f'prev_past_payment_{i+1}m'
             df[c] = df['cnt_paid_tmp'].map(lambda x: min(x, 1)) * df['AMT_ANNUITY']
             df.loc[df[c]==0, c] = np.nan
             df['cnt_paid_tmp'] -= 1
             df['cnt_paid_tmp'] = df['cnt_paid_tmp'].map(lambda x: max(x, 0))
+        df['prev_past_payment_max'] = df.filter(regex='^prev_past_payment_').max(1)
         
         del df['cnt_paid_tmp']
         
