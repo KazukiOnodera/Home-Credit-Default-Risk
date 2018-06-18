@@ -115,9 +115,9 @@ base['amt_paid_sum-dby-amt_unpaid_sum'] = base['amt_paid_sum'] / base['amt_unpai
 
 
 # app, ref
-base['cnt_approved'] = gr_app.size()
-base['cnt_refused'] = gr_ref.size()
-base['approved_ratio'] = base['cnt_approved'] / base['cnt_approved'] + base['cnt_refused'] 
+#base['cnt_approved'] = gr_app.size()
+#base['cnt_refused'] = gr_ref.size()
+#base['approved_ratio'] = base['cnt_approved'] / base['cnt_approved'] + base['cnt_refused'] 
 
 base['DAYS_DECISION_app_min'] = gr_app['DAYS_DECISION'].min()
 base['DAYS_DECISION_app_max'] = gr_app['DAYS_DECISION'].max()

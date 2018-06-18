@@ -160,7 +160,7 @@ def multi(p):
         
         del df['cnt_paid_tmp']
         
-#        tmp = df.sample(999)
+        df['APP_CREDIT_PERC'] = df['AMT_APPLICATION'] / df['AMT_CREDIT']
         
         #df.filter(regex='^amt_future_payment_')
         
