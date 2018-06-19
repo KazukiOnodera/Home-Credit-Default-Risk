@@ -38,11 +38,12 @@ num_aggregations = {
     'NUM_INSTALMENT_VERSION': ['nunique'],
     'DPD': ['max', 'mean', 'sum', 'nunique'],
     'DBD': ['max', 'mean', 'sum', 'nunique'],
-    'amt_ratio': ['min', 'mean', 'var'],
-    'amt_delta': ['min', 'mean', 'var'],
     'AMT_INSTALMENT': ['min', 'max', 'mean', 'sum'],
     'AMT_PAYMENT':    ['min', 'max', 'mean', 'sum'],
-    'DAYS_ENTRY_PAYMENT': ['max', 'mean', 'sum']
+    'DAYS_ENTRY_PAYMENT': ['max', 'mean', 'sum'],
+    'amt_ratio': ['min', 'mean', 'var'],
+    'amt_delta': ['min', 'mean', 'var'],
+    'days_weighted_delay': ['max', 'mean', 'sum'],
 }
 
 #col_cat = ['NAME_CONTRACT_STATUS']

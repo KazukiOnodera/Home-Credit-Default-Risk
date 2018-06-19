@@ -246,6 +246,13 @@ def multi(p):
         df['amt_ratio'] = df['AMT_PAYMENT'] / df['AMT_INSTALMENT']
         df['amt_delta'] = df['AMT_INSTALMENT'] - df['AMT_PAYMENT']
         df['days_weighted_delay'] = df['amt_ratio'] * df['days_delayed_payment']
+        
+        # Days past due and days before due (no negative values)
+        df['DPD'] = df['DAYS_ENTRY_PAYMENT'] - df['DAYS_INSTALMENT']
+        df['DBD'] = df['DAYS_INSTALMENT'] - df['DAYS_ENTRY_PAYMENT']
+        df['DPD'] = df['DPD'].apply(lambda x: x if x > 0 else 0)
+        df['DBD'] = df['DBD'].apply(lambda x: x if x > 0 else 0)
+        
         decay = 0.0003 # decay rate per a day
         feature = f'days_weighted_delay_tsw3' # Time Series Weight
         df[feature] = df['days_weighted_delay'] * (1 + (df['DAYS_ENTRY_PAYMENT']*decay) )
