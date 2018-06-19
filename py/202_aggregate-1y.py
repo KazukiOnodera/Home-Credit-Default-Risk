@@ -66,6 +66,8 @@ def aggregate():
     
     df_agg = df.groupby('SK_ID_CURR').agg({**num_aggregations, **cat_aggregations})
     df_agg.columns = pd.Index([e[0] + "_" + e[1] for e in df_agg.columns.tolist()])
+    
+    df_agg['POS_COUNT'] = df.groupby('SK_ID_CURR').size()
     df_agg.reset_index(inplace=True)
     
     tmp = pd.merge(train, df_agg, on=KEY, how='left').drop(KEY, axis=1)
@@ -80,17 +82,6 @@ def aggregate():
 # =============================================================================
 # main
 # =============================================================================
-
-#argss = [
-#        ['NAME_CONTRACT_STATUS', 'Approved', 'approved_'],
-#        ['NAME_CONTRACT_STATUS', 'Approved', 'refused_'],
-#        ['active',    1, 'active_'],
-#        ['completed', 1, 'completed_'],
-#        ]
-#
-#pool = Pool(NTHREAD)
-#callback = pool.map(aggregate, argss)
-#pool.close()
 
 aggregate()
 

@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Mon Jun 18 22:03:46 2018
+Created on Tue Jun 19 21:36:19 2018
 
-@author: kazuki.onodera
-
+@author: Kazuki
 
 based on
 https://www.kaggle.com/jsaguiar/updated-0-792-lb-lightgbm-with-simple-features/code
@@ -19,16 +18,19 @@ NTHREAD = cpu_count()
 import utils
 utils.start(__file__)
 #==============================================================================
-PREF = 'pos_201_'
+PREF = 'pos_203_'
 
 KEY = 'SK_ID_CURR'
 
+month_start = -12*2 # -96
+month_end   = -12*1 # -96
 
 os.system(f'rm ../feature/t*_{PREF}*')
 # =============================================================================
 # 
 # =============================================================================
 pos = utils.read_pickles('../data/POS_CASH_balance')
+pos = pos[pos['MONTHS_BALANCE'].between(month_start, month_end)]
 
 
 num_aggregations = {
