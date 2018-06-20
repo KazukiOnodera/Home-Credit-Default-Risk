@@ -378,6 +378,7 @@ def send_line(message):
     requests.post(line_notify_api, data=payload, headers=headers)
 
 def stop_instance():
+    send_line('stop instance')
     os.system('gcloud compute instances stop instance-1 --zone us-east1-b')
     
     
