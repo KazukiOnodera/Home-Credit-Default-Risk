@@ -20,7 +20,7 @@ day_end   = -365   # min: -2922
 
 month_round = 1
 
-PREF = 'ins_302_'
+PREF = 'ins_306_'
 
 KEY = 'SK_ID_CURR'
 
@@ -82,7 +82,7 @@ def mk_feature(col):
                          gr2.mean().add_suffix('_mean'),
                          gr2.max().add_suffix('_max'),
                          gr2.std().add_suffix('_std'),
-                         gr2.sum().add_suffix('_sum'),
+#                         gr2.sum().add_suffix('_sum'),
                          ], axis=1)
     return feature
 
