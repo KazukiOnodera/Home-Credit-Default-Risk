@@ -134,7 +134,7 @@ def multi(p):
                      'AMT_GOODS_PRICE': 'app_AMT_GOODS_PRICE'}
         trte = pd.concat([pd.read_csv('../input/application_train.csv.zip', usecols=usecols).rename(columns=rename_di), 
                           pd.read_csv('../input/application_test.csv.zip',  usecols=usecols).rename(columns=rename_di)],
-                          axis=1, ignore_index=True)
+                          ignore_index=True)
         
         df = pd.merge(pd.read_csv('../input/previous_application.csv.zip'),
                      trte, on='SK_ID_CURR', how='left')
