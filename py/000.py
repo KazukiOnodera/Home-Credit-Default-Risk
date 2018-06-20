@@ -127,7 +127,17 @@ def multi(p):
         # =============================================================================
         # prev
         # =============================================================================
-        df = pd.read_csv('../input/previous_application.csv.zip')
+        usecols = ['SK_ID_CURR', 'AMT_INCOME_TOTAL', 'AMT_CREDIT', 'AMT_ANNUITY', 'AMT_GOODS_PRICE']
+        rename_di = {'AMT_INCOME_TOTAL': 'app_AMT_INCOME_TOTAL', 
+                     'AMT_CREDIT': 'app_AMT_CREDIT', 
+                     'AMT_ANNUITY': 'app_AMT_ANNUITY',
+                     'AMT_GOODS_PRICE': 'app_AMT_GOODS_PRICE'}
+        trte = pd.concat([pd.read_csv('../input/application_train.csv.zip', usecols=usecols).rename(columns=rename_di), 
+                          pd.read_csv('../input/application_test.csv.zip',  usecols=usecols).rename(columns=rename_di)],
+                          axis=1, ignore_index=True)
+        
+        df = pd.mege(pd.read_csv('../input/previous_application.csv.zip'),
+                     trte, on='SK_ID_CURR', how='left')
         df['FLAG_LAST_APPL_PER_CONTRACT'] = (df['FLAG_LAST_APPL_PER_CONTRACT']=='Y')*1
         
         for c in ['DAYS_FIRST_DRAWING', 'DAYS_FIRST_DUE', 'DAYS_LAST_DUE_1ST_VERSION', 
@@ -152,6 +162,29 @@ def multi(p):
         df['total_debt'] = df['AMT_ANNUITY'] * df['CNT_PAYMENT']
         df['AMT_CREDIT-dby-total_debt'] = df['AMT_CREDIT'] / df['total_debt']
         df['AMT_GOODS_PRICE-dby-total_debt'] = df['AMT_GOODS_PRICE'] / df['total_debt']
+        df['AMT_GOODS_PRICE-dby-AMT_CREDIT'] = df['AMT_GOODS_PRICE'] / df['AMT_CREDIT']
+        
+        # app
+        df['AMT_ANNUITY-dby-app_AMT_INCOME_TOTAL']     = df['AMT_ANNUITY']     / df['app_AMT_INCOME_TOTAL']
+        df['AMT_APPLICATION-dby-app_AMT_INCOME_TOTAL'] = df['AMT_APPLICATION'] / df['app_AMT_INCOME_TOTAL']
+        df['AMT_CREDIT-dby-app_AMT_INCOME_TOTAL']      = df['AMT_CREDIT']      / df['app_AMT_INCOME_TOTAL']
+        df['AMT_GOODS_PRICE-dby-app_AMT_INCOME_TOTAL'] = df['AMT_GOODS_PRICE'] / df['app_AMT_INCOME_TOTAL']
+        
+        df['AMT_ANNUITY-dby-app_AMT_CREDIT']     = df['AMT_ANNUITY']     / df['app_AMT_CREDIT']
+        df['AMT_APPLICATION-dby-app_AMT_CREDIT'] = df['AMT_APPLICATION'] / df['app_AMT_CREDIT']
+        df['AMT_CREDIT-dby-app_AMT_CREDIT']      = df['AMT_CREDIT']      / df['app_AMT_CREDIT']
+        df['AMT_GOODS_PRICE-dby-app_AMT_CREDIT'] = df['AMT_GOODS_PRICE'] / df['app_AMT_CREDIT']
+        
+        df['AMT_ANNUITY-dby-app_AMT_ANNUITY']     = df['AMT_ANNUITY']     / df['app_AMT_ANNUITY']
+        df['AMT_APPLICATION-dby-app_AMT_ANNUITY'] = df['AMT_APPLICATION'] / df['app_AMT_ANNUITY']
+        df['AMT_CREDIT-dby-app_AMT_ANNUITY']      = df['AMT_CREDIT']      / df['app_AMT_ANNUITY']
+        df['AMT_GOODS_PRICE-dby-app_AMT_ANNUITY'] = df['AMT_GOODS_PRICE'] / df['app_AMT_ANNUITY']
+        
+        df['AMT_ANNUITY-dby-app_AMT_GOODS_PRICE']     = df['AMT_ANNUITY']     / df['app_AMT_GOODS_PRICE']
+        df['AMT_APPLICATION-dby-app_AMT_GOODS_PRICE'] = df['AMT_APPLICATION'] / df['app_AMT_GOODS_PRICE']
+        df['AMT_CREDIT-dby-app_AMT_GOODS_PRICE']      = df['AMT_CREDIT']      / df['app_AMT_GOODS_PRICE']
+        df['AMT_GOODS_PRICE-dby-app_AMT_GOODS_PRICE'] = df['AMT_GOODS_PRICE'] / df['app_AMT_GOODS_PRICE']
+        
         
         df['cnt_paid'] = df.apply(lambda x: min( np.ceil(x['DAYS_FIRST_DUE']/-30), x['CNT_PAYMENT'] ), axis=1)
         df['cnt_paid_ratio'] = df['cnt_paid'] / df['CNT_PAYMENT']

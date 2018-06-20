@@ -169,7 +169,7 @@ def to_feature(df, path):
     if df.columns.duplicated().sum()>0:
         raise Exception(f'duplicated!: { df.columns[df.columns.duplicated()] }')
         
-    df.columns = [c.replace('/', '-') for c in df.columns]
+    df.columns = [c.replace('/', '-').replace(' ', '-') for c in df.columns]
     for c in df.columns:
         df[[c]].to_feather(f'{path}_{c}.f')
     return
@@ -282,7 +282,7 @@ def remove_feature(df, var_limit=0, corr_limit=1):
         df_ = df.sample(9999, random_state=71)
     else:
         df_ = df
-    corr = df_.corr().abs()
+    corr = df_.corr('spearman').abs()
     a, b = np.where(corr>=corr_limit)
     col_remove = []
     for a_,b_ in zip(a, b):

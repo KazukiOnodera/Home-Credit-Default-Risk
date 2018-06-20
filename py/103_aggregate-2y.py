@@ -20,12 +20,12 @@ utils.start(__file__)
 #==============================================================================
 
 # setting
-PREF = 'prev_106_'
+PREF = 'prev_103_'
 
 KEY = 'SK_ID_CURR'
 
-day_start = -365*3 # min: -2922
-day_end   = -365*2 # min: -2922
+day_start = -365*2 # min: -2922
+day_end   = -365*1 # min: -2922
 
 os.system(f'rm ../feature/t*_{PREF}*')
 # =============================================================================
@@ -39,17 +39,42 @@ prev.sort_values(['SK_ID_CURR', 'DAYS_DECISION'], inplace=True, ascending=[True,
 
 num_aggregations = {
     # TODO: optimize stats
-    'AMT_ANNUITY':             ['min', 'max', 'mean'],
-    'AMT_APPLICATION':         ['min', 'max', 'mean'],
-    'AMT_CREDIT':              ['min', 'max', 'mean'],
-    'APP_CREDIT_PERC':         ['min', 'max', 'mean', 'var'],
-    'AMT_DOWN_PAYMENT':        ['min', 'max', 'mean'],
-    'AMT_GOODS_PRICE':         ['min', 'max', 'mean'],
+    'AMT_ANNUITY': ['min', 'max', 'mean'],
+    'AMT_APPLICATION': ['min', 'max', 'mean'],
+    'AMT_CREDIT': ['min', 'max', 'mean'],
+    'APP_CREDIT_PERC': ['min', 'max', 'mean', 'var'],
+    'AMT_DOWN_PAYMENT': ['min', 'max', 'mean'],
+    'AMT_GOODS_PRICE': ['min', 'max', 'mean'],
     'HOUR_APPR_PROCESS_START': ['min', 'max', 'mean'],
-    'RATE_DOWN_PAYMENT':       ['min', 'max', 'mean'],
-    'DAYS_DECISION':           ['min', 'max', 'mean'],
-    'CNT_PAYMENT':             ['mean', 'sum'],
+    'RATE_DOWN_PAYMENT': ['min', 'max', 'mean'],
+    'DAYS_DECISION': ['min', 'max', 'mean'],
+    'CNT_PAYMENT': ['min', 'mean', 'max'],
+    
+    'total_debt':                               ['min', 'mean', 'max'],
+    'AMT_CREDIT-dby-total_debt':                ['min', 'mean', 'max'],
+    'AMT_GOODS_PRICE-dby-total_debt':           ['min', 'mean', 'max'],
+    'AMT_GOODS_PRICE-dby-AMT_CREDIT':           ['min', 'mean', 'max'],
+    'AMT_ANNUITY-dby-app_AMT_INCOME_TOTAL':     ['min', 'mean', 'max'],
+    'AMT_APPLICATION-dby-app_AMT_INCOME_TOTAL': ['min', 'mean', 'max'],
+    'AMT_CREDIT-dby-app_AMT_INCOME_TOTAL':      ['min', 'mean', 'max'],
+    'AMT_GOODS_PRICE-dby-app_AMT_INCOME_TOTAL': ['min', 'mean', 'max'],
+    
+    'AMT_ANNUITY-dby-app_AMT_CREDIT':           ['min', 'mean', 'max'],
+    'AMT_APPLICATION-dby-app_AMT_CREDIT':       ['min', 'mean', 'max'],
+    'AMT_CREDIT-dby-app_AMT_CREDIT':            ['min', 'mean', 'max'],
+    'AMT_GOODS_PRICE-dby-app_AMT_CREDIT':       ['min', 'mean', 'max'],
+    
+    'AMT_ANNUITY-dby-app_AMT_ANNUITY':          ['min', 'mean', 'max'],
+    'AMT_APPLICATION-dby-app_AMT_ANNUITY':      ['min', 'mean', 'max'],
+    'AMT_CREDIT-dby-app_AMT_ANNUITY':           ['min', 'mean', 'max'],
+    'AMT_GOODS_PRICE-dby-app_AMT_ANNUITY':      ['min', 'mean', 'max'],
+    
+    'AMT_ANNUITY-dby-app_AMT_GOODS_PRICE':      ['min', 'mean', 'max'],
+    'AMT_APPLICATION-dby-app_AMT_GOODS_PRICE':  ['min', 'mean', 'max'],
+    'AMT_CREDIT-dby-app_AMT_GOODS_PRICE':       ['min', 'mean', 'max'],
+    'AMT_GOODS_PRICE-dby-app_AMT_GOODS_PRICE':  ['min', 'mean', 'max'],
 }
+
 
 col_cat = ['NAME_CONTRACT_TYPE', 'WEEKDAY_APPR_PROCESS_START', 'NAME_CASH_LOAN_PURPOSE',
            'NAME_CONTRACT_STATUS', 'NAME_PAYMENT_TYPE', 'CODE_REJECT_REASON',

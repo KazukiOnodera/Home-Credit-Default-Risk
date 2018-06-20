@@ -18,7 +18,7 @@ NTHREAD = cpu_count()
 import utils
 utils.start(__file__)
 #==============================================================================
-PREF = 'prev_103_'
+PREF = 'prev_101_'
 
 KEY = 'SK_ID_CURR'
 
@@ -44,7 +44,34 @@ num_aggregations = {
     'HOUR_APPR_PROCESS_START': ['min', 'max', 'mean'],
     'RATE_DOWN_PAYMENT': ['min', 'max', 'mean'],
     'DAYS_DECISION': ['min', 'max', 'mean'],
-    'CNT_PAYMENT': ['mean', 'sum'],
+    'CNT_PAYMENT': ['min', 'mean', 'max'],
+    
+    'total_debt':                               ['min', 'mean', 'max'],
+    'AMT_CREDIT-dby-total_debt':                ['min', 'mean', 'max'],
+    'AMT_GOODS_PRICE-dby-total_debt':           ['min', 'mean', 'max'],
+    'AMT_GOODS_PRICE-dby-AMT_CREDIT':           ['min', 'mean', 'max'],
+    'AMT_ANNUITY-dby-app_AMT_INCOME_TOTAL':     ['min', 'mean', 'max'],
+    'AMT_APPLICATION-dby-app_AMT_INCOME_TOTAL': ['min', 'mean', 'max'],
+    'AMT_CREDIT-dby-app_AMT_INCOME_TOTAL':      ['min', 'mean', 'max'],
+    'AMT_GOODS_PRICE-dby-app_AMT_INCOME_TOTAL': ['min', 'mean', 'max'],
+    
+    'AMT_ANNUITY-dby-app_AMT_CREDIT':           ['min', 'mean', 'max'],
+    'AMT_APPLICATION-dby-app_AMT_CREDIT':       ['min', 'mean', 'max'],
+    'AMT_CREDIT-dby-app_AMT_CREDIT':            ['min', 'mean', 'max'],
+    'AMT_GOODS_PRICE-dby-app_AMT_CREDIT':       ['min', 'mean', 'max'],
+    
+    'AMT_ANNUITY-dby-app_AMT_ANNUITY':          ['min', 'mean', 'max'],
+    'AMT_APPLICATION-dby-app_AMT_ANNUITY':      ['min', 'mean', 'max'],
+    'AMT_CREDIT-dby-app_AMT_ANNUITY':           ['min', 'mean', 'max'],
+    'AMT_GOODS_PRICE-dby-app_AMT_ANNUITY':      ['min', 'mean', 'max'],
+    
+    'AMT_ANNUITY-dby-app_AMT_GOODS_PRICE':      ['min', 'mean', 'max'],
+    'AMT_APPLICATION-dby-app_AMT_GOODS_PRICE':  ['min', 'mean', 'max'],
+    'AMT_CREDIT-dby-app_AMT_GOODS_PRICE':       ['min', 'mean', 'max'],
+    'AMT_GOODS_PRICE-dby-app_AMT_GOODS_PRICE':  ['min', 'mean', 'max'],
+    
+    'cnt_paid': ['min', 'mean', 'max', 'sum'],
+    
 }
 
 col_cat = ['NAME_CONTRACT_TYPE', 'WEEKDAY_APPR_PROCESS_START', 'NAME_CASH_LOAN_PURPOSE',
