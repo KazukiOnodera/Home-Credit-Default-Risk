@@ -37,6 +37,8 @@ pos = pos[pos['MONTHS_BALANCE'].between(month_start, month_end)]
 num_aggregations = {
     # TODO: optimize stats
     'MONTHS_BALANCE': ['max', 'mean', 'min', 'size'],
+    'CNT_INSTALMENT_diff': ['max', 'mean', 'min'],
+    'CNT_INSTALMENT_ratio': ['max', 'mean', 'min'],
     'SK_DPD': ['max', 'mean'],
     'SK_DPD_DEF': ['max', 'mean']
 }

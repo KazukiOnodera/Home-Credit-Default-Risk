@@ -54,8 +54,8 @@ def multi(p):
             
             df['goods_price-m-credit-dby-income'] = df['goods_price-m-credit'] / df['AMT_INCOME_TOTAL']
             
-#            df['age_finish_payment'] = df['DAYS_BIRTH'].abs() + (df['credit-dby-annuity']*30)
-            df['age_finish_payment'] = (df['DAYS_BIRTH']/-365) + df['credit-dby-annuity']
+            df['age_finish_payment'] = df['DAYS_BIRTH'].abs() + (df['credit-dby-annuity']*30)
+#            df['age_finish_payment'] = (df['DAYS_BIRTH']/-365) + df['credit-dby-annuity']
             df.loc[df['DAYS_EMPLOYED']==365243, 'DAYS_EMPLOYED'] = np.nan
             df['DAYS_EMPLOYED-m-DAYS_BIRTH']            = df['DAYS_EMPLOYED'] - df['DAYS_BIRTH']
             df['DAYS_REGISTRATION-m-DAYS_BIRTH']        = df['DAYS_REGISTRATION'] - df['DAYS_BIRTH']
@@ -234,6 +234,8 @@ def multi(p):
         # 
         # =============================================================================
         df = pd.read_csv('../input/POS_CASH_balance.csv.zip')
+        df['CNT_INSTALMENT_diff'] = df['CNT_INSTALMENT'] - df['CNT_INSTALMENT_FUTURE']
+        df['CNT_INSTALMENT_ratio'] = df['CNT_INSTALMENT_FUTURE'] / df['CNT_INSTALMENT']
         utils.to_pickles(df, '../data/POS_CASH_balance', utils.SPLIT_SIZE)
         
     elif p==3:

@@ -34,6 +34,8 @@ pos = utils.read_pickles('../data/POS_CASH_balance')
 num_aggregations = {
     # TODO: optimize stats
     'MONTHS_BALANCE': ['max', 'mean', 'min', 'size'],
+    'CNT_INSTALMENT_diff': ['max', 'mean', 'min'],
+    'CNT_INSTALMENT_ratio': ['max', 'mean', 'min'],
     'SK_DPD': ['max', 'mean'],
     'SK_DPD_DEF': ['max', 'mean']
 }
