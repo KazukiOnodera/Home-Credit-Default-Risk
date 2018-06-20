@@ -136,7 +136,7 @@ def multi(p):
                           pd.read_csv('../input/application_test.csv.zip',  usecols=usecols).rename(columns=rename_di)],
                           axis=1, ignore_index=True)
         
-        df = pd.mege(pd.read_csv('../input/previous_application.csv.zip'),
+        df = pd.merge(pd.read_csv('../input/previous_application.csv.zip'),
                      trte, on='SK_ID_CURR', how='left')
         df['FLAG_LAST_APPL_PER_CONTRACT'] = (df['FLAG_LAST_APPL_PER_CONTRACT']=='Y')*1
         
