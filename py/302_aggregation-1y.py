@@ -119,18 +119,10 @@ def aggregate():
     
     df = ins
     
-#    li = []
-#    for c1 in df.columns:
-#        for c2 in col_cat:
-#            if c1.startswith(c2+'_'):
-#                li.append(c1)
-#                break
-#    
-#    cat_aggregations = {}
-#    for cat in li:
-#        cat_aggregations[cat] = ['mean', 'sum']
+#    df_agg = df.groupby('SK_ID_CURR').agg({**num_aggregations})
+    gr1 = df.groupby(['SK_ID_PREV', 'SK_ID_CURR', 'NUM_INSTALMENT_NUMBER'])
+    df_agg = gr1.sum().groupby('SK_ID_CURR').agg({**num_aggregations})
     
-    df_agg = df.groupby('SK_ID_CURR').agg({**num_aggregations})
     df_agg.columns = pd.Index([e[0] + "_" + e[1] for e in df_agg.columns.tolist()])
     
     df_agg['INS_COUNT'] = df.groupby('SK_ID_CURR').size()
