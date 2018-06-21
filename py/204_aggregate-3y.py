@@ -35,11 +35,20 @@ pos = pos[pos['MONTHS_BALANCE'].between(month_start, month_end)]
 
 num_aggregations = {
     # TODO: optimize stats
-    'MONTHS_BALANCE': ['max', 'mean', 'min', 'size'],
-    'CNT_INSTALMENT_diff': ['max', 'mean', 'min'],
-    'CNT_INSTALMENT_ratio': ['max', 'mean', 'min'],
+    'MONTHS_BALANCE': ['min', 'max', 'mean', 'size'],
     'SK_DPD': ['max', 'mean'],
-    'SK_DPD_DEF': ['max', 'mean']
+    'SK_DPD_DEF': ['max', 'mean'],
+    
+    'CNT_INSTALMENT_diff':  ['min', 'max', 'mean'],
+    'CNT_INSTALMENT_ratio': ['min', 'max', 'mean'],
+    
+    'SK_DPD_diff':          ['max', 'mean', 'var'],
+    'SK_DPD_diff_over0':    ['max', 'mean', 'var'],
+    'SK_DPD_diff_over5':    ['max', 'mean', 'var'],
+    'SK_DPD_diff_over10':   ['max', 'mean', 'var'],
+    'SK_DPD_diff_over15':   ['max', 'mean', 'var'],
+    'SK_DPD_diff_over20':   ['max', 'mean', 'var'],
+    'SK_DPD_diff_over25':   ['max', 'mean', 'var'],
 }
 
 col_cat = ['NAME_CONTRACT_STATUS']

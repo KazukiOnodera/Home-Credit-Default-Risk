@@ -234,11 +234,69 @@ def multi(p):
         # 
         # =============================================================================
         df = pd.read_csv('../input/POS_CASH_balance.csv.zip')
+        
         df['CNT_INSTALMENT_diff'] = df['CNT_INSTALMENT'] - df['CNT_INSTALMENT_FUTURE']
         df['CNT_INSTALMENT_ratio'] = df['CNT_INSTALMENT_FUTURE'] / df['CNT_INSTALMENT']
-        utils.to_pickles(df, '../data/POS_CASH_balance', utils.SPLIT_SIZE)
         
+        df['SK_DPD_diff'] = df['SK_DPD'] - df['SK_DPD_DEF']
+        df['SK_DPD_diff_over0'] = (df['SK_DPD_diff']>0)*1
+        df['SK_DPD_diff_over5']  = (df['SK_DPD_diff']>5)*1
+        df['SK_DPD_diff_over10'] = (df['SK_DPD_diff']>10)*1
+        df['SK_DPD_diff_over15'] = (df['SK_DPD_diff']>15)*1
+        df['SK_DPD_diff_over20'] = (df['SK_DPD_diff']>20)*1
+        df['SK_DPD_diff_over25'] = (df['SK_DPD_diff']>25)*1
+        
+        utils.to_pickles(df, '../data/POS_CASH_balance', utils.SPLIT_SIZE)
+    
     elif p==3:
+        # =============================================================================
+        # ins
+        # =============================================================================
+        df = pd.read_csv('../input/installments_payments.csv.zip')
+        df['days_delayed_payment'] = df['DAYS_ENTRY_PAYMENT'] - df['DAYS_INSTALMENT']
+        df['amt_ratio'] = df['AMT_PAYMENT'] / df['AMT_INSTALMENT']
+        df['amt_delta'] = df['AMT_INSTALMENT'] - df['AMT_PAYMENT']
+        df['days_weighted_delay'] = df['amt_ratio'] * df['days_delayed_payment']
+        
+        # Days past due and days before due (no negative values)
+        df['DPD'] = df['DAYS_ENTRY_PAYMENT'] - df['DAYS_INSTALMENT']
+        df['DBD'] = df['DAYS_INSTALMENT'] - df['DAYS_ENTRY_PAYMENT']
+        df['DPD'] = df['DPD'].apply(lambda x: x if x > 0 else 0)
+        df['DBD'] = df['DBD'].apply(lambda x: x if x > 0 else 0)
+        
+        decay = 0.0003 # decay rate per a day
+        feature = f'days_weighted_delay_tsw3' # Time Series Weight
+        df[feature] = df['days_weighted_delay'] * (1 + (df['DAYS_ENTRY_PAYMENT']*decay) )
+        
+        for i in range(0, 50, 5):
+            c1 = f'delayed_day_over{i}'
+            df[c1] = (df['days_delayed_payment']>i)*1
+            
+            c2 = f'delayed_money_{i}'
+            df[c2] = df[c1] * df.AMT_PAYMENT
+            
+            c3 = f'delayed_money_ratio_{i}'
+            df[c3] = df[c1] * df.amt_ratio
+            
+            c1 = f'not-delayed_day_{i}'
+            df[c1] = (df['days_delayed_payment']<=i)*1
+            
+            c2 = f'not-delayed_money_{i}'
+            df[c2] = df[c1] * df.AMT_PAYMENT
+            
+            c3 = f'not-delayed_money_ratio_{i}'
+            df[c3] = df[c1] * df.amt_ratio
+        
+        utils.to_pickles(df, '../data/installments_payments', utils.SPLIT_SIZE)
+    
+    elif p==4:
+        # =============================================================================
+        # credit card
+        # =============================================================================
+        df = pd.read_csv('../input/credit_card_balance.csv.zip')
+        utils.to_pickles(df, '../data/credit_card_balance', utils.SPLIT_SIZE)
+    
+    elif p==5:
         # =============================================================================
         # bureau
         # =============================================================================
@@ -265,40 +323,12 @@ def multi(p):
         
         utils.to_pickles(df, '../data/bureau', utils.SPLIT_SIZE)
     
-    elif p==4:
+    elif p==5:
         # =============================================================================
         # bureau_balance
         # =============================================================================
         df = pd.read_csv('../input/bureau_balance.csv.zip')
         utils.to_pickles(df, '../data/bureau_balance', utils.SPLIT_SIZE)
-    
-    elif p==5:
-        # =============================================================================
-        # ins
-        # =============================================================================
-        df = pd.read_csv('../input/installments_payments.csv.zip')
-        df['days_delayed_payment'] = df['DAYS_ENTRY_PAYMENT'] - df['DAYS_INSTALMENT']
-        df['amt_ratio'] = df['AMT_PAYMENT'] / df['AMT_INSTALMENT']
-        df['amt_delta'] = df['AMT_INSTALMENT'] - df['AMT_PAYMENT']
-        df['days_weighted_delay'] = df['amt_ratio'] * df['days_delayed_payment']
-        
-        # Days past due and days before due (no negative values)
-        df['DPD'] = df['DAYS_ENTRY_PAYMENT'] - df['DAYS_INSTALMENT']
-        df['DBD'] = df['DAYS_INSTALMENT'] - df['DAYS_ENTRY_PAYMENT']
-        df['DPD'] = df['DPD'].apply(lambda x: x if x > 0 else 0)
-        df['DBD'] = df['DBD'].apply(lambda x: x if x > 0 else 0)
-        
-        decay = 0.0003 # decay rate per a day
-        feature = f'days_weighted_delay_tsw3' # Time Series Weight
-        df[feature] = df['days_weighted_delay'] * (1 + (df['DAYS_ENTRY_PAYMENT']*decay) )
-        utils.to_pickles(df, '../data/installments_payments', utils.SPLIT_SIZE)
-    
-    elif p==6:
-        # =============================================================================
-        # credit card
-        # =============================================================================
-        df = pd.read_csv('../input/credit_card_balance.csv.zip')
-        utils.to_pickles(df, '../data/credit_card_balance', utils.SPLIT_SIZE)
     
     else:
         return
