@@ -102,7 +102,7 @@ def multi(p):
 #            df['NEW_EMPLOY_TO_BIRTH_RATIO'] = df['DAYS_EMPLOYED'] / df['DAYS_BIRTH']
             df['NEW_ANNUITY_TO_INCOME_RATIO'] = df['AMT_ANNUITY'] / (1 + df['AMT_INCOME_TOTAL'])
             df['NEW_SOURCES_PROD'] = df['EXT_SOURCE_1'] * df['EXT_SOURCE_2'] * df['EXT_SOURCE_3']
-            df['NEW_EXT_SOURCES_MEAN'] = df[['EXT_SOURCE_1', 'EXT_SOURCE_2', 'EXT_SOURCE_3']].mean(axis=1)
+#            df['NEW_EXT_SOURCES_MEAN'] = df[['EXT_SOURCE_1', 'EXT_SOURCE_2', 'EXT_SOURCE_3']].mean(axis=1)
             df['NEW_SCORES_STD'] = df[['EXT_SOURCE_1', 'EXT_SOURCE_2', 'EXT_SOURCE_3']].std(axis=1)
             df['NEW_SCORES_STD'] = df['NEW_SCORES_STD'].fillna(df['NEW_SCORES_STD'].mean())
             df['NEW_CAR_TO_BIRTH_RATIO'] = df['OWN_CAR_AGE'] / df['DAYS_BIRTH']
@@ -116,7 +116,6 @@ def multi(p):
         f1(df)
         utils.to_pickles(df, '../data/train', utils.SPLIT_SIZE)
         utils.to_pickles(df[['TARGET']], '../data/label', utils.SPLIT_SIZE)
-        
         
         df = pd.read_csv('../input/application_test.csv.zip')
         f1(df)
@@ -235,6 +234,15 @@ def multi(p):
         # =============================================================================
         df = pd.read_csv('../input/POS_CASH_balance.csv.zip')
         
+        # remove duplicated 0
+        df_0 = df[df['CNT_INSTALMENT_FUTURE']==0]
+        df_1 = df[df['CNT_INSTALMENT_FUTURE']>0]
+        df_0['NAME_CONTRACT_STATUS'] = 'Completed'
+        df_0.sort_values(['SK_ID_PREV', 'MONTHS_BALANCE'], ascending=[True, False], inplace=True)
+        df_0.drop_duplicates('SK_ID_PREV', keep='last', inplace=True)
+        df = pd.concat([df_0, df_1], ignore_index=True)
+        
+        
         df['CNT_INSTALMENT_diff'] = df['CNT_INSTALMENT'] - df['CNT_INSTALMENT_FUTURE']
         df['CNT_INSTALMENT_ratio'] = df['CNT_INSTALMENT_FUTURE'] / df['CNT_INSTALMENT']
         
@@ -252,7 +260,22 @@ def multi(p):
         # =============================================================================
         # ins
         # =============================================================================
+#        usecols = ['SK_ID_CURR', 'AMT_INCOME_TOTAL', 'AMT_CREDIT', 'AMT_ANNUITY', 'AMT_GOODS_PRICE']
+#        rename_di = {'AMT_INCOME_TOTAL': 'app_AMT_INCOME_TOTAL', 
+#                     'AMT_CREDIT': 'app_AMT_CREDIT', 
+#                     'AMT_ANNUITY': 'app_AMT_ANNUITY',
+#                     'AMT_GOODS_PRICE': 'app_AMT_GOODS_PRICE'}
+#        trte = pd.concat([pd.read_csv('../input/application_train.csv.zip', usecols=usecols).rename(columns=rename_di), 
+#                          pd.read_csv('../input/application_test.csv.zip',  usecols=usecols).rename(columns=rename_di)],
+#                          ignore_index=True)
+        prev = pd.read_csv('../input/previous_application.csv.zip', usecols=['SK_ID_PREV', 'CNT_PAYMENT'])
+#        df = pd.merge(prev, trte, on='SK_ID_CURR', how='left')
+
+        
         df = pd.read_csv('../input/installments_payments.csv.zip')
+        df = pd.merge(df, prev, on='SK_ID_PREV', how='left')
+        df['NUM_INSTALMENT_ratio'] = df['NUM_INSTALMENT_NUMBER'] / df['CNT_PAYMENT']
+        
         df['days_delayed_payment'] = df['DAYS_ENTRY_PAYMENT'] - df['DAYS_INSTALMENT']
         df['amt_ratio'] = df['AMT_PAYMENT'] / df['AMT_INSTALMENT']
         df['amt_delta'] = df['AMT_INSTALMENT'] - df['AMT_PAYMENT']
@@ -294,6 +317,15 @@ def multi(p):
         # credit card
         # =============================================================================
         df = pd.read_csv('../input/credit_card_balance.csv.zip')
+        
+        df['SK_DPD_diff'] = df['SK_DPD'] - df['SK_DPD_DEF']
+        df['SK_DPD_diff_over0'] = (df['SK_DPD_diff']>0)*1
+        df['SK_DPD_diff_over5']  = (df['SK_DPD_diff']>5)*1
+        df['SK_DPD_diff_over10'] = (df['SK_DPD_diff']>10)*1
+        df['SK_DPD_diff_over15'] = (df['SK_DPD_diff']>15)*1
+        df['SK_DPD_diff_over20'] = (df['SK_DPD_diff']>20)*1
+        df['SK_DPD_diff_over25'] = (df['SK_DPD_diff']>25)*1
+        
         utils.to_pickles(df, '../data/credit_card_balance', utils.SPLIT_SIZE)
     
     elif p==5:

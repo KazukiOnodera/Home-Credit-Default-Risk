@@ -104,6 +104,7 @@ num_aggregations = {
     'not-delayed_day_45':         ['min', 'max', 'mean', 'var'],
     'not-delayed_money_45':       ['min', 'max', 'mean', 'var'],
     'not-delayed_money_ratio_45': ['min', 'max', 'mean', 'var'],
+    'NUM_INSTALMENT_ratio':['min', 'max', 'mean', 'var'],
 }
 
 #col_cat = ['NAME_CONTRACT_STATUS']
@@ -129,7 +130,10 @@ def aggregate():
 #    for cat in li:
 #        cat_aggregations[cat] = ['mean', 'sum']
     
-    df_agg = df.groupby('SK_ID_CURR').agg({**num_aggregations})
+#    df_agg = df.groupby('SK_ID_CURR').agg({**num_aggregations})
+    gr1 = df.groupby(['SK_ID_PREV', 'SK_ID_CURR', 'NUM_INSTALMENT_NUMBER'])
+    df_agg = gr1.sum().groupby('SK_ID_CURR').agg({**num_aggregations})
+    
     df_agg.columns = pd.Index([e[0] + "_" + e[1] for e in df_agg.columns.tolist()])
     
     df_agg['INS_COUNT'] = df.groupby('SK_ID_CURR').size()
