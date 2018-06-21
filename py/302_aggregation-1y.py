@@ -104,6 +104,7 @@ num_aggregations = {
     'not-delayed_day_45':         ['min', 'max', 'mean', 'var'],
     'not-delayed_money_45':       ['min', 'max', 'mean', 'var'],
     'not-delayed_money_ratio_45': ['min', 'max', 'mean', 'var'],
+    'NUM_INSTALMENT_ratio':['min', 'max', 'mean', 'var'],
 }
 
 
