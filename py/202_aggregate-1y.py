@@ -62,7 +62,7 @@ test = utils.load_test([KEY])
 # =============================================================================
 def aggregate():
     
-    df = pos
+    df = utils.get_dummies(pos)
     
     li = []
     for c1 in df.columns:
