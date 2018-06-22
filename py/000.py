@@ -270,7 +270,7 @@ def multi(p):
 #                          ignore_index=True)
         prev = pd.read_csv('../input/previous_application.csv.zip', usecols=['SK_ID_PREV', 'CNT_PAYMENT'])
 #        df = pd.merge(prev, trte, on='SK_ID_CURR', how='left')
-
+        
         
         df = pd.read_csv('../input/installments_payments.csv.zip')
         df = pd.merge(df, prev, on='SK_ID_PREV', how='left')
@@ -316,7 +316,21 @@ def multi(p):
         # =============================================================================
         # credit card
         # =============================================================================
+        usecols = ['SK_ID_CURR', 'AMT_INCOME_TOTAL', 'AMT_CREDIT', 'AMT_ANNUITY', 'AMT_GOODS_PRICE']
+        rename_di = {'AMT_INCOME_TOTAL': 'app_AMT_INCOME_TOTAL', 
+                     'AMT_CREDIT': 'app_AMT_CREDIT', 
+                     'AMT_ANNUITY': 'app_AMT_ANNUITY',
+                     'AMT_GOODS_PRICE': 'app_AMT_GOODS_PRICE'}
+        trte = pd.concat([pd.read_csv('../input/application_train.csv.zip', usecols=usecols).rename(columns=rename_di), 
+                          pd.read_csv('../input/application_test.csv.zip',  usecols=usecols).rename(columns=rename_di)],
+                          ignore_index=True)
+        
         df = pd.read_csv('../input/credit_card_balance.csv.zip')
+        
+        df = pd.merge(df, trte, on='SK_ID_CURR', how='left')
+        
+        df['AMT_BALANCE-dby-AMT_CREDIT_LIMIT_ACTUAL'] = df['AMT_BALANCE'] / df['AMT_CREDIT_LIMIT_ACTUAL']
+        df['AMT_BALANCE-dby-app_AMT_INCOME_TOTAL']    = df['AMT_BALANCE'] / df['app_AMT_INCOME_TOTAL']
         
         df['SK_DPD_diff'] = df['SK_DPD'] - df['SK_DPD_DEF']
         df['SK_DPD_diff_over0'] = (df['SK_DPD_diff']>0)*1
