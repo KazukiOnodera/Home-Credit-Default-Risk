@@ -87,7 +87,7 @@ if len(use_files)>0:
 
 
 X = pd.concat([
-                pd.read_feather(f) for f in tqdm(files, mininterval=100)
+                pd.read_feather(f) for f in tqdm(files, mininterval=60)
                ], axis=1)
 y = utils.read_pickles('../data/label').TARGET
 
@@ -102,11 +102,11 @@ print(f'X.shape {X.shape}')
 # =============================================================================
 
 dtrain = lgb.Dataset(X, y)
-model = lgb.train(param, dtrain, len(ret['auc-mean']))
+model = lgb.train(param, dtrain, 500)
 
 imp = ex.getImp(model)
 
-features_prev = imp[imp['split']==0]['index'].tolist()
+features_prev = imp[imp['split']!=0]['index'].tolist()
 
 best_score = 0
 
@@ -153,10 +153,37 @@ features_app = ['app_001_AMT_ANNUITY',
                  'app_001_income-by-CNT_CHILDREN',
                  'app_001_income_per_adult'] # 0.76781
 
+categorical_feature = ['app_001_NAME_CONTRACT_TYPE',
+                     'app_001_CODE_GENDER',
+                     'app_001_FLAG_OWN_CAR',
+                     'app_001_FLAG_OWN_REALTY',
+                     'app_001_NAME_TYPE_SUITE',
+                     'app_001_NAME_INCOME_TYPE',
+                     'app_001_NAME_EDUCATION_TYPE',
+                     'app_001_NAME_FAMILY_STATUS',
+                     'app_001_NAME_HOUSING_TYPE',
+                     'app_001_OCCUPATION_TYPE',
+                     'app_001_WEEKDAY_APPR_PROCESS_START',
+                     'app_001_ORGANIZATION_TYPE',
+                     'app_001_FONDKAPREMONT_MODE',
+                     'app_001_HOUSETYPE_MODE',
+                     'app_001_WALLSMATERIAL_MODE',
+                     'app_001_EMERGENCYSTATE_MODE']
+
+
 X = pd.concat([
                 pd.read_feather('../feature/train_'+f+'.f') for f in tqdm(features_app, mininterval=60)
                ]+[X], axis=1)
 
+dtrain = lgb.Dataset(X[features_app], y, 
+                     categorical_feature=list( set(X.columns)&set(categorical_feature)) )
+gc.collect()
+
+ret = lgb.cv(param, dtrain, 9999, nfold=5,
+             early_stopping_rounds=50, verbose_eval=10,
+             seed=SEED)
+
+best_score = ret['auc-mean'][-1]
 
 # =============================================================================
 # stepwise
@@ -176,7 +203,8 @@ for c in features_prev:
         features_new.append(c)
         print(f'add {c}')
     
-    dtrain = lgb.Dataset(X[features_new], y)
+    dtrain = lgb.Dataset(X[features_new], y,
+                         categorical_feature=list( set(features_new)&set(categorical_feature)) )
     ret = lgb.cv(param, dtrain, 9999, nfold=5,
                  early_stopping_rounds=50, verbose_eval=None,
                  seed=SEED)
@@ -188,6 +216,7 @@ for c in features_prev:
         print(f'features: {features_new}')
         best_score = score
         features_curr = features_new
+        utils.send_line(f'{c}: {best_score}')
 
 #dtrain = lgb.Dataset(X, y, categorical_feature=list( set(X.columns)&set(categorical_feature)) )
 #gc.collect()
