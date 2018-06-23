@@ -128,7 +128,7 @@ features_curr = ['app_001_EXT_SOURCE_1', 'app_001_EXT_SOURCE_2', 'app_001_EXT_SO
                  'app_001_FLAG_DOCUMENT_6', 'app_001_FLAG_OWN_CAR']
 
 
-for c in X.columns:
+for c in X.columns[::-1]:
     print()
     gc.collect()
     
