@@ -43,10 +43,6 @@ def multi(p):
             df['annuity-dby-income']      = df['AMT_ANNUITY'] / df['AMT_INCOME_TOTAL']
             df['goods_price-dby-income']  = df['AMT_GOODS_PRICE'] / df['AMT_INCOME_TOTAL']
             
-#            df['income-dby-credit']       = df['AMT_INCOME_TOTAL'] / df['AMT_CREDIT']
-#            df['income-dby-annuity']      = df['AMT_INCOME_TOTAL'] / df['AMT_ANNUITY']
-#            df['income-dby-goods_price']  = df['AMT_INCOME_TOTAL'] / df['AMT_GOODS_PRICE']
-            
             df['credit-dby-annuity']      = df['AMT_CREDIT'] / df['AMT_ANNUITY'] # how long should user pay?(year)
             df['goods_price-dby-annuity'] = df['AMT_GOODS_PRICE'] / df['AMT_ANNUITY']# how long should user pay?(year)
             df['goods_price-dby-credit']  = df['AMT_GOODS_PRICE'] / df['AMT_CREDIT']
@@ -79,6 +75,22 @@ def multi(p):
             df['annuity-by-CNT_CHILDREN']      = df['AMT_ANNUITY']       / df['CNT_CHILDREN']
             df['goods_price-by-CNT_CHILDREN']  = df['AMT_GOODS_PRICE']   / df['CNT_CHILDREN']
             
+            # EXT_SOURCE_x
+            df['EXT_SOURCES_prod']  = df['EXT_SOURCE_1'] * df['EXT_SOURCE_2'] * df['EXT_SOURCE_3']
+            df['EXT_SOURCES_sum']  = df[['EXT_SOURCE_1', 'EXT_SOURCE_2', 'EXT_SOURCE_3']].sum(axis=1)
+            df['EXT_SOURCES_sum']  = df['EXT_SOURCES_sum'].fillna(df['EXT_SOURCES_sum'].mean())
+            df['EXT_SOURCES_mean']  = df[['EXT_SOURCE_1', 'EXT_SOURCE_2', 'EXT_SOURCE_3']].mean(axis=1)
+            df['EXT_SOURCES_mean']  = df['EXT_SOURCES_mean'].fillna(df['EXT_SOURCES_mean'].mean())
+            df['EXT_SOURCES_std']   = df[['EXT_SOURCE_1', 'EXT_SOURCE_2', 'EXT_SOURCE_3']].std(axis=1)
+            df['EXT_SOURCES_std']   = df['EXT_SOURCES_std'].fillna(df['EXT_SOURCES_std'].mean())
+            
+            df['EXT_SOURCES_1-2-3']  = df['EXT_SOURCE_1'] - df['EXT_SOURCE_2'] - df['EXT_SOURCE_3']
+            df['EXT_SOURCES_2-1-3']  = df['EXT_SOURCE_2'] - df['EXT_SOURCE_1'] - df['EXT_SOURCE_3']
+            df['EXT_SOURCES_1-2']    = df['EXT_SOURCE_1'] - df['EXT_SOURCE_2']
+            df['EXT_SOURCES_2-3']    = df['EXT_SOURCE_2'] - df['EXT_SOURCE_3']
+            df['EXT_SOURCES_1-3']    = df['EXT_SOURCE_1'] - df['EXT_SOURCE_3']
+            
+            
             # =========
             # https://www.kaggle.com/jsaguiar/updated-0-792-lb-lightgbm-with-simple-features/code
             # =========
@@ -99,18 +111,12 @@ def multi(p):
             df['NEW_LIVE_IND_SUM'] = df[live].sum(axis=1)
             df['NEW_INC_PER_CHLD'] = df['AMT_INCOME_TOTAL'] / (1 + df['CNT_CHILDREN'])
             df['NEW_INC_BY_ORG'] = df['ORGANIZATION_TYPE'].map(inc_by_org)
-#            df['NEW_EMPLOY_TO_BIRTH_RATIO'] = df['DAYS_EMPLOYED'] / df['DAYS_BIRTH']
             df['NEW_ANNUITY_TO_INCOME_RATIO'] = df['AMT_ANNUITY'] / (1 + df['AMT_INCOME_TOTAL'])
-            df['NEW_SOURCES_PROD'] = df['EXT_SOURCE_1'] * df['EXT_SOURCE_2'] * df['EXT_SOURCE_3']
-#            df['NEW_EXT_SOURCES_MEAN'] = df[['EXT_SOURCE_1', 'EXT_SOURCE_2', 'EXT_SOURCE_3']].mean(axis=1)
-            df['NEW_SCORES_STD'] = df[['EXT_SOURCE_1', 'EXT_SOURCE_2', 'EXT_SOURCE_3']].std(axis=1)
-            df['NEW_SCORES_STD'] = df['NEW_SCORES_STD'].fillna(df['NEW_SCORES_STD'].mean())
             df['NEW_CAR_TO_BIRTH_RATIO'] = df['OWN_CAR_AGE'] / df['DAYS_BIRTH']
             df['NEW_CAR_TO_EMPLOY_RATIO'] = df['OWN_CAR_AGE'] / df['DAYS_EMPLOYED']
             df['NEW_PHONE_TO_BIRTH_RATIO'] = df['DAYS_LAST_PHONE_CHANGE'] / df['DAYS_BIRTH']
             df['NEW_PHONE_TO_EMPLOYED_RATIO'] = df['DAYS_LAST_PHONE_CHANGE'] / df['DAYS_EMPLOYED']
 #            df['NEW_CREDIT_TO_INCOME_RATIO'] = df['AMT_CREDIT'] / df['AMT_INCOME_TOTAL']
-
         
         df = pd.read_csv('../input/application_train.csv.zip')
         f1(df)
