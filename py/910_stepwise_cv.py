@@ -64,7 +64,7 @@ use_files = ['train_app_']
 files = sorted(glob('../feature/train*.f'))
 
 unuse_files = [f.split('/')[-1] for f in sorted(glob('../unuse_feature/*.f'))]
-if len(unuse_files):
+if len(unuse_files)>0:
     files_ = []
     for f1 in files:
         for f2 in unuse_files:

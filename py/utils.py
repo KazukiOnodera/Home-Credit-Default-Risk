@@ -236,6 +236,63 @@ def read_pickles(path, col=None, use_tqdm=True):
 #        df = pd.concat([pd.read_feather(f)[col] for f in tqdm(sorted(glob(path+'/*')))])
 #    return df
 
+def load_train(col=None):
+    if col is None:
+        return read_pickles('../data/train')
+    else:
+        return read_pickles('../data/train', col)
+
+def load_test(col=None):
+    if col is None:
+        return read_pickles('../data/test')
+    else:
+        return read_pickles('../data/test', col)
+
+def merge(df, col):
+    trte = pd.concat([load_train(col=col), #.drop('TARGET', axis=1), 
+                      load_test(col=col)])
+    df_ = pd.merge(df, trte, on='SK_ID_CURR', how='left')
+    return df_
+
+def check_feature():
+    
+    sw = False
+    files = sorted(glob('../feature/train*.f'))
+    for f in files:
+        path = f.replace('train_', 'test_')
+        if not os.path.isfile(path):
+            print(f)
+            sw = True
+    
+    files = sorted(glob('../feature/test*.f'))
+    for f in files:
+        path = f.replace('test_', 'train_')
+        if not os.path.isfile(path):
+            print(f)
+            sw = True
+    
+    if sw:
+        raise Exception('Miising file :(')
+    else:
+        print('All files exist :)')
+
+# =============================================================================
+# 
+# =============================================================================
+def get_dummies(df):
+    """
+    binary would be drop_first
+    """
+    col = df.select_dtypes('O').columns.tolist()
+    nunique = df[col].nunique()
+    col_binary = nunique[nunique==2].index.tolist()
+    [col.remove(c) for c in col_binary]
+    df = pd.get_dummies(df, columns=col)
+    df = pd.get_dummies(df, columns=col_binary, drop_first=True)
+    df.columns = [c.replace(' ', '-') for c in df.columns]
+    return df
+
+
 def reduce_memory(df, ix_start=0):
     if df.shape[0]>9999:
         df_ = df.sample(9999, random_state=71)
@@ -296,61 +353,40 @@ def remove_feature(df, var_limit=0, corr_limit=1):
     
     return
 
-def load_train(col=None):
-    if col is None:
-        return read_pickles('../data/train')
-    else:
-        return read_pickles('../data/train', col)
-
-def load_test(col=None):
-    if col is None:
-        return read_pickles('../data/test')
-    else:
-        return read_pickles('../data/test', col)
-
-def merge(df, col):
-    trte = pd.concat([load_train(col=col), #.drop('TARGET', axis=1), 
-                      load_test(col=col)])
-    df_ = pd.merge(df, trte, on='SK_ID_CURR', how='left')
-    return df_
-
-def check_feature():
-    
-    sw = False
-    files = sorted(glob('../feature/train*.f'))
-    for f in files:
-        path = f.replace('train_', 'test_')
-        if not os.path.isfile(path):
-            print(f)
-            sw = True
-    
-    files = sorted(glob('../feature/test*.f'))
-    for f in files:
-        path = f.replace('test_', 'train_')
-        if not os.path.isfile(path):
-            print(f)
-            sw = True
-    
-    if sw:
-        raise Exception('Miising file :(')
-    else:
-        print('All files exist :)')
-
 # =============================================================================
-# 
+# knnfeat # https://github.com/upura/knnFeat/blob/master/knnFeat.py
 # =============================================================================
-def get_dummies(df):
-    """
-    binary would be drop_first
-    """
-    col = df.select_dtypes('O').columns.tolist()
-    nunique = df[col].nunique()
-    col_binary = nunique[nunique==2].index.tolist()
-    [col.remove(c) for c in col_binary]
-    df = pd.get_dummies(df, columns=col)
-    df = pd.get_dummies(df, columns=col_binary, drop_first=True)
-    df.columns = [c.replace(' ', '-') for c in df.columns]
-    return df
+def _distance(a, b):
+    return np.linalg.norm(b-a)
+
+def _get_feat(data, X_train, y_train, class_index, k_index):
+    inclass_X = X_train[y_train == class_index]
+    distances = np.array([_distance(a, data) for a in inclass_X])
+    sorted_distances_index = np.argsort(distances)
+    nearest_index = list(sorted_distances_index[0: (k_index + 1)])
+    dist = np.sum(distances[nearest_index])
+    return dist
+
+def knnExtract(X, y, k=1, holds = 5):
+    CLASS_NUM = len(set(y))
+    res = np.empty((len(X), CLASS_NUM * k))
+    kf = KFold(n_splits = holds,  shuffle=True)
+
+    for train_index, test_index in kf.split(X):
+        X_train, X_test = X[train_index], X[test_index]
+        y_train, y_test = y[train_index], y[test_index]
+        
+        features = np.empty([0, len(X_train)])
+        
+        for class_index in range(CLASS_NUM):
+            for k_index in range(k):
+                feat = np.array([np.apply_along_axis(_get_feat, 1, X_train, X_train, y_train, class_index, k_index)])
+                features = np.append(features, feat, axis=0)
+        res[train_index] = features.T            
+
+    return res
+
+
 
 
 # =============================================================================
