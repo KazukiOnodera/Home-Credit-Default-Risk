@@ -105,9 +105,10 @@ def multi(p):
             live = [_f for _f in df.columns if ('FLAG_' in _f) & ('FLAG_DOC' not in _f) & ('_FLAG_' not in _f)]
             inc_by_org = df[['AMT_INCOME_TOTAL', 'ORGANIZATION_TYPE']].groupby('ORGANIZATION_TYPE').median()['AMT_INCOME_TOTAL']
             
-#            df['NEW_CREDIT_TO_ANNUITY_RATIO'] = df['AMT_CREDIT'] / df['AMT_ANNUITY']
-#            df['NEW_CREDIT_TO_GOODS_RATIO'] = df['AMT_CREDIT'] / df['AMT_GOODS_PRICE']
             df['NEW_DOC_IND_KURT'] = df[docs].kurtosis(axis=1)
+#            df['NEW_DOC_IND_skew'] = df[docs].skew(axis=1)
+#            df['NEW_DOC_IND_mean'] = df[docs].mean(axis=1)
+#            df['NEW_DOC_IND_sum'] = df[docs].sum(axis=1)
             df['NEW_LIVE_IND_SUM'] = df[live].sum(axis=1)
             df['NEW_INC_PER_CHLD'] = df['AMT_INCOME_TOTAL'] / (1 + df['CNT_CHILDREN'])
             df['NEW_INC_BY_ORG'] = df['ORGANIZATION_TYPE'].map(inc_by_org)
@@ -116,7 +117,6 @@ def multi(p):
             df['NEW_CAR_TO_EMPLOY_RATIO'] = df['OWN_CAR_AGE'] / df['DAYS_EMPLOYED']
             df['NEW_PHONE_TO_BIRTH_RATIO'] = df['DAYS_LAST_PHONE_CHANGE'] / df['DAYS_BIRTH']
             df['NEW_PHONE_TO_EMPLOYED_RATIO'] = df['DAYS_LAST_PHONE_CHANGE'] / df['DAYS_EMPLOYED']
-#            df['NEW_CREDIT_TO_INCOME_RATIO'] = df['AMT_CREDIT'] / df['AMT_INCOME_TOTAL']
         
         df = pd.read_csv('../input/application_train.csv.zip')
         f1(df)

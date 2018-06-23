@@ -109,6 +109,7 @@ from tqdm import tqdm
 from sklearn.model_selection import KFold
 from time import time, sleep
 from datetime import datetime
+from multiprocessing import cpu_count, Pool
 import gc
 
 # =============================================================================
@@ -367,23 +368,37 @@ def _get_feat(data, X_train, y_train, class_index, k_index):
     dist = np.sum(distances[nearest_index])
     return dist
 
-def knnExtract(X, y, k=1, holds = 5):
+def _get_feat_multi(argss):
+    axis, data, X_train, y_train, class_index, k_index = argss
+    feat = np.array([np.apply_along_axis(_get_feat, axis, data, X_train, y_train, class_index, k_index)])
+    return feat
+
+def knnExtract(X, y, k=1, holds=5):
+    """
+    """
     CLASS_NUM = len(set(y))
     res = np.empty((len(X), CLASS_NUM * k))
     kf = KFold(n_splits = holds,  shuffle=True)
-
+    
+    nthread = cpu_count()
+    
     for train_index, test_index in kf.split(X):
         X_train, X_test = X[train_index], X[test_index]
         y_train, y_test = y[train_index], y[test_index]
+        break
         
         features = np.empty([0, len(X_train)])
         
         for class_index in range(CLASS_NUM):
-            for k_index in range(k):
-                feat = np.array([np.apply_along_axis(_get_feat, 1, X_train, X_train, y_train, class_index, k_index)])
+            argss = [(1, X_train, X_train, y_train, class_index, k_index) for k_index in range(k)]
+            pool = Pool(nthread)
+            feats = pool.map(_get_feat_multi, argss)
+            pool.close()
+            for feat in feats:
                 features = np.append(features, feat, axis=0)
-        res[train_index] = features.T            
-
+            
+        res[train_index] = features.T
+        
     return res
 
 
