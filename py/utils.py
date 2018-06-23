@@ -357,49 +357,49 @@ def remove_feature(df, var_limit=0, corr_limit=1):
 # =============================================================================
 # knnfeat # https://github.com/upura/knnFeat/blob/master/knnFeat.py
 # =============================================================================
-def _distance(a, b):
-    return np.linalg.norm(b-a)
-
-def _get_feat(data, X_train, y_train, class_index, k_index):
-    inclass_X = X_train[y_train == class_index]
-    distances = np.array([_distance(a, data) for a in inclass_X])
-    sorted_distances_index = np.argsort(distances)
-    nearest_index = list(sorted_distances_index[0: (k_index + 1)])
-    dist = np.sum(distances[nearest_index])
-    return dist
-
-def _get_feat_multi(argss):
-    axis, data, X_train, y_train, class_index, k_index = argss
-    feat = np.array([np.apply_along_axis(_get_feat, axis, data, X_train, y_train, class_index, k_index)])
-    return feat
-
-def knnExtract(X, y, k=1, holds=5):
-    """
-    """
-    CLASS_NUM = len(set(y))
-    res = np.empty((len(X), CLASS_NUM * k))
-    kf = KFold(n_splits = holds,  shuffle=True)
-    
-    nthread = cpu_count()
-    
-    for train_index, test_index in kf.split(X):
-        X_train, X_test = X[train_index], X[test_index]
-        y_train, y_test = y[train_index], y[test_index]
-        break
-        
-        features = np.empty([0, len(X_train)])
-        
-        for class_index in range(CLASS_NUM):
-            argss = [(1, X_train, X_train, y_train, class_index, k_index) for k_index in range(k)]
-            pool = Pool(nthread)
-            feats = pool.map(_get_feat_multi, argss)
-            pool.close()
-            for feat in feats:
-                features = np.append(features, feat, axis=0)
-            
-        res[train_index] = features.T
-        
-    return res
+#def _distance(a, b):
+#    return np.linalg.norm(b-a)
+#
+#def _get_feat(data, X_train, y_train, class_index, k_index):
+#    inclass_X = X_train[y_train == class_index]
+#    distances = np.array([_distance(a, data) for a in inclass_X])
+#    sorted_distances_index = np.argsort(distances)
+#    nearest_index = list(sorted_distances_index[0: (k_index + 1)])
+#    dist = np.sum(distances[nearest_index])
+#    return dist
+#
+#def _get_feat_multi(argss):
+#    axis, data, X_train, y_train, class_index, k_index = argss
+#    feat = np.array([np.apply_along_axis(_get_feat, axis, data, X_train, y_train, class_index, k_index)])
+#    return feat
+#
+#def knnExtract(X, y, k=1, holds=5):
+#    """
+#    """
+#    CLASS_NUM = len(set(y))
+#    res = np.empty((len(X), CLASS_NUM * k))
+#    kf = KFold(n_splits = holds,  shuffle=True)
+#    
+#    nthread = cpu_count()
+#    
+#    for train_index, test_index in kf.split(X):
+#        X_train, X_test = X[train_index], X[test_index]
+#        y_train, y_test = y[train_index], y[test_index]
+#        break
+#        
+#        features = np.empty([0, len(X_train)])
+#        
+#        for class_index in range(CLASS_NUM):
+#            argss = [(1, X_train, X_train, y_train, class_index, k_index) for k_index in range(k)]
+#            pool = Pool(nthread)
+#            feats = pool.map(_get_feat_multi, argss)
+#            pool.close()
+#            for feat in feats:
+#                features = np.append(features, feat, axis=0)
+#            
+#        res[train_index] = features.T
+#        
+#    return res
 
 
 
