@@ -26,7 +26,7 @@ SEED = 71
 param = {
          'objective': 'binary',
          'metric': 'auc',
-         'learning_rate': 0.05,
+         'learning_rate': 0.03,
          'max_depth': -1,
          'num_leaves': 255,
          'max_bin': 255,
