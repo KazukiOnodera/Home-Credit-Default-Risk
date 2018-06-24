@@ -105,6 +105,9 @@ dtrain = lgb.Dataset(X, y)
 model = lgb.train(param, dtrain, 500)
 
 imp = ex.getImp(model)
+col = imp[imp['split']==0]['index'].tolist()
+for c in col:
+    os.system(f'touch "../unuse_feature/{c}.f"')
 
 features_prev = imp[imp['split']!=0]['index'].tolist()
 
@@ -307,14 +310,6 @@ if False:
     best_score = ret['auc-mean'][-1]
     
     print(best_score) # 0.7771218076199998
-
-
-
-
-
-
-
-
 
 
 
