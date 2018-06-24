@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Sun Jun 24 00:54:40 2018
+Created on Mon Jun 25 02:04:50 2018
 
 @author: Kazuki
 """
@@ -26,7 +26,7 @@ SEED = 71
 param = {
          'objective': 'binary',
          'metric': 'auc',
-         'learning_rate': 0.03,
+         'learning_rate': 0.01,
          'max_depth': -1,
          'num_leaves': 255,
          'max_bin': 255,
@@ -38,25 +38,7 @@ param = {
          'seed': SEED
          }
 
-
-#categorical_feature = ['app_001_NAME_CONTRACT_TYPE',
-#                     'app_001_CODE_GENDER',
-#                     'app_001_FLAG_OWN_CAR',
-#                     'app_001_FLAG_OWN_REALTY',
-#                     'app_001_NAME_TYPE_SUITE',
-#                     'app_001_NAME_INCOME_TYPE',
-#                     'app_001_NAME_EDUCATION_TYPE',
-#                     'app_001_NAME_FAMILY_STATUS',
-#                     'app_001_NAME_HOUSING_TYPE',
-#                     'app_001_OCCUPATION_TYPE',
-#                     'app_001_WEEKDAY_APPR_PROCESS_START',
-#                     'app_001_ORGANIZATION_TYPE',
-#                     'app_001_FONDKAPREMONT_MODE',
-#                     'app_001_HOUSETYPE_MODE',
-#                     'app_001_WALLSMATERIAL_MODE',
-#                     'app_001_EMERGENCYSTATE_MODE']
-
-use_files = ['train_prev_']
+use_files = ['train_pos_']
 
 # =============================================================================
 # set features
@@ -109,11 +91,11 @@ col = imp[imp['split']==0]['index'].tolist()
 for c in col:
     os.system(f'touch "../unuse_feature/{c}.f"')
 
-features_prev = imp[imp['split']!=0]['index'].tolist()
+features_pos = imp[imp['split']!=0]['index'].tolist()
 
 best_score = 0
 
-features_app = ['app_001_AMT_ANNUITY',
+features_best = ['app_001_AMT_ANNUITY',
                  'app_001_AMT_CREDIT',
                  'app_001_AMT_GOODS_PRICE',
                  'app_001_APARTMENTS_AVG',
@@ -154,7 +136,22 @@ features_app = ['app_001_AMT_ANNUITY',
                  'app_001_goods_price-m-credit',
                  'app_001_goods_price-m-credit-dby-income',
                  'app_001_income-by-CNT_CHILDREN',
-                 'app_001_income_per_adult'] # 0.76781
+                 'app_001_income_per_adult',
+                 'prev_101_active_AMT_GOODS_PRICE-dby-total_debt_min',
+                 'prev_101_approved_AMT_ANNUITY-dby-app_AMT_ANNUITY_max',
+                 'prev_101_approved_AMT_ANNUITY-dby-app_AMT_ANNUITY_mean',
+                 'prev_101_approved_AMT_GOODS_PRICE-dby-total_debt_mean',
+                 'prev_101_approved_AMT_GOODS_PRICE-dby-total_debt_min',
+                 'prev_101_approved_APP_CREDIT_PERC_var',
+                 'prev_101_approved_amt_paid_mean',
+                 'prev_101_approved_amt_paid_sum',
+                 'prev_101_completed_AMT_DOWN_PAYMENT_mean',
+                 'prev_101_completed_AMT_GOODS_PRICE-dby-total_debt_max',
+                 'prev_101_completed_APP_CREDIT_PERC_var',
+                 'prev_101_completed_HOUR_APPR_PROCESS_START_mean',
+                 'prev_105_DAYS_DECISION_ref_max',
+                 'prev_105_amt_unpaid_sum-p-app',
+                 'prev_105_approved_ratio']
 
 categorical_feature = ['app_001_NAME_CONTRACT_TYPE',
                      'app_001_CODE_GENDER',
@@ -175,10 +172,10 @@ categorical_feature = ['app_001_NAME_CONTRACT_TYPE',
 
 
 X = pd.concat([
-                pd.read_feather('../feature/train_'+f+'.f') for f in tqdm(features_app, mininterval=60)
+                pd.read_feather('../feature/train_'+f+'.f') for f in tqdm(features_best, mininterval=60)
                ]+[X], axis=1)
 
-dtrain = lgb.Dataset(X[features_app], y, 
+dtrain = lgb.Dataset(X[features_best], y, 
                      categorical_feature=list( set(X.columns)&set(categorical_feature)) )
 gc.collect()
 
@@ -186,15 +183,15 @@ ret = lgb.cv(param, dtrain, 9999, nfold=5,
              early_stopping_rounds=50, verbose_eval=10,
              seed=SEED)
 
-best_score = ret['auc-mean'][-1]
+best_score = ret['auc-mean'][-1] # 0.7770307086434547
 
 # =============================================================================
 # stepwise
 # =============================================================================
 
-features_curr = features_app[:]
+features_curr = features_best[:]
 
-for c in features_prev:
+for c in features_pos:
     print()
     gc.collect()
     
@@ -282,7 +279,7 @@ if False:
                  'prev_101_completed_HOUR_APPR_PROCESS_START_mean',
                  'prev_105_DAYS_DECISION_ref_max',
                  'prev_105_amt_unpaid_sum-p-app',
-                 'prev_105_approved_ratio'] # 0.7770307086434547
+                 'prev_105_approved_ratio']
     
     
     param = {
