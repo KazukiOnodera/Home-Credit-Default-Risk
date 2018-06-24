@@ -218,16 +218,104 @@ for c in features_prev:
         features_curr = features_new
         utils.send_line(f'{c}: {best_score}')
 
-#dtrain = lgb.Dataset(X, y, categorical_feature=list( set(X.columns)&set(categorical_feature)) )
-#gc.collect()
-#
-#ret = lgb.cv(param, dtrain, 9999, nfold=5,
-#             early_stopping_rounds=50, verbose_eval=10,
-#             seed=SEED)
-#
-#result = f"CV auc-mean {ret['auc-mean'][-1]}"
-#print(result)
-#utils.send_line(result)
+
+if False:
+    # =============================================================================
+    # best
+    # =============================================================================
+    features = ['app_001_AMT_ANNUITY',
+                 'app_001_AMT_CREDIT',
+                 'app_001_AMT_GOODS_PRICE',
+                 'app_001_APARTMENTS_AVG',
+                 'app_001_CODE_GENDER',
+                 'app_001_COMMONAREA_AVG',
+                 'app_001_DAYS_BIRTH',
+                 'app_001_DAYS_EMPLOYED',
+                 'app_001_DAYS_EMPLOYED-m-DAYS_BIRTH',
+                 'app_001_DAYS_ID_PUBLISH',
+                 'app_001_DAYS_ID_PUBLISH-m-DAYS_BIRTH',
+                 'app_001_DAYS_LAST_PHONE_CHANGE',
+                 'app_001_DAYS_REGISTRATION-m-DAYS_BIRTH',
+                 'app_001_DEF_30_CNT_SOCIAL_CIRCLE',
+                 'app_001_ENTRANCES_MEDI',
+                 'app_001_EXT_SOURCE_1',
+                 'app_001_EXT_SOURCE_2',
+                 'app_001_EXT_SOURCE_3',
+                 'app_001_FLAG_DOCUMENT_3',
+                 'app_001_FLAG_DOCUMENT_5',
+                 'app_001_FLAG_DOCUMENT_6',
+                 'app_001_FLAG_OWN_CAR',
+                 'app_001_FLAG_WORK_PHONE',
+                 'app_001_NAME_CONTRACT_TYPE',
+                 'app_001_NAME_EDUCATION_TYPE',
+                 'app_001_NAME_INCOME_TYPE',
+                 'app_001_NEW_DOC_IND_KURT',
+                 'app_001_ORGANIZATION_TYPE',
+                 'app_001_OWN_CAR_AGE',
+                 'app_001_REGION_RATING_CLIENT',
+                 'app_001_REGION_RATING_CLIENT_W_CITY',
+                 'app_001_YEARS_BUILD_MEDI',
+                 'app_001_annuity-dby-income',
+                 'app_001_cnt_adults',
+                 'app_001_credit-dby-annuity',
+                 'app_001_credit-dby-income',
+                 'app_001_goods_price-by-CNT_CHILDREN',
+                 'app_001_goods_price-dby-annuity',
+                 'app_001_goods_price-m-credit',
+                 'app_001_goods_price-m-credit-dby-income',
+                 'app_001_income-by-CNT_CHILDREN',
+                 'app_001_income_per_adult',
+                 'prev_101_approved_AMT_ANNUITY-dby-app_AMT_ANNUITY_mean',
+                 'prev_101_approved_AMT_DOWN_PAYMENT_max',
+                 'prev_101_approved_AMT_GOODS_PRICE-dby-AMT_CREDIT_max',
+                 'prev_101_approved_AMT_GOODS_PRICE-dby-total_debt_mean',
+                 'prev_101_approved_AMT_GOODS_PRICE-dby-total_debt_min',
+                 'prev_101_approved_APP_CREDIT_PERC_var',
+                 'prev_101_approved_DAYS_DECISION_mean',
+                 'prev_101_completed_AMT_GOODS_PRICE-dby-total_debt_max',
+                 'prev_105_amt_paid_sum',
+                 'prev_105_amt_unpaid_sum-p-app',
+                 'prev_105_amt_unpaid_sum-p-app-dby-income',
+                 'prev_105_approved_ratio',
+                 'prev_106_NAME_YIELD_GROUP-high']
+    
+    
+    param = {
+             'objective': 'binary',
+             'metric': 'auc',
+             'learning_rate': 0.01,
+             'max_depth': -1,
+             'num_leaves': 255,
+             'max_bin': 255,
+             'colsample_bytree': 0.9,
+             'subsample': 0.9,
+             'nthread': multiprocessing.cpu_count(),
+             'bagging_freq': 1,
+    #         'verbose':-1,
+             'seed': SEED
+             }
+    
+    
+    dtrain = lgb.Dataset(X[features], y, 
+                         categorical_feature=list( set(X.columns)&set(categorical_feature)) )
+    gc.collect()
+    
+    ret = lgb.cv(param, dtrain, 9999, nfold=5,
+                 early_stopping_rounds=50, verbose_eval=10,
+                 seed=SEED)
+    
+    best_score = ret['auc-mean'][-1]
+    
+    print(best_score) # 0.7771218076199998
+
+
+
+
+
+
+
+
+
 
 
 #==============================================================================
