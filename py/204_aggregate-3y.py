@@ -39,16 +39,16 @@ num_aggregations = {
     'SK_DPD': ['max', 'mean'],
     'SK_DPD_DEF': ['max', 'mean'],
     
-    'CNT_INSTALMENT_diff':  ['min', 'max', 'mean'],
-    'CNT_INSTALMENT_ratio': ['min', 'max', 'mean'],
+    'CNT_INSTALMENT_diff':  ['min', 'max', 'mean', 'var'],
+    'CNT_INSTALMENT_ratio': ['min', 'max', 'mean', 'var'],
     
-    'SK_DPD_diff':          ['max', 'mean', 'var'],
-    'SK_DPD_diff_over0':    ['max', 'mean', 'var'],
-    'SK_DPD_diff_over5':    ['max', 'mean', 'var'],
-    'SK_DPD_diff_over10':   ['max', 'mean', 'var'],
-    'SK_DPD_diff_over15':   ['max', 'mean', 'var'],
-    'SK_DPD_diff_over20':   ['max', 'mean', 'var'],
-    'SK_DPD_diff_over25':   ['max', 'mean', 'var'],
+    'SK_DPD_diff':          ['max', 'mean', 'var', 'sum'],
+    'SK_DPD_diff_over0':    ['max', 'mean', 'var', 'sum'],
+    'SK_DPD_diff_over5':    ['max', 'mean', 'var', 'sum'],
+    'SK_DPD_diff_over10':   ['max', 'mean', 'var', 'sum'],
+    'SK_DPD_diff_over15':   ['max', 'mean', 'var', 'sum'],
+    'SK_DPD_diff_over20':   ['max', 'mean', 'var', 'sum'],
+    'SK_DPD_diff_over25':   ['max', 'mean', 'var', 'sum'],
 }
 
 col_cat = ['NAME_CONTRACT_STATUS']

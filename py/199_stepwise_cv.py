@@ -268,19 +268,21 @@ if False:
                  'app_001_goods_price-m-credit-dby-income',
                  'app_001_income-by-CNT_CHILDREN',
                  'app_001_income_per_adult',
+                 'prev_101_active_AMT_GOODS_PRICE-dby-total_debt_min',
+                 'prev_101_approved_AMT_ANNUITY-dby-app_AMT_ANNUITY_max',
                  'prev_101_approved_AMT_ANNUITY-dby-app_AMT_ANNUITY_mean',
-                 'prev_101_approved_AMT_DOWN_PAYMENT_max',
-                 'prev_101_approved_AMT_GOODS_PRICE-dby-AMT_CREDIT_max',
                  'prev_101_approved_AMT_GOODS_PRICE-dby-total_debt_mean',
                  'prev_101_approved_AMT_GOODS_PRICE-dby-total_debt_min',
                  'prev_101_approved_APP_CREDIT_PERC_var',
-                 'prev_101_approved_DAYS_DECISION_mean',
+                 'prev_101_approved_amt_paid_mean',
+                 'prev_101_approved_amt_paid_sum',
+                 'prev_101_completed_AMT_DOWN_PAYMENT_mean',
                  'prev_101_completed_AMT_GOODS_PRICE-dby-total_debt_max',
-                 'prev_105_amt_paid_sum',
+                 'prev_101_completed_APP_CREDIT_PERC_var',
+                 'prev_101_completed_HOUR_APPR_PROCESS_START_mean',
+                 'prev_105_DAYS_DECISION_ref_max',
                  'prev_105_amt_unpaid_sum-p-app',
-                 'prev_105_amt_unpaid_sum-p-app-dby-income',
-                 'prev_105_approved_ratio',
-                 'prev_106_NAME_YIELD_GROUP-high']
+                 'prev_105_approved_ratio']
     
     
     param = {
