@@ -400,7 +400,29 @@ def multi(p):
         # =============================================================================
         # bureau
         # =============================================================================
+        usecols = ['SK_ID_CURR', 'AMT_INCOME_TOTAL', 'AMT_CREDIT', 'AMT_ANNUITY', 'AMT_GOODS_PRICE']
+        rename_di = {'AMT_INCOME_TOTAL': 'app_AMT_INCOME_TOTAL', 
+                     'AMT_CREDIT': 'app_AMT_CREDIT', 
+                     'AMT_ANNUITY': 'app_AMT_ANNUITY',
+                     'AMT_GOODS_PRICE': 'app_AMT_GOODS_PRICE'}
+        trte = pd.concat([pd.read_csv('../input/application_train.csv.zip', usecols=usecols).rename(columns=rename_di), 
+                          pd.read_csv('../input/application_test.csv.zip',  usecols=usecols).rename(columns=rename_di)],
+                          ignore_index=True)
+        
         df = pd.read_csv('../input/bureau.csv.zip')
+        
+        df = pd.merge(df, trte, on='SK_ID_CURR', how='left')
+        
+        df['credit-dby-income'] = df['AMT_CREDIT_SUM'] / df['app_AMT_INCOME_TOTAL']
+        df['AMT_CREDIT_SUM_DEBT-dby-income'] = df['AMT_CREDIT_SUM_DEBT'] / df['app_AMT_INCOME_TOTAL']
+        df['AMT_CREDIT_SUM_LIMIT-dby-income'] = df['AMT_CREDIT_SUM_LIMIT'] / df['app_AMT_INCOME_TOTAL']
+        df['AMT_CREDIT_SUM_OVERDUE-dby-income'] = df['AMT_CREDIT_SUM_OVERDUE'] / df['app_AMT_INCOME_TOTAL']
+        
+        df['credit-dby-annuity'] = df['AMT_CREDIT_SUM'] / df['app_AMT_ANNUITY']
+        df['AMT_CREDIT_SUM_DEBT-dby-annuity'] = df['AMT_CREDIT_SUM_DEBT'] / df['app_AMT_ANNUITY']
+        df['AMT_CREDIT_SUM_LIMIT-dby-annuity'] = df['AMT_CREDIT_SUM_LIMIT'] / df['app_AMT_ANNUITY']
+        df['AMT_CREDIT_SUM_OVERDUE-dby-annuity'] = df['AMT_CREDIT_SUM_OVERDUE'] / df['app_AMT_ANNUITY']
+        
         df['DAYS_CREDIT_ENDDATE-m-DAYS_CREDIT'] = df['DAYS_CREDIT_ENDDATE'] - df['DAYS_CREDIT']
         df['DAYS_ENDDATE_FACT-m-DAYS_CREDIT'] = df['DAYS_ENDDATE_FACT'] - df['DAYS_CREDIT']
         df['DAYS_ENDDATE_FACT-m-DAYS_CREDIT_ENDDATE'] = df['DAYS_ENDDATE_FACT'] - df['DAYS_CREDIT_ENDDATE']
