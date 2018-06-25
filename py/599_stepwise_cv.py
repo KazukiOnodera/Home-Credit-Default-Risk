@@ -214,7 +214,10 @@ ret = lgb.cv(param, dtrain, 9999, nfold=5,
              early_stopping_rounds=50, verbose_eval=10,
              seed=SEED)
 
-best_score = ret['auc-mean'][-1] # 0.7770307086434547
+best_score = ret['auc-mean'][-1]
+print(f'best_score: {best_score}')
+utils.send_line(f'best_score: {best_score}')
+
 
 # =============================================================================
 # stepwise
