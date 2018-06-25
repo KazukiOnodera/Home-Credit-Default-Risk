@@ -105,7 +105,7 @@ def aggregate():
     for cat in li:
         cat_aggregations[cat] = ['mean', 'sum']
     
-    df_agg = df.groupby('SK_ID_CURR').agg(['min', 'max', 'mean', 'sum', 'var'])
+    df_agg = df.groupby('SK_ID_CURR').agg({**num_aggregations, **cat_aggregations})
     df_agg.columns = pd.Index([e[0] + "_" + e[1] for e in df_agg.columns.tolist()])
     
     df_agg['CRE_COUNT'] = df.groupby('SK_ID_CURR').size()
