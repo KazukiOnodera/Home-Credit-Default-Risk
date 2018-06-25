@@ -375,6 +375,16 @@ def multi(p):
         
         df['AMT_BALANCE-dby-AMT_CREDIT_LIMIT_ACTUAL'] = df['AMT_BALANCE'] / df['AMT_CREDIT_LIMIT_ACTUAL']
         df['AMT_BALANCE-dby-app_AMT_INCOME_TOTAL']    = df['AMT_BALANCE'] / df['app_AMT_INCOME_TOTAL']
+        df['AMT_BALANCE-dby-app_AMT_CREDIT']          = df['AMT_BALANCE'] / df['app_AMT_CREDIT']
+        df['AMT_BALANCE-dby-app_AMT_ANNUITY']         = df['AMT_BALANCE'] / df['app_AMT_ANNUITY']
+        df['AMT_BALANCE-dby-app_AMT_GOODS_PRICE']     = df['AMT_BALANCE'] / df['app_AMT_GOODS_PRICE']
+        df['AMT_BALANCE-dby-AMT_DRAWINGS_CURRENT']    = df['AMT_BALANCE'] / df['AMT_DRAWINGS_CURRENT']
+        
+        df['AMT_DRAWINGS_CURRENT-dby-AMT_CREDIT_LIMIT_ACTUAL'] = df['AMT_DRAWINGS_CURRENT'] / df['AMT_CREDIT_LIMIT_ACTUAL']
+        df['AMT_DRAWINGS_CURRENT-dby-app_AMT_INCOME_TOTAL']    = df['AMT_DRAWINGS_CURRENT'] / df['app_AMT_INCOME_TOTAL']
+        df['AMT_DRAWINGS_CURRENT-dby-app_AMT_CREDIT']          = df['AMT_DRAWINGS_CURRENT'] / df['app_AMT_CREDIT']
+        df['AMT_DRAWINGS_CURRENT-dby-app_AMT_ANNUITY']         = df['AMT_DRAWINGS_CURRENT'] / df['app_AMT_ANNUITY']
+        df['AMT_DRAWINGS_CURRENT-dby-app_AMT_GOODS_PRICE']     = df['AMT_DRAWINGS_CURRENT'] / df['app_AMT_GOODS_PRICE']
         
         df['SK_DPD_diff'] = df['SK_DPD'] - df['SK_DPD_DEF']
         df['SK_DPD_diff_over0'] = (df['SK_DPD_diff']>0)*1
