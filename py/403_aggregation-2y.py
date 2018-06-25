@@ -56,7 +56,7 @@ num_aggregations = {
  'CNT_DRAWINGS_OTHER_CURRENT': stats,
  'CNT_DRAWINGS_POS_CURRENT': stats,
  'CNT_INSTALMENT_MATURE_CUM': stats,
- 'NAME_CONTRACT_STATUS': stats,
+ 
  'SK_DPD': stats,
  'SK_DPD_DEF': stats,
  
@@ -80,8 +80,8 @@ num_aggregations = {
  'SK_DPD_diff_over20': stats,
  'SK_DPD_diff_over25': stats,
 }
-#
-#
+
+
 col_cat = ['NAME_CONTRACT_STATUS']
 
 train = utils.load_train([KEY])
