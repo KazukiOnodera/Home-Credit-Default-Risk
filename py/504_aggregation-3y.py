@@ -46,7 +46,6 @@ num_aggregations = {
         'AMT_CREDIT_SUM_DEBT': stats,
         'AMT_CREDIT_SUM_LIMIT': stats,
         'AMT_CREDIT_SUM_OVERDUE': stats,
-        'CREDIT_TYPE': stats,
         'DAYS_CREDIT_UPDATE': stats,
         'AMT_ANNUITY': stats,
         
