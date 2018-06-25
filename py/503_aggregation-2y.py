@@ -30,7 +30,7 @@ os.system(f'rm ../feature/t*_{PREF}*')
 # 
 # =============================================================================
 bure = utils.read_pickles('../data/bureau')
-bure = bure[bure['DAYS_CREDIT'].between(day_start, day_end)].drop('SK_ID_PREV', axis=1)
+bure = bure[bure['DAYS_CREDIT'].between(day_start, day_end)]
 
 
 stats = ['min', 'max', 'mean', 'sum', 'var']
