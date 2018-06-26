@@ -265,6 +265,7 @@ for c in features_bure:
         utils.send_line(f'{c}: {best_score}')
 
 """
+
 ['app_001_AMT_ANNUITY',
  'app_001_AMT_CREDIT',
  'app_001_AMT_GOODS_PRICE',
@@ -319,6 +320,14 @@ for c in features_bure:
  'bure_501_DAYS_ENDDATE_FACT_var',
  'bure_501_credit-dby-annuity_mean',
  'bure_503_DAYS_CREDIT_max',
+ 'bure_505_Active_AMT_CREDIT_SUM_DEBT-dby-AMT_CREDIT_SUM_max',
+ 'bure_505_Active_AMT_CREDIT_SUM_DEBT-dby-AMT_CREDIT_SUM_mean',
+ 'bure_505_Active_AMT_CREDIT_SUM_sum',
+ 'bure_505_Active_DAYS_CREDIT_ENDDATE-m-DAYS_CREDIT_min',
+ 'bure_505_Active_DAYS_CREDIT_mean',
+ 'bure_505_Closed_DAYS_CREDIT_ENDDATE-m-DAYS_CREDIT_min',
+ 'bure_505_Closed_DAYS_CREDIT_UPDATE_mean',
+ 'bure_505_Closed_credit-dby-income_mean',
  'cre_401_AMT_PAYMENT_CURRENT_sum',
  'cre_401_CNT_DRAWINGS_CURRENT_var',
  'cre_402_AMT_BALANCE-dby-AMT_CREDIT_LIMIT_ACTUAL_max',
@@ -365,6 +374,8 @@ for c in features_bure:
  'prev_105_DAYS_DECISION_ref_max',
  'prev_105_amt_unpaid_sum-p-app',
  'prev_105_approved_ratio']
+
+
 """
 
 #==============================================================================
