@@ -42,7 +42,7 @@ num_aggregations = {
 }
 
 
-col_cat = [ 'CREDIT_CURRENCY', 'CREDIT_TYPE']
+col_cat = ['STATUS']
 
 train = utils.load_train([KEY])
 test = utils.load_test([KEY])
