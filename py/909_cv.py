@@ -10,8 +10,8 @@ import gc
 from tqdm import tqdm
 import pandas as pd
 import sys
-sys.path.append('/home/kazuki_onodera/Python')
-import lgbmextension as ex
+sys.path.append('/home/kazuki_onodera/PythonLibrary')
+import lgbextension as ex
 import lightgbm as lgb
 import multiprocessing
 from glob import glob
