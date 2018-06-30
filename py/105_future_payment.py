@@ -128,14 +128,14 @@ base['DAYS_DECISION_ref_max'] = gr_ref['DAYS_DECISION'].max()
 
 
 # future payment
-col = prev.head().filter(regex='^amt_future_payment_').columns
+col = prev.head().filter(regex='^prev_future_payment_').columns
 col_future = []
 for c in col:
     base[f'{c}_sum'] = gr_app[c].sum()
     col_future.append(f'{c}_sum')
 
 # past payment
-col = prev.head().filter(regex='^amt_past_payment_').columns
+col = prev.head().filter(regex='^prev_past_payment_').columns
 col_past = []
 for c in col:
     base[f'{c}_sum'] = gr_app[c].sum()
