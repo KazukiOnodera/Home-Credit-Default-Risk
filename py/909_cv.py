@@ -56,7 +56,7 @@ categorical_feature = ['app_001_NAME_CONTRACT_TYPE',
                      'app_001_WALLSMATERIAL_MODE',
                      'app_001_EMERGENCYSTATE_MODE']
 
-use_files = []
+use_files = ['train_app_']
 
 # =============================================================================
 # 
@@ -90,14 +90,14 @@ utils.send_line(result)
 dtrain = lgb.Dataset(X, y, categorical_feature=list( set(X.columns)&set(categorical_feature)) )
 model = lgb.train(param, dtrain, len(ret['auc-mean']))
 
-imp = ex.getImp(model).sort_values(['gain', 'index'], ascending=[False, True])
+imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
 imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
 
 """
 imp = pd.read_csv('LOG/imp_909_cv.py.csv')
 """
 
-col = imp[imp['split']==0]['index'].tolist()
+col = imp[imp['split']==0]['feature'].tolist()
 for c in col:
     os.system(f'touch "../unused_feature/{c}.f"')
 
