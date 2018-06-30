@@ -240,7 +240,8 @@ def multi(p):
         df['completed'] = (df['cnt_unpaid']==0)*1
         
         # future payment
-        rem_max = df['cnt_unpaid'].max() # 80
+#        rem_max = df['cnt_unpaid'].max() # 80
+        rem_max = 1
         df['cnt_unpaid_tmp'] = df['cnt_unpaid']
         for i in range(int( rem_max )):
             c = f'prev_future_payment_{i+1}m'
