@@ -65,7 +65,7 @@ use_files = []
 files = utils.get_use_files(use_files, True)
 
 X = pd.concat([
-                pd.read_feather(f) for f in tqdm(files, mininterval=100)
+                pd.read_feather(f) for f in tqdm(files, mininterval=60)
                ], axis=1)
 y = utils.read_pickles('../data/label').TARGET
 
@@ -79,7 +79,7 @@ print(f'X.shape {X.shape}')
 dtrain = lgb.Dataset(X, y, categorical_feature=list( set(X.columns)&set(categorical_feature)) )
 gc.collect()
 
-ret = lgb.cv(param, dtrain, 9999, nfold=5,
+ret = lgb.cv(param, dtrain, 9999, nfold=6,
              early_stopping_rounds=50, verbose_eval=10,
              seed=SEED)
 
