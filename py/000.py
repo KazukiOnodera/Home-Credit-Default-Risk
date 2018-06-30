@@ -22,10 +22,10 @@ utils.start(__file__)
 
 os.system('rm -rf ../data')
 os.system('rm -rf ../feature')
-os.system('rm -rf ../unuse_feature')
+os.system('rm -rf ../unused_feature')
 os.system('mkdir ../data')
 os.system('mkdir ../feature')
-os.system('mkdir ../unuse_feature')
+os.system('mkdir ../unused_feature')
 
 def multi(p):
     if p==0:

@@ -354,6 +354,35 @@ def remove_feature(df, var_limit=0, corr_limit=1):
     
     return
 
+def get_use_files(use_files, is_train=True):
+    if is_train:
+        files = sorted(glob('../feature/train*.f'))
+    else:
+        files = sorted(glob('../feature/test*.f'))
+        
+    unused_files = [f.split('/')[-1] for f in sorted(glob('../unused_feature/*.f'))]
+    files_ = []
+    if len(unused_files):
+        for f1 in files:
+            for f2 in unused_files:
+                if f1.endswith(f2):
+                    files_.append(f1)
+                    break
+    
+        files = sorted(set(files) - set(files_))
+    
+    if len(use_files)>0:
+        files_ = []
+        for f1 in files:
+            for f2 in use_files:
+                if f2 in f1:
+                    files_.append(f1)
+                    break
+    
+        files = sorted(files_[:])
+
+    return files
+
 # =============================================================================
 # knnfeat # https://github.com/upura/knnFeat/blob/master/knnFeat.py
 # =============================================================================

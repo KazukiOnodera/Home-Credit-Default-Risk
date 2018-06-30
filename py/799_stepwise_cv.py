@@ -44,28 +44,7 @@ use_files = ['train_other_']
 # set features
 # =============================================================================
 
-files = sorted(glob('../feature/train*.f'))
-
-unuse_files = [f.split('/')[-1] for f in sorted(glob('../unuse_feature/*.f'))]
-if len(unuse_files)>0:
-    files_ = []
-    for f1 in files:
-        for f2 in unuse_files:
-            if f1.endswith(f2):
-                files_.append(f1)
-                break
-
-    files = sorted(set(files) - set(files_))
-
-if len(use_files)>0:
-    files_ = []
-    for f1 in files:
-        for f2 in use_files:
-            if f2 in f1:
-                files_.append(f1)
-                break
-
-    files = sorted(files_[:])
+files = utils.get_use_files(use_files, True)
 
 
 X = pd.concat([
@@ -89,7 +68,7 @@ model = lgb.train(param, dtrain, 500)
 imp = ex.getImp(model)
 col = imp[imp['split']==0]['index'].tolist()
 for c in col:
-    os.system(f'touch "../unuse_feature/{c}.f"')
+    os.system(f'touch "../unused_feature/{c}.f"')
 
 features_bure = imp[imp['split']!=0]['index'].tolist()
 

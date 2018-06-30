@@ -26,12 +26,12 @@ SEED = 71
 param = {
          'objective': 'binary',
          'metric': 'auc',
-         'learning_rate': 0.01,
+         'learning_rate': 0.05,
          'max_depth': -1,
          'num_leaves': 255,
          'max_bin': 255,
-         'colsample_bytree': 0.8,
-         'subsample': 0.8,
+         'colsample_bytree': 0.9,
+         'subsample': 0.9,
          'nthread': multiprocessing.cpu_count(),
          'bagging_freq': 1,
 #         'verbose':-1,
@@ -56,23 +56,13 @@ categorical_feature = ['app_001_NAME_CONTRACT_TYPE',
                      'app_001_WALLSMATERIAL_MODE',
                      'app_001_EMERGENCYSTATE_MODE']
 
+use_files = []
+
 # =============================================================================
 # 
 # =============================================================================
 
-files = sorted(glob('../feature/train*.f'))
-
-unuse_files = [f.split('/')[-1] for f in sorted(glob('../unuse_feature/*.f'))]
-files_ = []
-if len(unuse_files):
-    for f1 in files:
-        for f2 in unuse_files:
-            if f1.endswith(f2):
-                files_.append(f1)
-                break
-
-    files = sorted(set(files) - set(files_))
-
+files = utils.get_use_files(use_files, True)
 
 X = pd.concat([
                 pd.read_feather(f) for f in tqdm(files, mininterval=100)
@@ -109,7 +99,7 @@ imp = pd.read_csv('LOG/imp_909_cv.py.csv')
 
 col = imp[imp['split']==0]['index'].tolist()
 for c in col:
-    os.system(f'touch "../unuse_feature/{c}.f"')
+    os.system(f'touch "../unused_feature/{c}.f"')
 
 # =============================================================================
 # 
