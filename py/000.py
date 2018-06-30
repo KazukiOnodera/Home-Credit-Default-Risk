@@ -240,11 +240,12 @@ def multi(p):
         df['completed'] = (df['cnt_unpaid']==0)*1
         
         # future payment
-#        rem_max = df['cnt_unpaid'].max() # 80
-        rem_max = 1
+        print('future payment')
+        rem_max = df['cnt_unpaid'].max() # 80
+#        rem_max = 1
         df['cnt_unpaid_tmp'] = df['cnt_unpaid']
         for i in range(int( rem_max )):
-            c = f'prev_future_payment_{i+1}m'
+            c = f'future_payment_{i+1}m'
             df[c] = df['cnt_unpaid_tmp'].map(lambda x: min(x, 1)) * df['AMT_ANNUITY']
             df.loc[df[c]==0, c] = np.nan
             df['cnt_unpaid_tmp'] -= 1
@@ -255,10 +256,11 @@ def multi(p):
         
         
         # past payment
+        print('past payment')
         rem_max = df['cnt_paid'].max() # 72
         df['cnt_paid_tmp'] = df['cnt_paid']
         for i in range(int( rem_max )):
-            c = f'prev_past_payment_{i+1}m'
+            c = f'past_payment_{i+1}m'
             df[c] = df['cnt_paid_tmp'].map(lambda x: min(x, 1)) * df['AMT_ANNUITY']
             df.loc[df[c]==0, c] = np.nan
             df['cnt_paid_tmp'] -= 1

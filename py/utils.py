@@ -459,6 +459,6 @@ def send_line(message):
 
 def stop_instance():
     send_line('stop instance')
-    os.system('gcloud compute instances stop instance-1 --zone us-east1-b')
+    os.system(f'gcloud compute instances stop {os.uname()[1]} --zone us-east1-b')
     
     
