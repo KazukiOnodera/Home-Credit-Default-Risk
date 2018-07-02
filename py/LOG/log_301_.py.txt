@@ -1,27 +1,0 @@
-  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:01<00:22,  1.21s/it] 10%|█         | 2/20 [00:02<00:19,  1.11s/it] 15%|█▌        | 3/20 [00:02<00:16,  1.03it/s] 20%|██        | 4/20 [00:03<00:14,  1.08it/s] 25%|██▌       | 5/20 [00:04<00:13,  1.13it/s] 30%|███       | 6/20 [00:05<00:12,  1.16it/s] 35%|███▌      | 7/20 [00:05<00:10,  1.18it/s] 40%|████      | 8/20 [00:06<00:09,  1.21it/s] 45%|████▌     | 9/20 [00:07<00:09,  1.22it/s] 50%|█████     | 10/20 [00:08<00:08,  1.24it/s] 55%|█████▌    | 11/20 [00:08<00:07,  1.23it/s] 60%|██████    | 12/20 [00:09<00:06,  1.22it/s] 65%|██████▌   | 13/20 [00:10<00:05,  1.23it/s] 70%|███████   | 14/20 [00:11<00:04,  1.21it/s] 75%|███████▌  | 15/20 [00:12<00:04,  1.19it/s] 80%|████████  | 16/20 [00:13<00:03,  1.20it/s] 85%|████████▌ | 17/20 [00:14<00:02,  1.19it/s] 90%|█████████ | 18/20 [00:15<00:01,  1.19it/s] 95%|█████████▌| 19/20 [00:15<00:00,  1.20it/s]100%|██████████| 20/20 [00:16<00:00,  1.20it/s]
-remove var<=0: Index(['delayed_day_15_min', 'delayed_day_20_min', 'delayed_day_25_min',
-       'delayed_day_30_min', 'delayed_day_35_min', 'delayed_day_40_min',
-       'delayed_day_45_min', 'delayed_money_15_min', 'delayed_money_20_min',
-       'delayed_money_25_min', 'delayed_money_30_min', 'delayed_money_35_min',
-       'delayed_money_40_min', 'delayed_money_45_min',
-       'delayed_money_ratio_15_min', 'delayed_money_ratio_20_min',
-       'delayed_money_ratio_25_min', 'delayed_money_ratio_30_min',
-       'delayed_money_ratio_35_min', 'delayed_money_ratio_40_min',
-       'delayed_money_ratio_45_min'],
-      dtype='object')
-Traceback (most recent call last):
-  File "301_.py", line 96, in <module>
-    utils.remove_feature(feature)
-  File "/home/kazuki_onodera/Home-Credit-Default-Risk/py/utils.py", line 287, in remove_feature
-    col_remove = df.iloc[:,col_remove].columns
-  File "/home/kazuki_onodera/anaconda3/lib/python3.6/site-packages/pandas/core/indexing.py", line 1367, in __getitem__
-    return self._getitem_tuple(key)
-  File "/home/kazuki_onodera/anaconda3/lib/python3.6/site-packages/pandas/core/indexing.py", line 1737, in _getitem_tuple
-    self._has_valid_tuple(tup)
-  File "/home/kazuki_onodera/anaconda3/lib/python3.6/site-packages/pandas/core/indexing.py", line 204, in _has_valid_tuple
-    if not self._has_valid_type(k, i):
-  File "/home/kazuki_onodera/anaconda3/lib/python3.6/site-packages/pandas/core/indexing.py", line 1674, in _has_valid_type
-    return self._is_valid_list_like(key, axis)
-  File "/home/kazuki_onodera/anaconda3/lib/python3.6/site-packages/pandas/core/indexing.py", line 1731, in _is_valid_list_like
-    raise IndexError("positional indexers are out-of-bounds")
-IndexError: positional indexers are out-of-bounds

@@ -1,0 +1,46 @@
+rm: cannot remove '../feature/t*_prev_105_*': No such file or directory
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:02<00:38,  2.01s/it] 10%|█         | 2/20 [00:03<00:34,  1.92s/it] 15%|█▌        | 3/20 [00:05<00:31,  1.84s/it] 20%|██        | 4/20 [00:07<00:29,  1.84s/it] 25%|██▌       | 5/20 [00:08<00:26,  1.80s/it] 30%|███       | 6/20 [00:10<00:24,  1.78s/it] 35%|███▌      | 7/20 [00:12<00:22,  1.74s/it] 40%|████      | 8/20 [00:13<00:20,  1.75s/it] 45%|████▌     | 9/20 [00:15<00:19,  1.73s/it] 50%|█████     | 10/20 [00:17<00:17,  1.73s/it] 55%|█████▌    | 11/20 [00:19<00:15,  1.73s/it] 60%|██████    | 12/20 [00:20<00:13,  1.72s/it] 65%|██████▌   | 13/20 [00:22<00:12,  1.72s/it] 70%|███████   | 14/20 [00:24<00:10,  1.74s/it] 75%|███████▌  | 15/20 [00:26<00:08,  1.74s/it] 80%|████████  | 16/20 [00:27<00:06,  1.73s/it] 85%|████████▌ | 17/20 [00:29<00:05,  1.75s/it] 90%|█████████ | 18/20 [00:31<00:03,  1.76s/it] 95%|█████████▌| 19/20 [00:33<00:01,  1.77s/it]100%|██████████| 20/20 [00:35<00:00,  1.76s/it]
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:00<00:08,  2.22it/s] 10%|█         | 2/20 [00:00<00:05,  3.09it/s] 15%|█▌        | 3/20 [00:00<00:04,  3.55it/s] 20%|██        | 4/20 [00:01<00:04,  3.81it/s] 25%|██▌       | 5/20 [00:01<00:03,  3.96it/s] 30%|███       | 6/20 [00:01<00:03,  4.04it/s] 35%|███▌      | 7/20 [00:01<00:03,  3.99it/s] 40%|████      | 8/20 [00:01<00:02,  4.11it/s] 45%|████▌     | 9/20 [00:02<00:02,  4.18it/s] 50%|█████     | 10/20 [00:02<00:02,  4.14it/s] 55%|█████▌    | 11/20 [00:02<00:02,  4.25it/s] 60%|██████    | 12/20 [00:02<00:01,  4.21it/s] 65%|██████▌   | 13/20 [00:03<00:01,  4.29it/s] 70%|███████   | 14/20 [00:03<00:01,  4.41it/s] 75%|███████▌  | 15/20 [00:03<00:01,  4.34it/s] 80%|████████  | 16/20 [00:03<00:00,  4.22it/s] 85%|████████▌ | 17/20 [00:04<00:00,  4.20it/s] 90%|█████████ | 18/20 [00:04<00:00,  4.17it/s] 95%|█████████▌| 19/20 [00:04<00:00,  4.14it/s]100%|██████████| 20/20 [00:04<00:00,  4.16it/s]
+  0%|          | 0/20 [00:00<?, ?it/s] 15%|█▌        | 3/20 [00:00<00:00, 22.01it/s] 35%|███▌      | 7/20 [00:00<00:00, 25.35it/s] 50%|█████     | 10/20 [00:00<00:00, 24.03it/s] 60%|██████    | 12/20 [00:00<00:00, 22.52it/s] 80%|████████  | 16/20 [00:00<00:00, 24.98it/s] 95%|█████████▌| 19/20 [00:00<00:00, 25.59it/s]100%|██████████| 20/20 [00:00<00:00, 25.45it/s]
+remove var<=0: Index(['future_payment_69m_sum', 'future_payment_70m_sum',
+       'future_payment_71m_sum', 'future_payment_72m_sum',
+       'future_payment_73m_sum', 'future_payment_74m_sum',
+       'future_payment_75m_sum', 'future_payment_76m_sum',
+       'future_payment_77m_sum', 'future_payment_78m_sum',
+       'future_payment_79m_sum', 'future_payment_80m_sum',
+       'past_payment_61m_sum', 'past_payment_62m_sum', 'past_payment_63m_sum',
+       'past_payment_64m_sum', 'past_payment_65m_sum', 'past_payment_66m_sum',
+       'past_payment_67m_sum', 'past_payment_68m_sum', 'past_payment_69m_sum',
+       'past_payment_70m_sum', 'past_payment_71m_sum', 'past_payment_72m_sum',
+       'prevapp_future_payment_69m', 'prevapp_future_payment_70m',
+       'prevapp_future_payment_71m', 'prevapp_future_payment_72m',
+       'prevapp_future_payment_73m', 'prevapp_future_payment_74m',
+       'prevapp_future_payment_75m', 'prevapp_future_payment_76m',
+       'prevapp_future_payment_77m', 'prevapp_future_payment_78m',
+       'prevapp_future_payment_79m', 'prevapp_future_payment_80m'],
+      dtype='object')
+remove corr>=1: Index(['future_payment_59m_min', 'future_payment_59m_max',
+       'future_payment_59m_mean', 'future_payment_59m_min',
+       'future_payment_59m_max', 'future_payment_59m_mean',
+       'future_payment_59m_min', 'future_payment_59m_max',
+       'future_payment_59m_mean', 'future_payment_59m_min',
+       ...
+       'future_payment_59m_min', 'future_payment_59m_max',
+       'future_payment_59m_mean', 'future_vs_past_max-dby-income',
+       'future_payment_59m_min', 'future_payment_59m_max',
+       'future_payment_59m_mean', 'future_payment_59m_min',
+       'future_payment_59m_max', 'future_payment_59m_mean'],
+      dtype='object', length=3125)
+
+#==============================================================================
+# SUCCESS !!! 105_future_payment.py
+#==============================================================================
+
+Traceback (most recent call last):
+  File "105_future_payment.py", line 246, in <module>
+    utils.end(__file__)
+  File "/home/kazuki_onodera/Home-Credit-Default-Risk/py/utils.py", line 154, in end
+    print('time: {:.2f}min'.format( elapsed_minute() ))
+  File "/home/kazuki_onodera/Home-Credit-Default-Risk/py/utils.py", line 159, in elapsed_minute
+    return (time() - st_time)/60
+NameError: name 'st_time' is not defined
