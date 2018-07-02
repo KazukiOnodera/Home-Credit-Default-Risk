@@ -10,7 +10,7 @@ import numpy as np
 import pandas as pd
 import os
 import utils
-#utils.start(__file__)
+utils.start(__file__)
 #==============================================================================
 
 PREF = 'prev_105_'
