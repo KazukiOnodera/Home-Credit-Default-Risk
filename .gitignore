@@ -1,7 +1,7 @@
 *.DS_Store
 ~$*.xls*
 feature/
-unuse_feature/
+unused_feature/
 input/
 output/
 data/
