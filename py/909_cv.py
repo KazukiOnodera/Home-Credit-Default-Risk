@@ -56,7 +56,7 @@ categorical_feature = ['app_001_NAME_CONTRACT_TYPE',
                      'app_001_WALLSMATERIAL_MODE',
                      'app_001_EMERGENCYSTATE_MODE']
 
-use_files = []
+use_files = ['app_001_', 'prev_10']
 
 # =============================================================================
 # load

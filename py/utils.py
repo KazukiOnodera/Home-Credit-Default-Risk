@@ -376,6 +376,7 @@ def get_use_files(use_files, is_train=True):
         for f1 in files:
             for f2 in use_files:
                 if f2 in f1:
+#                if f1.split('/')[-1].startswith(f2):
                     files_.append(f1)
                     break
     
