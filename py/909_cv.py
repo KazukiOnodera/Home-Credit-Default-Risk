@@ -59,7 +59,7 @@ categorical_feature = ['app_001_NAME_CONTRACT_TYPE',
 use_files = []
 
 # =============================================================================
-# 
+# load
 # =============================================================================
 
 files = utils.get_use_files(use_files, True)
@@ -75,20 +75,27 @@ if X.columns.duplicated().sum()>0:
 print('no dup :) ')
 print(f'X.shape {X.shape}')
 
+# =============================================================================
+# cv
+# =============================================================================
+#dtrain = lgb.Dataset(X, y, categorical_feature=list( set(X.columns)&set(categorical_feature)) )
+#gc.collect()
+#
+#ret = lgb.cv(param, dtrain, 9999, nfold=5,
+#             early_stopping_rounds=50, verbose_eval=10,
+#             seed=SEED)
+#
+#result = f"CV auc-mean {ret['auc-mean'][-1]}"
+#print(result)
+#utils.send_line(result)
 
+
+# =============================================================================
+# train
+# =============================================================================
 dtrain = lgb.Dataset(X, y, categorical_feature=list( set(X.columns)&set(categorical_feature)) )
-gc.collect()
-
-ret = lgb.cv(param, dtrain, 9999, nfold=5,
-             early_stopping_rounds=50, verbose_eval=10,
-             seed=SEED)
-
-result = f"CV auc-mean {ret['auc-mean'][-1]}"
-print(result)
-utils.send_line(result)
-
-dtrain = lgb.Dataset(X, y, categorical_feature=list( set(X.columns)&set(categorical_feature)) )
-model = lgb.train(param, dtrain, len(ret['auc-mean']))
+#model = lgb.train(param, dtrain, len(ret['auc-mean']))
+model = lgb.train(param, dtrain, 1000)
 
 imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
 imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
