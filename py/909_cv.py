@@ -79,7 +79,7 @@ print(f'X.shape {X.shape}')
 dtrain = lgb.Dataset(X, y, categorical_feature=list( set(X.columns)&set(categorical_feature)) )
 gc.collect()
 
-ret = lgb.cv(param, dtrain, 9999, nfold=6,
+ret = lgb.cv(param, dtrain, 9999, nfold=5,
              early_stopping_rounds=50, verbose_eval=10,
              seed=SEED)
 
