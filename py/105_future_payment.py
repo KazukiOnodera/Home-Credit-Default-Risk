@@ -89,6 +89,21 @@ base[f'{c}_mean'] = gr_app[c].mean()
 base[f'{c}_max']  = gr_app[c].max()
 base[f'{c}_sum'] = gr_app[c].sum()
 
+# ratio
+base['amt_paid-dby-unpaid_min']  = base['amt_paid_min']  / base['amt_unpaid_min']
+base['amt_paid-dby-unpaid_mean'] = base['amt_paid_mean'] / base['amt_unpaid_mean']
+base['amt_paid-dby-unpaid_max']  = base['amt_paid_max']  / base['amt_unpaid_max']
+base['amt_paid-dby-unpaid_sum']  = base['amt_paid_sum']  / base['amt_unpaid_sum']
+
+base['cnt_paid-dby-unpaid_min']  = base['cnt_paid_min']  / base['cnt_unpaid_min']
+base['cnt_paid-dby-unpaid_mean'] = base['cnt_paid_mean'] / base['cnt_unpaid_mean']
+base['cnt_paid-dby-unpaid_max']  = base['cnt_paid_max']  / base['cnt_unpaid_max']
+base['cnt_paid-dby-unpaid_sum']  = base['cnt_paid_sum']  / base['cnt_unpaid_sum']
+
+
+
+
+
 c = 'AMT_ANNUITY'
 base[f'{c}_act_min']  = gr_act[c].min()
 base[f'{c}_act_mean'] = gr_act[c].mean()
