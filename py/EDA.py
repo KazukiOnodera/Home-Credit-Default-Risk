@@ -32,11 +32,14 @@ def df_info(target_df, topN=10):
     # top 10 values
     df[f'top{topN} val'] = 0
     df[f'top{topN} cnt'] = 0
+    df[f'top{topN} raito'] = 0
     for c in df.index:
         vc = target_df[c].value_counts().head(topN)
         val = list(vc.index)
+        cnt = list(vc.values)
         raito = list((vc.values / max_row).round(2))
         df.loc[c, f'top{topN} val'] = str(val)
+        df.loc[c, f'top{topN} cnt'] = str(cnt)
         df.loc[c, f'top{topN} raito'] = str(raito)
         
     return df
