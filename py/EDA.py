@@ -15,6 +15,7 @@ from matplotlib_venn import venn2
 
 def df_info(target_df, topN=10):
     
+    max_row = target_df.shape[0]
     print(f'Shape: {target_df.shape}')
     
     df = target_df.dtypes.to_frame()
@@ -34,23 +35,23 @@ def df_info(target_df, topN=10):
     for c in df.index:
         vc = target_df[c].value_counts().head(topN)
         val = list(vc.index)
-        cnt = list(vc.values)
+        raito = list(vc.values / max_row)
         df.loc[c, f'top{topN} val'] = str(val)
-        df.loc[c, f'top{topN} cnt'] = str(cnt)
+        df.loc[c, f'top{topN} raito'] = str(raito)
         
     return df
 
-def top_categories(df, category_feature, top=30):
-    return df[category_feature].value_counts()[:top].index
+def top_categories(df, category_feature, topN=30):
+    return df[category_feature].value_counts().head(topN).index
 
-def count_categories(df, category_features, top=30, sort='freq', df2=None):
+def count_categories(df, category_features, topN=30, sort='freq', df2=None):
     
     for c in category_features:
-        target_value = df[c].value_counts()[:top].index
+        target_value = df[c].value_counts().head(topN).index
         if sort=='freq':
             order = target_value
         elif sort=='alphabetic':
-            order = df[c].value_counts()[:top].sort_index().index
+            order = df[c].value_counts().head(topN).sort_index().index
         
         if df2 is not None:
             plt.subplot(1, 2, 1)
@@ -63,9 +64,9 @@ def count_categories(df, category_features, top=30, sort='freq', df2=None):
             plt.xticks(rotation=90)
         
         if df2 is not None:
-            plt.suptitle(f'{c} TOP{top}', size=25)
+            plt.suptitle(f'{c} TOP{topN}', size=25)
         else:
-            plt.title(f'{c} TOP{top}', size=25)
+            plt.title(f'{c} TOP{topN}', size=25)
         plt.tight_layout()
         plt.show()
         
