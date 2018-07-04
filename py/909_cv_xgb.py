@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Tue Jun  5 12:39:16 2018
+Created on Wed Jul  4 20:53:43 2018
 
 @author: kazuki.onodera
 """
@@ -11,8 +11,8 @@ from tqdm import tqdm
 import pandas as pd
 import sys
 sys.path.append('/home/kazuki_onodera/PythonLibrary')
-import lgbextension as ex
-import lightgbm as lgb
+import xgbextension as ex
+import xgboost as xgb
 import multiprocessing
 from glob import glob
 import count
@@ -23,20 +23,34 @@ import utils
 
 SEED = 71
 
-param = {
-         'objective': 'binary',
-         'metric': 'auc',
-         'learning_rate': 0.01,
-         'max_depth': -1,
-         'num_leaves': 255,
-         'max_bin': 255,
-         'colsample_bytree': 0.9,
-         'subsample': 0.9,
-         'nthread': multiprocessing.cpu_count(),
-         'bagging_freq': 1,
-#         'verbose':-1,
-         'seed': SEED
-         }
+params = {
+          'booster': 'gbtree',  # gbtree, gblinear or dart
+          'silent': 1,  # 0:printing mode 1:silent mode.
+          'nthread': multiprocessing.cpu_count(),
+          'eta': 0.02,
+          'gamma': 0.1,
+          'max_depth': 6,
+          'min_child_weight': 100,
+          # 'max_delta_step': 0,
+          'subsample': 0.9,
+          'colsample_bytree': 0.8,
+          'colsample_bylevel': 0.8,
+          'lambda': 0.1,  # L2 regularization term on weights.
+          'alpha': 0.1,  # L1 regularization term on weights.
+          'tree_method': 'auto',
+          # 'sketch_eps': 0.03,
+          'scale_pos_weight': 1,
+          # 'updater': 'grow_colmaker,prune',
+          # 'refresh_leaf': 1,
+          # 'process_type': 'default',
+          'grow_policy': 'depthwise',
+          # 'max_leaves': 0,
+          'max_bin': 256,
+          # 'predictor': 'cpu_predictor',
+          'objective': 'binary:logistic',
+          'eval_metric': 'auc',
+          'seed': SEED
+          }
 
 
 categorical_feature = ['app_001_NAME_CONTRACT_TYPE',
@@ -56,9 +70,8 @@ categorical_feature = ['app_001_NAME_CONTRACT_TYPE',
                      'app_001_WALLSMATERIAL_MODE',
                      'app_001_EMERGENCYSTATE_MODE']
 
-use_files = ['prev_1', 'pos_2', 'ins_3', 'cre_4']
+use_files = ['app_0']
 
-#use_files = ['bb_601_', 'bure_50'] # 0.76781
 
 
 # =============================================================================
@@ -78,16 +91,18 @@ if X.columns.duplicated().sum()>0:
 print('no dup :) ')
 print(f'X.shape {X.shape}')
 
+X = pd.get_dummies(X, columns=categorical_feature, drop_first=True)
+
 X = X.rank(method='dense')
 
 
 # =============================================================================
 # cv
 # =============================================================================
-dtrain = lgb.Dataset(X, y, categorical_feature=list( set(X.columns)&set(categorical_feature)) )
+dtrain = xgb.DMatrix(X, y)
 gc.collect()
 
-ret = lgb.cv(param, dtrain, 9999, nfold=5,
+ret = xgb.cv(params, dtrain, 9999, nfold=5,
              early_stopping_rounds=50, verbose_eval=10,
              seed=SEED)
 
@@ -96,42 +111,8 @@ print(result)
 utils.send_line(result)
 
 
-# =============================================================================
-# train
-# =============================================================================
-dtrain = lgb.Dataset(X, y, categorical_feature=list( set(X.columns)&set(categorical_feature)) )
-#model = lgb.train(param, dtrain, len(ret['auc-mean']))
-model = lgb.train(param, dtrain, 1000)
-
-imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
-imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
-
-"""
-imp = pd.read_csv('LOG/imp_909_cv.py.csv')
-"""
-
-col = imp[imp['split']==0]['feature'].tolist()
-for c in col:
-    os.system(f'touch "../unused_feature/{c}.f"')
-
-# =============================================================================
-# 
-# =============================================================================
-#col = imp['index'][:20].tolist()
-#dtrain = lgb.Dataset(X[col], y, categorical_feature=list( set(col)&set(categorical_feature)) )
-#gc.collect()
-#
-#ret = lgb.cv(param, dtrain, 9999, nfold=5,
-#             early_stopping_rounds=50, verbose_eval=10,
-#             seed=SEED)
-#
-#result = f"CV auc-mean(20 features) {ret['auc-mean'][-1]}"
-#print(result)
-#utils.send_line(result)
-
-
 #==============================================================================
 utils.end(__file__)
 
-#utils.stop_instance()
+utils.stop_instance()
 
