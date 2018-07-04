@@ -31,7 +31,7 @@ gr_act = prev[prev['active']==1].groupby(KEY)
 gr_cmp = prev[prev['completed']==1].groupby(KEY)
 
 col = ['AMT_INCOME_TOTAL', 'AMT_CREDIT', 'AMT_ANNUITY', 
-       'credit-dby-annuity', 'DAYS_BIRTH']
+       'credit-d-annuity', 'DAYS_BIRTH']
 train = utils.load_train([KEY]+col)
 test = utils.load_test([KEY]+col)
 
