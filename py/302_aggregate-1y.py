@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Tue Jun 19 23:14:19 2018
+Created on Wed Jun 20 00:45:09 2018
 
 @author: Kazuki
 
@@ -18,11 +18,11 @@ NTHREAD = cpu_count()
 import utils
 utils.start(__file__)
 #==============================================================================
-PREF = 'ins_301_'
+PREF = 'f302_'
 
 KEY = 'SK_ID_CURR'
 
-day_start = -365*10 # min: -2922
+day_start = -365*1  # min: -2922
 day_end   = -365*0  # min: -2922
 
 os.system(f'rm ../feature/t*_{PREF}*')
@@ -107,6 +107,7 @@ num_aggregations = {
     'NUM_INSTALMENT_ratio':['min', 'max', 'mean', 'var'],
 }
 
+
 #col_cat = ['NAME_CONTRACT_STATUS']
 
 train = utils.load_train([KEY])
@@ -118,17 +119,6 @@ test = utils.load_test([KEY])
 def aggregate():
     
     df = ins
-    
-#    li = []
-#    for c1 in df.columns:
-#        for c2 in col_cat:
-#            if c1.startswith(c2+'_'):
-#                li.append(c1)
-#                break
-#    
-#    cat_aggregations = {}
-#    for cat in li:
-#        cat_aggregations[cat] = ['mean', 'sum']
     
 #    df_agg = df.groupby('SK_ID_CURR').agg({**num_aggregations})
     gr1 = df.groupby(['SK_ID_PREV', 'SK_ID_CURR', 'NUM_INSTALMENT_NUMBER'])

@@ -14,7 +14,7 @@ import utils
 #utils.start(__file__)
 #==============================================================================
 
-PREF = 'app_001_'
+PREF = 'f001_'
 
 
 os.system(f'rm ../feature/t*_{PREF}*')

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed Jun 20 10:30:13 2018
+Created on Wed Jun 20 09:53:16 2018
 
 @author: Kazuki
 
@@ -18,12 +18,12 @@ NTHREAD = cpu_count()
 import utils
 utils.start(__file__)
 #==============================================================================
-PREF = 'cre_404_'
+PREF = 'f401_'
 
 KEY = 'SK_ID_CURR'
 
-month_start = -12*3 # -96
-month_end   = -12*2 # -96
+month_start = -12*10 # -96
+month_end   = -12*0 # -96
 
 os.system(f'rm ../feature/t*_{PREF}*')
 # =============================================================================
@@ -31,6 +31,7 @@ os.system(f'rm ../feature/t*_{PREF}*')
 # =============================================================================
 cre = utils.read_pickles('../data/credit_card_balance')
 cre = cre[cre['MONTHS_BALANCE'].between(month_start, month_end)].drop('SK_ID_PREV', axis=1)
+
 
 stats = ['min', 'max', 'mean', 'sum', 'var']
 
@@ -57,17 +58,17 @@ num_aggregations = {
  'SK_DPD': stats,
  'SK_DPD_DEF': stats,
  
- 'AMT_BALANCE-dby-AMT_CREDIT_LIMIT_ACTUAL': stats,
- 'AMT_BALANCE-dby-app_AMT_INCOME_TOTAL': stats,
- 'AMT_BALANCE-dby-app_AMT_CREDIT': stats,
- 'AMT_BALANCE-dby-app_AMT_ANNUITY': stats,
- 'AMT_BALANCE-dby-app_AMT_GOODS_PRICE': stats,
- 'AMT_BALANCE-dby-AMT_DRAWINGS_CURRENT': stats,
- 'AMT_DRAWINGS_CURRENT-dby-AMT_CREDIT_LIMIT_ACTUAL': stats,
- 'AMT_DRAWINGS_CURRENT-dby-app_AMT_INCOME_TOTAL': stats,
- 'AMT_DRAWINGS_CURRENT-dby-app_AMT_CREDIT': stats,
- 'AMT_DRAWINGS_CURRENT-dby-app_AMT_ANNUITY': stats,
- 'AMT_DRAWINGS_CURRENT-dby-app_AMT_GOODS_PRICE': stats,
+ 'AMT_BALANCE-d-AMT_CREDIT_LIMIT_ACTUAL': stats,
+ 'AMT_BALANCE-d-app_AMT_INCOME_TOTAL': stats,
+ 'AMT_BALANCE-d-app_AMT_CREDIT': stats,
+ 'AMT_BALANCE-d-app_AMT_ANNUITY': stats,
+ 'AMT_BALANCE-d-app_AMT_GOODS_PRICE': stats,
+ 'AMT_BALANCE-d-AMT_DRAWINGS_CURRENT': stats,
+ 'AMT_DRAWINGS_CURRENT-d-AMT_CREDIT_LIMIT_ACTUAL': stats,
+ 'AMT_DRAWINGS_CURRENT-d-app_AMT_INCOME_TOTAL': stats,
+ 'AMT_DRAWINGS_CURRENT-d-app_AMT_CREDIT': stats,
+ 'AMT_DRAWINGS_CURRENT-d-app_AMT_ANNUITY': stats,
+ 'AMT_DRAWINGS_CURRENT-d-app_AMT_GOODS_PRICE': stats,
  
  'SK_DPD_diff': stats,
  'SK_DPD_diff_over0': stats,
@@ -116,6 +117,7 @@ def aggregate():
     
     return
 
+
 # =============================================================================
 # main
 # =============================================================================
@@ -126,4 +128,3 @@ aggregate()
 
 #==============================================================================
 utils.end(__file__)
-

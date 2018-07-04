@@ -18,7 +18,7 @@ NTHREAD = cpu_count()
 import utils
 utils.start(__file__)
 #==============================================================================
-PREF = 'bure_503_'
+PREF = 'f503_'
 
 KEY = 'SK_ID_CURR'
 
@@ -50,14 +50,14 @@ num_aggregations = {
         'DAYS_CREDIT_UPDATE': stats,
         'AMT_ANNUITY': stats,
         
-        'credit-dby-income': stats,
-        'AMT_CREDIT_SUM_DEBT-dby-income': stats,
-        'AMT_CREDIT_SUM_LIMIT-dby-income': stats,
-        'AMT_CREDIT_SUM_OVERDUE-dby-income': stats,
-        'credit-dby-annuity': stats,
-        'AMT_CREDIT_SUM_DEBT-dby-annuity': stats,
-        'AMT_CREDIT_SUM_LIMIT-dby-annuity': stats,
-        'AMT_CREDIT_SUM_OVERDUE-dby-annuity': stats,
+        'credit-d-income': stats,
+        'AMT_CREDIT_SUM_DEBT-d-income': stats,
+        'AMT_CREDIT_SUM_LIMIT-d-income': stats,
+        'AMT_CREDIT_SUM_OVERDUE-d-income': stats,
+        'credit-d-annuity': stats,
+        'AMT_CREDIT_SUM_DEBT-d-annuity': stats,
+        'AMT_CREDIT_SUM_LIMIT-d-annuity': stats,
+        'AMT_CREDIT_SUM_OVERDUE-d-annuity': stats,
         'DAYS_CREDIT_ENDDATE-m-DAYS_CREDIT': stats,
         'DAYS_ENDDATE_FACT-m-DAYS_CREDIT': stats,
         'DAYS_ENDDATE_FACT-m-DAYS_CREDIT_ENDDATE': stats,
@@ -65,11 +65,11 @@ num_aggregations = {
         'DAYS_CREDIT_UPDATE-m-DAYS_CREDIT_ENDDATE': stats,
         'DAYS_CREDIT_UPDATE-m-DAYS_ENDDATE_FACT': stats,
         'AMT_CREDIT_SUM-m-AMT_CREDIT_SUM_DEBT': stats,
-        'AMT_CREDIT_SUM_DEBT-dby-AMT_CREDIT_SUM': stats,
-        'AMT_CREDIT_SUM-m-AMT_CREDIT_SUM_DEBT-dby-AMT_CREDIT_SUM_LIMIT': stats,
-        'AMT_CREDIT_SUM_DEBT-dby-AMT_CREDIT_SUM_LIMIT': stats,
+        'AMT_CREDIT_SUM_DEBT-d-AMT_CREDIT_SUM': stats,
+        'AMT_CREDIT_SUM-m-AMT_CREDIT_SUM_DEBT-d-AMT_CREDIT_SUM_LIMIT': stats,
+        'AMT_CREDIT_SUM_DEBT-d-AMT_CREDIT_SUM_LIMIT': stats,
         'AMT_CREDIT_SUM_DEBT-p-AMT_CREDIT_SUM_LIMIT': stats,
-        'AMT_CREDIT_SUM-dby-debt-p-AMT_CREDIT_SUM_DEBT-p-AMT_CREDIT_SUM_LIMIT': stats,
+        'AMT_CREDIT_SUM-d-debt-p-AMT_CREDIT_SUM_DEBT-p-AMT_CREDIT_SUM_LIMIT': stats,
 }
 
 

@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed Jun 20 10:27:48 2018
+Created on Mon Jun 25 18:39:07 2018
 
-@author: Kazuki
+@author: kazuki.onodera
 
 based on
 https://www.kaggle.com/jsaguiar/updated-0-792-lb-lightgbm-with-simple-features/code
@@ -18,71 +18,61 @@ NTHREAD = cpu_count()
 import utils
 utils.start(__file__)
 #==============================================================================
-PREF = 'cre_403_'
+PREF = 'f504_'
 
 KEY = 'SK_ID_CURR'
 
-month_start = -12*2 # -96
-month_end   = -12*1 # -96
+day_start = -365*3 # -2922
+day_end   = -365*2 # -2922
 
 os.system(f'rm ../feature/t*_{PREF}*')
 # =============================================================================
 # 
 # =============================================================================
-cre = utils.read_pickles('../data/credit_card_balance')
-cre = cre[cre['MONTHS_BALANCE'].between(month_start, month_end)].drop('SK_ID_PREV', axis=1)
-
-
-
+bure = utils.read_pickles('../data/bureau')
+bure = bure[bure['DAYS_CREDIT'].between(day_start, day_end)]
 
 stats = ['min', 'max', 'mean', 'sum', 'var']
 
 num_aggregations = {
-#    # TODO: optimize stats
-'AMT_BALANCE': stats,
- 'AMT_CREDIT_LIMIT_ACTUAL': stats,
- 'AMT_DRAWINGS_ATM_CURRENT': stats,
- 'AMT_DRAWINGS_CURRENT': stats,
- 'AMT_DRAWINGS_OTHER_CURRENT': stats,
- 'AMT_DRAWINGS_POS_CURRENT': stats,
- 'AMT_INST_MIN_REGULARITY': stats,
- 'AMT_PAYMENT_CURRENT': stats,
- 'AMT_PAYMENT_TOTAL_CURRENT': stats,
- 'AMT_RECEIVABLE_PRINCIPAL': stats,
- 'AMT_RECIVABLE': stats,
- 'AMT_TOTAL_RECEIVABLE': stats,
- 'CNT_DRAWINGS_ATM_CURRENT': stats,
- 'CNT_DRAWINGS_CURRENT': stats,
- 'CNT_DRAWINGS_OTHER_CURRENT': stats,
- 'CNT_DRAWINGS_POS_CURRENT': stats,
- 'CNT_INSTALMENT_MATURE_CUM': stats,
- 
- 'SK_DPD': stats,
- 'SK_DPD_DEF': stats,
- 
- 'AMT_BALANCE-dby-AMT_CREDIT_LIMIT_ACTUAL': stats,
- 'AMT_BALANCE-dby-app_AMT_INCOME_TOTAL': stats,
- 'AMT_BALANCE-dby-app_AMT_CREDIT': stats,
- 'AMT_BALANCE-dby-app_AMT_ANNUITY': stats,
- 'AMT_BALANCE-dby-app_AMT_GOODS_PRICE': stats,
- 'AMT_BALANCE-dby-AMT_DRAWINGS_CURRENT': stats,
- 'AMT_DRAWINGS_CURRENT-dby-AMT_CREDIT_LIMIT_ACTUAL': stats,
- 'AMT_DRAWINGS_CURRENT-dby-app_AMT_INCOME_TOTAL': stats,
- 'AMT_DRAWINGS_CURRENT-dby-app_AMT_CREDIT': stats,
- 'AMT_DRAWINGS_CURRENT-dby-app_AMT_ANNUITY': stats,
- 'AMT_DRAWINGS_CURRENT-dby-app_AMT_GOODS_PRICE': stats,
- 
- 'SK_DPD_diff': stats,
- 'SK_DPD_diff_over0': stats,
- 'SK_DPD_diff_over5': stats,
- 'SK_DPD_diff_over10': stats,
- 'SK_DPD_diff_over15': stats,
- 'SK_DPD_diff_over20': stats,
- 'SK_DPD_diff_over25': stats,
+        # TODO: optimize stats
+        'DAYS_CREDIT': stats,
+        'CREDIT_DAY_OVERDUE': stats,
+        'DAYS_CREDIT_ENDDATE': stats,
+        'DAYS_ENDDATE_FACT': stats,
+        'AMT_CREDIT_MAX_OVERDUE': stats,
+        'CNT_CREDIT_PROLONG': stats,
+        'AMT_CREDIT_SUM': stats,
+        'AMT_CREDIT_SUM_DEBT': stats,
+        'AMT_CREDIT_SUM_LIMIT': stats,
+        'AMT_CREDIT_SUM_OVERDUE': stats,
+        'DAYS_CREDIT_UPDATE': stats,
+        'AMT_ANNUITY': stats,
+        
+        'credit-d-income': stats,
+        'AMT_CREDIT_SUM_DEBT-d-income': stats,
+        'AMT_CREDIT_SUM_LIMIT-d-income': stats,
+        'AMT_CREDIT_SUM_OVERDUE-d-income': stats,
+        'credit-d-annuity': stats,
+        'AMT_CREDIT_SUM_DEBT-d-annuity': stats,
+        'AMT_CREDIT_SUM_LIMIT-d-annuity': stats,
+        'AMT_CREDIT_SUM_OVERDUE-d-annuity': stats,
+        'DAYS_CREDIT_ENDDATE-m-DAYS_CREDIT': stats,
+        'DAYS_ENDDATE_FACT-m-DAYS_CREDIT': stats,
+        'DAYS_ENDDATE_FACT-m-DAYS_CREDIT_ENDDATE': stats,
+        'DAYS_CREDIT_UPDATE-m-DAYS_CREDIT': stats,
+        'DAYS_CREDIT_UPDATE-m-DAYS_CREDIT_ENDDATE': stats,
+        'DAYS_CREDIT_UPDATE-m-DAYS_ENDDATE_FACT': stats,
+        'AMT_CREDIT_SUM-m-AMT_CREDIT_SUM_DEBT': stats,
+        'AMT_CREDIT_SUM_DEBT-d-AMT_CREDIT_SUM': stats,
+        'AMT_CREDIT_SUM-m-AMT_CREDIT_SUM_DEBT-d-AMT_CREDIT_SUM_LIMIT': stats,
+        'AMT_CREDIT_SUM_DEBT-d-AMT_CREDIT_SUM_LIMIT': stats,
+        'AMT_CREDIT_SUM_DEBT-p-AMT_CREDIT_SUM_LIMIT': stats,
+        'AMT_CREDIT_SUM-d-debt-p-AMT_CREDIT_SUM_DEBT-p-AMT_CREDIT_SUM_LIMIT': stats,
 }
 
 
-col_cat = ['NAME_CONTRACT_STATUS']
+col_cat = ['CREDIT_ACTIVE', 'CREDIT_CURRENCY', 'CREDIT_TYPE']
 
 train = utils.load_train([KEY])
 test = utils.load_test([KEY])
@@ -92,7 +82,7 @@ test = utils.load_test([KEY])
 # =============================================================================
 def aggregate():
     
-    df = utils.get_dummies(cre)
+    df = utils.get_dummies(bure)
     
     li = []
     for c1 in df.columns:
@@ -108,7 +98,7 @@ def aggregate():
     df_agg = df.groupby('SK_ID_CURR').agg({**num_aggregations, **cat_aggregations})
     df_agg.columns = pd.Index([e[0] + "_" + e[1] for e in df_agg.columns.tolist()])
     
-    df_agg['CRE_COUNT'] = df.groupby('SK_ID_CURR').size()
+    df_agg['BURE_COUNT'] = df.groupby('SK_ID_CURR').size()
     df_agg.reset_index(inplace=True)
     
     tmp = pd.merge(train, df_agg, on=KEY, how='left').drop(KEY, axis=1)
@@ -118,6 +108,7 @@ def aggregate():
     utils.to_feature(tmp.add_prefix(PREF),  '../feature/test')
     
     return
+
 
 # =============================================================================
 # main
@@ -129,4 +120,3 @@ aggregate()
 
 #==============================================================================
 utils.end(__file__)
-

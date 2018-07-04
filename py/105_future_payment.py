@@ -13,7 +13,7 @@ import utils
 utils.start(__file__)
 #==============================================================================
 
-PREF = 'prev_105_'
+PREF = 'f105_'
 
 KEY = 'SK_ID_CURR'
 
@@ -90,15 +90,15 @@ base[f'{c}_max']  = gr_app[c].max()
 base[f'{c}_sum'] = gr_app[c].sum()
 
 # ratio
-base['amt_paid-dby-unpaid_min']  = base['amt_paid_min']  / base['amt_unpaid_min']
-base['amt_paid-dby-unpaid_mean'] = base['amt_paid_mean'] / base['amt_unpaid_mean']
-base['amt_paid-dby-unpaid_max']  = base['amt_paid_max']  / base['amt_unpaid_max']
-base['amt_paid-dby-unpaid_sum']  = base['amt_paid_sum']  / base['amt_unpaid_sum']
+base['amt_paid-d-unpaid_min']  = base['amt_paid_min']  / base['amt_unpaid_min']
+base['amt_paid-d-unpaid_mean'] = base['amt_paid_mean'] / base['amt_unpaid_mean']
+base['amt_paid-d-unpaid_max']  = base['amt_paid_max']  / base['amt_unpaid_max']
+base['amt_paid-d-unpaid_sum']  = base['amt_paid_sum']  / base['amt_unpaid_sum']
 
-base['cnt_paid-dby-unpaid_min']  = base['cnt_paid_min']  / base['cnt_unpaid_min']
-base['cnt_paid-dby-unpaid_mean'] = base['cnt_paid_mean'] / base['cnt_unpaid_mean']
-base['cnt_paid-dby-unpaid_max']  = base['cnt_paid_max']  / base['cnt_unpaid_max']
-base['cnt_paid-dby-unpaid_sum']  = base['cnt_paid_sum']  / base['cnt_unpaid_sum']
+base['cnt_paid-d-unpaid_min']  = base['cnt_paid_min']  / base['cnt_unpaid_min']
+base['cnt_paid-d-unpaid_mean'] = base['cnt_paid_mean'] / base['cnt_unpaid_mean']
+base['cnt_paid-d-unpaid_max']  = base['cnt_paid_max']  / base['cnt_unpaid_max']
+base['cnt_paid-d-unpaid_sum']  = base['cnt_paid_sum']  / base['cnt_unpaid_sum']
 
 
 
@@ -129,8 +129,8 @@ base[f'{c}_act_sum'] = gr_act[c].sum()
 base['DAYS_DECISION_min'] = gr['DAYS_DECISION'].min()
 base['DAYS_DECISION_max'] = gr['DAYS_DECISION'].max()
 
-base['amt_paid_sum-dby-total_debt_sum'] = base['amt_paid_sum'] / base['total_debt_sum']
-base['amt_paid_sum-dby-amt_unpaid_sum'] = base['amt_paid_sum'] / base['amt_unpaid_sum']
+base['amt_paid_sum-d-total_debt_sum'] = base['amt_paid_sum'] / base['total_debt_sum']
+base['amt_paid_sum-d-amt_unpaid_sum'] = base['amt_paid_sum'] / base['amt_unpaid_sum']
 
 
 # app, ref
@@ -189,13 +189,13 @@ def mk_feature(df):
     
     df[col_future_sum+col_past_sum] = df[col_future_sum+col_past_sum].fillna(0)
     df['total_debt_sum-p-app']            = df['total_debt_sum'] + df['app_AMT_CREDIT']
-    df['total_debt_sum-p-app-dby-income'] = df['total_debt_sum-p-app'] / df['app_AMT_INCOME_TOTAL']
+    df['total_debt_sum-p-app-d-income'] = df['total_debt_sum-p-app'] / df['app_AMT_INCOME_TOTAL']
     df['amt_unpaid_sum-p-app']            = df['amt_unpaid_sum'] + df['app_AMT_CREDIT']
-    df['amt_unpaid_sum-p-app-dby-income'] = df['amt_unpaid_sum-p-app'] / df['app_AMT_INCOME_TOTAL']
+    df['amt_unpaid_sum-p-app-d-income'] = df['amt_unpaid_sum-p-app'] / df['app_AMT_INCOME_TOTAL']
 
     # future payment
     col_1 = []
-    df['tmp'] = df['app_credit-dby-annuity'].map(np.ceil)
+    df['tmp'] = df['app_credit-d-annuity'].map(np.ceil)
     for i,c in enumerate( col_future_sum ):
         c1 = f'prevapp_future_payment_{i+1}m'
         df[c1] = df[c] + df['tmp'].map(lambda x: min(x, 1)) * df['app_AMT_ANNUITY']
@@ -215,24 +215,24 @@ def mk_feature(df):
     df['prevapp_future_payment_max'] = df[col_1].max(1) # next month total
     df['prev_future_payment_max'] = df['prevapp_future_payment_max'] - df['app_AMT_ANNUITY'] # without app
     df['future_payment_app_ratio'] = df['prevapp_future_payment_max'] / df['prev_future_payment_max']
-    df['prevapp_future_payment_max-dby-income']  = df['prevapp_future_payment_max'] / df['app_AMT_INCOME_TOTAL']
-    df['prevapp_future_payment_max-dby-credit']  = df['prevapp_future_payment_max'] / df['app_AMT_CREDIT']
-    df['prevapp_future_payment_max-dby-annuity'] = df['prevapp_future_payment_max'] / df['app_AMT_ANNUITY']
-    df['prev_future_payment_max-dby-income']     = df['prev_future_payment_max']    / df['app_AMT_INCOME_TOTAL']
-    df['prev_future_payment_max-dby-credit']     = df['prev_future_payment_max']    / df['app_AMT_CREDIT']
-    df['prev_future_payment_max-dby-annuity']    = df['prev_future_payment_max']    / df['app_AMT_ANNUITY']
+    df['prevapp_future_payment_max-d-income']  = df['prevapp_future_payment_max'] / df['app_AMT_INCOME_TOTAL']
+    df['prevapp_future_payment_max-d-credit']  = df['prevapp_future_payment_max'] / df['app_AMT_CREDIT']
+    df['prevapp_future_payment_max-d-annuity'] = df['prevapp_future_payment_max'] / df['app_AMT_ANNUITY']
+    df['prev_future_payment_max-d-income']     = df['prev_future_payment_max']    / df['app_AMT_INCOME_TOTAL']
+    df['prev_future_payment_max-d-credit']     = df['prev_future_payment_max']    / df['app_AMT_CREDIT']
+    df['prev_future_payment_max-d-annuity']    = df['prev_future_payment_max']    / df['app_AMT_ANNUITY']
     
     # past
     df['past_payment_sum_max'] = df[col_past_sum].max(1) # past max
-    df['past_payment_sum_max-dby-income'] = df['past_payment_sum_max'] / df['app_AMT_INCOME_TOTAL']
-    df['past_payment_sum_max-dby-credit'] = df['past_payment_sum_max'] / df['app_AMT_CREDIT']
-    df['past_payment_sum_max-dby-annuity'] = df['past_payment_sum_max'] / df['app_AMT_ANNUITY']
+    df['past_payment_sum_max-d-income'] = df['past_payment_sum_max'] / df['app_AMT_INCOME_TOTAL']
+    df['past_payment_sum_max-d-credit'] = df['past_payment_sum_max'] / df['app_AMT_CREDIT']
+    df['past_payment_sum_max-d-annuity'] = df['past_payment_sum_max'] / df['app_AMT_ANNUITY']
     
     # future vs past
     df['future_vs_past_max'] = df['prevapp_future_payment_max'] / df['past_payment_sum_max']
     df['future_vs_past_max_withoutapp'] = df['prev_future_payment_max'] / df['past_payment_sum_max']
     df['future_vs_past_max-vs-withoutapp'] = df['future_vs_past_max'] / df['future_vs_past_max_withoutapp']
-    df['future_vs_past_max-dby-income'] = df['prevapp_future_payment_max-dby-income'] / df['past_payment_sum_max-dby-income']
+    df['future_vs_past_max-d-income'] = df['prevapp_future_payment_max-d-income'] / df['past_payment_sum_max-d-income']
     
     df['DAYS_DECISION_min-m-DAYS_BIRTH'] = df['DAYS_DECISION_min'] - df['app_DAYS_BIRTH']
     df['DAYS_DECISION_max-m-DAYS_BIRTH'] = df['DAYS_DECISION_max'] - df['app_DAYS_BIRTH']
