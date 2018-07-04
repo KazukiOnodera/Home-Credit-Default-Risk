@@ -13,7 +13,7 @@ import sys
 sys.path.append('/home/kazuki_onodera/PythonLibrary')
 import lgbextension as ex
 import lightgbm as lgb
-import multiprocessing
+from multiprocessing import cpu_count
 from glob import glob
 import count
 import os
@@ -32,7 +32,7 @@ param = {
          'max_bin': 255,
          'colsample_bytree': 0.9,
          'subsample': 0.9,
-         'nthread': multiprocessing.cpu_count(),
+         'nthread': cpu_count(),
          'bagging_freq': 1,
 #         'verbose':-1,
          'seed': SEED
@@ -133,5 +133,5 @@ for c in col:
 #==============================================================================
 utils.end(__file__)
 
-#utils.stop_instance()
+utils.stop_instance()
 
