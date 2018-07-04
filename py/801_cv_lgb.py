@@ -14,11 +14,11 @@ sys.path.append('/home/kazuki_onodera/PythonLibrary')
 import lgbextension as ex
 import lightgbm as lgb
 from multiprocessing import cpu_count
-from glob import glob
+#from glob import glob
 import count
 import os
 import utils
-#utils.start(__file__)
+utils.start(__file__)
 #==============================================================================
 
 SEED = 71
@@ -56,7 +56,7 @@ categorical_feature = ['f001_NAME_CONTRACT_TYPE',
                      'f001_WALLSMATERIAL_MODE',
                      'f001_EMERGENCYSTATE_MODE']
 
-use_files = []
+use_files = ['tarin_f0', 'train_f1']
 
 
 # =============================================================================
@@ -77,6 +77,7 @@ print('no dup :) ')
 print(f'X.shape {X.shape}')
 
 X = X.rank(method='dense')
+gc.collect()
 
 
 # =============================================================================
