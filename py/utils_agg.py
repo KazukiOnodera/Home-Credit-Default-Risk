@@ -180,10 +180,10 @@ ins_num_aggregations = {
     'DAYS_ENTRY_PAYMENT-m-app_DAYS_ID_PUBLISH': stats,
     'DAYS_ENTRY_PAYMENT-m-app_DAYS_LAST_PHONE_CHANGE': stats,
     
-    'AMT_PAYMENT-m-app_AMT_INCOME_TOTAL': stats,
-    'AMT_PAYMENT-m-app_AMT_CREDIT': stats,
-    'AMT_PAYMENT-m-app_AMT_ANNUITY': stats,
-    'AMT_PAYMENT-m-app_AMT_GOODS_PRICE': stats,
+    'AMT_PAYMENT-d-app_AMT_INCOME_TOTAL': stats,
+    'AMT_PAYMENT-d-app_AMT_CREDIT': stats,
+    'AMT_PAYMENT-d-app_AMT_ANNUITY': stats,
+    'AMT_PAYMENT-d-app_AMT_GOODS_PRICE': stats,
     
     
     'DPD': ['max', 'mean', 'sum', 'nunique'],
