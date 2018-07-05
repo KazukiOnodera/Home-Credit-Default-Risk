@@ -16,7 +16,8 @@ import numpy as np
 import pandas as pd
 from multiprocessing import Pool, cpu_count
 NTHREAD = cpu_count()
-import os, utils
+from itertools import combinations
+import os, utils, gc
 utils.start(__file__)
 #==============================================================================
 
@@ -26,6 +27,28 @@ os.system('rm -rf ../unused_feature')
 os.system('mkdir ../data')
 os.system('mkdir ../feature')
 os.system('mkdir ../unused_feature')
+
+col_app_money = ['app_AMT_INCOME_TOTAL', 'app_AMT_CREDIT', 'app_AMT_ANNUITY', 'app_AMT_GOODS_PRICE']
+col_app_day = ['app_DAYS_BIRTH', 'app_DAYS_EMPLOYED', 'app_DAYS_REGISTRATION', 'app_DAYS_ID_PUBLISH', 'app_DAYS_LAST_PHONE_CHANGE']
+
+def get_trte():
+    usecols = ['SK_ID_CURR', 'AMT_INCOME_TOTAL', 'AMT_CREDIT', 'AMT_ANNUITY', 'AMT_GOODS_PRICE']
+    usecols += ['DAYS_BIRTH', 'DAYS_EMPLOYED', 'DAYS_REGISTRATION', 'DAYS_ID_PUBLISH', 'DAYS_LAST_PHONE_CHANGE']
+    rename_di = {
+                 'AMT_INCOME_TOTAL':       'app_AMT_INCOME_TOTAL', 
+                 'AMT_CREDIT':             'app_AMT_CREDIT', 
+                 'AMT_ANNUITY':            'app_AMT_ANNUITY',
+                 'AMT_GOODS_PRICE':        'app_AMT_GOODS_PRICE',
+                 'DAYS_BIRTH':             'app_DAYS_BIRTH', 
+                 'DAYS_EMPLOYED':          'app_DAYS_EMPLOYED', 
+                 'DAYS_REGISTRATION':      'app_DAYS_REGISTRATION', 
+                 'DAYS_ID_PUBLISH':        'app_DAYS_ID_PUBLISH', 
+                 'DAYS_LAST_PHONE_CHANGE': 'app_DAYS_LAST_PHONE_CHANGE',
+                 }
+    trte = pd.concat([pd.read_csv('../input/application_train.csv.zip', usecols=usecols).rename(columns=rename_di), 
+                      pd.read_csv('../input/application_test.csv.zip',  usecols=usecols).rename(columns=rename_di)],
+                      ignore_index=True)
+    return trte
 
 def multi(p):
     if p==0:
@@ -63,6 +86,23 @@ def multi(p):
             df['DAYS_ID_PUBLISH-m-DAYS_REGISTRATION']        = df['DAYS_ID_PUBLISH'] - df['DAYS_REGISTRATION']
             df['DAYS_LAST_PHONE_CHANGE-m-DAYS_REGISTRATION'] = df['DAYS_LAST_PHONE_CHANGE'] - df['DAYS_REGISTRATION']
             df['DAYS_LAST_PHONE_CHANGE-m-DAYS_ID_PUBLISH']   = df['DAYS_LAST_PHONE_CHANGE'] - df['DAYS_ID_PUBLISH']
+            
+            col = ['DAYS_EMPLOYED-m-DAYS_BIRTH',
+                   'DAYS_REGISTRATION-m-DAYS_BIRTH',
+                   'DAYS_ID_PUBLISH-m-DAYS_BIRTH',
+                   'DAYS_LAST_PHONE_CHANGE-m-DAYS_BIRTH',
+                   'DAYS_REGISTRATION-m-DAYS_EMPLOYED',
+                   'DAYS_ID_PUBLISH-m-DAYS_EMPLOYED',
+                   'DAYS_LAST_PHONE_CHANGE-m-DAYS_EMPLOYED',
+                   'DAYS_ID_PUBLISH-m-DAYS_REGISTRATION',
+                   'DAYS_LAST_PHONE_CHANGE-m-DAYS_REGISTRATION',
+                   'DAYS_LAST_PHONE_CHANGE-m-DAYS_ID_PUBLISH'
+                   ]
+            col_comb = list(combinations(col, 2))
+            
+            for i,j in col_comb:
+                df[f'{i}-d-{j}'] = df[i] / df[j]
+            
             
             df['DAYS_EMPLOYED-d-DAYS_BIRTH']                 = df['DAYS_EMPLOYED'] / df['DAYS_BIRTH']
             df['DAYS_REGISTRATION-d-DAYS_BIRTH']             = df['DAYS_REGISTRATION'] / df['DAYS_BIRTH']
@@ -167,10 +207,8 @@ def multi(p):
             
             
             
-            
-            
-            
-            df.replace(np.inf, np.nan, inplace=True)
+            df.replace(np.inf, np.nan, inplace=True) # TODO: any other plan?
+            df.replace(-np.inf, np.nan, inplace=True)
             return
         
         df = pd.read_csv('../input/application_train.csv.zip')
@@ -187,23 +225,16 @@ def multi(p):
         # =============================================================================
         # prev
         # =============================================================================
-        usecols = ['SK_ID_CURR', 'AMT_INCOME_TOTAL', 'AMT_CREDIT', 'AMT_ANNUITY', 'AMT_GOODS_PRICE']
-        rename_di = {'AMT_INCOME_TOTAL': 'app_AMT_INCOME_TOTAL', 
-                     'AMT_CREDIT': 'app_AMT_CREDIT', 
-                     'AMT_ANNUITY': 'app_AMT_ANNUITY',
-                     'AMT_GOODS_PRICE': 'app_AMT_GOODS_PRICE'}
-        trte = pd.concat([pd.read_csv('../input/application_train.csv.zip', usecols=usecols).rename(columns=rename_di), 
-                          pd.read_csv('../input/application_test.csv.zip',  usecols=usecols).rename(columns=rename_di)],
-                          ignore_index=True)
+        trte = get_trte()
         
         df = pd.merge(pd.read_csv('../input/previous_application.csv.zip'),
                      trte, on='SK_ID_CURR', how='left')
         df['FLAG_LAST_APPL_PER_CONTRACT'] = (df['FLAG_LAST_APPL_PER_CONTRACT']=='Y')*1
         
+        # day
         for c in ['DAYS_FIRST_DRAWING', 'DAYS_FIRST_DUE', 'DAYS_LAST_DUE_1ST_VERSION', 
                   'DAYS_LAST_DUE', 'DAYS_TERMINATION']:
             df.loc[df[c]==365243, c] = np.nan
-        
         df['days_fdue-m-fdrw'] = df['DAYS_FIRST_DUE'] - df['DAYS_FIRST_DRAWING']
         df['days_ldue1-m-fdrw'] = df['DAYS_LAST_DUE_1ST_VERSION'] - df['DAYS_FIRST_DRAWING']
         df['days_ldue-m-fdrw'] = df['DAYS_LAST_DUE'] - df['DAYS_FIRST_DRAWING'] # total span
@@ -224,7 +255,7 @@ def multi(p):
         df['AMT_GOODS_PRICE-d-total_debt'] = df['AMT_GOODS_PRICE'] / df['total_debt']
         df['AMT_GOODS_PRICE-d-AMT_CREDIT'] = df['AMT_GOODS_PRICE'] / df['AMT_CREDIT']
         
-        # app
+        # app & money
         df['AMT_ANNUITY-d-app_AMT_INCOME_TOTAL']     = df['AMT_ANNUITY']     / df['app_AMT_INCOME_TOTAL']
         df['AMT_APPLICATION-d-app_AMT_INCOME_TOTAL'] = df['AMT_APPLICATION'] / df['app_AMT_INCOME_TOTAL']
         df['AMT_CREDIT-d-app_AMT_INCOME_TOTAL']      = df['AMT_CREDIT']      / df['app_AMT_INCOME_TOTAL']
@@ -281,8 +312,13 @@ def multi(p):
         df['AMT_CREDIT-m-app_AMT_GOODS_PRICE-d-app_AMT_INCOME_TOTAL']      = (df['AMT_CREDIT']      - df['app_AMT_GOODS_PRICE']) / df['app_AMT_INCOME_TOTAL']
         df['AMT_GOODS_PRICE-m-app_AMT_GOODS_PRICE-d-app_AMT_INCOME_TOTAL'] = (df['AMT_GOODS_PRICE'] - df['app_AMT_GOODS_PRICE']) / df['app_AMT_INCOME_TOTAL']
         
-        
-        
+        # app & day
+        col_prev = ['DAYS_FIRST_DRAWING', 'DAYS_FIRST_DUE', 'DAYS_LAST_DUE_1ST_VERSION', 
+                    'DAYS_LAST_DUE', 'DAYS_TERMINATION']
+        for c1 in col_prev:
+            for c2 in col_app_day:
+#                print(f"'{c1}-m-{c2}',")
+                df[f'{c1}-m-{c2}'] = df[c1] - df[c2]
         
         df['cnt_paid'] = df.apply(lambda x: min( np.ceil(x['DAYS_FIRST_DUE']/-30), x['CNT_PAYMENT'] ), axis=1)
         df['cnt_paid_ratio'] = df['cnt_paid'] / df['CNT_PAYMENT']
@@ -328,11 +364,14 @@ def multi(p):
         
         #df.filter(regex='^amt_future_payment_')
         
+        df.replace(np.inf, np.nan, inplace=True) # TODO: any other plan?
+        df.replace(-np.inf, np.nan, inplace=True)
+        
         utils.to_pickles(df, '../data/previous_application', utils.SPLIT_SIZE)
     
     elif p==2:
         # =============================================================================
-        # 
+        # POS
         # =============================================================================
         df = pd.read_csv('../input/POS_CASH_balance.csv.zip')
         
@@ -356,26 +395,40 @@ def multi(p):
         df['SK_DPD_diff_over20'] = (df['SK_DPD_diff']>20)*1
         df['SK_DPD_diff_over25'] = (df['SK_DPD_diff']>25)*1
         
+        df.replace(np.inf, np.nan, inplace=True) # TODO: any other plan?
+        df.replace(-np.inf, np.nan, inplace=True)
+        
         utils.to_pickles(df, '../data/POS_CASH_balance', utils.SPLIT_SIZE)
     
     elif p==3:
         # =============================================================================
         # ins
         # =============================================================================
-#        usecols = ['SK_ID_CURR', 'AMT_INCOME_TOTAL', 'AMT_CREDIT', 'AMT_ANNUITY', 'AMT_GOODS_PRICE']
-#        rename_di = {'AMT_INCOME_TOTAL': 'app_AMT_INCOME_TOTAL', 
-#                     'AMT_CREDIT': 'app_AMT_CREDIT', 
-#                     'AMT_ANNUITY': 'app_AMT_ANNUITY',
-#                     'AMT_GOODS_PRICE': 'app_AMT_GOODS_PRICE'}
-#        trte = pd.concat([pd.read_csv('../input/application_train.csv.zip', usecols=usecols).rename(columns=rename_di), 
-#                          pd.read_csv('../input/application_test.csv.zip',  usecols=usecols).rename(columns=rename_di)],
-#                          ignore_index=True)
-        prev = pd.read_csv('../input/previous_application.csv.zip', usecols=['SK_ID_PREV', 'CNT_PAYMENT'])
-#        df = pd.merge(prev, trte, on='SK_ID_CURR', how='left')
-        
-        
         df = pd.read_csv('../input/installments_payments.csv.zip')
+        
+        trte = get_trte()
+        df = pd.merge(df, trte, on='SK_ID_CURR', how='left')
+        
+        prev = pd.read_csv('../input/previous_application.csv.zip', usecols=['SK_ID_PREV', 'CNT_PAYMENT'])
         df = pd.merge(df, prev, on='SK_ID_PREV', how='left')
+        
+        del trte, prev; gc.collect()
+        
+        # app
+        df['DAYS_ENTRY_PAYMENT-m-app_DAYS_BIRTH']             = df['DAYS_ENTRY_PAYMENT'] - df['app_DAYS_BIRTH']
+        df['DAYS_ENTRY_PAYMENT-m-app_DAYS_EMPLOYED']          = df['DAYS_ENTRY_PAYMENT'] - df['app_DAYS_EMPLOYED']
+        df['DAYS_ENTRY_PAYMENT-m-app_DAYS_REGISTRATION']      = df['DAYS_ENTRY_PAYMENT'] - df['app_DAYS_REGISTRATION']
+        df['DAYS_ENTRY_PAYMENT-m-app_DAYS_ID_PUBLISH']        = df['DAYS_ENTRY_PAYMENT'] - df['app_DAYS_ID_PUBLISH']
+        df['DAYS_ENTRY_PAYMENT-m-app_DAYS_LAST_PHONE_CHANGE'] = df['DAYS_ENTRY_PAYMENT'] - df['app_DAYS_LAST_PHONE_CHANGE']
+        
+        df['AMT_PAYMENT-d-app_AMT_INCOME_TOTAL'] = df['AMT_PAYMENT'] / df['app_AMT_INCOME_TOTAL']
+        df['AMT_PAYMENT-d-app_AMT_CREDIT']      = df['AMT_PAYMENT'] / df['app_AMT_CREDIT']
+        df['AMT_PAYMENT-d-app_AMT_ANNUITY']     = df['AMT_PAYMENT'] / df['app_AMT_ANNUITY']
+        df['AMT_PAYMENT-d-app_AMT_GOODS_PRICE'] = df['AMT_PAYMENT'] / df['app_AMT_GOODS_PRICE']
+        
+        
+        
+        # prev
         df['NUM_INSTALMENT_ratio'] = df['NUM_INSTALMENT_NUMBER'] / df['CNT_PAYMENT']
         
         df['days_delayed_payment'] = df['DAYS_ENTRY_PAYMENT'] - df['DAYS_INSTALMENT']
@@ -412,37 +465,49 @@ def multi(p):
             c3 = f'not-delayed_money_ratio_{i}'
             df[c3] = df[c1] * df.amt_ratio
         
+        df.replace(np.inf, np.nan, inplace=True) # TODO: any other plan?
+        df.replace(-np.inf, np.nan, inplace=True)
+        
         utils.to_pickles(df, '../data/installments_payments', utils.SPLIT_SIZE)
+        
+        utils.to_pickles(df[df['days_delayed_payment']>0].reset_index(drop=True), 
+                         '../data/installments_payments_delay', utils.SPLIT_SIZE)
+        
+        utils.to_pickles(df[df['days_delayed_payment']<=0].reset_index(drop=True),
+                         '../data/installments_payments_notdelay', utils.SPLIT_SIZE)
     
     elif p==4:
         # =============================================================================
         # credit card
         # =============================================================================
-        usecols = ['SK_ID_CURR', 'AMT_INCOME_TOTAL', 'AMT_CREDIT', 'AMT_ANNUITY', 'AMT_GOODS_PRICE']
-        rename_di = {'AMT_INCOME_TOTAL': 'app_AMT_INCOME_TOTAL', 
-                     'AMT_CREDIT': 'app_AMT_CREDIT', 
-                     'AMT_ANNUITY': 'app_AMT_ANNUITY',
-                     'AMT_GOODS_PRICE': 'app_AMT_GOODS_PRICE'}
-        trte = pd.concat([pd.read_csv('../input/application_train.csv.zip', usecols=usecols).rename(columns=rename_di), 
-                          pd.read_csv('../input/application_test.csv.zip',  usecols=usecols).rename(columns=rename_di)],
-                          ignore_index=True)
         
         df = pd.read_csv('../input/credit_card_balance.csv.zip')
         
+        trte = get_trte()
         df = pd.merge(df, trte, on='SK_ID_CURR', how='left')
         
-        df['AMT_BALANCE-d-AMT_CREDIT_LIMIT_ACTUAL'] = df['AMT_BALANCE'] / df['AMT_CREDIT_LIMIT_ACTUAL']
+        df[col_app_day] = df[col_app_day]/30
+        
+        # app
         df['AMT_BALANCE-d-app_AMT_INCOME_TOTAL']    = df['AMT_BALANCE'] / df['app_AMT_INCOME_TOTAL']
         df['AMT_BALANCE-d-app_AMT_CREDIT']          = df['AMT_BALANCE'] / df['app_AMT_CREDIT']
         df['AMT_BALANCE-d-app_AMT_ANNUITY']         = df['AMT_BALANCE'] / df['app_AMT_ANNUITY']
         df['AMT_BALANCE-d-app_AMT_GOODS_PRICE']     = df['AMT_BALANCE'] / df['app_AMT_GOODS_PRICE']
-        df['AMT_BALANCE-d-AMT_DRAWINGS_CURRENT']    = df['AMT_BALANCE'] / df['AMT_DRAWINGS_CURRENT']
         
-        df['AMT_DRAWINGS_CURRENT-d-AMT_CREDIT_LIMIT_ACTUAL'] = df['AMT_DRAWINGS_CURRENT'] / df['AMT_CREDIT_LIMIT_ACTUAL']
         df['AMT_DRAWINGS_CURRENT-d-app_AMT_INCOME_TOTAL']    = df['AMT_DRAWINGS_CURRENT'] / df['app_AMT_INCOME_TOTAL']
         df['AMT_DRAWINGS_CURRENT-d-app_AMT_CREDIT']          = df['AMT_DRAWINGS_CURRENT'] / df['app_AMT_CREDIT']
         df['AMT_DRAWINGS_CURRENT-d-app_AMT_ANNUITY']         = df['AMT_DRAWINGS_CURRENT'] / df['app_AMT_ANNUITY']
         df['AMT_DRAWINGS_CURRENT-d-app_AMT_GOODS_PRICE']     = df['AMT_DRAWINGS_CURRENT'] / df['app_AMT_GOODS_PRICE']
+        
+        for c in col_app_day:
+            print(f'MONTHS_BALANCE-m-{c}')
+            df[f'MONTHS_BALANCE-m-{c}'] = df['MONTHS_BALANCE'] - df[c]
+        
+        
+        df['AMT_BALANCE-d-AMT_CREDIT_LIMIT_ACTUAL'] = df['AMT_BALANCE'] / df['AMT_CREDIT_LIMIT_ACTUAL']
+        df['AMT_BALANCE-d-AMT_DRAWINGS_CURRENT']    = df['AMT_BALANCE'] / df['AMT_DRAWINGS_CURRENT']
+        
+        df['AMT_DRAWINGS_CURRENT-d-AMT_CREDIT_LIMIT_ACTUAL'] = df['AMT_DRAWINGS_CURRENT'] / df['AMT_CREDIT_LIMIT_ACTUAL']
         
         df['SK_DPD_diff'] = df['SK_DPD'] - df['SK_DPD_DEF']
         df['SK_DPD_diff_over0'] = (df['SK_DPD_diff']>0)*1
@@ -452,34 +517,39 @@ def multi(p):
         df['SK_DPD_diff_over20'] = (df['SK_DPD_diff']>20)*1
         df['SK_DPD_diff_over25'] = (df['SK_DPD_diff']>25)*1
         
+        df.replace(np.inf, np.nan, inplace=True) # TODO: any other plan?
+        df.replace(-np.inf, np.nan, inplace=True)
+        
         utils.to_pickles(df, '../data/credit_card_balance', utils.SPLIT_SIZE)
     
     elif p==5:
         # =============================================================================
         # bureau
-        # =============================================================================
-        usecols = ['SK_ID_CURR', 'AMT_INCOME_TOTAL', 'AMT_CREDIT', 'AMT_ANNUITY', 'AMT_GOODS_PRICE']
-        rename_di = {'AMT_INCOME_TOTAL': 'app_AMT_INCOME_TOTAL', 
-                     'AMT_CREDIT': 'app_AMT_CREDIT', 
-                     'AMT_ANNUITY': 'app_AMT_ANNUITY',
-                     'AMT_GOODS_PRICE': 'app_AMT_GOODS_PRICE'}
-        trte = pd.concat([pd.read_csv('../input/application_train.csv.zip', usecols=usecols).rename(columns=rename_di), 
-                          pd.read_csv('../input/application_test.csv.zip',  usecols=usecols).rename(columns=rename_di)],
-                          ignore_index=True)
-        
+        # =============================================================================        
         df = pd.read_csv('../input/bureau.csv.zip')
         
+        trte = get_trte()
         df = pd.merge(df, trte, on='SK_ID_CURR', how='left')
         
-        df['credit-d-income'] = df['AMT_CREDIT_SUM'] / df['app_AMT_INCOME_TOTAL']
-        df['AMT_CREDIT_SUM_DEBT-d-income'] = df['AMT_CREDIT_SUM_DEBT'] / df['app_AMT_INCOME_TOTAL']
-        df['AMT_CREDIT_SUM_LIMIT-d-income'] = df['AMT_CREDIT_SUM_LIMIT'] / df['app_AMT_INCOME_TOTAL']
-        df['AMT_CREDIT_SUM_OVERDUE-d-income'] = df['AMT_CREDIT_SUM_OVERDUE'] / df['app_AMT_INCOME_TOTAL']
+        col_bure_money = ['AMT_CREDIT_SUM', 'AMT_CREDIT_SUM_DEBT', 
+                          'AMT_CREDIT_SUM_LIMIT', 'AMT_CREDIT_SUM_OVERDUE']
+        col_bure_day   = ['DAYS_CREDIT', 'DAYS_CREDIT_ENDDATE', 'DAYS_ENDDATE_FACT']
         
-        df['credit-d-annuity'] = df['AMT_CREDIT_SUM'] / df['app_AMT_ANNUITY']
-        df['AMT_CREDIT_SUM_DEBT-d-annuity'] = df['AMT_CREDIT_SUM_DEBT'] / df['app_AMT_ANNUITY']
-        df['AMT_CREDIT_SUM_LIMIT-d-annuity'] = df['AMT_CREDIT_SUM_LIMIT'] / df['app_AMT_ANNUITY']
-        df['AMT_CREDIT_SUM_OVERDUE-d-annuity'] = df['AMT_CREDIT_SUM_OVERDUE'] / df['app_AMT_ANNUITY']
+        # app
+        for c1 in col_bure_money:
+            for c2 in col_app_money:
+#                print(f"'{c1}-d-{c2}',")
+                df[f'{c1}-d-{c2}'] = df[c1] / df[c2]
+                
+        for c1 in col_bure_day:
+            for c2 in col_app_day:
+                print(f"'{c1}-m-{c2}',")
+                df[f'{c1}-m-{c2}'] = df[c1] - df[c2]
+        
+        
+        
+        
+        
         
         df['DAYS_CREDIT_ENDDATE-m-DAYS_CREDIT'] = df['DAYS_CREDIT_ENDDATE'] - df['DAYS_CREDIT']
         df['DAYS_ENDDATE_FACT-m-DAYS_CREDIT'] = df['DAYS_ENDDATE_FACT'] - df['DAYS_CREDIT']
@@ -500,6 +570,9 @@ def multi(p):
         #df['AMT_CREDIT_SUM-d-days_fact-end'] = df['AMT_CREDIT_SUM'] / df['days_fact-m-end']
         #df['AMT_CREDIT_SUM-d-days_update-cre'] = df['AMT_CREDIT_SUM'] / df['days_update-m-cre']
         #df['AMT_CREDIT_SUM-d-days_update-end'] = df['AMT_CREDIT_SUM'] / df['days_update-m-end']
+        
+        df.replace(np.inf, np.nan, inplace=True) # TODO: any other plan?
+        df.replace(-np.inf, np.nan, inplace=True)
         
         utils.to_pickles(df, '../data/bureau', utils.SPLIT_SIZE)
     

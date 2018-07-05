@@ -15,6 +15,7 @@ import gc
 import os
 from multiprocessing import Pool, cpu_count
 NTHREAD = cpu_count()
+import utils_agg
 import utils
 utils.start(__file__)
 #==============================================================================
@@ -31,55 +32,6 @@ os.system(f'rm ../feature/t*_{PREF}*')
 # =============================================================================
 cre = utils.read_pickles('../data/credit_card_balance')
 cre = cre[cre['MONTHS_BALANCE'].between(month_start, month_end)].drop('SK_ID_PREV', axis=1)
-
-
-
-stats = ['min', 'max', 'mean', 'sum', 'var']
-
-num_aggregations = {
-#    # TODO: optimize stats
-'AMT_BALANCE': stats,
- 'AMT_CREDIT_LIMIT_ACTUAL': stats,
- 'AMT_DRAWINGS_ATM_CURRENT': stats,
- 'AMT_DRAWINGS_CURRENT': stats,
- 'AMT_DRAWINGS_OTHER_CURRENT': stats,
- 'AMT_DRAWINGS_POS_CURRENT': stats,
- 'AMT_INST_MIN_REGULARITY': stats,
- 'AMT_PAYMENT_CURRENT': stats,
- 'AMT_PAYMENT_TOTAL_CURRENT': stats,
- 'AMT_RECEIVABLE_PRINCIPAL': stats,
- 'AMT_RECIVABLE': stats,
- 'AMT_TOTAL_RECEIVABLE': stats,
- 'CNT_DRAWINGS_ATM_CURRENT': stats,
- 'CNT_DRAWINGS_CURRENT': stats,
- 'CNT_DRAWINGS_OTHER_CURRENT': stats,
- 'CNT_DRAWINGS_POS_CURRENT': stats,
- 'CNT_INSTALMENT_MATURE_CUM': stats,
- 
- 'SK_DPD': stats,
- 'SK_DPD_DEF': stats,
- 
- 'AMT_BALANCE-d-AMT_CREDIT_LIMIT_ACTUAL': stats,
- 'AMT_BALANCE-d-app_AMT_INCOME_TOTAL': stats,
- 'AMT_BALANCE-d-app_AMT_CREDIT': stats,
- 'AMT_BALANCE-d-app_AMT_ANNUITY': stats,
- 'AMT_BALANCE-d-app_AMT_GOODS_PRICE': stats,
- 'AMT_BALANCE-d-AMT_DRAWINGS_CURRENT': stats,
- 'AMT_DRAWINGS_CURRENT-d-AMT_CREDIT_LIMIT_ACTUAL': stats,
- 'AMT_DRAWINGS_CURRENT-d-app_AMT_INCOME_TOTAL': stats,
- 'AMT_DRAWINGS_CURRENT-d-app_AMT_CREDIT': stats,
- 'AMT_DRAWINGS_CURRENT-d-app_AMT_ANNUITY': stats,
- 'AMT_DRAWINGS_CURRENT-d-app_AMT_GOODS_PRICE': stats,
- 
- 'SK_DPD_diff': stats,
- 'SK_DPD_diff_over0': stats,
- 'SK_DPD_diff_over5': stats,
- 'SK_DPD_diff_over10': stats,
- 'SK_DPD_diff_over15': stats,
- 'SK_DPD_diff_over20': stats,
- 'SK_DPD_diff_over25': stats,
-}
-
 
 col_cat = ['NAME_CONTRACT_STATUS']
 
@@ -104,7 +56,7 @@ def aggregate():
     for cat in li:
         cat_aggregations[cat] = ['mean', 'sum']
     
-    df_agg = df.groupby('SK_ID_CURR').agg({**num_aggregations, **cat_aggregations})
+    df_agg = df.groupby('SK_ID_CURR').agg({**utils_agg.cre_num_aggregations, **cat_aggregations})
     df_agg.columns = pd.Index([e[0] + "_" + e[1] for e in df_agg.columns.tolist()])
     
     df_agg['CRE_COUNT'] = df.groupby('SK_ID_CURR').size()

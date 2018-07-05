@@ -187,13 +187,13 @@ base.reset_index(inplace=True)
 
 def mk_feature(df):
     
-    df[col_future_sum+col_past_sum] = df[col_future_sum+col_past_sum].fillna(0)
     df['total_debt_sum-p-app']            = df['total_debt_sum'] + df['app_AMT_CREDIT']
     df['total_debt_sum-p-app-d-income'] = df['total_debt_sum-p-app'] / df['app_AMT_INCOME_TOTAL']
     df['amt_unpaid_sum-p-app']            = df['amt_unpaid_sum'] + df['app_AMT_CREDIT']
     df['amt_unpaid_sum-p-app-d-income'] = df['amt_unpaid_sum-p-app'] / df['app_AMT_INCOME_TOTAL']
 
     # future payment
+    df[col_future_sum+col_past_sum] = df[col_future_sum+col_past_sum].fillna(0)
     col_1 = []
     df['tmp'] = df['app_credit-d-annuity'].map(np.ceil)
     for i,c in enumerate( col_future_sum ):
@@ -246,8 +246,8 @@ mk_feature(train2)
 test2 = pd.merge(test, base, on=KEY, how='left')
 mk_feature(test2)
 
-utils.remove_feature(train2)
-train2, test2 = train2.align(test2, join='inner', axis=1)
+#utils.remove_feature(train2)
+#train2, test2 = train2.align(test2, join='inner', axis=1)
 
 # =============================================================================
 # output
