@@ -332,34 +332,38 @@ def multi(p):
         df['completed'] = (df['cnt_unpaid']==0)*1
         
         # future payment
+        df_tmp = pd.DataFrame()
         print('future payment')
         rem_max = df['cnt_unpaid'].max() # 80
 #        rem_max = 1
         df['cnt_unpaid_tmp'] = df['cnt_unpaid']
         for i in range(int( rem_max )):
             c = f'future_payment_{i+1}m'
-            df[c] = df['cnt_unpaid_tmp'].map(lambda x: min(x, 1)) * df['AMT_ANNUITY']
-            df.loc[df[c]==0, c] = np.nan
+            df_tmp[c] = df['cnt_unpaid_tmp'].map(lambda x: min(x, 1)) * df['AMT_ANNUITY']
+            df_tmp.loc[df_tmp[c]==0, c] = np.nan
             df['cnt_unpaid_tmp'] -= 1
             df['cnt_unpaid_tmp'] = df['cnt_unpaid_tmp'].map(lambda x: max(x, 0))
 #        df['prev_future_payment_max'] = df.filter(regex='^prev_future_payment_').max(1)
         
         del df['cnt_unpaid_tmp']
+        df = pd.concat([df, df_tmp], axis=1)
         
         
         # past payment
+        df_tmp = pd.DataFrame()
         print('past payment')
         rem_max = df['cnt_paid'].max() # 72
         df['cnt_paid_tmp'] = df['cnt_paid']
         for i in range(int( rem_max )):
             c = f'past_payment_{i+1}m'
-            df[c] = df['cnt_paid_tmp'].map(lambda x: min(x, 1)) * df['AMT_ANNUITY']
-            df.loc[df[c]==0, c] = np.nan
+            df_tmp[c] = df['cnt_paid_tmp'].map(lambda x: min(x, 1)) * df['AMT_ANNUITY']
+            df_tmp.loc[df[c]==0, c] = np.nan
             df['cnt_paid_tmp'] -= 1
             df['cnt_paid_tmp'] = df['cnt_paid_tmp'].map(lambda x: max(x, 0))
 #        df['prev_past_payment_max'] = df.filter(regex='^prev_past_payment_').max(1)
         
         del df['cnt_paid_tmp']
+        df = pd.concat([df, df_tmp], axis=1)
         
         df['APP_CREDIT_PERC'] = df['AMT_APPLICATION'] / df['AMT_CREDIT']
         
@@ -445,24 +449,27 @@ def multi(p):
         feature = f'days_weighted_delay_tsw3' # Time Series Weight
         df[feature] = df['days_weighted_delay'] * (1 + (df['DAYS_ENTRY_PAYMENT']*decay) )
         
+        df_tmp = pd.DataFrame()
         for i in range(0, 50, 5):
             c1 = f'delayed_day_over{i}'
-            df[c1] = (df['days_delayed_payment']>i)*1
+            df_tmp[c1] = (df['days_delayed_payment']>i)*1
             
             c2 = f'delayed_money_{i}'
-            df[c2] = df[c1] * df.AMT_PAYMENT
+            df_tmp[c2] = df_tmp[c1] * df.AMT_PAYMENT
             
             c3 = f'delayed_money_ratio_{i}'
-            df[c3] = df[c1] * df.amt_ratio
+            df_tmp[c3] = df_tmp[c1] * df.amt_ratio
             
             c1 = f'not-delayed_day_{i}'
-            df[c1] = (df['days_delayed_payment']<=i)*1
+            df_tmp[c1] = (df['days_delayed_payment']<=i)*1
             
             c2 = f'not-delayed_money_{i}'
-            df[c2] = df[c1] * df.AMT_PAYMENT
+            df_tmp[c2] = df_tmp[c1] * df.AMT_PAYMENT
             
             c3 = f'not-delayed_money_ratio_{i}'
-            df[c3] = df[c1] * df.amt_ratio
+            df_tmp[c3] = df_tmp[c1] * df.amt_ratio
+        
+        df = pd.concat([df, df_tmp], axis=1)
         
         df.replace(np.inf, np.nan, inplace=True) # TODO: any other plan?
         df.replace(-np.inf, np.nan, inplace=True)

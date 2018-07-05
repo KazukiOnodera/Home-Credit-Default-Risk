@@ -33,6 +33,11 @@ os.system(f'rm ../feature/t*_{PREF}*')
 ins = utils.read_pickles('../data/installments_payments')
 ins = ins[ins['DAYS_INSTALMENT'].between(day_start, day_end)]
 
+ins_d = utils.read_pickles('../data/installments_payments_delay')
+ins_d = ins_d[ins_d['DAYS_INSTALMENT'].between(day_start, day_end)]
+
+ins_nd = utils.read_pickles('../data/installments_payments_notdelay')
+ins_nd = ins_nd[ins_nd['DAYS_INSTALMENT'].between(day_start, day_end)]
 
 
 #col_cat = ['NAME_CONTRACT_STATUS']
@@ -43,9 +48,7 @@ test = utils.load_test([KEY])
 # =============================================================================
 # 
 # =============================================================================
-def aggregate():
-    
-    df = ins
+def aggregate(df):
     
     df_agg = df.groupby('SK_ID_CURR').agg({**utils_agg.ins_num_aggregations})
     
@@ -70,7 +73,7 @@ def aggregate():
 # main
 # =============================================================================
 
-aggregate()
+aggregate(ins)
 
 
 
