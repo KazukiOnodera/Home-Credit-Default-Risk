@@ -33,6 +33,14 @@ os.system(f'rm ../feature/t*_{PREF}*')
 ins = utils.read_pickles('../data/installments_payments')
 ins = ins[ins['DAYS_INSTALMENT'].between(day_start, day_end)]
 
+ins_d = utils.read_pickles('../data/installments_payments_delay')
+ins_d = ins_d[ins_d['DAYS_INSTALMENT'].between(day_start, day_end)]
+ins_d.columns = ins_d.columns[:2].tolist() + ('delay_' + ins_d.columns[2:]).tolist()
+
+ins_nd = utils.read_pickles('../data/installments_payments_notdelay')
+ins_nd = ins_nd[ins_nd['DAYS_INSTALMENT'].between(day_start, day_end)]
+ins_nd.columns = ins_nd.columns[:2].tolist() + ('notdelay_' + ins_nd.columns[2:]).tolist()
+
 
 #col_cat = ['NAME_CONTRACT_STATUS']
 
@@ -42,15 +50,16 @@ test = utils.load_test([KEY])
 # =============================================================================
 # 
 # =============================================================================
-def aggregate():
-    
-    df = ins
+def aggregate(df, pref):
     
     df_agg = df.groupby('SK_ID_CURR').agg({**utils_agg.ins_num_aggregations})
     
+#    gr1 = df.groupby(['SK_ID_PREV', 'SK_ID_CURR', 'NUM_INSTALMENT_NUMBER'])
+#    df_agg = gr1.sum().groupby('SK_ID_CURR').agg({**utils_agg.ins_num_aggregations})
+    
     df_agg.columns = pd.Index([e[0] + "_" + e[1] for e in df_agg.columns.tolist()])
     
-    df_agg['INS_COUNT'] = df.groupby('SK_ID_CURR').size()
+    df_agg[pref + 'INS_COUNT'] = df.groupby('SK_ID_CURR').size()
     df_agg.reset_index(inplace=True)
     
     tmp = pd.merge(train, df_agg, on=KEY, how='left').drop(KEY, axis=1)
@@ -62,12 +71,15 @@ def aggregate():
     return
 
 
-
 # =============================================================================
 # main
 # =============================================================================
 
-aggregate()
+aggregate(ins,    '')
+aggregate(ins_d,  'delay_')
+aggregate(ins_nd, 'notdelay_')
+
+
 
 
 
