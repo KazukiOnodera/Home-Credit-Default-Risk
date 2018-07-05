@@ -28,12 +28,11 @@ param = {
          'metric': 'auc',
          'learning_rate': 0.01,
          'max_depth': 6,
-         'num_leaves': 255,
+         'num_leaves': 63,
          'max_bin': 255,
          
          'min_child_weight': 10,
          'min_data_in_leaf': 150,
-         'gamma': 0.1,
          'reg_lambda': 0.5,  # L2 regularization term on weights.
          'reg_alpha': 0.5,  # L1 regularization term on weights.
          

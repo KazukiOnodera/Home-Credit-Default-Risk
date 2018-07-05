@@ -28,19 +28,18 @@ param = {
          'metric': 'auc',
          'learning_rate': 0.01,
          'max_depth': 6,
-         'num_leaves': 255,
+         'num_leaves': 63,
          'max_bin': 255,
          
          'min_child_weight': 10,
          'min_data_in_leaf': 150,
-         'gamma': 0.1,
          'reg_lambda': 0.5,  # L2 regularization term on weights.
          'reg_alpha': 0.5,  # L1 regularization term on weights.
          
          'colsample_bytree': 0.9,
          'subsample': 0.9,
-         'nthread': 32,
-#         'nthread': cpu_count(),
+#         'nthread': 32,
+         'nthread': cpu_count(),
          'bagging_freq': 1,
          'verbose':-1,
          'seed': SEED
@@ -64,8 +63,7 @@ categorical_feature = ['f001_NAME_CONTRACT_TYPE',
                      'f001_WALLSMATERIAL_MODE',
                      'f001_EMERGENCYSTATE_MODE']
 
-use_files = ['train_f1', 'train_f2', 'train_f3',
-             'train_f4']
+use_files = []
 
 
 # =============================================================================
@@ -142,5 +140,5 @@ for c in col:
 #==============================================================================
 utils.end(__file__)
 
-utils.stop_instance()
+#utils.stop_instance()
 
