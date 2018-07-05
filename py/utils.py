@@ -325,33 +325,47 @@ def reduce_memory(df, ix_start=0):
     gc.collect()
     return
 
-def remove_feature(df, var_limit=0, corr_limit=1):
-    if df.shape[0]>9999:
-        df_ = df.sample(9999, random_state=71)
+def check_var(df, var_limit=0, sample_size=None):
+    if sample_size is not None:
+        if df.shape[0]>sample_size:
+            df_ = df.sample(sample_size, random_state=71)
+        else:
+            raise Exception(f'df:{df.shape[0]} <= sample_size:{sample_size}')
     else:
         df_ = df
+        
     var = df_.var()
-    var0 = var[var<=var_limit].index
-    if len(var0)>0:
-        print(f'remove var<={var_limit}: {var0}')
-        df.drop(var0, axis=1, inplace=True)
-    
-    if df.shape[0]>9999:
-        df_ = df.sample(9999, random_state=71)
+    col_var0 = var[var<=var_limit].index
+    if len(col_var0)>0:
+        print(f'remove var<={var_limit}: {col_var0}')
+    return col_var0
+
+def check_corr(df, corr_limit=1, sample_size=None):
+    if sample_size is not None:
+        if df.shape[0]>sample_size:
+            df_ = df.sample(sample_size, random_state=71)
+        else:
+            raise Exception(f'df:{df.shape[0]} <= sample_size:{sample_size}')
     else:
         df_ = df
+    
     corr = df_.corr('pearson').abs() # pearson or spearman
     a, b = np.where(corr>=corr_limit)
-    col_remove = []
+    col_corr1 = []
     for a_,b_ in zip(a, b):
-        if a_ != b_ and a_ not in col_remove:
+        if a_ != b_ and a_ not in col_corr1:
 #            print(a_, b_)
-            col_remove.append(b_)
-    if len(col_remove)>0:
-        col_remove = df.iloc[:,col_remove].columns
-        print(f'remove corr>={corr_limit}: {col_remove}')
-        df.drop(col_remove, axis=1, inplace=True)
-    
+            col_corr1.append(b_)
+    if len(col_corr1)>0:
+        col_corr1 = df.iloc[:,col_corr1].columns
+        print(f'remove corr>={corr_limit}: {col_corr1}')
+    return col_corr1
+
+def remove_feature(df, var_limit=0, corr_limit=1, sample_size=None):
+    col_var0 = check_var(df,  var_limit=var_limit, sample_size=sample_size)
+    df.drop(col_var0, axis=1, inplace=True)
+    col_corr1 = check_corr(df, corr_limit=corr_limit, sample_size=sample_size)
+    df.drop(col_corr1, axis=1, inplace=True)
     return
 
 def get_use_files(use_files, is_train=True):
