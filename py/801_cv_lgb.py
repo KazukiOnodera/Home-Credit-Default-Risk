@@ -27,14 +27,21 @@ param = {
          'objective': 'binary',
          'metric': 'auc',
          'learning_rate': 0.01,
-         'max_depth': -1,
+         'max_depth': 6,
          'num_leaves': 255,
          'max_bin': 255,
+         
+         'min_child_weight': 10,
+         'min_data_in_leaf': 150,
+         'gamma': 0.1,
+         'reg_lambda': 0.5,  # L2 regularization term on weights.
+         'reg_alpha': 0.5,  # L1 regularization term on weights.
+         
          'colsample_bytree': 0.9,
          'subsample': 0.9,
          'nthread': cpu_count(),
          'bagging_freq': 1,
-#         'verbose':-1,
+         'verbose':-1,
          'seed': SEED
          }
 
@@ -56,7 +63,7 @@ categorical_feature = ['f001_NAME_CONTRACT_TYPE',
                      'f001_WALLSMATERIAL_MODE',
                      'f001_EMERGENCYSTATE_MODE']
 
-use_files = ['tarin_f0', 'train_f1']
+use_files = ['train_f0']
 
 
 # =============================================================================
@@ -87,11 +94,12 @@ dtrain = lgb.Dataset(X, y, categorical_feature=list( set(X.columns)&set(categori
 gc.collect()
 
 ret = lgb.cv(param, dtrain, 9999, nfold=5,
-             early_stopping_rounds=50, verbose_eval=10,
+             early_stopping_rounds=100, verbose_eval=50,
              seed=SEED)
 
-result = f"CV auc-mean {ret['auc-mean'][-1]}"
+result = f"CV auc-mean: {ret['auc-mean'][-1]}"
 print(result)
+
 utils.send_line(result)
 
 

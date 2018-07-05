@@ -53,24 +53,24 @@ params = {
           }
 
 
-categorical_feature = ['app_001_NAME_CONTRACT_TYPE',
-                     'app_001_CODE_GENDER',
-                     'app_001_FLAG_OWN_CAR',
-                     'app_001_FLAG_OWN_REALTY',
-                     'app_001_NAME_TYPE_SUITE',
-                     'app_001_NAME_INCOME_TYPE',
-                     'app_001_NAME_EDUCATION_TYPE',
-                     'app_001_NAME_FAMILY_STATUS',
-                     'app_001_NAME_HOUSING_TYPE',
-                     'app_001_OCCUPATION_TYPE',
-                     'app_001_WEEKDAY_APPR_PROCESS_START',
-                     'app_001_ORGANIZATION_TYPE',
-                     'app_001_FONDKAPREMONT_MODE',
-                     'app_001_HOUSETYPE_MODE',
-                     'app_001_WALLSMATERIAL_MODE',
-                     'app_001_EMERGENCYSTATE_MODE']
+categorical_feature = ['f001_NAME_CONTRACT_TYPE',
+                     'f001_CODE_GENDER',
+                     'f001_FLAG_OWN_CAR',
+                     'f001_FLAG_OWN_REALTY',
+                     'f001_NAME_TYPE_SUITE',
+                     'f001_NAME_INCOME_TYPE',
+                     'f001_NAME_EDUCATION_TYPE',
+                     'f001_NAME_FAMILY_STATUS',
+                     'f001_NAME_HOUSING_TYPE',
+                     'f001_OCCUPATION_TYPE',
+                     'f001_WEEKDAY_APPR_PROCESS_START',
+                     'f001_ORGANIZATION_TYPE',
+                     'f001_FONDKAPREMONT_MODE',
+                     'f001_HOUSETYPE_MODE',
+                     'f001_WALLSMATERIAL_MODE',
+                     'f001_EMERGENCYSTATE_MODE']
 
-use_files = ['app_0']
+use_files = []
 
 
 
