@@ -319,6 +319,7 @@ def multi(p):
             for c2 in col_app_day:
 #                print(f"'{c1}-m-{c2}',")
                 df[f'{c1}-m-{c2}'] = df[c1] - df[c2]
+                df[f'{c1}-d-{c2}'] = df[c1] / df[c2]
         
         df['cnt_paid'] = df.apply(lambda x: min( np.ceil(x['DAYS_FIRST_DUE']/-30), x['CNT_PAYMENT'] ), axis=1)
         df['cnt_paid_ratio'] = df['cnt_paid'] / df['CNT_PAYMENT']
@@ -425,8 +426,6 @@ def multi(p):
         df['AMT_PAYMENT-d-app_AMT_CREDIT']      = df['AMT_PAYMENT'] / df['app_AMT_CREDIT']
         df['AMT_PAYMENT-d-app_AMT_ANNUITY']     = df['AMT_PAYMENT'] / df['app_AMT_ANNUITY']
         df['AMT_PAYMENT-d-app_AMT_GOODS_PRICE'] = df['AMT_PAYMENT'] / df['app_AMT_GOODS_PRICE']
-        
-        
         
         # prev
         df['NUM_INSTALMENT_ratio'] = df['NUM_INSTALMENT_NUMBER'] / df['CNT_PAYMENT']
@@ -543,8 +542,9 @@ def multi(p):
                 
         for c1 in col_bure_day:
             for c2 in col_app_day:
-                print(f"'{c1}-m-{c2}',")
+#                print(f"'{c1}-m-{c2}',")
                 df[f'{c1}-m-{c2}'] = df[c1] - df[c2]
+                df[f'{c1}-d-{c2}'] = df[c1] / df[c2]
         
         df['DAYS_CREDIT_ENDDATE-m-DAYS_CREDIT'] = df['DAYS_CREDIT_ENDDATE'] - df['DAYS_CREDIT']
         df['DAYS_ENDDATE_FACT-m-DAYS_CREDIT'] = df['DAYS_ENDDATE_FACT'] - df['DAYS_CREDIT']
