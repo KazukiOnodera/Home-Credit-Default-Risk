@@ -13,7 +13,7 @@ import sys
 sys.path.append('/home/kazuki_onodera/PythonLibrary')
 import lgbextension as ex
 import lightgbm as lgb
-from multiprocessing import cpu_count
+from multiprocessing import cpu_count, Pool
 #from glob import glob
 import count
 import os
@@ -117,9 +117,14 @@ imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
 imp = pd.read_csv('LOG/imp_909_cv.py.csv')
 """
 
+def multi_touch(arg):
+    os.system(f'touch "../unused_feature/{arg}.f"')
+
+
 col = imp[imp['split']==0]['feature'].tolist()
-for c in col:
-    os.system(f'touch "../unused_feature/{c}.f"')
+pool = Pool(cpu_count())
+pool.map(multi_touch, col)
+pool.close()
 
 # =============================================================================
 # 
