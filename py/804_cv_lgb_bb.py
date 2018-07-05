@@ -64,8 +64,7 @@ categorical_feature = ['f001_NAME_CONTRACT_TYPE',
                      'f001_WALLSMATERIAL_MODE',
                      'f001_EMERGENCYSTATE_MODE']
 
-use_files = ['train_f1', 'train_f2', 'train_f3',
-             'train_f4']
+use_files = ['train_f5', 'train_f6']
 
 
 # =============================================================================
