@@ -1,0 +1,45 @@
+
+#==============================================================================
+# START!!! 106_decimal.py    PID: 7915    time: 2018-07-04 15:41:56.443082
+#==============================================================================
+
+rm: cannot remove '../feature/t*_f106_*': No such file or directory
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:00<00:06,  2.77it/s] 10%|█         | 2/20 [00:00<00:06,  2.77it/s] 15%|█▌        | 3/20 [00:01<00:09,  1.72it/s] 20%|██        | 4/20 [00:03<00:12,  1.29it/s] 25%|██▌       | 5/20 [00:03<00:11,  1.26it/s] 30%|███       | 6/20 [00:04<00:11,  1.25it/s] 35%|███▌      | 7/20 [00:05<00:09,  1.36it/s] 40%|████      | 8/20 [00:05<00:08,  1.34it/s] 45%|████▌     | 9/20 [00:07<00:08,  1.25it/s] 50%|█████     | 10/20 [00:08<00:08,  1.22it/s] 55%|█████▌    | 11/20 [00:09<00:07,  1.16it/s] 60%|██████    | 12/20 [00:11<00:07,  1.09it/s] 65%|██████▌   | 13/20 [00:11<00:06,  1.08it/s] 70%|███████   | 14/20 [00:13<00:05,  1.07it/s] 75%|███████▌  | 15/20 [00:14<00:04,  1.05it/s] 80%|████████  | 16/20 [00:15<00:03,  1.06it/s] 85%|████████▌ | 17/20 [00:16<00:02,  1.05it/s] 90%|█████████ | 18/20 [00:17<00:01,  1.04it/s] 95%|█████████▌| 19/20 [00:18<00:00,  1.01it/s]100%|██████████| 20/20 [00:19<00:00,  1.03it/s]
+remove var<=0: Index(['NAME_GOODS_CATEGORY-House Construction', 'NAME_GOODS_CATEGORY-Animals'], dtype='object')
+remove corr>=1: Index(['NAME_PRODUCT_TYPE-XNA_app', 'NAME_PORTFOLIO-Cash_app',
+       'NAME_YIELD_GROUP-XNA_app', 'NAME_PORTFOLIO-Cards_app',
+       'NAME_CONTRACT_STATUS-Canceled_app', 'NAME_CONTRACT_STATUS-Refused_app',
+       'NAME_CONTRACT_STATUS-Unused offer_app', 'CODE_REJECT_REASON-LIMIT_app',
+       'CODE_REJECT_REASON-HC_app', 'CODE_REJECT_REASON-CLIENT_app',
+       'CODE_REJECT_REASON-SCO_app', 'CODE_REJECT_REASON-SCOFR_app',
+       'CODE_REJECT_REASON-VERIF_app', 'CODE_REJECT_REASON-XNA_app',
+       'CODE_REJECT_REASON-SYSTEM_app',
+       'NAME_GOODS_CATEGORY-House Construction_app',
+       'NAME_GOODS_CATEGORY-Animals_app', 'NAME_PORTFOLIO-XNA_app',
+       'NAME_CONTRACT_STATUS-Approved_ref',
+       'NAME_CONTRACT_STATUS-Canceled_ref',
+       'NAME_CONTRACT_STATUS-Unused offer_ref', 'CODE_REJECT_REASON-XAP_ref',
+       'CODE_REJECT_REASON-CLIENT_ref', 'NAME_GOODS_CATEGORY-Medicine_ref',
+       'NAME_GOODS_CATEGORY-Weapon_ref', 'NAME_GOODS_CATEGORY-Fitness_ref',
+       'NAME_GOODS_CATEGORY-Insurance_ref',
+       'NAME_GOODS_CATEGORY-Additional Service_ref',
+       'NAME_GOODS_CATEGORY-Education_ref',
+       'NAME_GOODS_CATEGORY-House Construction_ref',
+       'NAME_GOODS_CATEGORY-Animals_ref',
+       'NAME_CONTRACT_STATUS-Canceled_appref',
+       'NAME_CONTRACT_STATUS-Unused offer_appref',
+       'CODE_REJECT_REASON-CLIENT_appref',
+       'NAME_GOODS_CATEGORY-House Construction_appref',
+       'NAME_GOODS_CATEGORY-Animals_appref', 'CODE_REJECT_REASON-XAP_app',
+       'CODE_REJECT_REASON-XAP_appref', 'CODE_REJECT_REASON-CLIENT',
+       'CHANNEL_TYPE-Car dealer_ref'],
+      dtype='object')
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:00<00:06,  3.00it/s] 10%|█         | 2/20 [00:00<00:07,  2.57it/s] 15%|█▌        | 3/20 [00:01<00:06,  2.78it/s] 20%|██        | 4/20 [00:01<00:05,  2.85it/s] 25%|██▌       | 5/20 [00:01<00:05,  2.96it/s] 30%|███       | 6/20 [00:01<00:04,  3.15it/s] 35%|███▌      | 7/20 [00:02<00:03,  3.38it/s] 40%|████      | 8/20 [00:02<00:03,  3.47it/s] 45%|████▌     | 9/20 [00:02<00:03,  3.36it/s] 50%|█████     | 10/20 [00:02<00:02,  3.46it/s] 55%|█████▌    | 11/20 [00:03<00:02,  3.37it/s] 60%|██████    | 12/20 [00:03<00:02,  3.36it/s] 65%|██████▌   | 13/20 [00:03<00:02,  3.46it/s] 70%|███████   | 14/20 [00:03<00:01,  3.50it/s] 75%|███████▌  | 15/20 [00:04<00:01,  3.55it/s] 80%|████████  | 16/20 [00:04<00:01,  3.59it/s] 85%|████████▌ | 17/20 [00:04<00:00,  3.52it/s] 90%|█████████ | 18/20 [00:05<00:00,  3.57it/s] 95%|█████████▌| 19/20 [00:05<00:00,  3.60it/s]100%|██████████| 20/20 [00:05<00:00,  3.58it/s]
+  0%|          | 0/20 [00:00<?, ?it/s] 10%|█         | 2/20 [00:00<00:01, 13.21it/s] 15%|█▌        | 3/20 [00:00<00:01, 11.57it/s] 30%|███       | 6/20 [00:00<00:00, 14.05it/s] 40%|████      | 8/20 [00:00<00:00, 14.27it/s] 55%|█████▌    | 11/20 [00:00<00:00, 15.20it/s] 65%|██████▌   | 13/20 [00:00<00:00, 15.58it/s] 75%|███████▌  | 15/20 [00:01<00:00, 14.90it/s] 90%|█████████ | 18/20 [00:01<00:00, 16.10it/s]100%|██████████| 20/20 [00:01<00:00, 16.75it/s]
+
+#==============================================================================
+# SUCCESS !!! 106_decimal.py
+#==============================================================================
+
+time: 20.41min
+Stopping instance(s) instance-2...

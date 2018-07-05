@@ -1,0 +1,44 @@
+
+#==============================================================================
+# START!!! 105_future_payment.py    PID: 23238    time: 2018-07-04 15:50:01.145576
+#==============================================================================
+
+rm: cannot remove '../feature/t*_f105_*': No such file or directory
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:14<04:40, 14.77s/it] 10%|█         | 2/20 [00:26<03:59, 13.32s/it] 15%|█▌        | 3/20 [00:29<02:44,  9.68s/it] 20%|██        | 4/20 [00:31<02:04,  7.77s/it] 25%|██▌       | 5/20 [00:33<01:39,  6.64s/it] 30%|███       | 6/20 [00:35<01:22,  5.86s/it] 35%|███▌      | 7/20 [00:37<01:09,  5.33s/it] 40%|████      | 8/20 [00:39<00:59,  4.92s/it] 45%|████▌     | 9/20 [00:41<00:50,  4.63s/it] 50%|█████     | 10/20 [00:43<00:43,  4.36s/it] 55%|█████▌    | 11/20 [00:45<00:37,  4.17s/it] 60%|██████    | 12/20 [00:47<00:31,  3.99s/it] 65%|██████▌   | 13/20 [00:50<00:26,  3.85s/it] 70%|███████   | 14/20 [00:51<00:22,  3.71s/it] 75%|███████▌  | 15/20 [00:54<00:18,  3.60s/it] 80%|████████  | 16/20 [00:55<00:13,  3.50s/it] 85%|████████▌ | 17/20 [00:58<00:10,  3.43s/it] 90%|█████████ | 18/20 [01:00<00:06,  3.36s/it] 95%|█████████▌| 19/20 [01:02<00:03,  3.29s/it]100%|██████████| 20/20 [01:04<00:00,  3.22s/it]
+  0%|          | 0/20 [00:00<?, ?it/s] 10%|█         | 2/20 [00:00<00:00, 18.54it/s] 20%|██        | 4/20 [00:00<00:00, 19.20it/s] 35%|███▌      | 7/20 [00:00<00:00, 19.32it/s] 55%|█████▌    | 11/20 [00:00<00:00, 23.12it/s] 70%|███████   | 14/20 [00:00<00:00, 23.57it/s] 85%|████████▌ | 17/20 [00:00<00:00, 23.04it/s]100%|██████████| 20/20 [00:00<00:00, 22.71it/s]
+  0%|          | 0/20 [00:00<?, ?it/s] 45%|████▌     | 9/20 [00:00<00:00, 74.87it/s] 90%|█████████ | 18/20 [00:00<00:00, 79.64it/s]100%|██████████| 20/20 [00:00<00:00, 82.68it/s]
+remove var<=0: Index(['future_payment_69m_sum', 'future_payment_70m_sum',
+       'future_payment_71m_sum', 'future_payment_72m_sum',
+       'future_payment_73m_sum', 'future_payment_74m_sum',
+       'future_payment_75m_sum', 'future_payment_76m_sum',
+       'future_payment_77m_sum', 'future_payment_78m_sum',
+       'future_payment_79m_sum', 'future_payment_80m_sum',
+       'past_payment_61m_sum', 'past_payment_62m_sum', 'past_payment_63m_sum',
+       'past_payment_64m_sum', 'past_payment_65m_sum', 'past_payment_66m_sum',
+       'past_payment_67m_sum', 'past_payment_68m_sum', 'past_payment_69m_sum',
+       'past_payment_70m_sum', 'past_payment_71m_sum', 'past_payment_72m_sum',
+       'prevapp_future_payment_69m', 'prevapp_future_payment_70m',
+       'prevapp_future_payment_71m', 'prevapp_future_payment_72m',
+       'prevapp_future_payment_73m', 'prevapp_future_payment_74m',
+       'prevapp_future_payment_75m', 'prevapp_future_payment_76m',
+       'prevapp_future_payment_77m', 'prevapp_future_payment_78m',
+       'prevapp_future_payment_79m', 'prevapp_future_payment_80m'],
+      dtype='object')
+remove corr>=1: Index(['future_payment_59m_min', 'future_payment_59m_max',
+       'future_payment_59m_mean', 'future_payment_59m_min',
+       'future_payment_59m_max', 'future_payment_59m_mean',
+       'future_payment_59m_min', 'future_payment_59m_max',
+       'future_payment_59m_mean', 'future_payment_59m_min',
+       ...
+       'future_payment_59m_min', 'future_payment_59m_max',
+       'future_payment_59m_mean', 'future_vs_past_max-d-income',
+       'future_payment_59m_min', 'future_payment_59m_max',
+       'future_payment_59m_mean', 'future_payment_59m_min',
+       'future_payment_59m_max', 'future_payment_59m_mean'],
+      dtype='object', length=3142)
+
+#==============================================================================
+# SUCCESS !!! 105_future_payment.py
+#==============================================================================
+
+time: 6.85min

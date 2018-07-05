@@ -1,0 +1,18 @@
+
+#==============================================================================
+# START!!! 601_aggregate.py    PID: 10840    time: 2018-07-04 15:43:56.373313
+#==============================================================================
+
+rm: cannot remove '../feature/t*_f601_*': No such file or directory
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:00<00:02,  8.82it/s] 15%|█▌        | 3/20 [00:00<00:01, 10.12it/s] 25%|██▌       | 5/20 [00:00<00:01, 10.31it/s] 30%|███       | 6/20 [00:00<00:01, 10.01it/s] 40%|████      | 8/20 [00:00<00:01, 11.33it/s] 50%|█████     | 10/20 [00:00<00:00, 11.95it/s] 60%|██████    | 12/20 [00:00<00:00, 12.34it/s] 70%|███████   | 14/20 [00:01<00:00, 11.71it/s] 80%|████████  | 16/20 [00:01<00:00, 11.66it/s] 90%|█████████ | 18/20 [00:01<00:00, 11.62it/s]100%|██████████| 20/20 [00:01<00:00, 11.83it/s]
+0it [00:00, ?it/s]
+Traceback (most recent call last):
+  File "601_aggregate.py", line 33, in <module>
+    bb = utils.read_pickles('../data/bureau_balance')
+  File "/home/kazuki_onodera/Home-Credit-Default-Risk/py/utils.py", line 204, in read_pickles
+    df = pd.concat([ pd.read_pickle(f) for f in tqdm(sorted(glob(path+'/*'))) ])
+  File "/home/kazuki_onodera/anaconda3/lib/python3.6/site-packages/pandas/core/reshape/concat.py", line 212, in concat
+    copy=copy)
+  File "/home/kazuki_onodera/anaconda3/lib/python3.6/site-packages/pandas/core/reshape/concat.py", line 245, in __init__
+    raise ValueError('No objects to concatenate')
+ValueError: No objects to concatenate
