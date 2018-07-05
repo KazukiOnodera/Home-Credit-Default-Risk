@@ -18,7 +18,7 @@ from multiprocessing import cpu_count
 import count
 import os
 import utils
-#utils.start(__file__)
+utils.start(__file__)
 #==============================================================================
 
 SEED = 71
@@ -142,5 +142,5 @@ for c in col:
 #==============================================================================
 utils.end(__file__)
 
-utils.stop_instance()
+#utils.stop_instance()
 
