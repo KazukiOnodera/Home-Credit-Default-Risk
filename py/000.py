@@ -546,11 +546,6 @@ def multi(p):
                 print(f"'{c1}-m-{c2}',")
                 df[f'{c1}-m-{c2}'] = df[c1] - df[c2]
         
-        
-        
-        
-        
-        
         df['DAYS_CREDIT_ENDDATE-m-DAYS_CREDIT'] = df['DAYS_CREDIT_ENDDATE'] - df['DAYS_CREDIT']
         df['DAYS_ENDDATE_FACT-m-DAYS_CREDIT'] = df['DAYS_ENDDATE_FACT'] - df['DAYS_CREDIT']
         df['DAYS_ENDDATE_FACT-m-DAYS_CREDIT_ENDDATE'] = df['DAYS_ENDDATE_FACT'] - df['DAYS_CREDIT_ENDDATE']

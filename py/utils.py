@@ -340,7 +340,7 @@ def remove_feature(df, var_limit=0, corr_limit=1):
         df_ = df.sample(9999, random_state=71)
     else:
         df_ = df
-    corr = df_.corr('pearson').abs() # pearson, spearman
+    corr = df_.corr('pearson').abs() # pearson or spearman
     a, b = np.where(corr>=corr_limit)
     col_remove = []
     for a_,b_ in zip(a, b):
