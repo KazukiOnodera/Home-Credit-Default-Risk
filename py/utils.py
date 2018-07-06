@@ -398,7 +398,7 @@ def get_use_files(use_files, is_train=True):
                     break
     
         files = sorted(files_[:])
-
+    print(f'got {len(files)}')
     return files
 
 # =============================================================================
