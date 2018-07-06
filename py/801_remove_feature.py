@@ -29,7 +29,7 @@ X = pd.concat([
 col_var0 = utils.check_var(X)
 
 def multi_touch_var0(arg):
-    os.system(f'touch "../var0_feature/{arg}.f"')
+    os.system(f'touch "../feature_var0/{arg}.f"')
 
 pool = Pool(cpu_count())
 pool.map(multi_touch_var0, col_var0)
@@ -37,15 +37,15 @@ pool.close()
 
 
 # =============================================================================
-# var0
+# corr1
 # =============================================================================
-col_var0 = utils.check_corr(X, corr_limit=.98, sample_size=19999)
+col_corr1 = utils.check_corr(X, corr_limit=.98, sample_size=19999)
 
 def multi_touch_corr1(arg):
-    os.system(f'touch "../corr1_feature/{arg}.f"')
+    os.system(f'touch "../feature_corr1/{arg}.f"')
 
 pool = Pool(cpu_count())
-pool.map(multi_touch_corr1, col_var0)
+pool.map(multi_touch_corr1, col_corr1)
 pool.close()
 
 
