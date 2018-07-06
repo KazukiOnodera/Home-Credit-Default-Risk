@@ -361,11 +361,12 @@ def check_corr(df, corr_limit=1, sample_size=None):
         print(f'remove corr>={corr_limit}: {col_corr1}')
     return col_corr1
 
-def remove_feature(df, var_limit=0, corr_limit=1, sample_size=None):
+def remove_feature(df, var_limit=0, corr_limit=1, sample_size=None, only_var=True):
     col_var0 = check_var(df,  var_limit=var_limit, sample_size=sample_size)
     df.drop(col_var0, axis=1, inplace=True)
-    col_corr1 = check_corr(df, corr_limit=corr_limit, sample_size=sample_size)
-    df.drop(col_corr1, axis=1, inplace=True)
+    if only_var==False:
+        col_corr1 = check_corr(df, corr_limit=corr_limit, sample_size=sample_size)
+        df.drop(col_corr1, axis=1, inplace=True)
     return
 
 def get_use_files(use_files, is_train=True):
