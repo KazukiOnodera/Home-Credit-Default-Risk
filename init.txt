@@ -9,6 +9,9 @@ cd Home-Credit-Default-Risk
 echo *.DS_Store > .gitignore
 echo ~$*.xls* >> .gitignore
 echo feature/ >> .gitignore
+echo feature_unused/ >> .gitignore
+echo feature_var0/ >> .gitignore
+echo feature_corr1/ >> .gitignore
 echo input/ >> .gitignore
 echo output/ >> .gitignore
 echo data/ >> .gitignore

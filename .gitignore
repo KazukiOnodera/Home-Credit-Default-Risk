@@ -1,7 +1,9 @@
 *.DS_Store
 ~$*.xls*
 feature/
-unused_feature/
+feature_unused/
+feature_var0/
+feature_corr1/
 input/
 output/
 data/
@@ -11,3 +13,5 @@ py/*.model
 py/*.p
 py/__pycache__/*
 py/~$*.xls*
+
+

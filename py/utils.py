@@ -374,7 +374,9 @@ def get_use_files(use_files, is_train=True):
     else:
         files = sorted(glob('../feature/test*.f'))
         
-    unused_files = [f.split('/')[-1] for f in sorted(glob('../unused_feature/*.f'))]
+    unused_files  = [f.split('/')[-1] for f in sorted(glob('../feature_unused/*.f'))]
+    unused_files += [f.split('/')[-1] for f in sorted(glob('../feature_var0/*.f'))]
+    unused_files += [f.split('/')[-1] for f in sorted(glob('../feature_corr1/*.f'))]
     files_ = []
     if len(unused_files):
         for f1 in files:
