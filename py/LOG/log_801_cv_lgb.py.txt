@@ -1,58 +1,84 @@
 train files
-f001: 203
-f101: 1810
-f102: 1780
-f103: 1778
-f104: 1726
-f105: 580
-f106: 282
+f101: 1747
+f102: 1507
+f103: 1609
+f104: 1557
+f105: 771
+f106: 280
 f107: 6
-f201: 59
-f202: 57
-f203: 57
-f204: 57
-f301: 275
-f302: 275
-f303: 275
-f304: 275
+f108: 312
+f201: 53
+f202: 51
+f203: 51
+f204: 51
+f301: 449
+f302: 423
+f303: 434
+f304: 404
 f401: 200
 f402: 194
 f403: 194
 f404: 194
-f501: 207
-f502: 197
-f503: 201
-f504: 203
-f505: 394
+f501: 397
+f502: 387
+f503: 391
+f504: 393
+f505: 774
 f601: 58
 f701: 20
 
 test files
-f001: 203
-f101: 1810
-f102: 1780
-f103: 1778
-f104: 1726
-f105: 580
-f106: 282
+f101: 1747
+f102: 1507
+f103: 1609
+f104: 1557
+f105: 771
+f106: 280
 f107: 6
-f201: 59
-f202: 57
-f203: 57
-f204: 57
-f301: 275
-f302: 275
-f303: 275
-f304: 275
+f108: 312
+f201: 53
+f202: 51
+f203: 51
+f204: 51
+f301: 449
+f302: 423
+f303: 434
+f304: 404
 f401: 200
 f402: 194
 f403: 194
 f404: 194
-f501: 207
-f502: 197
-f503: 201
-f504: 203
-f505: 394
+f501: 397
+f502: 387
+f503: 391
+f504: 393
+f505: 774
 f601: 58
 f701: 20
-  0%|          | 0/7791 [00:00<?, ?it/s] 12%|█▏        | 937/7791 [01:00<07:19, 15.60it/s] 12%|█▏        | 937/7791 [01:19<09:45, 11.71it/s] 22%|██▏       | 1714/7791 [02:00<07:05, 14.27it/s] 22%|██▏       | 1714/7791 [02:19<08:16, 12.24it/s]
+
+#==============================================================================
+# START!!! 801_cv_lgb.py    PID: 37077    time: 2018-07-06 02:59:38.679671
+#==============================================================================
+
+  0%|          | 0/12890 [00:00<?, ?it/s]  8%|▊         | 967/12890 [01:00<12:19, 16.12it/s]  8%|▊         | 967/12890 [01:19<16:26, 12.09it/s] 17%|█▋        | 2182/12890 [02:00<09:49, 18.17it/s] 17%|█▋        | 2182/12890 [02:19<11:26, 15.59it/s] 26%|██▌       | 3325/12890 [03:00<08:38, 18.46it/s] 26%|██▌       | 3325/12890 [03:19<09:35, 16.63it/s] 36%|███▋      | 4683/12890 [04:00<07:00, 19.50it/s] 36%|███▋      | 4683/12890 [04:19<07:35, 18.01it/s] 48%|████▊     | 6174/12890 [05:00<05:26, 20.57it/s] 48%|████▊     | 6174/12890 [05:19<05:48, 19.29it/s] 58%|█████▊    | 7483/12890 [06:00<04:20, 20.77it/s] 58%|█████▊    | 7483/12890 [06:19<04:34, 19.69it/s] 68%|██████▊   | 8722/12890 [07:00<03:20, 20.75it/s] 68%|██████▊   | 8722/12890 [07:19<03:30, 19.82it/s] 77%|███████▋  | 9955/12890 [08:00<02:21, 20.73it/s] 77%|███████▋  | 9955/12890 [08:19<02:27, 19.91it/s] 86%|████████▌ | 11088/12890 [09:00<01:27, 20.52it/s] 86%|████████▌ | 11088/12890 [09:19<01:31, 19.80it/s] 92%|█████████▏| 11801/12890 [10:00<00:55, 19.65it/s] 92%|█████████▏| 11801/12890 [10:19<00:57, 19.03it/s] 98%|█████████▊| 12595/12890 [11:00<00:15, 19.07it/s]100%|██████████| 12890/12890 [11:15<00:00, 19.08it/s]
+  0%|          | 0/20 [00:00<?, ?it/s] 15%|█▌        | 3/20 [00:00<00:00, 18.60it/s] 50%|█████     | 10/20 [00:00<00:00, 37.93it/s]100%|██████████| 20/20 [00:00<00:00, 58.76it/s]
+no dup :) 
+X.shape (307511, 12890)
+[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
+[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
+[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
+[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
+[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
+[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
+[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
+[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
+[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
+[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
+[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
+[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
+[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
+[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
+[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
+[50]	cv_agg's auc: 0.706165 + 0.0016471
+[100]	cv_agg's auc: 0.712614 + 0.00144127
+[150]	cv_agg's auc: 0.717712 + 0.00134574

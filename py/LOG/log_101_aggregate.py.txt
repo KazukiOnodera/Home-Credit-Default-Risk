@@ -1,19 +1,78 @@
 
 #==============================================================================
-# START!!! 101_aggregate.py    PID: 2800    time: 2018-07-04 15:36:14.726201
+# START!!! 101_aggregate.py    PID: 37671    time: 2018-07-06 03:39:38.102579
 #==============================================================================
 
-rm: cannot remove '../feature/t*_f101_*': No such file or directory
-  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:02<00:43,  2.30s/it] 10%|█         | 2/20 [00:04<00:40,  2.27s/it] 15%|█▌        | 3/20 [00:06<00:36,  2.15s/it] 20%|██        | 4/20 [00:08<00:33,  2.11s/it] 25%|██▌       | 5/20 [00:10<00:30,  2.04s/it] 30%|███       | 6/20 [00:11<00:27,  1.99s/it] 35%|███▌      | 7/20 [00:13<00:25,  1.99s/it] 40%|████      | 8/20 [00:15<00:23,  1.98s/it] 45%|████▌     | 9/20 [00:17<00:21,  1.96s/it] 50%|█████     | 10/20 [00:19<00:19,  1.94s/it] 55%|█████▌    | 11/20 [00:21<00:17,  1.92s/it] 60%|██████    | 12/20 [00:23<00:15,  1.92s/it] 65%|██████▌   | 13/20 [00:24<00:13,  1.91s/it] 70%|███████   | 14/20 [00:26<00:11,  1.91s/it] 75%|███████▌  | 15/20 [00:28<00:09,  1.90s/it] 80%|████████  | 16/20 [00:30<00:07,  1.90s/it] 85%|████████▌ | 17/20 [00:32<00:05,  1.91s/it] 90%|█████████ | 18/20 [00:34<00:03,  1.91s/it] 95%|█████████▌| 19/20 [00:36<00:01,  1.91s/it]100%|██████████| 20/20 [00:38<00:00,  1.91s/it]
-  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:00<00:06,  2.84it/s] 10%|█         | 2/20 [00:00<00:06,  2.96it/s] 15%|█▌        | 3/20 [00:00<00:04,  3.45it/s] 20%|██        | 4/20 [00:01<00:05,  2.95it/s] 25%|██▌       | 5/20 [00:01<00:04,  3.10it/s] 30%|███       | 6/20 [00:01<00:04,  3.19it/s] 35%|███▌      | 7/20 [00:02<00:04,  3.22it/s] 40%|████      | 8/20 [00:02<00:03,  3.36it/s] 45%|████▌     | 9/20 [00:02<00:03,  3.27it/s] 50%|█████     | 10/20 [00:02<00:02,  3.34it/s] 55%|█████▌    | 11/20 [00:03<00:02,  3.34it/s] 60%|██████    | 12/20 [00:03<00:02,  3.32it/s] 65%|██████▌   | 13/20 [00:03<00:02,  3.37it/s] 70%|███████   | 14/20 [00:04<00:01,  3.39it/s] 75%|███████▌  | 15/20 [00:04<00:01,  3.38it/s] 80%|████████  | 16/20 [00:04<00:01,  3.39it/s] 85%|████████▌ | 17/20 [00:05<00:00,  3.35it/s] 90%|█████████ | 18/20 [00:05<00:00,  3.38it/s] 95%|█████████▌| 19/20 [00:05<00:00,  3.36it/s]100%|██████████| 20/20 [00:05<00:00,  3.34it/s]
-  0%|          | 0/20 [00:00<?, ?it/s] 15%|█▌        | 3/20 [00:00<00:00, 18.96it/s] 30%|███       | 6/20 [00:00<00:00, 17.16it/s] 40%|████      | 8/20 [00:00<00:00, 16.09it/s] 50%|█████     | 10/20 [00:00<00:00, 15.96it/s] 65%|██████▌   | 13/20 [00:00<00:00, 15.68it/s] 80%|████████  | 16/20 [00:00<00:00, 16.98it/s]100%|██████████| 20/20 [00:01<00:00, 19.09it/s]
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:03<01:06,  3.49s/it] 10%|█         | 2/20 [00:06<01:00,  3.39s/it] 15%|█▌        | 3/20 [00:10<00:57,  3.36s/it] 20%|██        | 4/20 [00:13<00:53,  3.34s/it] 25%|██▌       | 5/20 [00:17<00:51,  3.44s/it] 30%|███       | 6/20 [00:22<00:52,  3.73s/it] 35%|███▌      | 7/20 [00:26<00:48,  3.77s/it] 40%|████      | 8/20 [00:31<00:46,  3.89s/it] 45%|████▌     | 9/20 [00:36<00:44,  4.08s/it] 50%|█████     | 10/20 [00:41<00:41,  4.19s/it] 55%|█████▌    | 11/20 [00:46<00:37,  4.20s/it] 60%|██████    | 12/20 [00:49<00:32,  4.11s/it] 65%|██████▌   | 13/20 [00:53<00:28,  4.09s/it] 70%|███████   | 14/20 [00:56<00:24,  4.05s/it] 75%|███████▌  | 15/20 [01:00<00:20,  4.01s/it] 80%|████████  | 16/20 [01:03<00:15,  3.97s/it] 85%|████████▌ | 17/20 [01:06<00:11,  3.90s/it] 90%|█████████ | 18/20 [01:09<00:07,  3.89s/it] 95%|█████████▌| 19/20 [01:13<00:03,  3.87s/it]100%|██████████| 20/20 [01:16<00:00,  3.85s/it]
+  0%|          | 0/20 [00:00<?, ?it/s] 15%|█▌        | 3/20 [00:00<00:00, 19.36it/s] 30%|███       | 6/20 [00:00<00:00, 19.24it/s] 45%|████▌     | 9/20 [00:00<00:00, 19.75it/s] 55%|█████▌    | 11/20 [00:00<00:00, 19.69it/s] 65%|██████▌   | 13/20 [00:00<00:00, 19.30it/s] 85%|████████▌ | 17/20 [00:00<00:00, 21.77it/s]100%|██████████| 20/20 [00:00<00:00, 23.17it/s]
+  0%|          | 0/20 [00:00<?, ?it/s] 85%|████████▌ | 17/20 [00:00<00:00, 169.67it/s]100%|██████████| 20/20 [00:00<00:00, 172.66it/s]
 ['NAME_CONTRACT_STATUS', 'Approved', 'approved_']
 ['NAME_CONTRACT_STATUS', 'Approved', 'refused_']
 ['active', 1, 'active_']
 ['completed', 1, 'completed_']
+remove var<=0: Index(['active_active_min', 'active_active_mean', 'active_active_max',
+       'active_active_var', 'active_completed_min', 'active_completed_mean',
+       'active_completed_max', 'active_completed_var', 'active_completed_sum',
+       'active_NAME_CASH_LOAN_PURPOSE_Hobby_mean',
+       'active_NAME_CASH_LOAN_PURPOSE_Hobby_sum',
+       'active_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_mean',
+       'active_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_sum',
+       'active_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_mean',
+       'active_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_sum',
+       'active_NAME_CONTRACT_STATUS_Approved_mean',
+       'active_NAME_GOODS_CATEGORY_Additional-Service_mean',
+       'active_NAME_GOODS_CATEGORY_Additional-Service_sum',
+       'active_CODE_REJECT_REASON_XNA_mean',
+       'active_CODE_REJECT_REASON_XNA_sum'],
+      dtype='object')
+remove var<=0: Index(['completed_cnt_paid_ratio_min', 'completed_cnt_paid_ratio_mean',
+       'completed_cnt_paid_ratio_max', 'completed_cnt_paid_ratio_var',
+       'completed_cnt_unpaid_min', 'completed_cnt_unpaid_mean',
+       'completed_cnt_unpaid_max', 'completed_cnt_unpaid_var',
+       'completed_cnt_unpaid_sum', 'completed_amt_unpaid_min',
+       'completed_amt_unpaid_mean', 'completed_amt_unpaid_max',
+       'completed_amt_unpaid_var', 'completed_amt_unpaid_sum',
+       'completed_active_min', 'completed_active_mean', 'completed_active_max',
+       'completed_active_var', 'completed_active_sum',
+       'completed_completed_min', 'completed_completed_mean',
+       'completed_completed_max', 'completed_completed_var',
+       'completed_NAME_CASH_LOAN_PURPOSE_Buying-a-garage_mean',
+       'completed_NAME_CASH_LOAN_PURPOSE_Buying-a-garage_sum',
+       'completed_NAME_CASH_LOAN_PURPOSE_Hobby_mean',
+       'completed_NAME_CASH_LOAN_PURPOSE_Hobby_sum',
+       'completed_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_mean',
+       'completed_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_sum',
+       'completed_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_mean',
+       'completed_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_sum',
+       'completed_NAME_CONTRACT_STATUS_Approved_mean',
+       'completed_NAME_GOODS_CATEGORY_Direct-Sales_mean',
+       'completed_NAME_GOODS_CATEGORY_Direct-Sales_sum'],
+      dtype='object')
+remove var<=0: Index(['approved_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_mean',
+       'approved_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_sum',
+       'approved_NAME_CONTRACT_STATUS_Approved_mean',
+       'approved_NAME_GOODS_CATEGORY_Animals_mean',
+       'approved_NAME_GOODS_CATEGORY_Animals_sum',
+       'approved_NAME_PORTFOLIO_XNA_mean', 'approved_NAME_PORTFOLIO_XNA_sum',
+       'approved_PRODUCT_COMBINATION_Cash_mean',
+       'approved_PRODUCT_COMBINATION_Cash_sum',
+       'approved_CODE_REJECT_REASON_XNA_mean',
+       'approved_CODE_REJECT_REASON_XNA_sum'],
+      dtype='object')
+remove var<=0: Index(['refused_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_mean',
+       'refused_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_sum',
+       'refused_NAME_CONTRACT_STATUS_Approved_mean',
+       'refused_NAME_GOODS_CATEGORY_Animals_mean',
+       'refused_NAME_GOODS_CATEGORY_Animals_sum',
+       'refused_NAME_PORTFOLIO_XNA_mean', 'refused_NAME_PORTFOLIO_XNA_sum',
+       'refused_PRODUCT_COMBINATION_Cash_mean',
+       'refused_PRODUCT_COMBINATION_Cash_sum',
+       'refused_CODE_REJECT_REASON_XNA_mean',
+       'refused_CODE_REJECT_REASON_XNA_sum'],
+      dtype='object')
 
 #==============================================================================
 # SUCCESS !!! 101_aggregate.py
 #==============================================================================
 
-time: 7.86min
+time: 10.21min
