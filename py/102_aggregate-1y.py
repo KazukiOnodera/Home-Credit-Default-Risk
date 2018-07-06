@@ -72,6 +72,8 @@ def aggregate(args):
     df_agg.columns = pd.Index([prefix + e[0] + "_" + e[1] for e in df_agg.columns.tolist()])
     df_agg.reset_index(inplace=True)
     
+    utils.remove_feature(df_agg, var_limit=0, corr_limit=0.98, sample_size=19999)
+    
     tmp = pd.merge(train, df_agg, on=KEY, how='left').drop(KEY, axis=1)
     utils.to_feature(tmp.add_prefix(PREF), '../feature/train')
     
