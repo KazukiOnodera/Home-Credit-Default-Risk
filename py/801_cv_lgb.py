@@ -137,7 +137,7 @@ imp = pd.read_csv('LOG/imp_909_cv.py.csv')
 """
 
 def multi_touch(arg):
-    os.system(f'touch "../unused_feature/{arg}.f"')
+    os.system(f'touch "../feature_unused/{arg}.f"')
 
 
 col = imp[imp['split']==0]['feature'].tolist()
