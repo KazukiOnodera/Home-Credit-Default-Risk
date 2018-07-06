@@ -61,6 +61,8 @@ def aggregate(df, pref):
     df_agg['INS_COUNT'] = df.groupby('SK_ID_CURR').size()
     df_agg = df_agg.add_prefix(pref).reset_index()
     
+    utils.remove_feature(df_agg, var_limit=0, corr_limit=0.98, sample_size=19999)
+    
     tmp = pd.merge(train, df_agg, on=KEY, how='left').drop(KEY, axis=1)
     utils.to_feature(tmp.add_prefix(PREF), '../feature/train')
     

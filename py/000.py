@@ -21,14 +21,11 @@ import os, utils, gc
 utils.start(__file__)
 #==============================================================================
 
-os.system('rm -rf ../data')
-os.system('rm -rf ../feature')
-os.system('rm -rf ../unused_feature')
-os.system('rm -rf ../var0_feature')
-os.system('mkdir ../data')
-os.system('mkdir ../feature')
-os.system('mkdir ../unused_feature')
-os.system('mkdir ../var0_feature')
+folders = ['../data', '../feature', '../feature_unused', 
+           '../feature_var0', '../feature_corr1']
+for fol in folders:
+    os.system(f'rm -rf {fol}')
+    os.system(f'mkdir {fol}')
 
 col_app_money = ['app_AMT_INCOME_TOTAL', 'app_AMT_CREDIT', 'app_AMT_ANNUITY', 'app_AMT_GOODS_PRICE']
 col_app_day = ['app_DAYS_BIRTH', 'app_DAYS_EMPLOYED', 'app_DAYS_REGISTRATION', 'app_DAYS_ID_PUBLISH', 'app_DAYS_LAST_PHONE_CHANGE']

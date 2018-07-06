@@ -39,7 +39,7 @@ pool.close()
 # =============================================================================
 # corr1
 # =============================================================================
-col_corr1 = utils.check_corr(X, corr_limit=.98, sample_size=19999)
+col_corr1 = utils.check_corr(df_agg, corr_limit=.98, sample_size=19999)
 
 def multi_touch_corr1(arg):
     os.system(f'touch "../feature_corr1/{arg}.f"')

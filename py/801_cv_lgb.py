@@ -63,6 +63,24 @@ categorical_feature = ['f001_NAME_CONTRACT_TYPE',
                      'f001_WALLSMATERIAL_MODE',
                      'f001_EMERGENCYSTATE_MODE']
 
+
+categorical_feature += ['f108_NAME_CONTRACT_TYPE',
+                     'f108_WEEKDAY_APPR_PROCESS_START',
+                     'f108_NAME_CASH_LOAN_PURPOSE',
+                     'f108_NAME_CONTRACT_STATUS',
+                     'f108_NAME_PAYMENT_TYPE',
+                     'f108_CODE_REJECT_REASON',
+                     'f108_NAME_TYPE_SUITE',
+                     'f108_NAME_CLIENT_TYPE',
+                     'f108_NAME_GOODS_CATEGORY',
+                     'f108_NAME_PORTFOLIO',
+                     'f108_NAME_PRODUCT_TYPE',
+                     'f108_CHANNEL_TYPE',
+                     'f108_NAME_SELLER_INDUSTRY',
+                     'f108_NAME_YIELD_GROUP',
+                     'f108_PRODUCT_COMBINATION']
+
+
 use_files = []
 
 
@@ -109,8 +127,9 @@ utils.send_line(result)
 dtrain = lgb.Dataset(X, y, categorical_feature=list( set(X.columns)&set(categorical_feature)) )
 #model = lgb.train(param, dtrain, len(ret['auc-mean']))
 model = lgb.train(param, dtrain, 1000)
-
 imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
+
+
 imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
 
 """
