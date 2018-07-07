@@ -94,8 +94,6 @@ if X.columns.duplicated().sum()>0:
     raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
 print('no dup :) ')
 print(f'X.shape {X.shape}')
-
-X = X.rank(method='dense')
 gc.collect()
 
 CAT = list( set(X.columns)&set(categorical_feature))
@@ -116,7 +114,8 @@ for i in range(LOOP):
                       categorical_feature=CAT)
 #    model.save_model(f'lgb{i}.model')
     models.append(model)
-    
+
+
 del dtrain; gc.collect()
 
 """
@@ -146,7 +145,7 @@ dtest = pd.concat([
 #dtest['CNT_PAYMENT'] = np.load(files[0])
 #dtest['nejumi_v3'] = np.load(files[1])
 
-    
+
 sub = pd.read_pickle('../data/sub.p')
 
 gc.collect()
