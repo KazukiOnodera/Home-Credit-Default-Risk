@@ -94,9 +94,6 @@ if X.columns.duplicated().sum()>0:
 print('no dup :) ')
 print(f'X.shape {X.shape}')
 
-X = X.rank(method='dense')
-gc.collect()
-
 CAT = list( set(X.columns)&set(categorical_feature))
 print(f'category: {CAT}')
 
