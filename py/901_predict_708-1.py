@@ -12,11 +12,10 @@ import pandas as pd
 from tqdm import tqdm
 import sys
 sys.path.append('/home/kazuki_onodera/PythonLibrary')
-import lgbextension as ex
+#import lgbextension as ex
 import lightgbm as lgb
-from multiprocessing import cpu_count, Pool
+from multiprocessing import cpu_count
 from glob import glob
-import multiprocessing
 import gc
 import utils
 utils.start(__file__)
@@ -26,15 +25,13 @@ SEED = 71
 
 LOOP = 5
 
-NROUND = 2000
+NROUND = 3144
 
-SUBMIT_FILE_PATH = '../output/612-2.csv.gz'
+SUBMIT_FILE_PATH = '../output/708-1.csv.gz'
 
-COMMENT = 'r2000'
+COMMENT = 'CV auc-mean(bench): 0.7688 round: 3144'
 
 EXE_SUBMIT = True
-
-imp_file = 'LOG/imp_901_cv_612-2.py.csv'
 
 param = {
          'objective': 'binary',
@@ -89,9 +86,9 @@ y = utils.read_pickles('../data/label').TARGET
 
 
 # nejumi
-files = sorted(glob('../feature_nejumi/*train*'))
-X['CNT_PAYMENT'] = np.load(files[0])
-X['nejumi_v2'] = np.load(files[1])
+#files = sorted(glob('../feature_nejumi/*train*'))
+#X['CNT_PAYMENT'] = np.load(files[0])
+#X['nejumi_v3'] = np.load(files[1])
 
 if X.columns.duplicated().sum()>0:
     raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
@@ -141,6 +138,13 @@ dtest = pd.concat([
                 pd.read_feather(f) for f in tqdm(files, mininterval=100)
                 ], axis=1)[COL]
 
+
+# nejumi
+#files = sorted(glob('../feature_nejumi/*test*'))
+#dtest['CNT_PAYMENT'] = np.load(files[0])
+#dtest['nejumi_v3'] = np.load(files[1])
+
+    
 sub = pd.read_pickle('../data/sub.p')
 
 gc.collect()
