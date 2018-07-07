@@ -134,14 +134,14 @@ files = utils.get_use_files(use_files, False)
 
 dtest = pd.concat([
                 pd.read_feather(f) for f in tqdm(files, mininterval=100)
-                ], axis=1)[COL]
+                ], axis=1)
 
 # nejumi
 files = sorted(glob('../feature_nejumi/*test*'))
 dtest['CNT_PAYMENT'] = np.load(files[0])
 #dtest['nejumi_v3'] = np.load(files[1])
 
-    
+dtest = dtest[COL]
 sub = pd.read_pickle('../data/sub.p')
 
 gc.collect()
