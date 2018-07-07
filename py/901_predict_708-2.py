@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Sun Jul  8 00:25:33 2018
+Created on Sun Jul  8 01:02:03 2018
 
 @author: Kazuki
 """
-
 
 import numpy as np
 import pandas as pd
@@ -25,11 +24,11 @@ SEED = 71
 
 LOOP = 5
 
-NROUND = 3144
+NROUND = 3142
 
-SUBMIT_FILE_PATH = '../output/708-1.csv.gz'
+SUBMIT_FILE_PATH = '../output/708-2.csv.gz'
 
-COMMENT = 'CV auc-mean(bench): 0.7688 round: 3144'
+COMMENT = 'CV auc-mean(with CNT_PAYMENT): 0.7714 round: 3142'
 
 EXE_SUBMIT = True
 
@@ -86,8 +85,8 @@ y = utils.read_pickles('../data/label').TARGET
 
 
 # nejumi
-#files = sorted(glob('../feature_nejumi/*train*'))
-#X['CNT_PAYMENT'] = np.load(files[0])
+files = sorted(glob('../feature_nejumi/*train*'))
+X['CNT_PAYMENT'] = np.load(files[0])
 #X['nejumi_v3'] = np.load(files[1])
 
 if X.columns.duplicated().sum()>0:
@@ -140,10 +139,9 @@ dtest = pd.concat([
                 pd.read_feather(f) for f in tqdm(files, mininterval=100)
                 ], axis=1)[COL]
 
-
 # nejumi
-#files = sorted(glob('../feature_nejumi/*test*'))
-#dtest['CNT_PAYMENT'] = np.load(files[0])
+files = sorted(glob('../feature_nejumi/*test*'))
+dtest['CNT_PAYMENT'] = np.load(files[0])
 #dtest['nejumi_v3'] = np.load(files[1])
 
     
