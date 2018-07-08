@@ -330,7 +330,8 @@ def check_var(df, var_limit=0, sample_size=None):
         if df.shape[0]>sample_size:
             df_ = df.sample(sample_size, random_state=71)
         else:
-            raise Exception(f'df:{df.shape[0]} <= sample_size:{sample_size}')
+            df_ = df
+#            raise Exception(f'df:{df.shape[0]} <= sample_size:{sample_size}')
     else:
         df_ = df
         
