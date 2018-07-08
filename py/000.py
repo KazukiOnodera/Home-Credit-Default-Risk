@@ -224,6 +224,9 @@ def multi(p):
         # =============================================================================
         # prev
         # =============================================================================
+        """
+        df = utils.read_pickles('../data/previous_application')
+        """
         trte = get_trte()
         
         df = pd.merge(pd.read_csv('../input/previous_application.csv.zip'),
@@ -377,6 +380,9 @@ def multi(p):
         # =============================================================================
         # POS
         # =============================================================================
+        """
+        df = utils.read_pickles('../data/POS_CASH_balance')
+        """
         df = pd.read_csv('../input/POS_CASH_balance.csv.zip')
         
         # remove duplicated 0
@@ -408,6 +414,9 @@ def multi(p):
         # =============================================================================
         # ins
         # =============================================================================
+        """
+        df = utils.read_pickles('../data/installments_payments')
+        """
         df = pd.read_csv('../input/installments_payments.csv.zip')
         
         trte = get_trte()
@@ -485,6 +494,9 @@ def multi(p):
         # =============================================================================
         # credit card
         # =============================================================================
+        """
+        df = utils.read_pickles('../data/credit_card_balance')
+        """
         
         df = pd.read_csv('../input/credit_card_balance.csv.zip')
         
