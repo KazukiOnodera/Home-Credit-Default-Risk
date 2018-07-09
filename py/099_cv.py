@@ -7,18 +7,16 @@ Created on Sat Jul  7 09:02:36 2018
 """
 
 
-import gc
+import gc, os
 from tqdm import tqdm
 import pandas as pd
-import numpy as np
 import sys
-sys.path.append('/home/kazuki_onodera/PythonLibrary')
+sys.path.append(f'/home/{os.environ.get("USER")}/PythonLibrary')
 import lgbextension as ex
 import lightgbm as lgb
 from multiprocessing import cpu_count, Pool
-from glob import glob
+#from glob import glob
 import count
-import os
 import utils
 #utils.start(__file__)
 #==============================================================================

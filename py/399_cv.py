@@ -69,7 +69,7 @@ categorical_feature = ['f001_NAME_CONTRACT_TYPE',
 # cv bench
 # =============================================================================
 
-files = utils.get_use_files(['train_f0', 'train_f301'], True)
+files = utils.get_use_files(['train_f0', 'train_f3'], True)
 
 X = pd.concat([
                 pd.read_feather(f) for f in tqdm(files, mininterval=60)
@@ -133,7 +133,7 @@ result = f"CV auc-mean(f305): {ret['auc-mean'][-1]}\nbest round {len(ret['auc-me
 print(result)
 
 utils.send_line(result)
-# 0.783680
+# train_f301: 0.783680
 
 #==============================================================================
 utils.end(__file__)
