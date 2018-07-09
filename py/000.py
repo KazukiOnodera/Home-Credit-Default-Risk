@@ -49,6 +49,18 @@ def get_trte():
                       ignore_index=True)
     return trte
 
+def prep_prev(df):
+    df['AMT_APPLICATION'].replace(0, np.nan, inplace=True)
+    df['AMT_CREDIT'].replace(0, np.nan, inplace=True)
+    df['CNT_PAYMENT'].replace(0, np.nan, inplace=True)
+    df['AMT_DOWN_PAYMENT'].replace(np.nan, 0, inplace=True)
+    df.loc[df['NAME_CONTRACT_STATUS']!='Approved', 'RATE_DOWN_PAYMENT'] = np.nan
+    df['RATE_DOWN_PAYMENT'].replace(np.nan, 0, inplace=True)
+    df.loc[df['NAME_CONTRACT_STATUS']!='Approved', 'RATE_DOWN_PAYMENT'] = np.nan
+#    df['xxx'].replace(0, np.nan, inplace=True)
+#    df['xxx'].replace(0, np.nan, inplace=True)
+    return
+
 def multi(p):
     if p==0:
         # =============================================================================
