@@ -182,6 +182,5 @@ pool.close()
 
 #==============================================================================
 utils.end(__file__)
-
-#utils.stop_instance()
+utils.stop_instance()
 
