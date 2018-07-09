@@ -11,10 +11,10 @@ from tqdm import tqdm
 import pandas as pd
 import numpy as np
 import sys
-sys.path.append('/home/kazuki_onodera/PythonLibrary')
+sys.path.append(f'/home/{os.environ.get("USER")}/PythonLibrary')
 import lgbextension as ex
 import lightgbm as lgb
-from multiprocessing import cpu_count, Pool
+from multiprocessing import cpu_count
 from glob import glob
 import count
 import os
@@ -101,39 +101,39 @@ utils.send_line(result)
 
 # 0.783312
 
-# =============================================================================
-# cv f305
-# =============================================================================
-files = utils.get_use_files(['train_f0', 'train_f305'], True)
-
-X = pd.concat([
-                pd.read_feather(f) for f in tqdm(files, mininterval=60)
-               ], axis=1)
-y = utils.read_pickles('../data/label').TARGET
-
-
-if X.columns.duplicated().sum()>0:
-    raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
-print('no dup :) ')
-print(f'X.shape {X.shape}')
-
-gc.collect()
-
-
-# =============================================================================
-dtrain = lgb.Dataset(X, y, 
-                     categorical_feature=list( set(X.columns)&set(categorical_feature)) )
-gc.collect()
-
-ret = lgb.cv(param, dtrain, 9999, nfold=5,
-             early_stopping_rounds=100, verbose_eval=50,
-             seed=SEED)
-
-result = f"CV auc-mean(f305): {ret['auc-mean'][-1]}\nbest round {len(ret['auc-mean'])}"
-print(result)
-
-utils.send_line(result)
-# train_f301: 0.783680
+## =============================================================================
+## cv f305
+## =============================================================================
+#files = utils.get_use_files(['train_f0', 'train_f305'], True)
+#
+#X = pd.concat([
+#                pd.read_feather(f) for f in tqdm(files, mininterval=60)
+#               ], axis=1)
+#y = utils.read_pickles('../data/label').TARGET
+#
+#
+#if X.columns.duplicated().sum()>0:
+#    raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
+#print('no dup :) ')
+#print(f'X.shape {X.shape}')
+#
+#gc.collect()
+#
+#
+## =============================================================================
+#dtrain = lgb.Dataset(X, y, 
+#                     categorical_feature=list( set(X.columns)&set(categorical_feature)) )
+#gc.collect()
+#
+#ret = lgb.cv(param, dtrain, 9999, nfold=5,
+#             early_stopping_rounds=100, verbose_eval=50,
+#             seed=SEED)
+#
+#result = f"CV auc-mean(f305): {ret['auc-mean'][-1]}\nbest round {len(ret['auc-mean'])}"
+#print(result)
+#
+#utils.send_line(result)
+## train_f301: 0.783680
 
 #==============================================================================
 utils.end(__file__)
