@@ -195,7 +195,7 @@ def mk_feature(df):
     # future payment
     df[col_future_sum+col_past_sum] = df[col_future_sum+col_past_sum].fillna(0)
     col_1 = []
-    df['tmp'] = df['app_credit-d-annuity'].map(np.ceil)
+    df['tmp'] = df['app_AMT_CREDIT-d-AMT_ANNUITY'].map(np.ceil)
     for i,c in enumerate( col_future_sum ):
         c1 = f'prevapp_future_payment_{i+1}m'
         df[c1] = df[c] + df['tmp'].map(lambda x: min(x, 1)) * df['app_AMT_ANNUITY']
