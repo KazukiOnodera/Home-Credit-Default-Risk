@@ -398,13 +398,20 @@ def multi(p):
         """
         df = pd.read_csv('../input/POS_CASH_balance.csv.zip')
         
-        # remove duplicated 0
+        # data cleansing!!!
+        ## CNT_INSTALMENT_FUTURE=0 and Active. sample SK_ID_PREV==1998905, 2174168
+        df.loc[(df.CNT_INSTALMENT_FUTURE==0) & (df.NAME_CONTRACT_STATUS=='Active'), 'NAME_CONTRACT_STATUS'] = 'Completed'
+        
+        ## remove duplicated CNT_INSTALMENT_FUTURE=0. sample SK_ID_PREV==2601827
         df_0 = df[df['CNT_INSTALMENT_FUTURE']==0]
         df_1 = df[df['CNT_INSTALMENT_FUTURE']>0]
         df_0['NAME_CONTRACT_STATUS'] = 'Completed'
         df_0.sort_values(['SK_ID_PREV', 'MONTHS_BALANCE'], ascending=[True, False], inplace=True)
         df_0.drop_duplicates('SK_ID_PREV', keep='last', inplace=True)
         df = pd.concat([df_0, df_1], ignore_index=True)
+        del df_0, df_1; gc.collect()
+        
+        
         
         
         df['CNT_INSTALMENT_diff'] = df['CNT_INSTALMENT'] - df['CNT_INSTALMENT_FUTURE']
