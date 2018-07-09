@@ -54,7 +54,7 @@ def prep_prev(df):
     df['AMT_CREDIT'].replace(0, np.nan, inplace=True)
     df['CNT_PAYMENT'].replace(0, np.nan, inplace=True)
     df['AMT_DOWN_PAYMENT'].replace(np.nan, 0, inplace=True)
-    df.loc[df['NAME_CONTRACT_STATUS']!='Approved', 'RATE_DOWN_PAYMENT'] = np.nan
+    df.loc[df['NAME_CONTRACT_STATUS']!='Approved', 'AMT_DOWN_PAYMENT'] = np.nan
     df['RATE_DOWN_PAYMENT'].replace(np.nan, 0, inplace=True)
     df.loc[df['NAME_CONTRACT_STATUS']!='Approved', 'RATE_DOWN_PAYMENT'] = np.nan
 #    df['xxx'].replace(0, np.nan, inplace=True)
@@ -243,6 +243,7 @@ def multi(p):
         
         df = pd.merge(pd.read_csv('../input/previous_application.csv.zip'),
                      trte, on='SK_ID_CURR', how='left')
+        prep_prev(df)
         df['FLAG_LAST_APPL_PER_CONTRACT'] = (df['FLAG_LAST_APPL_PER_CONTRACT']=='Y')*1
         
         # day
@@ -435,6 +436,8 @@ def multi(p):
         df = pd.merge(df, trte, on='SK_ID_CURR', how='left')
         
         prev = pd.read_csv('../input/previous_application.csv.zip', usecols=['SK_ID_PREV', 'CNT_PAYMENT'])
+        prev['CNT_PAYMENT'].replace(0, np.nan, inplace=True)
+#        prep_prev(prev)
         df = pd.merge(df, prev, on='SK_ID_PREV', how='left')
         
         del trte, prev; gc.collect()
