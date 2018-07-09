@@ -95,7 +95,7 @@ def hist_continuous(df, continuous_features, bins=30, df2=None):
         
     return
 
-def venn_diagram(train, test, category_features, figsize=(18,13)):
+def venn_diagram(train, test, category_features, names=('train', 'test'), figsize=(18,13)):
     """
     category_features: max==6
     """
