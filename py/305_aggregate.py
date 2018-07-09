@@ -37,84 +37,6 @@ test = utils.load_test([KEY])
 # =============================================================================
 # 
 # =============================================================================
-#def aggregate(df, pref):
-#    
-#    del df['SK_ID_PREV']
-#    
-#    # Consumer loans
-#    df_ = df[df['NAME_CONTRACT_TYPE']=='Consumer loans']
-#    
-#    df_agg = df_.groupby('SK_ID_CURR').agg({**utils_agg.ins_num_aggregations})
-#    
-#    df_agg.columns = pd.Index([e[0] + "_" + e[1] for e in df_agg.columns.tolist()])
-#    
-#    df_agg['INS_COUNT'] = df_.groupby('SK_ID_CURR').size()
-#    df_agg = df_agg.add_prefix(pref+'cns_').reset_index()
-#    
-#    utils.remove_feature(df_agg, var_limit=0, corr_limit=0.98, sample_size=19999)
-#    
-#    tmp = pd.merge(train, df_agg, on=KEY, how='left').drop(KEY, axis=1)
-#    utils.to_feature(tmp.add_prefix(PREF), '../feature/train')
-#    
-#    tmp = pd.merge(test, df_agg, on=KEY, how='left').drop(KEY, axis=1)
-#    utils.to_feature(tmp.add_prefix(PREF),  '../feature/test')
-#    
-#    # Cash loans
-#    df_ = df[df['NAME_CONTRACT_TYPE']=='Cash loans']
-#    
-#    df_agg = df_.groupby('SK_ID_CURR').agg({**utils_agg.ins_num_aggregations})
-#    
-#    df_agg.columns = pd.Index([e[0] + "_" + e[1] for e in df_agg.columns.tolist()])
-#    
-#    df_agg['INS_COUNT'] = df_.groupby('SK_ID_CURR').size()
-#    df_agg = df_agg.add_prefix(pref+'csh_').reset_index()
-#    
-#    utils.remove_feature(df_agg, var_limit=0, corr_limit=0.98, sample_size=19999)
-#    
-#    tmp = pd.merge(train, df_agg, on=KEY, how='left').drop(KEY, axis=1)
-#    utils.to_feature(tmp.add_prefix(PREF), '../feature/train')
-#    
-#    tmp = pd.merge(test, df_agg, on=KEY, how='left').drop(KEY, axis=1)
-#    utils.to_feature(tmp.add_prefix(PREF),  '../feature/test')
-#    
-#    # Revolving loans
-#    df_ = df[df['NAME_CONTRACT_TYPE']=='Revolving loans']
-#    
-#    df_agg = df_.groupby('SK_ID_CURR').agg({**utils_agg.ins_num_aggregations})
-#    
-#    df_agg.columns = pd.Index([e[0] + "_" + e[1] for e in df_agg.columns.tolist()])
-#    
-#    df_agg['INS_COUNT'] = df_.groupby('SK_ID_CURR').size()
-#    df_agg = df_agg.add_prefix(pref+'rev_').reset_index()
-#    
-#    utils.remove_feature(df_agg, var_limit=0, corr_limit=0.98, sample_size=19999)
-#    
-#    tmp = pd.merge(train, df_agg, on=KEY, how='left').drop(KEY, axis=1)
-#    utils.to_feature(tmp.add_prefix(PREF), '../feature/train')
-#    
-#    tmp = pd.merge(test, df_agg, on=KEY, how='left').drop(KEY, axis=1)
-#    utils.to_feature(tmp.add_prefix(PREF),  '../feature/test')
-#    
-#    # NA
-#    df_ = df[df['NAME_CONTRACT_TYPE'].isnull()]
-#    
-#    df_agg = df_.groupby('SK_ID_CURR').agg({**utils_agg.ins_num_aggregations})
-#    
-#    df_agg.columns = pd.Index([e[0] + "_" + e[1] for e in df_agg.columns.tolist()])
-#    
-#    df_agg['INS_COUNT'] = df_.groupby('SK_ID_CURR').size()
-#    df_agg = df_agg.add_prefix(pref+'nan_').reset_index()
-#    
-#    utils.remove_feature(df_agg, var_limit=0, corr_limit=0.98, sample_size=19999)
-#    
-#    tmp = pd.merge(train, df_agg, on=KEY, how='left').drop(KEY, axis=1)
-#    utils.to_feature(tmp.add_prefix(PREF), '../feature/train')
-#    
-#    tmp = pd.merge(test, df_agg, on=KEY, how='left').drop(KEY, axis=1)
-#    utils.to_feature(tmp.add_prefix(PREF),  '../feature/test')
-#    
-#    return
-
 def multi_agg(args):
     pref, cont_type, cont_type_pref = args
     print(args)
@@ -130,7 +52,7 @@ def multi_agg(args):
     df_agg['INS_COUNT'] = df.groupby('SK_ID_CURR').size()
     df_agg = df_agg.add_prefix(pref+cont_type_pref).reset_index()
     
-    utils.remove_feature(df_agg, var_limit=0, corr_limit=0.98, sample_size=19999)
+    utils.remove_feature(df_agg, var_limit=0, sample_size=19999)
     
     tmp = pd.merge(train, df_agg, on=KEY, how='left').drop(KEY, axis=1)
     utils.to_feature(tmp.add_prefix(PREF), '../feature/train')

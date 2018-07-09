@@ -399,6 +399,12 @@ def multi(p):
         df = pd.read_csv('../input/POS_CASH_balance.csv.zip')
         
         # data cleansing!!!
+        ## drop signed. sample SK_ID_PREV==1769939
+        df = df[df.NAME_CONTRACT_STATUS!='Signed']
+        
+        ## Zombie NAME_CONTRACT_STATUS=='Completed' and CNT_INSTALMENT_FUTURE!=0. 1134377
+        df.loc[(df.NAME_CONTRACT_STATUS=='Completed') & (df.CNT_INSTALMENT_FUTURE!=0), 'NAME_CONTRACT_STATUS'] = 'Active'
+        
         ## CNT_INSTALMENT_FUTURE=0 and Active. sample SK_ID_PREV==1998905, 2174168
         df.loc[(df.CNT_INSTALMENT_FUTURE==0) & (df.NAME_CONTRACT_STATUS=='Active'), 'NAME_CONTRACT_STATUS'] = 'Completed'
         
@@ -411,7 +417,10 @@ def multi(p):
         df = pd.concat([df_0, df_1], ignore_index=True)
         del df_0, df_1; gc.collect()
         
-        
+        # TODO: end in active. 1002879
+#        df['CNT_INSTALMENT_FUTURE_min'] = df.groupby('SK_ID_PREV').CNT_INSTALMENT_FUTURE.transform('min')
+#        df['MONTHS_BALANCE_max'] = df.groupby('SK_ID_PREV').MONTHS_BALANCE.transform('max')
+#        df.loc[(df.CNT_INSTALMENT_FUTURE_min!=0) & (df.MONTHS_BALANCE_max!=-1)]
         
         
         df['CNT_INSTALMENT_diff'] = df['CNT_INSTALMENT'] - df['CNT_INSTALMENT_FUTURE']
@@ -442,7 +451,8 @@ def multi(p):
         trte = get_trte()
         df = pd.merge(df, trte, on='SK_ID_CURR', how='left')
         
-        prev = pd.read_csv('../input/previous_application.csv.zip', usecols=['SK_ID_PREV', 'CNT_PAYMENT'])
+        prev = pd.read_csv('../input/previous_application.csv.zip', 
+                           usecols=['SK_ID_PREV', 'CNT_PAYMENT', 'AMT_ANNUITY'])
         prev['CNT_PAYMENT'].replace(0, np.nan, inplace=True)
 #        prep_prev(prev)
         df = pd.merge(df, prev, on='SK_ID_PREV', how='left')
@@ -463,6 +473,7 @@ def multi(p):
         
         # prev
         df['NUM_INSTALMENT_ratio'] = df['NUM_INSTALMENT_NUMBER'] / df['CNT_PAYMENT']
+        df['AMT_PAYMENT-d-AMT_ANNUITY'] = df['AMT_PAYMENT'] / df['AMT_ANNUITY']
         
         df['days_delayed_payment'] = df['DAYS_ENTRY_PAYMENT'] - df['DAYS_INSTALMENT']
         df['amt_ratio'] = df['AMT_PAYMENT'] / df['AMT_INSTALMENT']

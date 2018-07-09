@@ -185,6 +185,9 @@ ins_num_aggregations = {
     'AMT_PAYMENT-d-app_AMT_ANNUITY': stats,
     'AMT_PAYMENT-d-app_AMT_GOODS_PRICE': stats,
     
+    # prev
+    'NUM_INSTALMENT_ratio': stats,
+    'AMT_PAYMENT-d-AMT_ANNUITY': stats,
     
     'DPD': ['max', 'mean', 'sum', 'nunique'],
     'DBD': ['max', 'mean', 'sum', 'nunique'],
@@ -254,7 +257,7 @@ ins_num_aggregations = {
     'not-delayed_day_45':         stats_sum,
     'not-delayed_money_45':       stats_sum,
     'not-delayed_money_ratio_45': stats_sum,
-    'NUM_INSTALMENT_ratio':stats,
+    
 }
 
 

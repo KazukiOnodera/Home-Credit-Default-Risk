@@ -1,13 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Thu Jul  5 16:50:13 2018
+Created on Mon Jul  9 17:16:49 2018
 
 @author: kazuki.onodera
-
-
-latest previous application
-
 """
 
 import numpy as np
@@ -18,7 +14,7 @@ import utils
 utils.start(__file__)
 #==============================================================================
 
-PREF = 'f108_'
+PREF = 'f109_'
 
 KEY = 'SK_ID_CURR'
 
@@ -31,7 +27,7 @@ prev = utils.read_pickles('../data/previous_application')
 #base = prev[[KEY]].drop_duplicates().set_index(KEY)
 
 # latest
-prev_l = prev.sort_values([KEY, 'DAYS_DECISION'], ascending=[True, False]).drop_duplicates(KEY, keep='first').reset_index(drop=True)
+prev_l = prev.sort_values([KEY, 'DAYS_DECISION'], ascending=[True, False]).drop_duplicates(KEY, keep='last').reset_index(drop=True)
 
 
 # =============================================================================
@@ -56,21 +52,21 @@ categorical_features = prev_l.select_dtypes('O').columns.tolist()
  'NAME_YIELD_GROUP',
  'PRODUCT_COMBINATION']
 
-['f108_NAME_CONTRACT_TYPE',
- 'f108_WEEKDAY_APPR_PROCESS_START',
- 'f108_NAME_CASH_LOAN_PURPOSE',
- 'f108_NAME_CONTRACT_STATUS',
- 'f108_NAME_PAYMENT_TYPE',
- 'f108_CODE_REJECT_REASON',
- 'f108_NAME_TYPE_SUITE',
- 'f108_NAME_CLIENT_TYPE',
- 'f108_NAME_GOODS_CATEGORY',
- 'f108_NAME_PORTFOLIO',
- 'f108_NAME_PRODUCT_TYPE',
- 'f108_CHANNEL_TYPE',
- 'f108_NAME_SELLER_INDUSTRY',
- 'f108_NAME_YIELD_GROUP',
- 'f108_PRODUCT_COMBINATION']
+['f109_NAME_CONTRACT_TYPE',
+ 'f109_WEEKDAY_APPR_PROCESS_START',
+ 'f109_NAME_CASH_LOAN_PURPOSE',
+ 'f109_NAME_CONTRACT_STATUS',
+ 'f109_NAME_PAYMENT_TYPE',
+ 'f109_CODE_REJECT_REASON',
+ 'f109_NAME_TYPE_SUITE',
+ 'f109_NAME_CLIENT_TYPE',
+ 'f109_NAME_GOODS_CATEGORY',
+ 'f109_NAME_PORTFOLIO',
+ 'f109_NAME_PRODUCT_TYPE',
+ 'f109_CHANNEL_TYPE',
+ 'f109_NAME_SELLER_INDUSTRY',
+ 'f109_NAME_YIELD_GROUP',
+ 'f109_PRODUCT_COMBINATION']
 
 """
 
