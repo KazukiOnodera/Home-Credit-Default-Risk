@@ -100,4 +100,4 @@ utils.to_feature(test.add_prefix(PREF),  '../feature/test')
 
 #==============================================================================
 utils.end(__file__)
-utils.stop_instance()
+#utils.stop_instance()
