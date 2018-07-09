@@ -75,7 +75,7 @@ def multi(p):
             
             df['AMT_CREDIT-d-AMT_INCOME_TOTAL']   = df['AMT_CREDIT'] / df['AMT_INCOME_TOTAL']
             df['AMT_ANNUITY-d-AMT_INCOME_TOTAL']  = df['AMT_ANNUITY'] / df['AMT_INCOME_TOTAL']
-            df['goods_price-d-AMT_INCOME_TOTAL']  = df['AMT_GOODS_PRICE'] / df['AMT_INCOME_TOTAL']
+            df['AMT_GOODS_PRICE-d-AMT_INCOME_TOTAL']  = df['AMT_GOODS_PRICE'] / df['AMT_INCOME_TOTAL']
             
             df['AMT_CREDIT-d-AMT_ANNUITY']  = df['AMT_CREDIT'] / df['AMT_ANNUITY'] # how long should user pay?(month)
             df['AMT_GOODS_PRICE-d-AMT_ANNUITY'] = df['AMT_GOODS_PRICE'] / df['AMT_ANNUITY']# how long should user pay?(month)

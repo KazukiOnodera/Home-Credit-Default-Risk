@@ -80,6 +80,21 @@ categorical_feature += ['f108_NAME_CONTRACT_TYPE',
                      'f108_NAME_YIELD_GROUP',
                      'f108_PRODUCT_COMBINATION']
 
+categorical_feature += ['f109_NAME_CONTRACT_TYPE',
+                         'f109_WEEKDAY_APPR_PROCESS_START',
+                         'f109_NAME_CASH_LOAN_PURPOSE',
+                         'f109_NAME_CONTRACT_STATUS',
+                         'f109_NAME_PAYMENT_TYPE',
+                         'f109_CODE_REJECT_REASON',
+                         'f109_NAME_TYPE_SUITE',
+                         'f109_NAME_CLIENT_TYPE',
+                         'f109_NAME_GOODS_CATEGORY',
+                         'f109_NAME_PORTFOLIO',
+                         'f109_NAME_PRODUCT_TYPE',
+                         'f109_CHANNEL_TYPE',
+                         'f109_NAME_SELLER_INDUSTRY',
+                         'f109_NAME_YIELD_GROUP',
+                         'f109_PRODUCT_COMBINATION']
 
 use_files = []
 
