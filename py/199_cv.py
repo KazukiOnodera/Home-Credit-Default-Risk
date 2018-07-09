@@ -117,7 +117,7 @@ if X.columns.duplicated().sum()>0:
 print('no dup :) ')
 print(f'X.shape {X.shape}')
 
-X = X.rank(method='dense')
+#X = X.rank(method='dense')
 gc.collect()
 
 
