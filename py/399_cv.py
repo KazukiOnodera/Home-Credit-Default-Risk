@@ -6,7 +6,7 @@ Created on Sun Jul  8 20:42:49 2018
 @author: Kazuki
 """
 
-import gc
+import gc, os
 from tqdm import tqdm
 import pandas as pd
 import numpy as np
@@ -17,7 +17,6 @@ import lightgbm as lgb
 from multiprocessing import cpu_count
 from glob import glob
 import count
-import os
 import utils
 #utils.start(__file__)
 #==============================================================================
