@@ -105,7 +105,7 @@ def venn_diagram(train, test, category_features, names=('train', 'test'), figsiz
     for i,c in enumerate(category_features):
         plt.subplot(int(f'{n}2{i+1}'))
         venn2([set(train[c].unique()), set(test[c].unique())], 
-               set_labels = ('train', 'test') )
+               set_labels = names )
         plt.title(f'{c}', fontsize=18)
     plt.show()
     
