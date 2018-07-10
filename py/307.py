@@ -4,6 +4,9 @@
 Created on Tue Jul 10 13:39:37 2018
 
 @author: kazuki.onodera
+
+支払う間隔 gby main key
+
 """
 
 import numpy as np
