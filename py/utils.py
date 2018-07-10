@@ -477,6 +477,10 @@ def send_line(message):
     requests.post(line_notify_api, data=payload, headers=headers)
 
 def stop_instance():
+    """
+    You need to login first.
+    >> gcloud auth login
+    """
     send_line('stop instance')
     os.system(f'gcloud compute instances stop {os.uname()[1]} --zone us-east1-b')
     

@@ -1,30 +1,31 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed Jun 20 00:46:48 2018
+Created on Tue Jul 10 10:57:48 2018
 
 @author: Kazuki
 
-based on
-https://www.kaggle.com/jsaguiar/updated-0-792-lb-lightgbm-with-simple-features/code
+支払う間隔
+
 """
+
 
 import numpy as np
 import pandas as pd
 import gc
 import os
-from multiprocessing import Pool, cpu_count
+from multiprocessing import Pool
 #NTHREAD = cpu_count()
-import utils_agg
+#import utils_agg
 import utils
 utils.start(__file__)
 #==============================================================================
-PREF = 'f303_'
+PREF = 'f306_'
 
 KEY = 'SK_ID_CURR'
 
-day_start = -365*2  # min: -2922
-day_end   = -365*1  # min: -2922
+day_start = -365*10 # min: -2922
+day_end   = -365*0  # min: -2922
 
 os.system(f'rm ../feature/t*_{PREF}*')
 # =============================================================================
@@ -34,30 +35,37 @@ os.system(f'rm ../feature/t*_{PREF}*')
 train = utils.load_train([KEY])
 test = utils.load_test([KEY])
 
+ins = utils.read_pickles('../data/installments_payments_delay')
+
+
 # =============================================================================
 # 
 # =============================================================================
+
+def percentile(n):
+    def percentile_(x):
+        return np.percentile(x, n)
+    percentile_.__name__ = 'percentile_%s' % n
+    return percentile_
+
+
 def aggregate(args):
     path, pref = args
     
-    df = utils.read_pickles(path)
-    df = df[df['DAYS_INSTALMENT'].between(day_start, day_end)]
-    del df['SK_ID_PREV']
+    df = utils.read_pickles(path).drop_duplicates(['SK_ID_PREV', 'DAYS_ENTRY_PAYMENT'])
+    df = df[df['DAYS_ENTRY_PAYMENT'].between(day_start, day_end)].sort_values(['SK_ID_PREV', 'DAYS_ENTRY_PAYMENT'])
     
-    df_agg = df.groupby('SK_ID_CURR').agg({**utils_agg.ins_num_aggregations})
+    df['DEP_diff'] = df.groupby('SK_ID_PREV').DAYS_ENTRY_PAYMENT.diff()
+    feature = df.groupby(KEY).agg({'DEP_diff': ['min', 'mean', 'max', 'var', 'nunique']})
+    feature.columns = pd.Index([e[0] + "_" + e[1] for e in feature.columns.tolist()]).reset_index()
     
-    df_agg.columns = pd.Index([e[0] + "_" + e[1] for e in df_agg.columns.tolist()])
+    utils.remove_feature(feature, var_limit=0, sample_size=19999)
     
-    df_agg['INS_COUNT'] = df.groupby('SK_ID_CURR').size()
-    df_agg = df_agg.add_prefix(pref).reset_index()
+    tmp = pd.merge(train, feature, on=KEY, how='left').drop(KEY, axis=1)
+    utils.to_feature(tmp.add_prefix(PREF+pref), '../feature/train')
     
-    utils.remove_feature(df_agg, var_limit=0, sample_size=19999)
-    
-    tmp = pd.merge(train, df_agg, on=KEY, how='left').drop(KEY, axis=1)
-    utils.to_feature(tmp.add_prefix(PREF), '../feature/train')
-    
-    tmp = pd.merge(test, df_agg, on=KEY, how='left').drop(KEY, axis=1)
-    utils.to_feature(tmp.add_prefix(PREF),  '../feature/test')
+    tmp = pd.merge(test, feature, on=KEY, how='left').drop(KEY, axis=1)
+    utils.to_feature(tmp.add_prefix(PREF+pref),  '../feature/test')
     
     return
 
@@ -73,6 +81,7 @@ argss = [
 pool = Pool(3)
 pool.map(aggregate, argss)
 pool.close()
+
 
 
 

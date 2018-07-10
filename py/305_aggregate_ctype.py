@@ -38,8 +38,16 @@ test = utils.load_test([KEY])
 # 
 # =============================================================================
 def multi_agg(args):
-    pref, cont_type, cont_type_pref = args
+    path, pref, cont_type, cont_type_pref = args
     print(args)
+    
+    ins = utils.read_pickles(path)
+    ins = ins[ins['DAYS_INSTALMENT'].between(day_start, day_end)]
+    ins = pd.merge(ins, prev, on='SK_ID_PREV', how='left'); gc.collect()
+    del ins['SK_ID_PREV']
+    
+    
+    
     if cont_type=='NA':
         df = ins[ins['NAME_CONTRACT_TYPE'].isnull()]
     else:
@@ -65,59 +73,28 @@ def multi_agg(args):
 # =============================================================================
 # main
 # =============================================================================
-ins = utils.read_pickles('../data/installments_payments')
-ins = ins[ins['DAYS_INSTALMENT'].between(day_start, day_end)]
-ins = pd.merge(ins, prev, on='SK_ID_PREV', how='left'); gc.collect()
-del ins['SK_ID_PREV']
-
 argss = [
-        ['', 'Consumer loans', 'con_'],
-        ['', 'Cash loans', 'cas_'],
-        ['', 'Revolving loans', 'rev_'],
-        ['', 'NA', 'nan_'],
+        ['../data/installments_payments', '', 'Consumer loans', 'con_'],
+        ['../data/installments_payments', '', 'Cash loans', 'cas_'],
+        ['../data/installments_payments', '', 'Revolving loans', 'rev_'],
+        ['../data/installments_payments', '', 'NA', 'nan_'],
         ]
-pool = Pool(4)
+argss += [
+        ['../data/installments_payments_delay', 'delay_', 'Consumer loans', 'con_'],
+        ['../data/installments_payments_delay', 'delay_', 'Cash loans', 'cas_'],
+        ['../data/installments_payments_delay', 'delay_', 'Revolving loans', 'rev_'],
+        ['../data/installments_payments_delay', 'delay_', 'NA', 'nan_'],
+        ]
+argss += [
+        ['../data/installments_payments_notdelay', 'notdelay_', 'Consumer loans', 'con_'],
+        ['../data/installments_payments_notdelay', 'notdelay_', 'Cash loans', 'cas_'],
+        ['../data/installments_payments_notdelay', 'notdelay_', 'Revolving loans', 'rev_'],
+        ['../data/installments_payments_notdelay', 'notdelay_', 'NA', 'nan_'],
+        ]
+
+pool = Pool(12)
 pool.map(multi_agg, argss)
 pool.close()
-
-del ins; gc.collect()
-
-
-
-
-ins = utils.read_pickles('../data/installments_payments_delay')
-ins = ins[ins['DAYS_INSTALMENT'].between(day_start, day_end)]
-ins = pd.merge(ins, prev, on='SK_ID_PREV', how='left'); gc.collect()
-
-argss = [
-        ['delay_', 'Consumer loans', 'con_'],
-        ['delay_', 'Cash loans', 'cas_'],
-        ['delay_', 'Revolving loans', 'rev_'],
-        ['delay_', 'NA', 'nan_'],
-        ]
-pool = Pool(4)
-pool.map(multi_agg, argss)
-pool.close()
-
-del ins; gc.collect()
-
-
-
-
-ins = utils.read_pickles('../data/installments_payments_notdelay')
-ins = ins[ins['DAYS_INSTALMENT'].between(day_start, day_end)]
-ins = pd.merge(ins, prev, on='SK_ID_PREV', how='left'); gc.collect()
-
-argss = [
-        ['notdelay_', 'Consumer loans', 'con_'],
-        ['notdelay_', 'Cash loans', 'cas_'],
-        ['notdelay_', 'Revolving loans', 'rev_'],
-        ['notdelay_', 'NA', 'nan_'],
-        ]
-pool = Pool(4)
-pool.map(multi_agg, argss)
-pool.close()
-
 
 
 #==============================================================================
