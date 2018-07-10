@@ -35,9 +35,6 @@ os.system(f'rm ../feature/t*_{PREF}*')
 train = utils.load_train([KEY])
 test = utils.load_test([KEY])
 
-ins = utils.read_pickles('../data/installments_payments_delay')
-
-
 # =============================================================================
 # 
 # =============================================================================
@@ -75,9 +72,9 @@ def aggregate(args):
 # main
 # =============================================================================
 argss = [
-        ['../data/installments_payments', '']
-        ['../data/installments_payments_delay', 'delay_']
-        ['../data/installments_payments_notdelay', 'notdelay_']
+        ['../data/installments_payments', ''],
+        ['../data/installments_payments_delay', 'delay_'],
+        ['../data/installments_payments_notdelay', 'notdelay_'],
         ]
 pool = Pool(3)
 pool.map(aggregate, argss)
