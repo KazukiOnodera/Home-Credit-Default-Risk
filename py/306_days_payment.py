@@ -48,7 +48,7 @@ def percentile(n):
 
 
 def aggregate(args):
-    path, pref, cont_type = args
+    path, cont_type, pref = args
     
     df = utils.read_pickles(path, [KEY, 'SK_ID_PREV', 'DAYS_ENTRY_PAYMENT']).drop_duplicates(['SK_ID_PREV', 'DAYS_ENTRY_PAYMENT'])
     df = df[df['DAYS_ENTRY_PAYMENT'].between(day_start, day_end)].sort_values(['SK_ID_PREV', 'DAYS_ENTRY_PAYMENT'])
