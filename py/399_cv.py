@@ -68,7 +68,7 @@ categorical_feature = ['f001_NAME_CONTRACT_TYPE',
 # cv bench
 # =============================================================================
 
-files = utils.get_use_files(['train_f0', 'train_f3'], True)
+files = utils.get_use_files(['train_f0', 'train_f3', 'train_f2'], True)
 
 X = pd.concat([
                 pd.read_feather(f) for f in tqdm(files, mininterval=60)
