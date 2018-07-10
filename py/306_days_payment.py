@@ -52,12 +52,13 @@ def percentile(n):
 def aggregate(args):
     path, pref = args
     
-    df = utils.read_pickles(path).drop_duplicates(['SK_ID_PREV', 'DAYS_ENTRY_PAYMENT'])
+    df = utils.read_pickles(path, [KEY, 'SK_ID_PREV', 'DAYS_ENTRY_PAYMENT']).drop_duplicates(['SK_ID_PREV', 'DAYS_ENTRY_PAYMENT'])
     df = df[df['DAYS_ENTRY_PAYMENT'].between(day_start, day_end)].sort_values(['SK_ID_PREV', 'DAYS_ENTRY_PAYMENT'])
     
     df['DEP_diff'] = df.groupby('SK_ID_PREV').DAYS_ENTRY_PAYMENT.diff()
     feature = df.groupby(KEY).agg({'DEP_diff': ['min', 'mean', 'max', 'var', 'nunique']})
-    feature.columns = pd.Index([e[0] + "_" + e[1] for e in feature.columns.tolist()]).reset_index()
+    feature.columns = pd.Index([e[0] + "_" + e[1] for e in feature.columns.tolist()])
+    feature.reset_index(inplace=True)
     
     utils.remove_feature(feature, var_limit=0, sample_size=19999)
     
