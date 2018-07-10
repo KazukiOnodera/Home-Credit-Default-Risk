@@ -34,6 +34,7 @@ os.system(f'rm ../feature/t*_{PREF}*')
 
 train = utils.load_train([KEY])
 test = utils.load_test([KEY])
+prev = utils.read_pickles('../data/previous_application', ['SK_ID_PREV', 'NAME_CONTRACT_TYPE'])
 
 # =============================================================================
 # 
@@ -47,10 +48,16 @@ def percentile(n):
 
 
 def aggregate(args):
-    path, pref = args
+    path, pref, cont_type = args
     
     df = utils.read_pickles(path, [KEY, 'SK_ID_PREV', 'DAYS_ENTRY_PAYMENT']).drop_duplicates(['SK_ID_PREV', 'DAYS_ENTRY_PAYMENT'])
     df = df[df['DAYS_ENTRY_PAYMENT'].between(day_start, day_end)].sort_values(['SK_ID_PREV', 'DAYS_ENTRY_PAYMENT'])
+    df = pd.merge(df, prev, on='SK_ID_PREV', how='left'); gc.collect()
+    
+    if cont_type=='NA':
+        df = df[df['NAME_CONTRACT_TYPE'].isnull()]
+    else:
+        df = df[df['NAME_CONTRACT_TYPE']==cont_type]
     
     df['DEP_diff'] = df.groupby('SK_ID_PREV').DAYS_ENTRY_PAYMENT.diff()
     feature = df.groupby(KEY).agg({'DEP_diff': ['min', 'mean', 'max', 'var', 'nunique']})
@@ -71,12 +78,25 @@ def aggregate(args):
 # =============================================================================
 # main
 # =============================================================================
-argss = [
-        ['../data/installments_payments', ''],
-        ['../data/installments_payments_delay', 'delay_'],
-        ['../data/installments_payments_notdelay', 'notdelay_'],
-        ]
-pool = Pool(3)
+
+paths = [('../data/installments_payments', ''),
+         ('../data/installments_payments_delay', 'delay_'),
+         ('../data/installments_payments', 'notdelay_')]
+
+cont_types = [('Consumer loans', 'cons_'),
+              ('Cash loans', 'cas_'),
+              ('Revolving loans', 'rev_'),
+              ('NA', 'nan_')]
+
+argss = []
+for p in paths:
+    for c in cont_types:
+        print(p, c)
+        path, pref1 = p
+        cont_type, pref2 = c
+        argss.append( [path, cont_type, pref1+pref2] )
+
+pool = Pool(len(argss))
 pool.map(aggregate, argss)
 pool.close()
 

@@ -92,7 +92,7 @@ argss += [
         ['../data/installments_payments_notdelay', 'notdelay_', 'NA', 'nan_'],
         ]
 
-pool = Pool(12)
+pool = Pool(len(argss))
 pool.map(multi_agg, argss)
 pool.close()
 
