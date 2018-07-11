@@ -11,7 +11,7 @@ from tqdm import tqdm
 import pandas as pd
 import sys
 sys.path.append(f'/home/{os.environ.get("USER")}/PythonLibrary')
-import lgbextension as ex
+import xgbextension as ex
 import xgboost as xgb
 from multiprocessing import cpu_count, Pool
 #from glob import glob
