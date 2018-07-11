@@ -107,11 +107,8 @@ model = xgb.train(params, dtrain, 9999, watchlist, verbose_eval=10,
                   early_stopping_rounds=50)
 
 
-ret = xgb.cv(params, dtrain, 9999, nfold=5,
-             early_stopping_rounds=100, verbose_eval=50,
-             seed=SEED)
 
-result = f"CV auc-mean: {ret['auc-mean'][-1]}"
+result = f"CV valid-auc: { model.best_score }"
 print(result)
 
 utils.send_line(result)
