@@ -108,7 +108,7 @@ X_test = pd.concat([X_test, maxwell], axis=1)[COL]; gc.collect()
 
 train_row = X_train.shape[0]
 
-XX = pd.concat([X_train, X_test], axis=1, ignore_index=True); del X_train, X_test; gc.collect()
+XX = pd.concat([X_train, X_test], ignore_index=True); del X_train, X_test; gc.collect()
 
 XX = pd.get_dummies(XX, columns=CAT, drop_first=True)
 
