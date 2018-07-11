@@ -14,6 +14,7 @@ sys.path.append(f'/home/{os.environ.get("USER")}/PythonLibrary')
 import xgbextension as ex
 import xgboost as xgb
 from multiprocessing import cpu_count, Pool
+from sklearn.model_selection import train_test_split
 #from glob import glob
 import count
 import utils_cat
@@ -83,12 +84,27 @@ print(f'category: {CAT}')
 
 X = pd.get_dummies(X, columns=CAT, drop_first=True)
 
+# =============================================================================
+# holdout
+# =============================================================================
+X_train, X_valid, y_train, y_valid = train_test_split(X, y, stratify=y, 
+                                                    random_state=SEED,  test_size=0.2)
+
+
+del X, y; gc.collect()
+
+
 
 # =============================================================================
-# cv
+# training
 # =============================================================================
-dtrain = xgb.DMatrix(X, y)
-del X, y; gc.collect()
+dtrain = xgb.DMatrix(X_train, y_train); del X_train, y_train; gc.collect()
+dvalid = xgb.DMatrix(X_valid, y_valid); del X_valid, y_valid; gc.collect()
+
+watchlist = [(dtrain, 'train'),(dvalid, 'valid')]
+
+model = xgb.train(params, dtrain, 9999, watchlist, verbose_eval=10,
+                  early_stopping_rounds=50)
 
 
 ret = xgb.cv(params, dtrain, 9999, nfold=5,
@@ -102,17 +118,13 @@ utils.send_line(result)
 
 
 # =============================================================================
-# train
+# imp
 # =============================================================================
-model = xgb.train(params, dtrain, 1000)
 imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
 
 
 imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
 
-"""
-imp = pd.read_csv('LOG/imp_909_cv.py.csv')
-"""
 
 #def multi_touch(arg):
 #    os.system(f'touch "../feature_unused/{arg}.f"')
