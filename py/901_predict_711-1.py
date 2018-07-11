@@ -9,14 +9,14 @@ Created on Wed Jul 11 10:01:50 2018
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
+import gc, os
 import sys
-sys.path.append('/home/kazuki_onodera/PythonLibrary')
+sys.path.append(f'/home/{os.environ.get("USER")}/PythonLibrary')
 #import lgbextension as ex
 import lightgbm as lgb
 from multiprocessing import cpu_count
 from glob import glob
-import gc
-import utils
+import utils, utils_cat
 utils.start(__file__)
 #==============================================================================
 
@@ -54,63 +54,12 @@ param = {
 #         'seed': SEED
          }
 
-categorical_feature = ['f001_NAME_CONTRACT_TYPE',
-                     'f001_CODE_GENDER',
-                     'f001_FLAG_OWN_CAR',
-                     'f001_FLAG_OWN_REALTY',
-                     'f001_NAME_TYPE_SUITE',
-                     'f001_NAME_INCOME_TYPE',
-                     'f001_NAME_EDUCATION_TYPE',
-                     'f001_NAME_FAMILY_STATUS',
-                     'f001_NAME_HOUSING_TYPE',
-                     'f001_OCCUPATION_TYPE',
-                     'f001_WEEKDAY_APPR_PROCESS_START',
-                     'f001_ORGANIZATION_TYPE',
-                     'f001_FONDKAPREMONT_MODE',
-                     'f001_HOUSETYPE_MODE',
-                     'f001_WALLSMATERIAL_MODE',
-                     'f001_EMERGENCYSTATE_MODE']
-
-
-categorical_feature += ['f108_NAME_CONTRACT_TYPE',
-                     'f108_WEEKDAY_APPR_PROCESS_START',
-                     'f108_NAME_CASH_LOAN_PURPOSE',
-                     'f108_NAME_CONTRACT_STATUS',
-                     'f108_NAME_PAYMENT_TYPE',
-                     'f108_CODE_REJECT_REASON',
-                     'f108_NAME_TYPE_SUITE',
-                     'f108_NAME_CLIENT_TYPE',
-                     'f108_NAME_GOODS_CATEGORY',
-                     'f108_NAME_PORTFOLIO',
-                     'f108_NAME_PRODUCT_TYPE',
-                     'f108_CHANNEL_TYPE',
-                     'f108_NAME_SELLER_INDUSTRY',
-                     'f108_NAME_YIELD_GROUP',
-                     'f108_PRODUCT_COMBINATION']
-
-categorical_feature += ['f109_NAME_CONTRACT_TYPE',
-                         'f109_WEEKDAY_APPR_PROCESS_START',
-                         'f109_NAME_CASH_LOAN_PURPOSE',
-                         'f109_NAME_CONTRACT_STATUS',
-                         'f109_NAME_PAYMENT_TYPE',
-                         'f109_CODE_REJECT_REASON',
-                         'f109_NAME_TYPE_SUITE',
-                         'f109_NAME_CLIENT_TYPE',
-                         'f109_NAME_GOODS_CATEGORY',
-                         'f109_NAME_PORTFOLIO',
-                         'f109_NAME_PRODUCT_TYPE',
-                         'f109_CHANNEL_TYPE',
-                         'f109_NAME_SELLER_INDUSTRY',
-                         'f109_NAME_YIELD_GROUP',
-                         'f109_PRODUCT_COMBINATION']
-
-categorical_feature += ['FLAG_PHONE_PATTERN', 'FLAG_DOC_PATTERN'] # Maxwell
 
 use_files = []
 np.random.seed(SEED)
 
 # =============================================================================
-# train
+# load train
 # =============================================================================
 
 files = utils.get_use_files(use_files, True)
@@ -131,7 +80,7 @@ print('no dup :) ')
 print(f'X.shape {X.shape}')
 gc.collect()
 
-CAT = list( set(X.columns)&set(categorical_feature))
+CAT = list( set(X.columns)&set(utils_cat.ALL))
 print(f'category: {CAT}')
 
 dtrain = lgb.Dataset(X, y, 
@@ -140,9 +89,12 @@ COL = X.columns.tolist()
 del X, y, maxwell; gc.collect()
 
 
-
+# =============================================================================
+# training
+# =============================================================================
 models = []
 for i in range(LOOP):
+    print(f'LOOP: {i}')
     gc.collect()
     param.update({'seed':np.random.randint(9999)})
     model = lgb.train(param, dtrain, NROUND,
