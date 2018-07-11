@@ -67,36 +67,58 @@ use_files = []
 np.random.seed(SEED)
 
 # =============================================================================
-# load train
+# load train, test
 # =============================================================================
 
 files = utils.get_use_files(use_files, True)
 
-X = pd.concat([
+X_train = pd.concat([
                 pd.read_feather(f) for f in tqdm(files, mininterval=60)
                ], axis=1)
 y = utils.read_pickles('../data/label').TARGET
 
 # maxwell
 maxwell = pd.read_feather('../feature_someone/Maxwell_train.f')
-X = pd.concat([X, maxwell], axis=1); del maxwell; gc.collect()
+X_train = pd.concat([X_train, maxwell], axis=1); del maxwell; gc.collect()
 
 
-if X.columns.duplicated().sum()>0:
-    raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
+if X_train.columns.duplicated().sum()>0:
+    raise Exception(f'duplicated!: { X_train.columns[X_train.columns.duplicated()] }')
 print('no dup :) ')
-print(f'X.shape {X.shape}')
+print(f'X_train.shape {X_train.shape}')
 gc.collect()
 
-COL = X.columns.tolist()
+COL = X_train.columns.tolist()
 
-CAT = list( set(X.columns)&set(utils_cat.ALL))
+CAT = list( set(X_train.columns)&set(utils_cat.ALL))
 print(f'category: {CAT}')
 
-X = pd.get_dummies(X, columns=CAT, drop_first=True)
 
-dtrain = xgb.DMatrix(X, y)
-del X, y; gc.collect()
+
+# test
+files = utils.get_use_files(use_files, False)
+
+X_test = pd.concat([
+                pd.read_feather(f) for f in tqdm(files, mininterval=60)
+                ], axis=1)
+
+# maxwell
+maxwell = pd.read_feather('../feature_someone/Maxwell_test.f')
+X_test = pd.concat([X_test, maxwell], axis=1)[COL]; gc.collect()
+
+train_row = X_train.shape[0]
+
+XX = pd.concat([X_train, X_test], axis=1, ignore_index=True); del X_train, X_test; gc.collect()
+
+XX = pd.get_dummies(XX, columns=CAT, drop_first=True)
+
+X_train, X_test = XX.iloc[:train_row], XX.iloc[train_row:]
+del XX; gc.collect()
+
+dtrain = xgb.DMatrix(X_train, y)
+dtest = xgb.DMatrix(X_test)
+
+del X_train, X_test; gc.collect()
 
 
 # =============================================================================
@@ -129,20 +151,6 @@ imp = ex.getImp(models)
 # =============================================================================
 # test
 # =============================================================================
-files = utils.get_use_files(use_files, False)
-
-test = pd.concat([
-                pd.read_feather(f) for f in tqdm(files, mininterval=100)
-                ], axis=1)
-
-# maxwell
-maxwell = pd.read_feather('../feature_someone/Maxwell_test.f')
-test = pd.concat([test, maxwell], axis=1)[COL]; gc.collect()
-
-test = pd.get_dummies(test, columns=CAT, drop_first=True)
-
-dtest = xgb.DMatrix(test)
-
 sub = pd.read_pickle('../data/sub.p')
 
 gc.collect()
