@@ -51,7 +51,7 @@ param = {
          'nthread': cpu_count(),
          'bagging_freq': 1,
          'verbose':-1,
-         'seed': SEED
+#         'seed': SEED
          }
 
 categorical_feature = ['f001_NAME_CONTRACT_TYPE',
@@ -107,6 +107,8 @@ categorical_feature += ['f109_NAME_CONTRACT_TYPE',
 categorical_feature += ['FLAG_PHONE_PATTERN', 'FLAG_DOC_PATTERN'] # Maxwell
 
 use_files = []
+np.random.seed(SEED)
+
 # =============================================================================
 # train
 # =============================================================================
