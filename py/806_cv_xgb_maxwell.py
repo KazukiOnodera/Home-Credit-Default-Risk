@@ -37,7 +37,7 @@ params = {
           'colsample_bylevel': 0.8,
           'lambda': 0.1,  # L2 regularization term on weights.
           'alpha': 0.1,  # L1 regularization term on weights.
-          'tree_method': 'auto',
+          'tree_method': 'hist',
           # 'sketch_eps': 0.03,
           'scale_pos_weight': 1,
           # 'updater': 'grow_colmaker,prune',
