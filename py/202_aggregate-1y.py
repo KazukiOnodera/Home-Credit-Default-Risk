@@ -16,6 +16,7 @@ import gc
 import os
 from multiprocessing import Pool, cpu_count
 NTHREAD = cpu_count()
+import utils_agg
 import utils
 utils.start(__file__)
 #==============================================================================
@@ -33,24 +34,6 @@ os.system(f'rm ../feature/t*_{PREF}*')
 pos = utils.read_pickles('../data/POS_CASH_balance')
 pos = pos[pos['MONTHS_BALANCE'].between(month_start, month_end)]
 
-
-num_aggregations = {
-    # TODO: optimize stats
-    'MONTHS_BALANCE': ['min', 'max', 'mean', 'size'],
-    'SK_DPD': ['max', 'mean'],
-    'SK_DPD_DEF': ['max', 'mean'],
-    
-    'CNT_INSTALMENT_diff':  ['min', 'max', 'mean', 'var'],
-    'CNT_INSTALMENT_ratio': ['min', 'max', 'mean', 'var'],
-    
-    'SK_DPD_diff':          ['max', 'mean', 'var', 'sum'],
-    'SK_DPD_diff_over0':    ['max', 'mean', 'var', 'sum'],
-    'SK_DPD_diff_over5':    ['max', 'mean', 'var', 'sum'],
-    'SK_DPD_diff_over10':   ['max', 'mean', 'var', 'sum'],
-    'SK_DPD_diff_over15':   ['max', 'mean', 'var', 'sum'],
-    'SK_DPD_diff_over20':   ['max', 'mean', 'var', 'sum'],
-    'SK_DPD_diff_over25':   ['max', 'mean', 'var', 'sum'],
-}
 
 col_cat = ['NAME_CONTRACT_STATUS']
 
@@ -75,10 +58,10 @@ def aggregate():
     for cat in li:
         cat_aggregations[cat] = ['mean', 'sum']
     
-    df_agg = df.groupby('SK_ID_CURR').agg({**num_aggregations, **cat_aggregations})
+    df_agg = df.groupby(KEY).agg({**utils_agg.pos_num_aggregations, **cat_aggregations})
     df_agg.columns = pd.Index([e[0] + "_" + e[1] for e in df_agg.columns.tolist()])
     
-    df_agg['POS_COUNT'] = df.groupby('SK_ID_CURR').size()
+    df_agg['POS_COUNT'] = df.groupby(KEY).size()
     df_agg.reset_index(inplace=True)
     
     utils.remove_feature(df_agg, var_limit=0, corr_limit=0.98, sample_size=19999)
@@ -97,6 +80,7 @@ def aggregate():
 # =============================================================================
 
 aggregate()
+
 
 
 

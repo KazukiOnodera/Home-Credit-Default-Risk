@@ -24,12 +24,15 @@ PREF = 'f201_'
 
 KEY = 'SK_ID_CURR'
 
+month_start = -12*10 # -96
+month_end   = -12*0 # -96
 
 os.system(f'rm ../feature/t*_{PREF}*')
 # =============================================================================
 # 
 # =============================================================================
 pos = utils.read_pickles('../data/POS_CASH_balance')
+pos = pos[pos['MONTHS_BALANCE'].between(month_start, month_end)]
 
 
 
@@ -56,10 +59,10 @@ def aggregate():
     for cat in li:
         cat_aggregations[cat] = ['mean', 'sum']
     
-    df_agg = df.groupby('SK_ID_CURR').agg({**utils_agg.pos_num_aggregations, **cat_aggregations})
+    df_agg = df.groupby(KEY).agg({**utils_agg.pos_num_aggregations, **cat_aggregations})
     df_agg.columns = pd.Index([e[0] + "_" + e[1] for e in df_agg.columns.tolist()])
     
-    df_agg['POS_COUNT'] = df.groupby('SK_ID_CURR').size()
+    df_agg['POS_COUNT'] = df.groupby(KEY).size()
     df_agg.reset_index(inplace=True)
     
     utils.remove_feature(df_agg, var_limit=0, corr_limit=0.98, sample_size=19999)
