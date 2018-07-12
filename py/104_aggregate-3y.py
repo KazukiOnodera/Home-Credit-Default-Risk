@@ -89,9 +89,14 @@ def aggregate(args):
 # main
 # =============================================================================
 
+
 argss = [
         ['NAME_CONTRACT_STATUS', 'Approved', 'approved_'],
-        ['NAME_CONTRACT_STATUS', 'Approved', 'refused_'],
+        ['NAME_CONTRACT_STATUS', 'Refused', 'refused_'],
+        ['NAME_YIELD_GROUP', 'high', 'nyg-high_'],
+        ['NAME_YIELD_GROUP', 'middle', 'nyg-middle_'],
+        ['NAME_YIELD_GROUP', 'low_normal', 'nyg-low_normal_'],
+        ['NAME_YIELD_GROUP', 'low_action', 'nyg-low_action_'],
         ['active',    1, 'active_'],
         ['completed', 1, 'completed_'],
         ]
