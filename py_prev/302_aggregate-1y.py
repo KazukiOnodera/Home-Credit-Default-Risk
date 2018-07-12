@@ -21,12 +21,12 @@ utils.start(__file__)
 #==============================================================================
 PREF = 'f302_'
 
-KEY = 'SK_ID_CURR'
+KEY = 'SK_ID_PREV'
 
 day_start = -365*1  # min: -2922
 day_end   = -365*0  # min: -2922
 
-os.system(f'rm ../feature/t*_{PREF}*')
+os.system(f'rm ../feature_prev/t*_{PREF}*')
 # =============================================================================
 # 
 # =============================================================================
@@ -42,7 +42,7 @@ def aggregate(args):
     
     df = utils.read_pickles(path)
     df = df[df['DAYS_INSTALMENT'].between(day_start, day_end)]
-    del df['SK_ID_PREV']
+    del df['SK_ID_CURR']
     
     df_agg = df.groupby(KEY).agg({**utils_agg.ins_num_aggregations})
     
@@ -54,10 +54,10 @@ def aggregate(args):
     utils.remove_feature(df_agg, var_limit=0, sample_size=19999)
     
     tmp = pd.merge(train, df_agg, on=KEY, how='left').drop(KEY, axis=1)
-    utils.to_feature(tmp.add_prefix(PREF), '../feature/train')
+    utils.to_feature(tmp.add_prefix(PREF), '../feature_prev/train')
     
     tmp = pd.merge(test, df_agg, on=KEY, how='left').drop(KEY, axis=1)
-    utils.to_feature(tmp.add_prefix(PREF),  '../feature/test')
+    utils.to_feature(tmp.add_prefix(PREF),  '../feature_prev/test')
     
     return
 
