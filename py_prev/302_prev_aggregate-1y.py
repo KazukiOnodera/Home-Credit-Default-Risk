@@ -13,7 +13,7 @@ import numpy as np
 import pandas as pd
 import gc
 import os
-#from multiprocessing import Pool, cpu_count
+from multiprocessing import Pool, cpu_count
 #NTHREAD = cpu_count()
 import utils_agg
 import utils
@@ -66,11 +66,11 @@ def aggregate(args):
 # main
 # =============================================================================
 argss = [
-        ['../data/installments_payments', '']
-        ['../data/installments_payments_delay', 'delay_']
+        ['../data/installments_payments', ''],
+        ['../data/installments_payments_delay', 'delay_'],
         ['../data/installments_payments_notdelay', 'notdelay_']
         ]
-pool = Pool(3)
+pool = Pool(len(argss))
 pool.map(aggregate, argss)
 pool.close()
 

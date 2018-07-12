@@ -65,11 +65,11 @@ def aggregate(args):
 # main
 # =============================================================================
 argss = [
-        ['../data/installments_payments', '']
-        ['../data/installments_payments_delay', 'delay_']
-        ['../data/installments_payments_notdelay', 'notdelay_']
+        ['../data/installments_payments', ''],
+        ['../data/installments_payments_delay', 'delay_'],
+        ['../data/installments_payments_notdelay', 'notdelay_'],
         ]
-pool = Pool(3)
+pool = Pool(len(argss))
 pool.map(aggregate, argss)
 pool.close()
 
