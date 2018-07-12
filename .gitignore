@@ -1,6 +1,7 @@
 *.DS_Store
 ~$*.xls*
 feature/
+feature_someone/
 feature_unused/
 feature_var0/
 feature_corr1/
