@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed Jun 20 00:45:09 2018
+Created on Tue Jun 19 23:14:19 2018
 
 @author: Kazuki
 
@@ -13,17 +13,17 @@ import numpy as np
 import pandas as pd
 import gc
 import os
-#from multiprocessing import Pool, cpu_count
+from multiprocessing import Pool
 #NTHREAD = cpu_count()
 import utils_agg
 import utils
 utils.start(__file__)
 #==============================================================================
-PREF = 'f302_'
+PREF = 'f301_'
 
 KEY = 'SK_ID_PREV'
 
-day_start = -365*1  # min: -2922
+day_start = -365*10 # min: -2922
 day_end   = -365*0  # min: -2922
 
 os.system(f'rm ../feature_prev/t*_{PREF}*')
@@ -31,8 +31,8 @@ os.system(f'rm ../feature_prev/t*_{PREF}*')
 # 
 # =============================================================================
 
-train = utils.load_train([KEY])
-test = utils.load_test([KEY])
+train = utils.read_pickles('../data/prev_train', [KEY])
+test  = utils.read_pickles('../data/prev_test', [KEY])
 
 # =============================================================================
 # 
@@ -45,7 +45,6 @@ def aggregate(args):
     del df['SK_ID_CURR']
     
     df_agg = df.groupby(KEY).agg({**utils_agg.ins_num_aggregations})
-    
     df_agg.columns = pd.Index([e[0] + "_" + e[1] for e in df_agg.columns.tolist()])
     
     df_agg['INS_COUNT'] = df.groupby(KEY).size()
@@ -73,8 +72,6 @@ argss = [
 pool = Pool(3)
 pool.map(aggregate, argss)
 pool.close()
-
-
 
 
 

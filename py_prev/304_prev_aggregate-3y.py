@@ -31,8 +31,8 @@ os.system(f'rm ../feature_prev/t*_{PREF}*')
 # 
 # =============================================================================
 
-train = utils.load_train([KEY])
-test = utils.load_test([KEY])
+train = utils.read_pickles('../data/prev_train', [KEY])
+test  = utils.read_pickles('../data/prev_test', [KEY])
 
 # =============================================================================
 # 
