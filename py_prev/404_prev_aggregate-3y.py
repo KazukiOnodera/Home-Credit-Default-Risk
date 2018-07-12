@@ -31,7 +31,7 @@ os.system(f'rm ../feature_prev/t*_{PREF}*')
 # 
 # =============================================================================
 cre = utils.read_pickles('../data/credit_card_balance')
-cre = cre[cre['MONTHS_BALANCE'].between(month_start, month_end)].drop('SK_ID_PREV', axis=1)
+cre = cre[cre['MONTHS_BALANCE'].between(month_start, month_end)]
 
 
 col_cat = ['NAME_CONTRACT_STATUS']
