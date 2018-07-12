@@ -15,18 +15,21 @@ import lgbextension as ex
 import lightgbm as lgb
 from multiprocessing import cpu_count
 #from glob import glob
+from sklearn.model_selection import GroupKFold
 import count
 import utils_cat
 import utils
 utils.start(__file__)
 #==============================================================================
 
+NFOLD = 5
+
 SEED = 71
 
 param = {
          'objective': 'binary',
          'metric': 'auc',
-         'learning_rate': 0.01,
+         'learning_rate': 0.02,
          'max_depth': 6,
          'num_leaves': 63,
          'max_bin': 255,
@@ -69,14 +72,23 @@ print(f'X.shape {X.shape}')
 
 gc.collect()
 
+sub_train = utils.read_pickles('../data/prev_train', ['SK_ID_CURR']).set_index('SK_ID_CURR')
+sub_train['y'] = y.values
+sub_train['cnt'] = sub_train.index.value_counts()
+sub_train['w'] = 1 / sub_train.cnt.values
 
+group_kfold = GroupKFold(n_splits=NFOLD)
+sub_train['g'] = sub_train.index % NFOLD
+
+CAT = list( set(X.columns)&set(utils_cat.ALL))
 # =============================================================================
 # cv
 # =============================================================================
-dtrain = lgb.Dataset(X, y, categorical_feature=list( set(X.columns)&set(utils_cat.ALL)) )
+dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
 gc.collect()
 
-ret = lgb.cv(param, dtrain, 9999, nfold=5,
+ret = lgb.cv(param, dtrain, 9999, folds=group_kfold.split(X, sub_train['y'], 
+                                                          sub_train['g']), 
              early_stopping_rounds=100, verbose_eval=50,
              seed=SEED)
 
@@ -89,7 +101,7 @@ utils.send_line(result)
 # =============================================================================
 # train
 # =============================================================================
-dtrain = lgb.Dataset(X, y, categorical_feature=list( set(X.columns)&set(utils_cat.ALL)) )
+dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
 #model = lgb.train(param, dtrain, len(ret['auc-mean']))
 model = lgb.train(param, dtrain, 1000)
 imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
