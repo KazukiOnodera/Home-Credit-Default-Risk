@@ -70,7 +70,7 @@ def aggregate(args):
     df_agg = df.groupby('SK_ID_CURR').agg({**utils_agg.prev_num_aggregations, **cat_aggregations})
     df_agg.columns = pd.Index([prefix + e[0] + "_" + e[1] for e in df_agg.columns.tolist()])
     
-    df_agg['PREV_COUNT'] = df.groupby('SK_ID_CURR').size()
+    df_agg[prefix+'PREV_COUNT'] = df.groupby('SK_ID_CURR').size()
     df_agg.reset_index(inplace=True)
     
     utils.remove_feature(df_agg, var_limit=0, corr_limit=0.98, sample_size=19999)
