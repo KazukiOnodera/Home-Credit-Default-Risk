@@ -18,12 +18,12 @@ NTHREAD = cpu_count()
 import utils
 utils.start(__file__)
 #==============================================================================
-PREF = 'f601_'
+PREF = 'f602_'
 
 KEY = 'SK_ID_CURR'
 
-month_start = -12*10 # -96
-month_end   = -12*0 # -96
+month_start = -12*2 # -96
+month_end   = -12*1 # -96
 
 os.system(f'rm ../feature/t*_{PREF}*')
 # =============================================================================

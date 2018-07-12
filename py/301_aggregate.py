@@ -44,10 +44,10 @@ def aggregate(args):
     df = df[df['DAYS_INSTALMENT'].between(day_start, day_end)]
     del df['SK_ID_PREV']
     
-    df_agg = df.groupby('SK_ID_CURR').agg({**utils_agg.ins_num_aggregations})
+    df_agg = df.groupby(KEY).agg({**utils_agg.ins_num_aggregations})
     df_agg.columns = pd.Index([e[0] + "_" + e[1] for e in df_agg.columns.tolist()])
     
-    df_agg['INS_COUNT'] = df.groupby('SK_ID_CURR').size()
+    df_agg['INS_COUNT'] = df.groupby(KEY).size()
     df_agg = df_agg.add_prefix(pref).reset_index()
     
     utils.remove_feature(df_agg, var_limit=0, sample_size=19999)
