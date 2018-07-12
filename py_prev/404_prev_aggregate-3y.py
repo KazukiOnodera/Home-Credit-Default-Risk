@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed Jun 20 09:53:16 2018
+Created on Wed Jun 20 10:30:13 2018
 
 @author: Kazuki
 
@@ -19,14 +19,14 @@ import utils_agg
 import utils
 utils.start(__file__)
 #==============================================================================
-PREF = 'f401_'
+PREF = 'f404_'
 
-KEY = 'SK_ID_CURR'
+KEY = 'SK_ID_PREV'
 
-month_start = -12*10 # -96
-month_end   = -12*0 # -96
+month_start = -12*3 # -96
+month_end   = -12*2 # -96
 
-os.system(f'rm ../feature/t*_{PREF}*')
+os.system(f'rm ../feature_prev/t*_{PREF}*')
 # =============================================================================
 # 
 # =============================================================================
@@ -34,12 +34,10 @@ cre = utils.read_pickles('../data/credit_card_balance')
 cre = cre[cre['MONTHS_BALANCE'].between(month_start, month_end)].drop('SK_ID_PREV', axis=1)
 
 
-
-
 col_cat = ['NAME_CONTRACT_STATUS']
 
-train = utils.load_train([KEY])
-test = utils.load_test([KEY])
+train = utils.read_pickles('../data/prev_train', [KEY])
+test  = utils.read_pickles('../data/prev_test', [KEY])
 
 # =============================================================================
 # 
@@ -66,13 +64,12 @@ def aggregate():
     df_agg.reset_index(inplace=True)
     
     tmp = pd.merge(train, df_agg, on=KEY, how='left').drop(KEY, axis=1)
-    utils.to_feature(tmp.add_prefix(PREF), '../feature/train')
+    utils.to_feature(tmp.add_prefix(PREF), '../feature_prev/train')
     
     tmp = pd.merge(test, df_agg, on=KEY, how='left').drop(KEY, axis=1)
-    utils.to_feature(tmp.add_prefix(PREF),  '../feature/test')
+    utils.to_feature(tmp.add_prefix(PREF),  '../feature_prev/test')
     
     return
-
 
 # =============================================================================
 # main
@@ -84,3 +81,4 @@ aggregate()
 
 #==============================================================================
 utils.end(__file__)
+
