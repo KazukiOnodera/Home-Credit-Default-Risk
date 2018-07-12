@@ -21,12 +21,12 @@ utils.start(__file__)
 #==============================================================================
 PREF = 'f307_'
 
-KEY = 'SK_ID_CURR'
+KEY = 'SK_ID_PREV'
 
 day_start = -365*10 # min: -2922
 day_end   = -365*0  # min: -2922
 
-os.system(f'rm ../feature/t*_{PREF}*')
+os.system(f'rm ../feature_prev/t*_{PREF}*')
 # =============================================================================
 # 
 # =============================================================================
@@ -49,7 +49,7 @@ def percentile(n):
 def aggregate(args):
     path, cont_type, pref = args
     
-    df = utils.read_pickles(path, [KEY, 'SK_ID_PREV', 'DAYS_ENTRY_PAYMENT']).drop_duplicates([KEY, 'DAYS_ENTRY_PAYMENT'])
+    df = utils.read_pickles(path, [KEY, 'DAYS_ENTRY_PAYMENT'])
     df = df[df['DAYS_ENTRY_PAYMENT'].between(day_start, day_end)].sort_values([KEY, 'DAYS_ENTRY_PAYMENT'])
     df = pd.merge(df, prev, on='SK_ID_PREV', how='left'); gc.collect()
     
@@ -66,10 +66,10 @@ def aggregate(args):
     utils.remove_feature(feature, var_limit=0, sample_size=19999)
     
     tmp = pd.merge(train, feature, on=KEY, how='left').drop(KEY, axis=1)
-    utils.to_feature(tmp.add_prefix(PREF+pref), '../feature/train')
+    utils.to_feature(tmp.add_prefix(PREF+pref), '../feature_prev/train')
     
     tmp = pd.merge(test, feature, on=KEY, how='left').drop(KEY, axis=1)
-    utils.to_feature(tmp.add_prefix(PREF+pref),  '../feature/test')
+    utils.to_feature(tmp.add_prefix(PREF+pref),  '../feature_prev/test')
     
     return
 
