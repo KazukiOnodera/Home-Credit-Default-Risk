@@ -25,6 +25,8 @@ prev_test  = pd.merge(prev, test, on='SK_ID_CURR', how='inner')
 utils.to_pickles(prev_train, '../data/prev_train', utils.SPLIT_SIZE)
 utils.to_pickles(prev_test, '../data/prev_test', utils.SPLIT_SIZE)
 
+utils.to_pickles(prev_train[['TARGET']], '../data/prev_label', utils.SPLIT_SIZE)
+
 """
 
 prev_train = utils.read_pickles('../data/prev_train')

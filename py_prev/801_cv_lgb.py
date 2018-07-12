@@ -13,8 +13,8 @@ import sys
 sys.path.append(f'/home/{os.environ.get("USER")}/PythonLibrary')
 import lgbextension as ex
 import lightgbm as lgb
-from multiprocessing import cpu_count, Pool
-from glob import glob
+from multiprocessing import cpu_count
+#from glob import glob
 import count
 import utils_cat
 import utils
@@ -54,12 +54,12 @@ use_files = ['train_f1']
 # load
 # =============================================================================
 
-files = utils.get_use_files(use_files, True) + sorted('../feature_prev/train*')
+files = utils.get_use_files(use_files, True)
 
 X = pd.concat([
                 pd.read_feather(f) for f in tqdm(files, mininterval=60)
                ], axis=1)
-y = utils.read_pickles('../data/label').TARGET
+y = utils.read_pickles('../data/prev_label').TARGET
 
 
 if X.columns.duplicated().sum()>0:
@@ -101,14 +101,17 @@ imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
 imp = pd.read_csv('LOG/imp_909_cv.py.csv')
 """
 
-#def multi_touch(arg):
-#    os.system(f'touch "../feature_unused/{arg}.f"')
-#
-#
-#col = imp[imp['split']==0]['feature'].tolist()
-#pool = Pool(cpu_count())
-#pool.map(multi_touch, col)
-#pool.close()
+
+from multiprocessing import Pool
+
+def multi_touch(arg):
+    os.system(f'touch "../feature_prev_unused/{arg}.f"')
+
+
+col = imp[imp['split']==0]['feature'].tolist()
+pool = Pool(cpu_count())
+pool.map(multi_touch, col)
+pool.close()
 
 
 
