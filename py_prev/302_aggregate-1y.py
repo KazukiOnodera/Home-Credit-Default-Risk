@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Mon Jun 25 18:39:07 2018
+Created on Wed Jun 20 00:45:09 2018
 
-@author: kazuki.onodera
+@author: Kazuki
 
 based on
 https://www.kaggle.com/jsaguiar/updated-0-792-lb-lightgbm-with-simple-features/code
@@ -13,28 +13,23 @@ import numpy as np
 import pandas as pd
 import gc
 import os
-from multiprocessing import Pool, cpu_count
-NTHREAD = cpu_count()
+#from multiprocessing import Pool, cpu_count
+#NTHREAD = cpu_count()
 import utils_agg
 import utils
 utils.start(__file__)
 #==============================================================================
-PREF = 'f501_'
+PREF = 'f302_'
 
 KEY = 'SK_ID_CURR'
 
-day_start = -365*10 # -2922
-day_end   = -365*0 # -2922
+day_start = -365*1  # min: -2922
+day_end   = -365*0  # min: -2922
 
 os.system(f'rm ../feature/t*_{PREF}*')
 # =============================================================================
 # 
 # =============================================================================
-bure = utils.read_pickles('../data/bureau')
-bure = bure[bure['DAYS_CREDIT'].between(day_start, day_end)]
-
-
-col_cat = ['CREDIT_ACTIVE', 'CREDIT_CURRENCY', 'CREDIT_TYPE']
 
 train = utils.load_train([KEY])
 test = utils.load_test([KEY])
@@ -42,26 +37,21 @@ test = utils.load_test([KEY])
 # =============================================================================
 # 
 # =============================================================================
-def aggregate():
+def aggregate(args):
+    path, pref = args
     
-    df = utils.get_dummies(bure)
+    df = utils.read_pickles(path)
+    df = df[df['DAYS_INSTALMENT'].between(day_start, day_end)]
+    del df['SK_ID_PREV']
     
-    li = []
-    for c1 in df.columns:
-        for c2 in col_cat:
-            if c1.startswith(c2+'_'):
-                li.append(c1)
-                break
+    df_agg = df.groupby(KEY).agg({**utils_agg.ins_num_aggregations})
     
-    cat_aggregations = {}
-    for cat in li:
-        cat_aggregations[cat] = ['mean', 'sum']
-    
-    df_agg = df.groupby(KEY).agg({**utils_agg.bure_num_aggregations, **cat_aggregations})
     df_agg.columns = pd.Index([e[0] + "_" + e[1] for e in df_agg.columns.tolist()])
     
-    df_agg['BURE_COUNT'] = df.groupby(KEY).size()
-    df_agg.reset_index(inplace=True)
+    df_agg['INS_COUNT'] = df.groupby(KEY).size()
+    df_agg = df_agg.add_prefix(pref).reset_index()
+    
+    utils.remove_feature(df_agg, var_limit=0, sample_size=19999)
     
     tmp = pd.merge(train, df_agg, on=KEY, how='left').drop(KEY, axis=1)
     utils.to_feature(tmp.add_prefix(PREF), '../feature/train')
@@ -75,8 +65,17 @@ def aggregate():
 # =============================================================================
 # main
 # =============================================================================
+argss = [
+        ['../data/installments_payments', '']
+        ['../data/installments_payments_delay', 'delay_']
+        ['../data/installments_payments_notdelay', 'notdelay_']
+        ]
+pool = Pool(3)
+pool.map(aggregate, argss)
+pool.close()
 
-aggregate()
+
+
 
 
 

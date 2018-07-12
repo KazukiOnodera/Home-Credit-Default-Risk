@@ -22,7 +22,9 @@ utils.start(__file__)
 #==============================================================================
 
 folders = ['../data', '../feature', '../feature_unused', 
-           '../feature_var0', '../feature_corr1']
+           '../feature_prev',
+#           '../feature_var0', '../feature_corr1'
+           ]
 for fol in folders:
     os.system(f'rm -rf {fol}')
     os.system(f'mkdir {fol}')
