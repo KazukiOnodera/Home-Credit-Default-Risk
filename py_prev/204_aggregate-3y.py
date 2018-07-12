@@ -21,7 +21,7 @@ utils.start(__file__)
 #==============================================================================
 PREF = 'f204_'
 
-KEY = 'SK_ID_CURR'
+KEY = 'SK_ID_PREV'
 
 month_start = -12*3 # -96
 month_end   = -12*2 # -96
@@ -36,8 +36,8 @@ pos = pos[pos['MONTHS_BALANCE'].between(month_start, month_end)]
 
 col_cat = ['NAME_CONTRACT_STATUS']
 
-train = utils.load_train([KEY])
-test = utils.load_test([KEY])
+train = utils.read_pickles('../data/prev_train', [KEY])
+test  = utils.read_pickles('../data/prev_test', [KEY])
 
 # =============================================================================
 # 
@@ -66,10 +66,10 @@ def aggregate():
     utils.remove_feature(df_agg, var_limit=0, corr_limit=0.98, sample_size=19999)
     
     tmp = pd.merge(train, df_agg, on=KEY, how='left').drop(KEY, axis=1)
-    utils.to_feature(tmp.add_prefix(PREF), '../feature/train')
+    utils.to_feature(tmp.add_prefix(PREF), '../feature_prev/train')
     
     tmp = pd.merge(test, df_agg, on=KEY, how='left').drop(KEY, axis=1)
-    utils.to_feature(tmp.add_prefix(PREF),  '../feature/test')
+    utils.to_feature(tmp.add_prefix(PREF),  '../feature_prev/test')
     
     return
 

@@ -21,7 +21,7 @@ utils.start(__file__)
 #==============================================================================
 PREF = 'f304_'
 
-KEY = 'SK_ID_CURR'
+KEY = 'SK_ID_PREV'
 
 day_start = -365*3  # min: -2922
 day_end   = -365*2  # min: -2922
@@ -42,7 +42,7 @@ def aggregate(args):
     
     df = utils.read_pickles(path)
     df = df[df['DAYS_INSTALMENT'].between(day_start, day_end)]
-    del df['SK_ID_PREV']
+    del df['SK_ID_CURR']
     
     df_agg = df.groupby(KEY).agg({**utils_agg.ins_num_aggregations})
     
