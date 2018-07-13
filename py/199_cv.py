@@ -32,12 +32,12 @@ param = {
          'max_bin': 255,
          
          'min_child_weight': 10,
-         'min_data_in_leaf': 150,
+         'min_data_in_leaf': 50,
          'reg_lambda': 0.5,  # L2 regularization term on weights.
          'reg_alpha': 0.5,  # L1 regularization term on weights.
          
-         'colsample_bytree': 0.7,
-         'subsample': 0.6,
+         'colsample_bytree': 0.8,
+         'subsample': 0.5,
 #         'nthread': 32,
          'nthread': cpu_count(),
          'bagging_freq': 1,
@@ -90,26 +90,26 @@ utils.send_line(result)
 # =============================================================================
 # imp
 # =============================================================================
-dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
-#model = lgb.train(param, dtrain, len(ret['auc-mean']))
-model = lgb.train(param, dtrain, 1000)
-imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
-
-
-imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
-
-def multi_touch(arg):
-    os.system(f'touch "../feature_unused/{arg}.f"')
-
-
-col = imp[imp['split']==0]['feature'].tolist()
-pool = Pool(cpu_count())
-pool.map(multi_touch, col)
-pool.close()
+#dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
+##model = lgb.train(param, dtrain, len(ret['auc-mean']))
+#model = lgb.train(param, dtrain, 1000)
+#imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
+#
+#
+#imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
+#
+#def multi_touch(arg):
+#    os.system(f'touch "../feature_unused/{arg}.f"')
+#
+#
+#col = imp[imp['split']==0]['feature'].tolist()
+#pool = Pool(cpu_count())
+#pool.map(multi_touch, col)
+#pool.close()
 
 
 #==============================================================================
 utils.end(__file__)
-utils.stop_instance()
+#utils.stop_instance()
 
 
