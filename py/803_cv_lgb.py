@@ -44,7 +44,16 @@ param = {
          'seed': SEED
          }
 
-use_files = []
+use_files = [
+        'train_f0',
+        'train_f1',
+        'train_f2',
+        'train_f3',
+        'train_f4',
+        'train_f5',
+        'train_f6',
+        'train_f701',
+        ]
 
 
 # =============================================================================
