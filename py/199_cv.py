@@ -27,17 +27,17 @@ param = {
          'objective': 'binary',
          'metric': 'auc',
          'learning_rate': 0.01,
-         'max_depth': 6,
-         'num_leaves': 63,
+         'max_depth': 7,
+         'num_leaves': 127,
          'max_bin': 255,
          
          'min_child_weight': 10,
-         'min_data_in_leaf': 50,
+         'min_data_in_leaf': 150,
          'reg_lambda': 0.5,  # L2 regularization term on weights.
          'reg_alpha': 0.5,  # L1 regularization term on weights.
          
          'colsample_bytree': 0.8,
-         'subsample': 0.5,
+         'subsample': 0.8,
 #         'nthread': 32,
          'nthread': cpu_count(),
          'bagging_freq': 1,
