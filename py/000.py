@@ -22,7 +22,6 @@ utils.start(__file__)
 #==============================================================================
 
 folders = ['../data', '../feature', '../feature_unused', 
-           '../feature_prev',
 #           '../feature_var0', '../feature_corr1'
            ]
 for fol in folders:

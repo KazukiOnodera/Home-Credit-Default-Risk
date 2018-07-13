@@ -7,9 +7,19 @@ Created on Thu Jul 12 23:22:58 2018
 """
 
 import pandas as pd
+import os
 import utils
 utils.start(__file__)
 # =============================================================================
+
+folders = ['../feature_prev', '../feature_prev_unused']
+
+
+for fol in folders:
+    os.system(f'rm -rf {fol}')
+    os.system(f'mkdir {fol}')
+
+
 
 train = utils.load_train(['SK_ID_CURR', 'TARGET'])
 test = utils.load_test(['SK_ID_CURR'])
