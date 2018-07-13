@@ -18,7 +18,7 @@ NTHREAD = cpu_count()
 import utils
 utils.start(__file__)
 #==============================================================================
-PREF = 'f602_'
+PREF = 'f603_'
 
 KEY = 'SK_ID_CURR'
 

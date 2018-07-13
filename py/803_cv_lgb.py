@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Tue Jun  5 12:39:16 2018
+Created on Sat Jul 14 01:29:16 2018
 
-@author: kazuki.onodera
+@author: Kazuki
 """
 
 import gc, os
@@ -111,4 +111,5 @@ pool.close()
 #==============================================================================
 utils.end(__file__)
 #utils.stop_instance()
+
 
