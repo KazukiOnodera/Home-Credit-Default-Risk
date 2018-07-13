@@ -127,11 +127,11 @@ gr5 = prev[prev['NAME_CONTRACT_TYPE'].isnull()].groupby(KEY)
 # 
 # =============================================================================
 
-def multi(feature):
+def multi(feature_name):
     # gr1
     pref = ''
-    c = pref + feature + '_pct_change'
-    base[c] = gr1[feature].pct_change()
+    c = pref + feature_name + '_pct_change'
+    base[c] = gr1[feature_name].pct_change()
     
     gr = base.groupby(KEY)
     
@@ -153,8 +153,8 @@ def multi(feature):
     
     # gr2
     pref = 'con_'
-    c = pref + feature + '_pct_change'
-    base[c] = gr2[feature].pct_change()
+    c = pref + feature_name + '_pct_change'
+    base[c] = gr2[feature_name].pct_change()
     
     gr = base.groupby(KEY)
     
@@ -176,8 +176,8 @@ def multi(feature):
     
     # gr3
     pref = 'csh_'
-    c = pref + feature + '_pct_change'
-    base[c] = gr3[feature].pct_change()
+    c = pref + feature_name + '_pct_change'
+    base[c] = gr3[feature_name].pct_change()
     
     gr = base.groupby(KEY)
     
@@ -199,8 +199,30 @@ def multi(feature):
     
     # gr4
     pref = 'rev_'
-    c = pref + feature + '_pct_change'
-    base[c] = gr4[feature].pct_change()
+    c = pref + feature_name + '_pct_change'
+    base[c] = gr4[feature_name].pct_change()
+    
+    gr = base.groupby(KEY)
+    
+    feature = pd.concat([gr[c].min(), gr[c].mean(), gr[c].max(), 
+                         gr[c].median(), gr[c].var()], axis=1)
+    
+    feature.columns = [c+'_min', c+'_mean', c+'_max', c+'_median', c+'_var']
+    
+    utils.remove_feature(feature, var_limit=0, corr_limit=0.98, sample_size=19999)
+    
+    feature.reset_index(inplace=True)
+    
+    tmp = pd.merge(train, feature, on=KEY, how='left').drop(KEY, axis=1)
+    utils.to_feature(tmp.add_prefix(PREF), '../feature/train')
+    
+    tmp = pd.merge(test, feature, on=KEY, how='left').drop(KEY, axis=1)
+    utils.to_feature(tmp.add_prefix(PREF),  '../feature/test')
+    
+    # gr5
+    pref = 'rev_'
+    c = pref + feature_name + '_pct_change'
+    base[c] = gr5[feature_name].pct_change()
     
     gr = base.groupby(KEY)
     
