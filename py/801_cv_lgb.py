@@ -99,14 +99,14 @@ imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
 imp = pd.read_csv('LOG/imp_909_cv.py.csv')
 """
 
-def multi_touch(arg):
-    os.system(f'touch "../feature_unused/{arg}.f"')
-
-
-col = imp[imp['split']==0]['feature'].tolist()
-pool = Pool(cpu_count())
-pool.map(multi_touch, col)
-pool.close()
+#def multi_touch(arg):
+#    os.system(f'touch "../feature_unused/{arg}.f"')
+#
+#
+#col = imp[imp['split']==0]['feature'].tolist()
+#pool = Pool(cpu_count())
+#pool.map(multi_touch, col)
+#pool.close()
 
 #==============================================================================
 utils.end(__file__)
