@@ -102,6 +102,9 @@ sub_test = utils.read_pickles('../data/prev_test', ['SK_ID_CURR', 'SK_ID_PREV'])
 sub_train['y_pred'] = 0
 sub_test['y_pred'] = 0
 
+sub_train.reset_idnex(inplace=True)
+sub_test.reset_idnex(inplace=True)
+
 for train_index, valid_index in group_kfold.split(X_train, sub_train.y, sub_train.g):
     dtrain = lgb.Dataset(X_train.iloc[train_index], sub_train.iloc[train_index].y,
                          categorical_feature=CAT)
