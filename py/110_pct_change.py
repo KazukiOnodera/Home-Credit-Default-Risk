@@ -248,7 +248,7 @@ def multi(feature_name):
 # =============================================================================
 
 
-pool = Pool(NTHREAD)
+pool = Pool(len(col_num))
 callback = pool.map(multi, col_num)
 pool.close()
 

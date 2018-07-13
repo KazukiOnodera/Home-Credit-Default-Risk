@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Fri Jul  6 12:53:28 2018
+Created on Fri Jul 13 15:36:39 2018
 
-@author: Kazuki
+@author: kazuki.onodera
 """
 
 import gc, os
@@ -37,7 +37,7 @@ param = {
          'reg_alpha': 0.5,  # L1 regularization term on weights.
          
          'colsample_bytree': 0.7,
-         'subsample': 0.6,
+         'subsample': 0.5,
 #         'nthread': 32,
          'nthread': cpu_count(),
          'bagging_freq': 1,
@@ -71,21 +71,6 @@ print(f'X.shape {X.shape}')
 gc.collect()
 
 CAT = list( set(X.columns)&set(utils_cat.ALL))
-# =============================================================================
-# cv
-# =============================================================================
-dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
-gc.collect()
-
-ret = lgb.cv(param, dtrain, 9999, nfold=5,
-             early_stopping_rounds=100, verbose_eval=50,
-             seed=SEED)
-
-result = f"CV auc-mean: {ret['auc-mean'][-1]}"
-print(result)
-
-utils.send_line(result)
-
 
 # =============================================================================
 # imp
@@ -110,6 +95,6 @@ pool.close()
 
 #==============================================================================
 utils.end(__file__)
-utils.stop_instance()
+
 
 
