@@ -79,10 +79,6 @@ X = pd.concat([
 y = utils.read_pickles('../data/label').TARGET
 
 
-# nejumi
-files = sorted(glob('../feature_nejumi/*train*'))
-X['CNT_PAYMENT'] = np.load(files[0])
-X['nejumi_v2'] = np.load(files[1])
 
 if X.columns.duplicated().sum()>0:
     raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
