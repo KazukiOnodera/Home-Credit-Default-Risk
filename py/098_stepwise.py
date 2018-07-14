@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Sat Jul  7 09:02:36 2018
+Created on Sat Jul 14 15:45:44 2018
 
 @author: Kazuki
 """
-
 
 import gc, os
 from tqdm import tqdm
@@ -14,7 +13,7 @@ import sys
 sys.path.append(f'/home/{os.environ.get("USER")}/PythonLibrary')
 import lgbextension as ex
 import lightgbm as lgb
-from multiprocessing import cpu_count, Pool
+from multiprocessing import cpu_count
 #from glob import glob
 import count
 import utils, utils_cat
@@ -23,7 +22,7 @@ import utils, utils_cat
 
 SEED = 71
 
-param = {
+params = {
          'objective': 'binary',
          'metric': 'auc',
          'learning_rate': 0.01,
@@ -75,34 +74,37 @@ print(f'X.shape {X.shape}')
 
 gc.collect()
 
-
 # =============================================================================
-# cv bench
-# =============================================================================
-dtrain = lgb.Dataset(X, y, 
-                     categorical_feature=CAT)
-gc.collect()
-
-ret = lgb.cv(param, dtrain, 9999, nfold=10,
-             early_stopping_rounds=100, verbose_eval=50,
-             seed=SEED)
-
-result = f"CV auc-mean(bench): {ret['auc-mean'][-1]}\nbest round {len(ret['auc-mean'])}"
-print(result)
-
-utils.send_line(result)
-
-
-# =============================================================================
-# train
+# imp
 # =============================================================================
 dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
-model = lgb.train(param, dtrain, 1000)
+model = lgb.train(params, dtrain, 1000)
 imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
+
+features_search = imp[imp['split']>0].feature.tolist()
+features_curr = features_search[:20]
+
+# =============================================================================
+# stepwise
+# =============================================================================
+
+ex.stepwise(params, X, y, features_search, features_curr, best_score=0, 
+            send_line=utils.send_line,
+             eval_key='auc-mean', maximize=True,
+             num_boost_round=9999, 
+             folds=None, nfold=5, stratified=True, shuffle=True, metrics=None, fobj=None, 
+             feval=None, init_model=None, feature_name='auto', categorical_feature=CAT, 
+             esr=None, fpreproc=None, verbose_eval=None, show_stdv=True, 
+             seed=0, callbacks=None)
+
+
+
+
 
 
 #==============================================================================
 utils.end(__file__)
+
 
 
 
