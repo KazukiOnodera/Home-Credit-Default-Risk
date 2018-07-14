@@ -57,10 +57,16 @@ cat_comb = list(combinations(cat, 2))
 # concat
 # =============================================================================
 col = []
-for c1,c2,c3 in cat_comb:
-    trte[f'{c1}-{c2}-{c3}'] = trte[c1] + trte[c2] + trte[c3]
-    col.append( f'{c1}-{c2}-{c3}' )
-#    trte.apply(lambda x: x[c1]+x[c2]+x[c3], axis=1)
+# 2
+for c1,c2 in cat_comb:
+    trte[f'{c1}-{c2}'] = trte[c1] + trte[c2]
+    col.append( f'{c1}-{c2}' )
+
+# 3
+#for c1,c2,c3 in cat_comb:
+#    trte[f'{c1}-{c2}-{c3}'] = trte[c1] + trte[c2] + trte[c3]
+#    col.append( f'{c1}-{c2}-{c3}' )
+
 
 print(col)
 
