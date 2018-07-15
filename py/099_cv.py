@@ -54,9 +54,11 @@ param = {
 # =============================================================================
 
 use_files = [
-        'train_f001', 
-        'train_f002', 
-        'train_f052', 
+        'train_f001',
+        'train_f002',
+        'train_f052',
+        'train_f053',
+        'train_f054',
              ]
 
 files = utils.get_use_files(use_files, True)
@@ -101,24 +103,6 @@ dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
 model = lgb.train(param, dtrain, 1000)
 imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
 
-
-
-
-X['EXT_SOURCE_3_diff'] = X['f001_EXT_SOURCE_3']-X['f052EXT_SOURCE_3_test-imputation']
-
-
-dtrain = lgb.Dataset(X, y, 
-                     categorical_feature=CAT)
-gc.collect()
-
-ret = lgb.cv(param, dtrain, 9999, nfold=10,
-             early_stopping_rounds=100, verbose_eval=50,
-             seed=SEED)
-
-result = f"CV auc-mean(diff): {ret['auc-mean'][-1]}\nbest round {len(ret['auc-mean'])}"
-print(result)
-
-utils.send_line(result)
 
 
 
