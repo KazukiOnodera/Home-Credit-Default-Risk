@@ -19,17 +19,16 @@ from sklearn.model_selection import StratifiedKFold
 #from glob import glob
 import count
 import utils, utils_cat
-#utils.start(__file__)
+utils.start(__file__)
 #==============================================================================
 
-PREF = 'f055_'
+PREF = 'f012_'
 
 os.system(f'rm ../feature/t*_{PREF}*')
 
 SEED = 71
 FOLD = 5
-label_name = 'f001_EXT_SOURCE_3'
-
+label_name = 'f001_EXT_SOURCE_2'
 
 
 params = {
@@ -126,18 +125,18 @@ dtrain = lgb.Dataset(X, y, categorical_feature=CAT)
 model = lgb.train(params, dtrain, NROUND)
 
 y_train.loc[y_train.isnull()] = model.predict(X_train_test)
-
 y_train = y_train.to_frame()
+y_train.columns = [label_name.replace('f001_', '')]
+
+y_test.loc[y_test.isnull()] = model.predict(X_test_test)
+y_test = y_test.to_frame()
+y_test.columns = [label_name.replace('f001_', '')]
 
 # =============================================================================
 # otuput
 # =============================================================================
 utils.to_feature(y_train.add_prefix(PREF), '../feature/train')
-#utils.to_feature(sub_test.add_prefix(PREF),  '../feature/test')
+utils.to_feature(y_test.add_prefix(PREF),  '../feature/test')
 
 #==============================================================================
 utils.end(__file__)
-
-
-
-
