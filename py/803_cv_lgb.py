@@ -22,7 +22,7 @@ utils.start(__file__)
 
 SEED = 71
 
-HEAD = 1300
+HEADS = [200, 500, 800, 1200, 1500, 1800]
 
 param = {
          'objective': 'binary',
@@ -55,39 +55,41 @@ imp['gain'] /= imp['gain'].max()
 imp['total'] = imp['split'] + imp['gain']
 imp.sort_values('total', ascending=False, inplace=True)
 
-use_files = (imp.head(HEAD).feature + '.f').tolist()
 
-files = utils.get_use_files(use_files, True)
-
-X = pd.concat([
-                pd.read_feather(f) for f in tqdm(files, mininterval=60)
-               ], axis=1)
-y = utils.read_pickles('../data/label').TARGET
-
-
-if X.columns.duplicated().sum()>0:
-    raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
-print('no dup :) ')
-print(f'X.shape {X.shape}')
-
-gc.collect()
-
-CAT = list( set(X.columns)&set(utils_cat.ALL))
-
-# =============================================================================
-# cv
-# =============================================================================
-dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
-gc.collect()
-
-ret = lgb.cv(param, dtrain, 9999, nfold=5,
-             early_stopping_rounds=100, verbose_eval=50,
-             seed=SEED)
-
-result = f"CV auc-mean: {ret['auc-mean'][-1]}"
-print(result)
-
-utils.send_line(result)
+for HEAD in HEADS:
+    use_files = (imp.head(HEAD).feature + '.f').tolist()
+    
+    files = utils.get_use_files(use_files, True)
+    
+    X = pd.concat([
+                    pd.read_feather(f) for f in tqdm(files, mininterval=60)
+                   ], axis=1)
+    y = utils.read_pickles('../data/label').TARGET
+    
+    
+    if X.columns.duplicated().sum()>0:
+        raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
+    print('no dup :) ')
+    print(f'X.shape {X.shape}')
+    
+    gc.collect()
+    
+    CAT = list( set(X.columns)&set(utils_cat.ALL))
+    
+    # =============================================================================
+    # cv
+    # =============================================================================
+    dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
+    gc.collect()
+    
+    ret = lgb.cv(param, dtrain, 9999, nfold=5,
+                 early_stopping_rounds=100, verbose_eval=50,
+                 seed=SEED)
+    
+    result = f"CV auc-mean({HEAD}): {ret['auc-mean'][-1]}"
+    print(result)
+    
+    utils.send_line(result)
 
 
 # =============================================================================
