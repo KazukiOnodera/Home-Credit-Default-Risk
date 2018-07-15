@@ -22,6 +22,8 @@ utils.start(__file__)
 
 SEED = 71
 
+HEAD = 1300
+
 param = {
          'objective': 'binary',
          'metric': 'auc',
@@ -44,21 +46,16 @@ param = {
          'seed': SEED
          }
 
-use_files = [
-        'train_f0',
-        'train_f1',
-        'train_f2',
-        'train_f3',
-        'train_f4',
-        'train_f5',
-        'train_f6',
-        'train_f701',
-        ]
-
-
 # =============================================================================
 # load
 # =============================================================================
+imp = pd.read_csv('LOG/imp_801_cv_lgb.py.csv')
+imp['split'] /= imp['split'].max()
+imp['gain'] /= imp['gain'].max()
+imp['total'] = imp['split'] + imp['gain']
+imp.sort_values('total', ascending=False, inplace=True)
+
+use_files = (imp.head(HEAD).feature + '.f').tolist()
 
 files = utils.get_use_files(use_files, True)
 
@@ -96,17 +93,17 @@ utils.send_line(result)
 # =============================================================================
 # train
 # =============================================================================
-dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
-#model = lgb.train(param, dtrain, len(ret['auc-mean']))
-model = lgb.train(param, dtrain, 1000)
-imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
-
-
-imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
-
-"""
-imp = pd.read_csv('LOG/imp_909_cv.py.csv')
-"""
+#dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
+##model = lgb.train(param, dtrain, len(ret['auc-mean']))
+#model = lgb.train(param, dtrain, 1000)
+#imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
+#
+#
+#imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
+#
+#"""
+#imp = pd.read_csv('LOG/imp_909_cv.py.csv')
+#"""
 
 #def multi_touch(arg):
 #    os.system(f'touch "../feature_unused/{arg}.f"')

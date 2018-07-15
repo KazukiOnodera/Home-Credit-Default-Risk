@@ -71,17 +71,17 @@ CAT = list( set(X.columns)&set(utils_cat.ALL))
 # =============================================================================
 # cv
 # =============================================================================
-dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
-gc.collect()
-
-ret = lgb.cv(param, dtrain, 9999, nfold=5,
-             early_stopping_rounds=100, verbose_eval=50,
-             seed=SEED)
-
-result = f"CV auc-mean: {ret['auc-mean'][-1]}"
-print(result)
-
-utils.send_line(result)
+#dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
+#gc.collect()
+#
+#ret = lgb.cv(param, dtrain, 9999, nfold=5,
+#             early_stopping_rounds=100, verbose_eval=50,
+#             seed=SEED)
+#
+#result = f"CV auc-mean: {ret['auc-mean'][-1]}"
+#print(result)
+#
+#utils.send_line(result)
 
 
 # =============================================================================
@@ -99,14 +99,14 @@ imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
 imp = pd.read_csv('LOG/imp_909_cv.py.csv')
 """
 
-#def multi_touch(arg):
-#    os.system(f'touch "../feature_unused/{arg}.f"')
-#
-#
-#col = imp[imp['split']==0]['feature'].tolist()
-#pool = Pool(cpu_count())
-#pool.map(multi_touch, col)
-#pool.close()
+def multi_touch(arg):
+    os.system(f'touch "../feature_unused/{arg}.f"')
+
+
+col = imp[imp['split']==0]['feature'].tolist()
+pool = Pool(cpu_count())
+pool.map(multi_touch, col)
+pool.close()
 
 #==============================================================================
 utils.end(__file__)
