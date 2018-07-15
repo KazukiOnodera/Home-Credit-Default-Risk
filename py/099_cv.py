@@ -48,15 +48,16 @@ param = {
 
 
 
-use_files = ['train_f001', 
-#             'train_f002_WEEKDAY_APPR_PROCESS_START-ORGANIZATION_TYPE',
-#             'train_f002_OCCUPATION_TYPE-ORGANIZATION_TYPE'
-             ]
-
 
 # =============================================================================
 # load
 # =============================================================================
+
+use_files = [
+        'train_f001', 
+        'train_f002', 
+        'train_f052', 
+             ]
 
 files = utils.get_use_files(use_files, True)
 
@@ -94,11 +95,90 @@ utils.send_line(result)
 
 
 # =============================================================================
-# train
+# imp
 # =============================================================================
 dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
 model = lgb.train(param, dtrain, 1000)
 imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
+
+
+
+
+X['EXT_SOURCE_3_diff'] = X['f001_EXT_SOURCE_3']-X['f052EXT_SOURCE_3_test-imputation']
+
+
+dtrain = lgb.Dataset(X, y, 
+                     categorical_feature=CAT)
+gc.collect()
+
+ret = lgb.cv(param, dtrain, 9999, nfold=10,
+             early_stopping_rounds=100, verbose_eval=50,
+             seed=SEED)
+
+result = f"CV auc-mean(diff): {ret['auc-mean'][-1]}\nbest round {len(ret['auc-mean'])}"
+print(result)
+
+utils.send_line(result)
+
+
+
+
+
+
+
+
+# =============================================================================
+# load
+# =============================================================================
+
+use_files = [
+        'train_f001', 
+        'train_f003', 
+             ]
+
+files = utils.get_use_files(use_files, True)
+
+X = pd.concat([
+                pd.read_feather(f) for f in tqdm(files, mininterval=60)
+               ], axis=1)
+y = utils.read_pickles('../data/label').TARGET
+
+
+CAT = list( set(X.columns) & set(utils_cat.ALL) )
+
+if X.columns.duplicated().sum()>0:
+    raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
+print('no dup :) ')
+print(f'X.shape {X.shape}')
+
+gc.collect()
+
+
+# =============================================================================
+# cv bench
+# =============================================================================
+dtrain = lgb.Dataset(X, y, 
+                     categorical_feature=CAT)
+gc.collect()
+
+ret = lgb.cv(param, dtrain, 9999, nfold=10,
+             early_stopping_rounds=100, verbose_eval=50,
+             seed=SEED)
+
+result = f"CV auc-mean(ta): {ret['auc-mean'][-1]}\nbest round {len(ret['auc-mean'])}"
+print(result)
+
+utils.send_line(result)
+
+
+# =============================================================================
+# imp
+# =============================================================================
+dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
+model = lgb.train(param, dtrain, 1000)
+imp_ta = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
+
+
 
 
 #==============================================================================
