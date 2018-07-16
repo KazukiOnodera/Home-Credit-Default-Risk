@@ -16,10 +16,10 @@ if len(argv)>1:
     print(len(files))
     
 else:
-    files = glob(f'../feature/*.f')
+    files = [f.split('/')[-1] for f in sorted(glob(f'../feature/*.f'))]
     
     print('train files')
-    keys = sorted([f.split('/')[-1].split('_')[1] for f in files if 'train_' in f])
+    keys = sorted([f.split('_')[1] for f in files if f.startswith('train_')])
     di = defaultdict(int)
     for k in keys:
         di[k] += 1
@@ -27,7 +27,7 @@ else:
         print(f'{k}: {v}')
     
     print('\ntest files')
-    keys = sorted([f.split('/')[-1].split('_')[1] for f in files if 'test_' in f])
+    keys = sorted([f.split('_')[1] for f in files if f.startswith('test_')])
     di = defaultdict(int)
     for k in keys:
         di[k] += 1

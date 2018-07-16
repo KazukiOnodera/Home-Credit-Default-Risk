@@ -78,7 +78,7 @@ f109 = ['f109_NAME_CONTRACT_TYPE',
 # =============================================================================
 # 
 # =============================================================================
-maxwell = ['FLAG_PHONE_PATTERN', 'FLAG_DOC_PATTERN']
+maxwell = ['Mxw_FLAG_PHONE_PATTERN', 'Mxw_FLAG_DOC_PATTERN']
 
 
 

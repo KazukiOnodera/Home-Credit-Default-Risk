@@ -46,6 +46,9 @@ skf = StratifiedKFold(n_splits=FOLD, shuffle=True, random_state=SEED)
 train = utils.load_train(categorical_features+['TARGET'])
 test  = utils.load_test(categorical_features)
 
+# =============================================================================
+# 
+# =============================================================================
 usecols = []
 for c in tqdm(categorical_features):
     train[c+'_ta'] = 0
@@ -62,13 +65,21 @@ for c in tqdm(categorical_features):
     
     usecols.append(c+'_ta')
 
+# =============================================================================
+# cardinality check
+# =============================================================================
+train['fold'] = 0
+for i,(train_index, test_index) in enumerate(skf.split(train, train.TARGET)):
+    train.loc[test_index, 'fold'] = i
+
+for c in categorical_features:
+    car_min = train.groupby(['fold', c]).size().min()
+    print(f'{c}: {car_min}')
 
 
-
-
-
-
-
+# =============================================================================
+# output
+# =============================================================================
 utils.to_feature(train[usecols].add_prefix(PREF), '../feature/train')
 utils.to_feature(test[usecols].add_prefix(PREF),  '../feature/test')
 

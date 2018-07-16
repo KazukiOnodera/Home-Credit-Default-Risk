@@ -22,7 +22,7 @@ utils.start(__file__)
 
 SEED = 71
 
-HEADS = list(range(200, 1500, 50))
+HEADS = list(range(300, 1500, 50))
 
 param = {
          'objective': 'binary',
@@ -49,7 +49,7 @@ param = {
 # =============================================================================
 # load
 # =============================================================================
-imp = pd.read_csv('LOG/imp_801_cv_lgb.py.csv')
+imp = pd.read_csv('LOG/imp_801_imp_lgb.py.csv')
 imp['split'] /= imp['split'].max()
 imp['gain'] /= imp['gain'].max()
 imp['total'] = imp['split'] + imp['gain']

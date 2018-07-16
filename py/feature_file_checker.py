@@ -11,7 +11,7 @@ import os
 
 files = sorted(glob('../feature/train*.f'))
 for f in files:
-    path = f.replace('train_', 'test_')
+    path = f.replace('train_', 'test_', 1)
     if not os.path.isfile(path):
         print(f)
 
@@ -19,7 +19,7 @@ for f in files:
 
 files = sorted(glob('../feature/test*.f'))
 for f in files:
-    path = f.replace('test_', 'train_')
+    path = f.replace('test_', 'train_', 1)
     if not os.path.isfile(path):
         print(f)
 
