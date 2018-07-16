@@ -153,16 +153,19 @@ pos_num_aggregations = {
     'SK_DPD': ['max', 'mean', 'var'],
     'SK_DPD_DEF': ['max', 'mean', 'var'],
     
-    'CNT_INSTALMENT_diff':  stats,
-    'CNT_INSTALMENT_ratio': stats,
+    'CNT_INSTALMENT_FUTURE_diff': stats,
+    'CNT_INSTALMENT_FUTURE_diff_diff': stats,
+    'CNT_INSTALMENT_FUTURE_pct_change': stats,
+    'CNT_INSTALMENT-m-CNT_INSTALMENT_FUTURE':  stats,
+    'CNT_INSTALMENT_FUTURE-d-CNT_INSTALMENT': stats,
     
     'SK_DPD_diff':          ['max', 'mean', 'var', 'sum'],
-    'SK_DPD_diff_over0':    ['max', 'mean', 'var', 'sum'],
-    'SK_DPD_diff_over5':    ['max', 'mean', 'var', 'sum'],
-    'SK_DPD_diff_over10':   ['max', 'mean', 'var', 'sum'],
-    'SK_DPD_diff_over15':   ['max', 'mean', 'var', 'sum'],
-    'SK_DPD_diff_over20':   ['max', 'mean', 'var', 'sum'],
-    'SK_DPD_diff_over25':   ['max', 'mean', 'var', 'sum'],
+#    'SK_DPD_diff_over0':    ['max', 'mean', 'var', 'sum'],
+#    'SK_DPD_diff_over5':    ['max', 'mean', 'var', 'sum'],
+#    'SK_DPD_diff_over10':   ['max', 'mean', 'var', 'sum'],
+#    'SK_DPD_diff_over15':   ['max', 'mean', 'var', 'sum'],
+#    'SK_DPD_diff_over20':   ['max', 'mean', 'var', 'sum'],
+#    'SK_DPD_diff_over25':   ['max', 'mean', 'var', 'sum'],
 }
 
 # =============================================================================

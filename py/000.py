@@ -423,17 +423,20 @@ def multi(p):
 #        df['MONTHS_BALANCE_max'] = df.groupby('SK_ID_PREV').MONTHS_BALANCE.transform('max')
 #        df.loc[(df.CNT_INSTALMENT_FUTURE_min!=0) & (df.MONTHS_BALANCE_max!=-1)]
         
-        
-        df['CNT_INSTALMENT_diff'] = df['CNT_INSTALMENT'] - df['CNT_INSTALMENT_FUTURE']
-        df['CNT_INSTALMENT_ratio'] = df['CNT_INSTALMENT_FUTURE'] / df['CNT_INSTALMENT']
+        df.sort_values(['SK_ID_PREV', 'MONTHS_BALANCE'], inplace=True)
+        df['CNT_INSTALMENT_FUTURE_diff'] = df[['SK_ID_PREV', 'CNT_INSTALMENT_FUTURE']].groupby('SK_ID_PREV')['CNT_INSTALMENT_FUTURE'].diff()
+        df['CNT_INSTALMENT_FUTURE_diff_diff'] = df[['SK_ID_PREV', 'CNT_INSTALMENT_FUTURE_diff']].groupby('SK_ID_PREV')['CNT_INSTALMENT_FUTURE_diff'].diff()
+        df['CNT_INSTALMENT_FUTURE_pct_change'] = df[['SK_ID_PREV', 'CNT_INSTALMENT_FUTURE']].groupby('SK_ID_PREV')['CNT_INSTALMENT_FUTURE'].pct_change()
+        df['CNT_INSTALMENT-m-CNT_INSTALMENT_FUTURE'] = df['CNT_INSTALMENT'] - df['CNT_INSTALMENT_FUTURE']
+        df['CNT_INSTALMENT_FUTURE-d-CNT_INSTALMENT'] = df['CNT_INSTALMENT_FUTURE'] / df['CNT_INSTALMENT']
         
         df['SK_DPD_diff'] = df['SK_DPD'] - df['SK_DPD_DEF']
-        df['SK_DPD_diff_over0'] = (df['SK_DPD_diff']>0)*1
-        df['SK_DPD_diff_over5']  = (df['SK_DPD_diff']>5)*1
-        df['SK_DPD_diff_over10'] = (df['SK_DPD_diff']>10)*1
-        df['SK_DPD_diff_over15'] = (df['SK_DPD_diff']>15)*1
-        df['SK_DPD_diff_over20'] = (df['SK_DPD_diff']>20)*1
-        df['SK_DPD_diff_over25'] = (df['SK_DPD_diff']>25)*1
+#        df['SK_DPD_diff_over0'] = (df['SK_DPD_diff']>0)*1
+#        df['SK_DPD_diff_over5']  = (df['SK_DPD_diff']>5)*1
+#        df['SK_DPD_diff_over10'] = (df['SK_DPD_diff']>10)*1
+#        df['SK_DPD_diff_over15'] = (df['SK_DPD_diff']>15)*1
+#        df['SK_DPD_diff_over20'] = (df['SK_DPD_diff']>20)*1
+#        df['SK_DPD_diff_over25'] = (df['SK_DPD_diff']>25)*1
         
         df.replace(np.inf, np.nan, inplace=True) # TODO: any other plan?
         df.replace(-np.inf, np.nan, inplace=True)
