@@ -22,8 +22,8 @@ utils.start(__file__)
 
 SEED = 71
 
-#HEAD = 1000 * 50
-HEAD = None
+HEAD = 1000 * 100
+#HEAD = None
 
 param = {
          'objective': 'binary',
