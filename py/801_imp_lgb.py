@@ -22,7 +22,8 @@ utils.start(__file__)
 
 SEED = 71
 
-HEAD = 1000 * 50
+#HEAD = 1000 * 50
+HEAD = None
 
 param = {
          'objective': 'binary',
@@ -38,7 +39,7 @@ param = {
          'reg_alpha': 0.5,  # L1 regularization term on weights.
          
          'colsample_bytree': 0.9,
-         'subsample': 0.9,
+         'subsample': 0.4,
 #         'nthread': 32,
          'nthread': cpu_count(),
          'bagging_freq': 1,
@@ -57,10 +58,16 @@ os.system(f'mkdir ../feature_unused')
 
 files = utils.get_use_files(use_files, True)
 
-X = pd.concat([
-                pd.read_feather(f).head(HEAD) for f in tqdm(files, mininterval=60)
-               ], axis=1)
-y = utils.read_pickles('../data/label').head(HEAD).TARGET
+if HEAD is not None:
+    X = pd.concat([
+                    pd.read_feather(f).head(HEAD) for f in tqdm(files, mininterval=60)
+                   ], axis=1)
+    y = utils.read_pickles('../data/label').head(HEAD).TARGET
+else:
+    X = pd.concat([
+                    pd.read_feather(f) for f in tqdm(files, mininterval=60)
+                   ], axis=1)
+    y = utils.read_pickles('../data/label').TARGET
 
 
 if X.columns.duplicated().sum()>0:
