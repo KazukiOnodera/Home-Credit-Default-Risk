@@ -16,4 +16,8 @@ py/*.p
 py/__pycache__/*
 py/~$*.xls*
 
+jn/.ipynb_checkpoints
+py_prev/__pycache__/*
+
+
 
