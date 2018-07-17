@@ -61,6 +61,9 @@ for HEAD in HEADS:
     
     files = utils.get_use_files(use_files, True)
     
+    # ireko
+    files.append('../feature/train_irk_ireko.f')
+    
     X = pd.concat([
                     pd.read_feather(f) for f in tqdm(files, mininterval=60)
                    ], axis=1)
