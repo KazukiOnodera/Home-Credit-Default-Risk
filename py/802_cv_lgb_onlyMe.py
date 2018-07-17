@@ -17,7 +17,7 @@ from multiprocessing import cpu_count, Pool
 #from glob import glob
 import count
 import utils, utils_cat
-utils.start(__file__)
+#utils.start(__file__)
 #==============================================================================
 
 SEED = 71
@@ -49,20 +49,19 @@ param = {
 # =============================================================================
 # load
 # =============================================================================
-imp = pd.read_csv('LOG/imp_801_imp_lgb_onlyMe.py.csv')
+imp = pd.read_csv('LOG/imp_801_imp_lgb_onlyMe-2.py.csv')
 imp['split'] /= imp['split'].max()
 imp['gain'] /= imp['gain'].max()
 imp['total'] = imp['split'] + imp['gain']
 imp.sort_values('total', ascending=False, inplace=True)
 
+imp = imp[~imp.feature.str.startswith('f702')]
+imp = imp[~imp.feature.str.startswith('f01')]
 
 for HEAD in HEADS:
     use_files = (imp.head(HEAD).feature + '.f').tolist()
     
     files = utils.get_use_files(use_files, True)
-    
-#    # ireko
-#    files.append('../feature/train_irk_ireko.f')
     
     X = pd.concat([
                     pd.read_feather(f) for f in tqdm(files, mininterval=60)
