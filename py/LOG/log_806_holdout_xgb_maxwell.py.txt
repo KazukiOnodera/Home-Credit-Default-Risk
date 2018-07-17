@@ -1,0 +1,271 @@
+train files
+f001: 248
+f101: 2783
+f102: 2733
+f103: 2745
+f104: 2717
+f105: 871
+f106: 324
+f107: 6
+f108: 337
+f109: 337
+f201: 57
+f202: 53
+f203: 53
+f204: 53
+f301: 882
+f302: 887
+f303: 899
+f304: 914
+f305: 3582
+f306: 60
+f307: 60
+f401: 200
+f402: 194
+f403: 194
+f404: 194
+f501: 397
+f502: 387
+f503: 391
+f504: 393
+f505: 774
+f601: 58
+f701: 20
+
+test files
+f001: 248
+f101: 2783
+f102: 2733
+f103: 2745
+f104: 2717
+f105: 871
+f106: 324
+f107: 6
+f108: 337
+f109: 337
+f201: 57
+f202: 53
+f203: 53
+f204: 53
+f301: 882
+f302: 887
+f303: 899
+f304: 914
+f305: 3582
+f306: 60
+f307: 60
+f401: 200
+f402: 194
+f403: 194
+f404: 194
+f501: 397
+f502: 387
+f503: 391
+f504: 393
+f505: 774
+f601: 58
+f701: 20
+
+#==============================================================================
+# START!!! 806_holdout_xgb_maxwell.py    PID: 3265    time: 2018-07-11 08:36:31.039824
+#==============================================================================
+
+got 7902
+  0%|          | 0/7902 [00:00<?, ?it/s] 26%|██▌       | 2063/7902 [01:00<02:49, 34.36it/s] 26%|██▌       | 2063/7902 [01:20<03:46, 25.79it/s] 35%|███▌      | 2791/7902 [02:00<03:40, 23.22it/s] 35%|███▌      | 2791/7902 [02:20<04:16, 19.94it/s] 46%|████▌     | 3612/7902 [03:00<03:34, 20.04it/s] 46%|████▌     | 3612/7902 [03:20<03:57, 18.06it/s] 56%|█████▌    | 4443/7902 [04:00<03:07, 18.49it/s] 56%|█████▌    | 4443/7902 [04:20<03:22, 17.09it/s] 66%|██████▋   | 5248/7902 [05:00<02:31, 17.48it/s] 66%|██████▋   | 5248/7902 [05:20<02:41, 16.40it/s] 78%|███████▊  | 6198/7902 [06:00<01:39, 17.20it/s] 78%|███████▊  | 6198/7902 [06:20<01:44, 16.31it/s] 87%|████████▋ | 6912/7902 [07:00<01:00, 16.44it/s] 87%|████████▋ | 6912/7902 [07:20<01:03, 15.71it/s] 95%|█████████▌| 7544/7902 [08:00<00:22, 15.70it/s] 95%|█████████▌| 7544/7902 [08:20<00:23, 15.09it/s]100%|██████████| 7902/7902 [08:20<00:00, 15.80it/s]
+  0%|          | 0/20 [00:00<?, ?it/s] 35%|███▌      | 7/20 [00:00<00:00, 68.88it/s]100%|██████████| 20/20 [00:00<00:00, 116.70it/s]
+no dup :) 
+X.shape (307511, 9513)
+category: ['f001_OCCUPATION_TYPE', 'f001_WALLSMATERIAL_MODE', 'f001_NAME_FAMILY_STATUS', 'f108_CODE_REJECT_REASON', 'f108_WEEKDAY_APPR_PROCESS_START', 'f108_PRODUCT_COMBINATION', 'f108_NAME_SELLER_INDUSTRY', 'f108_NAME_YIELD_GROUP', 'FLAG_DOC_PATTERN', 'f001_NAME_HOUSING_TYPE', 'FLAG_PHONE_PATTERN', 'f108_CHANNEL_TYPE', 'f001_NAME_EDUCATION_TYPE', 'f108_NAME_TYPE_SUITE', 'f001_NAME_INCOME_TYPE', 'f001_CODE_GENDER', 'f108_NAME_GOODS_CATEGORY', 'f001_FLAG_OWN_REALTY', 'f001_ORGANIZATION_TYPE', 'f001_WEEKDAY_APPR_PROCESS_START']
+[08:51:55] Tree method is selected to be 'hist', which uses a single updater grow_fast_histmaker.
+[0]	train-auc:0.791732	valid-auc:0.786337
+Multiple eval metrics have been passed: 'valid-auc' will be used for early stopping.
+
+Will train until valid-auc hasn't improved in 50 rounds.
+[10]	train-auc:0.800756	valid-auc:0.792454
+[20]	train-auc:0.801395	valid-auc:0.792812
+[30]	train-auc:0.802284	valid-auc:0.79332
+[40]	train-auc:0.802709	valid-auc:0.793417
+[50]	train-auc:0.803325	valid-auc:0.793707
+[60]	train-auc:0.80372	valid-auc:0.793715
+[70]	train-auc:0.804316	valid-auc:0.793992
+[80]	train-auc:0.804594	valid-auc:0.794195
+[90]	train-auc:0.804948	valid-auc:0.79439
+[100]	train-auc:0.805305	valid-auc:0.794612
+[110]	train-auc:0.805711	valid-auc:0.794823
+[120]	train-auc:0.80617	valid-auc:0.795022
+[130]	train-auc:0.806621	valid-auc:0.795277
+[140]	train-auc:0.807034	valid-auc:0.795547
+[150]	train-auc:0.807538	valid-auc:0.79583
+[160]	train-auc:0.807959	valid-auc:0.796028
+[170]	train-auc:0.80832	valid-auc:0.796126
+[180]	train-auc:0.808755	valid-auc:0.79622
+[190]	train-auc:0.809099	valid-auc:0.796279
+[200]	train-auc:0.809478	valid-auc:0.796377
+[210]	train-auc:0.809909	valid-auc:0.796456
+[220]	train-auc:0.810296	valid-auc:0.796567
+[230]	train-auc:0.810664	valid-auc:0.796684
+[240]	train-auc:0.811001	valid-auc:0.796739
+[250]	train-auc:0.811459	valid-auc:0.79693
+[260]	train-auc:0.811803	valid-auc:0.79704
+[270]	train-auc:0.812212	valid-auc:0.797209
+[280]	train-auc:0.812655	valid-auc:0.797364
+[290]	train-auc:0.813037	valid-auc:0.797499
+[300]	train-auc:0.813435	valid-auc:0.797624
+[310]	train-auc:0.813833	valid-auc:0.797801
+[320]	train-auc:0.814215	valid-auc:0.797911
+[330]	train-auc:0.814666	valid-auc:0.798061
+[340]	train-auc:0.815087	valid-auc:0.798197
+[350]	train-auc:0.815477	valid-auc:0.798324
+[360]	train-auc:0.815889	valid-auc:0.798409
+[370]	train-auc:0.816272	valid-auc:0.79849
+[380]	train-auc:0.816661	valid-auc:0.798647
+[390]	train-auc:0.817012	valid-auc:0.798778
+[400]	train-auc:0.817355	valid-auc:0.798882
+[410]	train-auc:0.817712	valid-auc:0.798984
+[420]	train-auc:0.818145	valid-auc:0.799132
+[430]	train-auc:0.818565	valid-auc:0.799241
+[440]	train-auc:0.818967	valid-auc:0.799347
+[450]	train-auc:0.819316	valid-auc:0.799438
+[460]	train-auc:0.819619	valid-auc:0.799501
+[470]	train-auc:0.819995	valid-auc:0.799613
+[480]	train-auc:0.820377	valid-auc:0.799706
+[490]	train-auc:0.820768	valid-auc:0.79981
+[500]	train-auc:0.82108	valid-auc:0.799883
+[510]	train-auc:0.821404	valid-auc:0.799973
+[520]	train-auc:0.82175	valid-auc:0.800059
+[530]	train-auc:0.822138	valid-auc:0.800158
+[540]	train-auc:0.822519	valid-auc:0.800256
+[550]	train-auc:0.822867	valid-auc:0.800366
+[560]	train-auc:0.823208	valid-auc:0.800422
+[570]	train-auc:0.823529	valid-auc:0.800524
+[580]	train-auc:0.823807	valid-auc:0.800614
+[590]	train-auc:0.824205	valid-auc:0.800719
+[600]	train-auc:0.824453	valid-auc:0.800795
+[610]	train-auc:0.824779	valid-auc:0.800884
+[620]	train-auc:0.825065	valid-auc:0.800968
+[630]	train-auc:0.825345	valid-auc:0.801032
+[640]	train-auc:0.825637	valid-auc:0.801099
+[650]	train-auc:0.825905	valid-auc:0.801131
+[660]	train-auc:0.826216	valid-auc:0.801198
+[670]	train-auc:0.826512	valid-auc:0.801241
+[680]	train-auc:0.826792	valid-auc:0.801297
+[690]	train-auc:0.827073	valid-auc:0.801355
+[700]	train-auc:0.827331	valid-auc:0.801392
+[710]	train-auc:0.827596	valid-auc:0.801421
+[720]	train-auc:0.827859	valid-auc:0.801453
+[730]	train-auc:0.828107	valid-auc:0.8015
+[740]	train-auc:0.828344	valid-auc:0.801562
+[750]	train-auc:0.828583	valid-auc:0.801607
+[760]	train-auc:0.828827	valid-auc:0.801654
+[770]	train-auc:0.829125	valid-auc:0.801706
+[780]	train-auc:0.829349	valid-auc:0.801743
+[790]	train-auc:0.829648	valid-auc:0.801788
+[800]	train-auc:0.829867	valid-auc:0.801822
+[810]	train-auc:0.830025	valid-auc:0.801851
+[820]	train-auc:0.830238	valid-auc:0.801899
+[830]	train-auc:0.830469	valid-auc:0.801948
+[840]	train-auc:0.830695	valid-auc:0.80199
+[850]	train-auc:0.8309	valid-auc:0.802033
+[860]	train-auc:0.831133	valid-auc:0.802076
+[870]	train-auc:0.831386	valid-auc:0.802101
+[880]	train-auc:0.83165	valid-auc:0.802139
+[890]	train-auc:0.831909	valid-auc:0.802178
+[900]	train-auc:0.832118	valid-auc:0.802228
+[910]	train-auc:0.83236	valid-auc:0.802276
+[920]	train-auc:0.832571	valid-auc:0.802308
+[930]	train-auc:0.832847	valid-auc:0.80235
+[940]	train-auc:0.833087	valid-auc:0.802364
+[950]	train-auc:0.833292	valid-auc:0.802392
+[960]	train-auc:0.833496	valid-auc:0.802404
+[970]	train-auc:0.833681	valid-auc:0.802434
+[980]	train-auc:0.833857	valid-auc:0.802468
+[990]	train-auc:0.834023	valid-auc:0.802486
+[1000]	train-auc:0.83423	valid-auc:0.802523
+[1010]	train-auc:0.834492	valid-auc:0.802567
+[1020]	train-auc:0.834722	valid-auc:0.802581
+[1030]	train-auc:0.834927	valid-auc:0.802594
+[1040]	train-auc:0.835097	valid-auc:0.802617
+[1050]	train-auc:0.835326	valid-auc:0.80265
+[1060]	train-auc:0.835495	valid-auc:0.802668
+[1070]	train-auc:0.835699	valid-auc:0.802678
+[1080]	train-auc:0.835903	valid-auc:0.802714
+[1090]	train-auc:0.836087	valid-auc:0.802744
+[1100]	train-auc:0.836251	valid-auc:0.802752
+[1110]	train-auc:0.836421	valid-auc:0.802769
+[1120]	train-auc:0.836671	valid-auc:0.802765
+[1130]	train-auc:0.836882	valid-auc:0.802793
+[1140]	train-auc:0.837008	valid-auc:0.80281
+[1150]	train-auc:0.837245	valid-auc:0.802816
+[1160]	train-auc:0.83742	valid-auc:0.802834
+[1170]	train-auc:0.837606	valid-auc:0.802853
+[1180]	train-auc:0.837833	valid-auc:0.802855
+[1190]	train-auc:0.838003	valid-auc:0.802871
+[1200]	train-auc:0.838153	valid-auc:0.802869
+[1210]	train-auc:0.838364	valid-auc:0.802886
+[1220]	train-auc:0.838508	valid-auc:0.802884
+[1230]	train-auc:0.838657	valid-auc:0.8029
+[1240]	train-auc:0.838826	valid-auc:0.802912
+[1250]	train-auc:0.838987	valid-auc:0.802929
+[1260]	train-auc:0.83915	valid-auc:0.802947
+[1270]	train-auc:0.839265	valid-auc:0.802959
+[1280]	train-auc:0.839452	valid-auc:0.802968
+[1290]	train-auc:0.83966	valid-auc:0.80299
+[1300]	train-auc:0.83983	valid-auc:0.802998
+[1310]	train-auc:0.840028	valid-auc:0.803028
+[1320]	train-auc:0.840145	valid-auc:0.803044
+[1330]	train-auc:0.840316	valid-auc:0.803075
+[1340]	train-auc:0.840556	valid-auc:0.803067
+[1350]	train-auc:0.840725	valid-auc:0.80307
+[1360]	train-auc:0.840871	valid-auc:0.80306
+[1370]	train-auc:0.841052	valid-auc:0.803079
+[1380]	train-auc:0.841235	valid-auc:0.803088
+[1390]	train-auc:0.841387	valid-auc:0.803105
+[1400]	train-auc:0.841621	valid-auc:0.803129
+[1410]	train-auc:0.841795	valid-auc:0.803133
+[1420]	train-auc:0.841947	valid-auc:0.803138
+[1430]	train-auc:0.842113	valid-auc:0.803159
+[1440]	train-auc:0.842277	valid-auc:0.80318
+[1450]	train-auc:0.842451	valid-auc:0.803189
+[1460]	train-auc:0.842635	valid-auc:0.803187
+[1470]	train-auc:0.842824	valid-auc:0.8032
+[1480]	train-auc:0.842993	valid-auc:0.803207
+[1490]	train-auc:0.843173	valid-auc:0.803213
+[1500]	train-auc:0.843345	valid-auc:0.803212
+[1510]	train-auc:0.843509	valid-auc:0.803213
+[1520]	train-auc:0.843704	valid-auc:0.803219
+[1530]	train-auc:0.843899	valid-auc:0.80321
+[1540]	train-auc:0.844024	valid-auc:0.803225
+[1550]	train-auc:0.844194	valid-auc:0.803227
+[1560]	train-auc:0.844366	valid-auc:0.803238
+[1570]	train-auc:0.844533	valid-auc:0.803236
+[1580]	train-auc:0.844687	valid-auc:0.803252
+[1590]	train-auc:0.84485	valid-auc:0.803263
+[1600]	train-auc:0.844999	valid-auc:0.803293
+[1610]	train-auc:0.845145	valid-auc:0.803299
+[1620]	train-auc:0.8454	valid-auc:0.803313
+[1630]	train-auc:0.845582	valid-auc:0.803323
+[1640]	train-auc:0.845766	valid-auc:0.803337
+[1650]	train-auc:0.845926	valid-auc:0.80336
+[1660]	train-auc:0.846142	valid-auc:0.803366
+[1670]	train-auc:0.846326	valid-auc:0.803365
+[1680]	train-auc:0.846493	valid-auc:0.803371
+[1690]	train-auc:0.846676	valid-auc:0.803371
+[1700]	train-auc:0.846845	valid-auc:0.803374
+[1710]	train-auc:0.847027	valid-auc:0.803375
+[1720]	train-auc:0.847176	valid-auc:0.803383
+[1730]	train-auc:0.847347	valid-auc:0.803381
+[1740]	train-auc:0.84752	valid-auc:0.803381
+[1750]	train-auc:0.847664	valid-auc:0.803379
+[1760]	train-auc:0.847833	valid-auc:0.803384
+[1770]	train-auc:0.847971	valid-auc:0.803385
+[1780]	train-auc:0.848076	valid-auc:0.803384
+Stopping. Best iteration:
+[1734]	train-auc:0.847435	valid-auc:0.803395
+
+CV valid-auc: 0.803395
+
+#==============================================================================
+# SUCCESS !!! 806_holdout_xgb_maxwell.py
+#==============================================================================
+
+time: 394.61min

@@ -1,21 +1,26 @@
 train files
 f001: 248
-f101: 2790
-f102: 2742
-f103: 2756
-f104: 2724
-f105: 771
-f106: 280
+f101: 5598
+f102: 5526
+f103: 5510
+f104: 5439
+f105: 871
+f106: 324
 f107: 6
-f108: 312
+f108: 337
+f109: 337
+f110: 1500
 f201: 57
 f202: 55
 f203: 55
 f204: 55
-f301: 870
-f302: 875
-f303: 887
-f304: 902
+f301: 882
+f302: 887
+f303: 716
+f304: 914
+f305: 3582
+f306: 60
+f307: 60
 f401: 200
 f402: 194
 f403: 194
@@ -26,26 +31,32 @@ f503: 391
 f504: 393
 f505: 774
 f601: 58
+f602: 58
 f701: 20
 
 test files
 f001: 248
-f101: 2790
-f102: 2742
-f103: 2756
-f104: 2724
-f105: 771
-f106: 280
+f101: 5598
+f102: 5526
+f103: 5510
+f104: 5439
+f105: 871
+f106: 324
 f107: 6
-f108: 312
+f108: 337
+f109: 337
+f110: 1500
 f201: 57
 f202: 55
 f203: 55
 f204: 55
-f301: 870
-f302: 875
-f303: 887
-f304: 902
+f301: 882
+f302: 887
+f303: 716
+f304: 914
+f305: 3582
+f306: 60
+f307: 60
 f401: 200
 f402: 194
 f403: 194
@@ -56,96 +67,59 @@ f503: 391
 f504: 393
 f505: 774
 f601: 58
+f602: 58
 f701: 20
 
 #==============================================================================
-# START!!! 199_cv.py    PID: 3687    time: 2018-07-06 04:38:28.509774
+# START!!! 199_cv.py    PID: 38597    time: 2018-07-13 09:34:07.736657
 #==============================================================================
 
-  0%|          | 0/12619 [00:00<?, ?it/s]  8%|▊         | 997/12619 [01:00<11:41, 16.57it/s]  8%|▊         | 997/12619 [01:19<15:32, 12.47it/s] 14%|█▍        | 1798/12619 [02:00<12:03, 14.95it/s] 14%|█▍        | 1798/12619 [02:19<14:02, 12.84it/s] 22%|██▏       | 2793/12619 [03:00<10:34, 15.49it/s] 22%|██▏       | 2793/12619 [03:19<11:43, 13.97it/s] 33%|███▎      | 4117/12619 [04:00<08:16, 17.13it/s] 33%|███▎      | 4117/12619 [04:19<08:56, 15.84it/s] 43%|████▎     | 5409/12619 [05:00<06:40, 18.00it/s] 43%|████▎     | 5409/12619 [05:19<07:06, 16.90it/s] 53%|█████▎    | 6691/12619 [06:00<05:19, 18.56it/s] 53%|█████▎    | 6691/12619 [06:19<05:36, 17.61it/s] 58%|█████▊    | 7379/12619 [07:00<04:58, 17.55it/s] 58%|█████▊    | 7379/12619 [07:19<05:12, 16.77it/s] 65%|██████▌   | 8240/12619 [08:00<04:15, 17.15it/s] 65%|██████▌   | 8240/12619 [08:19<04:25, 16.48it/s] 74%|███████▍  | 9318/12619 [09:00<03:11, 17.24it/s] 74%|███████▍  | 9318/12619 [09:19<03:18, 16.64it/s] 79%|███████▉  | 10010/12619 [10:00<02:36, 16.67it/s] 79%|███████▉  | 10010/12619 [10:20<02:41, 16.15it/s] 86%|████████▌ | 10835/12619 [11:00<01:48, 16.40it/s] 86%|████████▌ | 10835/12619 [11:20<01:51, 15.93it/s] 93%|█████████▎| 11682/12619 [12:00<00:57, 16.21it/s] 93%|█████████▎| 11682/12619 [12:20<00:59, 15.79it/s]100%|██████████| 12619/12619 [12:52<00:00, 16.34it/s]
-  0%|          | 0/20 [00:00<?, ?it/s] 15%|█▌        | 3/20 [00:00<00:00, 21.91it/s] 55%|█████▌    | 11/20 [00:00<00:00, 45.53it/s]100%|██████████| 20/20 [00:00<00:00, 50.75it/s]
+got 8343
+  0%|          | 0/8343 [00:00<?, ?it/s] 10%|▉         | 812/8343 [01:00<09:16, 13.52it/s] 10%|▉         | 812/8343 [01:19<12:21, 10.15it/s] 20%|██        | 1685/8343 [02:00<07:54, 14.04it/s] 20%|██        | 1685/8343 [02:19<09:13, 12.04it/s] 30%|██▉       | 2498/8343 [03:00<07:01, 13.87it/s] 30%|██▉       | 2498/8343 [03:19<07:47, 12.49it/s] 41%|████      | 3385/8343 [04:00<05:51, 14.10it/s] 41%|████      | 3385/8343 [04:19<06:20, 13.02it/s] 50%|████▉     | 4168/8343 [05:00<05:00, 13.89it/s] 50%|████▉     | 4168/8343 [05:19<05:20, 13.03it/s] 58%|█████▊    | 4848/8343 [06:00<04:19, 13.46it/s] 58%|█████▊    | 4848/8343 [06:19<04:33, 12.76it/s] 68%|██████▊   | 5635/8343 [07:00<03:21, 13.41it/s] 68%|██████▊   | 5635/8343 [07:19<03:31, 12.81it/s] 76%|███████▋  | 6365/8343 [08:00<02:29, 13.25it/s] 76%|███████▋  | 6365/8343 [08:19<02:35, 12.73it/s] 87%|████████▋ | 7283/8343 [09:00<01:18, 13.48it/s] 87%|████████▋ | 7283/8343 [09:19<01:21, 13.01it/s] 97%|█████████▋| 8120/8343 [10:00<00:16, 13.52it/s]100%|██████████| 8343/8343 [10:14<00:00, 13.57it/s]
+  0%|          | 0/20 [00:00<?, ?it/s] 40%|████      | 8/20 [00:00<00:00, 73.86it/s] 85%|████████▌ | 17/20 [00:00<00:00, 76.26it/s]100%|██████████| 20/20 [00:00<00:00, 79.71it/s]
 no dup :) 
-X.shape (307511, 12619)
-[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
-[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
-[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
-[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
-[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
-[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
-[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
-[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
-[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
-[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
-[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
-[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
-[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
-[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
-[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
-[50]	cv_agg's auc: 0.748742 + 0.00207118
-[100]	cv_agg's auc: 0.751803 + 0.00193991
-[150]	cv_agg's auc: 0.753669 + 0.00196229
-[200]	cv_agg's auc: 0.755528 + 0.00209993
-[250]	cv_agg's auc: 0.757897 + 0.00224068
-[300]	cv_agg's auc: 0.760302 + 0.00229366
-[350]	cv_agg's auc: 0.762718 + 0.00224461
-[400]	cv_agg's auc: 0.76497 + 0.00235105
-[450]	cv_agg's auc: 0.767223 + 0.00248326
-[500]	cv_agg's auc: 0.769227 + 0.00246889
-[550]	cv_agg's auc: 0.770777 + 0.00261256
-[600]	cv_agg's auc: 0.772046 + 0.00250015
-[650]	cv_agg's auc: 0.773104 + 0.00258248
-[700]	cv_agg's auc: 0.773925 + 0.00255598
-[750]	cv_agg's auc: 0.774602 + 0.00260714
-[800]	cv_agg's auc: 0.775156 + 0.00264036
-[850]	cv_agg's auc: 0.77563 + 0.00261283
-[900]	cv_agg's auc: 0.776084 + 0.00260004
-[950]	cv_agg's auc: 0.776435 + 0.00266265
-[1000]	cv_agg's auc: 0.776803 + 0.00269234
-[1050]	cv_agg's auc: 0.777053 + 0.00266091
-[1100]	cv_agg's auc: 0.777288 + 0.00268817
-[1150]	cv_agg's auc: 0.777515 + 0.00264405
-[1200]	cv_agg's auc: 0.777696 + 0.00263246
-[1250]	cv_agg's auc: 0.777837 + 0.00264431
-[1300]	cv_agg's auc: 0.777989 + 0.0026375
-[1350]	cv_agg's auc: 0.778153 + 0.00265364
-[1400]	cv_agg's auc: 0.778224 + 0.00265402
-[1450]	cv_agg's auc: 0.778356 + 0.00269138
-[1500]	cv_agg's auc: 0.778397 + 0.00267064
-[1550]	cv_agg's auc: 0.778479 + 0.00265136
-[1600]	cv_agg's auc: 0.77855 + 0.00265369
-[1650]	cv_agg's auc: 0.778618 + 0.00263067
-[1700]	cv_agg's auc: 0.778661 + 0.00268856
-[1750]	cv_agg's auc: 0.778703 + 0.00269902
-[1800]	cv_agg's auc: 0.778752 + 0.00269475
-[1850]	cv_agg's auc: 0.778789 + 0.00266972
-[1900]	cv_agg's auc: 0.77884 + 0.00270345
-[1950]	cv_agg's auc: 0.77887 + 0.00270062
-[2000]	cv_agg's auc: 0.778863 + 0.00268021
-[2050]	cv_agg's auc: 0.778908 + 0.00270516
-[2100]	cv_agg's auc: 0.778909 + 0.00273469
-[2150]	cv_agg's auc: 0.778949 + 0.00276852
-[2200]	cv_agg's auc: 0.778951 + 0.00280766
-[2250]	cv_agg's auc: 0.778965 + 0.00282553
-[2300]	cv_agg's auc: 0.778964 + 0.00284739
-CV auc-mean: 0.7789765544960364
-[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
-[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
-[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
-[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
-[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
-[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
-[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
-[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
-[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
-[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
-[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
-[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
-[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
-[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
-[LightGBM] [Warning] Met negative value in categorical features, will convert it to NaN
+X.shape (307511, 8343)
+[50]	cv_agg's auc: 0.754028 + 0.00239818
+[100]	cv_agg's auc: 0.757421 + 0.00265878
+[150]	cv_agg's auc: 0.760855 + 0.00267329
+[200]	cv_agg's auc: 0.763909 + 0.00253998
+[250]	cv_agg's auc: 0.766474 + 0.00260769
+[300]	cv_agg's auc: 0.768872 + 0.00265299
+[350]	cv_agg's auc: 0.770732 + 0.00275368
+[400]	cv_agg's auc: 0.77216 + 0.00277504
+[450]	cv_agg's auc: 0.7733 + 0.00278469
+[500]	cv_agg's auc: 0.774218 + 0.0028164
+[550]	cv_agg's auc: 0.774962 + 0.00279966
+[600]	cv_agg's auc: 0.775591 + 0.00280429
+[650]	cv_agg's auc: 0.77602 + 0.00277214
+[700]	cv_agg's auc: 0.77633 + 0.0027765
+[750]	cv_agg's auc: 0.77667 + 0.00281013
+[800]	cv_agg's auc: 0.776986 + 0.00288567
+[850]	cv_agg's auc: 0.777194 + 0.00290946
+[900]	cv_agg's auc: 0.777424 + 0.00298263
+[950]	cv_agg's auc: 0.777615 + 0.0029467
+[1000]	cv_agg's auc: 0.777805 + 0.00293792
+[1050]	cv_agg's auc: 0.777934 + 0.00295503
+[1100]	cv_agg's auc: 0.778004 + 0.00298632
+[1150]	cv_agg's auc: 0.778112 + 0.00294998
+[1200]	cv_agg's auc: 0.778216 + 0.00293235
+[1250]	cv_agg's auc: 0.778293 + 0.00293463
+[1300]	cv_agg's auc: 0.778412 + 0.00288785
+[1350]	cv_agg's auc: 0.778447 + 0.00290241
+[1400]	cv_agg's auc: 0.778499 + 0.00288226
+[1450]	cv_agg's auc: 0.778557 + 0.00288215
+[1500]	cv_agg's auc: 0.778602 + 0.00288238
+[1550]	cv_agg's auc: 0.778639 + 0.00288619
+[1600]	cv_agg's auc: 0.77867 + 0.00290059
+[1650]	cv_agg's auc: 0.77871 + 0.00287824
+[1700]	cv_agg's auc: 0.778774 + 0.00289598
+[1750]	cv_agg's auc: 0.77882 + 0.00293563
+[1800]	cv_agg's auc: 0.778815 + 0.00292345
+[1850]	cv_agg's auc: 0.778813 + 0.00292164
+CV auc-mean: 0.7788291984820035
 
 #==============================================================================
 # SUCCESS !!! 199_cv.py
 #==============================================================================
 
-time: 164.63min
+time: 88.05min
