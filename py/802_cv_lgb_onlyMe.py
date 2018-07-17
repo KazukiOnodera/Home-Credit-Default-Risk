@@ -17,7 +17,7 @@ from multiprocessing import cpu_count, Pool
 #from glob import glob
 import count
 import utils, utils_cat
-#utils.start(__file__)
+utils.start(__file__)
 #==============================================================================
 
 SEED = 71
@@ -49,7 +49,7 @@ param = {
 # =============================================================================
 # load
 # =============================================================================
-imp = pd.read_csv('LOG/imp_801_imp_lgb_onlyMe-2.py.csv')
+imp = pd.read_csv('LOG/imp_801_imp_lgb_onlyMe.py-2.csv')
 imp['split'] /= imp['split'].max()
 imp['gain'] /= imp['gain'].max()
 imp['total'] = imp['split'] + imp['gain']
