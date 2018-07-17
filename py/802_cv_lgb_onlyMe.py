@@ -22,7 +22,7 @@ utils.start(__file__)
 
 SEED = 71
 
-HEADS = list(range(500, 2500, 100))
+HEADS = list(range(200, 1000, 50))
 
 param = {
          'objective': 'binary',
