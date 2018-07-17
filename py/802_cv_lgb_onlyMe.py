@@ -55,8 +55,6 @@ imp['gain'] /= imp['gain'].max()
 imp['total'] = imp['split'] + imp['gain']
 imp.sort_values('total', ascending=False, inplace=True)
 
-imp = imp[~imp.feature.str.startswith('f702')]
-imp = imp[~imp.feature.str.startswith('f01')]
 
 for HEAD in HEADS:
     use_files = (imp.head(HEAD).feature + '.f').tolist()
