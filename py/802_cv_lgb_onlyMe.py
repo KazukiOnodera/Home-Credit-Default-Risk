@@ -55,8 +55,8 @@ imp['gain'] /= imp['gain'].max()
 imp['total'] = imp['split'] + imp['gain']
 imp.sort_values('total', ascending=False, inplace=True)
 
-#imp = imp[~imp.feature.str.startswith('f702')]
-#imp = imp[~imp.feature.str.startswith('f01')]
+imp = imp[~imp.feature.str.startswith('f702')]
+imp = imp[~imp.feature.str.startswith('f01')]
 
 for HEAD in HEADS:
     use_files = (imp.head(HEAD).feature + '.f').tolist()
@@ -94,29 +94,6 @@ for HEAD in HEADS:
     utils.send_line(result)
 
 
-# =============================================================================
-# train
-# =============================================================================
-#dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
-##model = lgb.train(param, dtrain, len(ret['auc-mean']))
-#model = lgb.train(param, dtrain, 1000)
-#imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
-#
-#
-#imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
-#
-#"""
-#imp = pd.read_csv('LOG/imp_909_cv.py.csv')
-#"""
-
-#def multi_touch(arg):
-#    os.system(f'touch "../feature_unused/{arg}.f"')
-#
-#
-#col = imp[imp['split']==0]['feature'].tolist()
-#pool = Pool(cpu_count())
-#pool.map(multi_touch, col)
-#pool.close()
 
 #==============================================================================
 utils.end(__file__)
