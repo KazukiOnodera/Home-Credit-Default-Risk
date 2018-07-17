@@ -47,7 +47,7 @@ param = {
          'seed': SEED
          }
 
-use_files = []
+use_files = ['train_f'] # only me
 
 os.system(f'rm -rf ../feature_unused')
 os.system(f'mkdir ../feature_unused')
