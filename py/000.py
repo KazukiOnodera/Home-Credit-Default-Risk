@@ -463,6 +463,8 @@ def multi(p):
         
         del trte, prev; gc.collect()
         
+        df['month'] = (df['DAYS_ENTRY_PAYMENT']/30).map(np.floor)
+        
         # app
         df['DAYS_ENTRY_PAYMENT-m-app_DAYS_BIRTH']             = df['DAYS_ENTRY_PAYMENT'] - df['app_DAYS_BIRTH']
         df['DAYS_ENTRY_PAYMENT-m-app_DAYS_EMPLOYED']          = df['DAYS_ENTRY_PAYMENT'] - df['app_DAYS_EMPLOYED']
