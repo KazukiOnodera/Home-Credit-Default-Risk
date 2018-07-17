@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Sat Jul 14 01:29:16 2018
+Created on Tue Jul 17 11:15:57 2018
 
-@author: Kazuki
+@author: kazuki.onodera
 """
 
 import gc, os
@@ -57,12 +57,10 @@ imp.sort_values('total', ascending=False, inplace=True)
 
 
 for HEAD in HEADS:
-    use_files = (imp.head(HEAD).feature + '.f').tolist()
+    imp_ = imp[~imp.feature.str.startswith('Mxw_META_FEATURE_')]
+    use_files = (imp_.head(HEAD).feature + '.f').tolist()
     
     files = utils.get_use_files(use_files, True)
-    
-#    # ireko
-#    files.append('../feature/train_irk_ireko.f')
     
     X = pd.concat([
                     pd.read_feather(f) for f in tqdm(files, mininterval=60)
