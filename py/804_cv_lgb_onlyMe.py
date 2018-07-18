@@ -20,7 +20,7 @@ import utils, utils_cat
 utils.start(__file__)
 #==============================================================================
 
-SEEDs = list(range(73, 78))
+SEEDs = list(range(75, 78))
 
 HEADS = list(range(300, 1000, 100))
 
