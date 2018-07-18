@@ -55,9 +55,9 @@ imp['gain'] /= imp['gain'].max()
 imp['total'] = imp['split'] + imp['gain']
 imp.sort_values('total', ascending=False, inplace=True)
 
-use_files = (imp.head(max(HEADS)).feature + '.f').tolist()
+files = ('../feature/train_' + imp.head(max(HEADS)).feature + '.f').tolist()
 
-files = utils.get_use_files(use_files, True)
+#files = utils.get_use_files(use_files, True)
 
 X_all = pd.concat([
                 pd.read_feather(f) for f in tqdm(files, mininterval=60)
