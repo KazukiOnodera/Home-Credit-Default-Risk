@@ -93,7 +93,7 @@ for SEED in SEEDs:
                      early_stopping_rounds=100, verbose_eval=None,
                      seed=SEED)
         
-        result = f"CV auc-mean({SEED}:{HEAD}): {ret['auc-mean'][-1]}"
+        result = f"CV auc-mean({SEED}:{HEAD}): {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
         print(result)
         
         utils.send_line(result)
