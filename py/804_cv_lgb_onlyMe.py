@@ -20,9 +20,9 @@ import utils, utils_cat
 utils.start(__file__)
 #==============================================================================
 
-SEED = 72
+SEEDs = list(range(73, 78))
 
-HEADS = list(range(200, 1000, 50))
+HEADS = list(range(300, 1000, 100))
 
 param = {
          'objective': 'binary',
@@ -43,7 +43,7 @@ param = {
          'nthread': cpu_count(),
          'bagging_freq': 1,
          'verbose':-1,
-         'seed': SEED
+#         'seed': SEED
          }
 
 # =============================================================================
@@ -55,41 +55,48 @@ imp['gain'] /= imp['gain'].max()
 imp['total'] = imp['split'] + imp['gain']
 imp.sort_values('total', ascending=False, inplace=True)
 
+use_files = (imp.head(max(HEADS)).feature + '.f').tolist()
 
-for HEAD in HEADS:
-    use_files = (imp.head(HEAD).feature + '.f').tolist()
+files = utils.get_use_files(use_files, True)
+
+X_all = pd.concat([
+                pd.read_feather(f) for f in tqdm(files, mininterval=60)
+               ], axis=1)
+y = utils.read_pickles('../data/label').TARGET
+
+
+
+
+for SEED in SEEDs:
+    param.update({'seed':SEED})
     
-    files = utils.get_use_files(use_files, True)
-    
-    X = pd.concat([
-                    pd.read_feather(f) for f in tqdm(files, mininterval=60)
-                   ], axis=1)
-    y = utils.read_pickles('../data/label').TARGET
-    
-    
-    if X.columns.duplicated().sum()>0:
-        raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
-    print('no dup :) ')
-    print(f'X.shape {X.shape}')
-    
-    gc.collect()
-    
-    CAT = list( set(X.columns)&set(utils_cat.ALL))
-    
-    # =============================================================================
-    # cv
-    # =============================================================================
-    dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
-    gc.collect()
-    
-    ret = lgb.cv(param, dtrain, 9999, nfold=5,
-                 early_stopping_rounds=100, verbose_eval=50,
-                 seed=SEED)
-    
-    result = f"CV auc-mean({HEAD}): {ret['auc-mean'][-1]}"
-    print(result)
-    
-    utils.send_line(result)
+    for HEAD in HEADS:
+        
+        X = X_all.iloc[:, :HEAD]
+        
+        if X.columns.duplicated().sum()>0:
+            raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
+        print('no dup :) ')
+        print(f'X.shape {X.shape}')
+        
+        gc.collect()
+        
+        CAT = list( set(X.columns)&set(utils_cat.ALL))
+        
+        # =============================================================================
+        # cv
+        # =============================================================================
+        dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
+        gc.collect()
+        
+        ret = lgb.cv(param, dtrain, 9999, nfold=5,
+                     early_stopping_rounds=100, verbose_eval=None,
+                     seed=SEED)
+        
+        result = f"CV auc-mean({SEED}:{HEAD}): {ret['auc-mean'][-1]}"
+        print(result)
+        
+        utils.send_line(result)
 
 
 
