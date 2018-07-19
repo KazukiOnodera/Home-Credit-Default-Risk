@@ -68,6 +68,14 @@ X_all = pd.concat([
                ], axis=1)
 y = utils.read_pickles('../data/prev_label').TARGET
 
+sub_train = utils.read_pickles('../data/prev_train', ['SK_ID_CURR']).set_index('SK_ID_CURR')
+sub_train['y'] = y.values
+sub_train['cnt'] = sub_train.index.value_counts()
+sub_train['w'] = 1 / sub_train.cnt.values
+
+group_kfold = GroupKFold(n_splits=NFOLD)
+sub_train['g'] = sub_train.index % NFOLD
+
 
 for HEAD in HEADS:
     
@@ -79,14 +87,6 @@ for HEAD in HEADS:
     print(f'X.shape {X.shape}')
     
     gc.collect()
-    
-    sub_train = utils.read_pickles('../data/prev_train', ['SK_ID_CURR']).set_index('SK_ID_CURR')
-    sub_train['y'] = y.values
-    sub_train['cnt'] = sub_train.index.value_counts()
-    sub_train['w'] = 1 / sub_train.cnt.values
-    
-    group_kfold = GroupKFold(n_splits=NFOLD)
-    sub_train['g'] = sub_train.index % NFOLD
     
     CAT = list( set(X.columns)&set(utils_cat.ALL))
     
