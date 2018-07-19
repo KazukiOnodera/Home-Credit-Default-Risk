@@ -44,7 +44,7 @@ def aggregate(args):
     path, pref = args
     
     df = utils.read_pickles(path, [KEY, 'SK_ID_PREV', 'month']+COL)
-    df = df[df['DAYS_INSTALMENT'].between(day_start, day_end)]
+#    df = df[df['DAYS_INSTALMENT'].between(day_start, day_end)]
 #    del df['SK_ID_PREV']
     
     df = df.groupby([KEY, 'SK_ID_PREV', 'month'])[COL].sum().reset_index()
