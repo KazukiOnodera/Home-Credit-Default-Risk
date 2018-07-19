@@ -35,6 +35,8 @@ train = utils.load_train([KEY])
 test = utils.load_test([KEY])
 prev = utils.read_pickles('../data/previous_application', ['SK_ID_PREV', 'NAME_CONTRACT_TYPE'])
 
+COL = ['AMT_PAYMENT', 'AMT_PAYMENT-d-app_AMT_INCOME_TOTAL', 'AMT_PAYMENT-d-app_AMT_CREDIT',
+       'AMT_PAYMENT-d-app_AMT_CREDIT', 'AMT_PAYMENT-d-app_AMT_ANNUITY', 'AMT_PAYMENT-d-app_AMT_GOODS_PRICE']
 # =============================================================================
 # 
 # =============================================================================
@@ -49,7 +51,7 @@ def percentile(n):
 def aggregate(args):
     path, cont_type, pref = args
     
-    df = utils.read_pickles(path, [KEY, 'SK_ID_PREV', 'DAYS_ENTRY_PAYMENT']).drop_duplicates([KEY, 'DAYS_ENTRY_PAYMENT'])
+    df = utils.read_pickles(path, [KEY, 'SK_ID_PREV', 'DAYS_ENTRY_PAYMENT']+COL)
     df = df[df['DAYS_ENTRY_PAYMENT'].between(day_start, day_end)].sort_values([KEY, 'DAYS_ENTRY_PAYMENT'])
     df = pd.merge(df, prev, on='SK_ID_PREV', how='left'); gc.collect()
     
@@ -60,10 +62,8 @@ def aggregate(args):
     
     df.sort_values(['SK_ID_PREV', 'DAYS_ENTRY_PAYMENT'], inplace=True)
     
-    col = ['AMT_PAYMENT', 'AMT_PAYMENT-d-app_AMT_INCOME_TOTAL', 'AMT_PAYMENT-d-app_AMT_CREDIT',
-           'AMT_PAYMENT-d-app_AMT_CREDIT', 'AMT_PAYMENT-d-app_AMT_ANNUITY', 'AMT_PAYMENT-d-app_AMT_GOODS_PRICE']
     col_ = []
-    for c in col:
+    for c in COL:
         df[f'{c}_diff'] = df[['SK_ID_PREV', c]].groupby('SK_ID_PREV')[c].diff()
         df[f'{c}_diff_diff'] = df[['SK_ID_PREV', f'{c}_diff']].groupby('SK_ID_PREV')[f'{c}_diff'].diff()
         df[f'{c}_pctchange'] = df[['SK_ID_PREV', c]].groupby('SK_ID_PREV')[c].pct_change()
