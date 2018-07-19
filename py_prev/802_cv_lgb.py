@@ -26,7 +26,7 @@ NFOLD = 5
 
 SEED = 71
 
-HEAD = 500
+HEADS = list(range(300, 1000, 100))
 
 param = {
          'objective': 'binary',
@@ -60,52 +60,55 @@ imp['gain'] /= imp['gain'].max()
 imp['total'] = imp['split'] + imp['gain']
 imp.sort_values('total', ascending=False, inplace=True)
 
-use_files = (imp.head(HEAD).feature + '.f').tolist()
+files = ('../feature_prev/train_' + imp.head(max(HEADS)).feature + '.f').tolist()
 
-files = utils.get_use_files(use_files, True)
 
-X = pd.concat([
+X_all = pd.concat([
                 pd.read_feather(f) for f in tqdm(files, mininterval=60)
                ], axis=1)
 y = utils.read_pickles('../data/prev_label').TARGET
 
 
-if X.columns.duplicated().sum()>0:
-    raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
-print('no dup :) ')
-print(f'X.shape {X.shape}')
-
-gc.collect()
-
-sub_train = utils.read_pickles('../data/prev_train', ['SK_ID_CURR']).set_index('SK_ID_CURR')
-sub_train['y'] = y.values
-sub_train['cnt'] = sub_train.index.value_counts()
-sub_train['w'] = 1 / sub_train.cnt.values
-
-group_kfold = GroupKFold(n_splits=NFOLD)
-sub_train['g'] = sub_train.index % NFOLD
-
-CAT = list( set(X.columns)&set(utils_cat.ALL))
-
-
-# =============================================================================
-# cv
-# =============================================================================
-dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
-gc.collect()
-
-ret = lgb.cv(param, dtrain, 9999, folds=group_kfold.split(X, sub_train['y'], 
-                                                          sub_train['g']), 
-             early_stopping_rounds=100, verbose_eval=50,
-             seed=SEED)
-
-result = f"CV auc-mean: {ret['auc-mean'][-1]}"
-print(result)
-
-utils.send_line(result)
+for HEAD in HEADS:
+    
+    X = X_all.iloc[:, :HEAD]
+    
+    if X.columns.duplicated().sum()>0:
+        raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
+    print('no dup :) ')
+    print(f'X.shape {X.shape}')
+    
+    gc.collect()
+    
+    sub_train = utils.read_pickles('../data/prev_train', ['SK_ID_CURR']).set_index('SK_ID_CURR')
+    sub_train['y'] = y.values
+    sub_train['cnt'] = sub_train.index.value_counts()
+    sub_train['w'] = 1 / sub_train.cnt.values
+    
+    group_kfold = GroupKFold(n_splits=NFOLD)
+    sub_train['g'] = sub_train.index % NFOLD
+    
+    CAT = list( set(X.columns)&set(utils_cat.ALL))
+    
+    
+    # =============================================================================
+    # cv
+    # =============================================================================
+    dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
+    gc.collect()
+    
+    ret = lgb.cv(param, dtrain, 9999, folds=group_kfold.split(X, sub_train['y'], 
+                                                              sub_train['g']), 
+                 early_stopping_rounds=100, verbose_eval=50,
+                 seed=SEED)
+    
+    result = f"CV auc-mean: {ret['auc-mean'][-1]}"
+    print(result)
+    
+    utils.send_line(result)
 
 
 #==============================================================================
 utils.end(__file__)
-utils.stop_instance()
+#utils.stop_instance()
 
