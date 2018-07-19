@@ -13,7 +13,7 @@ import sys
 sys.path.append(f'/home/{os.environ.get("USER")}/PythonLibrary')
 import lgbextension as ex
 import lightgbm as lgb
-from multiprocessing import cpu_count
+from multiprocessing import cpu_count, Pool
 #from glob import glob
 from sklearn.model_selection import GroupKFold
 import count
@@ -95,7 +95,6 @@ imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
 
 imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
 
-from multiprocessing import Pool
 
 def multi_touch(arg):
     os.system(f'touch "../feature_prev_unused/{arg}.f"')
