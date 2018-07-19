@@ -102,7 +102,7 @@ for HEAD in HEADS:
                  early_stopping_rounds=100, verbose_eval=50,
                  seed=SEED)
     
-    result = f"CV auc-mean: {ret['auc-mean'][-1]}"
+    result = f"CV auc-mean({HEAD}): {ret['auc-mean'][-1]}"
     print(result)
     
     utils.send_line(result)
