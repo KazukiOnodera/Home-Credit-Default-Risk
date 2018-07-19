@@ -573,7 +573,7 @@ def multi(p):
         df['SK_DPD_diff_over20'] = (df['SK_DPD_diff']>20)*1
         df['SK_DPD_diff_over25'] = (df['SK_DPD_diff']>25)*1
         
-        col = df.columns[3:15]
+        col = df.columns[3:15] # TODO: app
         df.sort_values(['SK_ID_PREV', 'MONTHS_BALANCE'], inplace=True)
         for c in col:
             print(c)

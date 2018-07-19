@@ -54,7 +54,7 @@ param = {
 # =============================================================================
 # load
 # =============================================================================
-imp = pd.read_csv('LOG/801_imp_lgb.py.csv')
+imp = pd.read_csv('LOG/imp_801_imp_lgb.py.csv')
 imp['split'] /= imp['split'].max()
 imp['gain'] /= imp['gain'].max()
 imp['total'] = imp['split'] + imp['gain']
