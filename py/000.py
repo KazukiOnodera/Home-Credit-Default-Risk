@@ -573,7 +573,6 @@ def multi(p):
         df['SK_DPD_diff_over20'] = (df['SK_DPD_diff']>20)*1
         df['SK_DPD_diff_over25'] = (df['SK_DPD_diff']>25)*1
         
-        
         col = df.columns[3:15]
         df.sort_values(['SK_ID_PREV', 'MONTHS_BALANCE'], inplace=True)
         for c in col:
@@ -582,6 +581,11 @@ def multi(p):
             df[f'{c}_diff_diff'] = df[['SK_ID_PREV', f'{c}_diff']].groupby('SK_ID_PREV')[f'{c}_diff'].diff()
             df[f'{c}_pctchange'] = df[['SK_ID_PREV', c]].groupby('SK_ID_PREV')[c].pct_change()
             df[f'{c}_pctchange_pctchange'] = df[['SK_ID_PREV', f'{c}_pctchange']].groupby('SK_ID_PREV')[f'{c}_pctchange'].pct_change()
+            
+            df[f'{c}_diff2'] = df[['SK_ID_PREV', c]].groupby('SK_ID_PREV')[c].diff(2)
+            df[f'{c}_diff2_diff2'] = df[['SK_ID_PREV', f'{c}_diff2']].groupby('SK_ID_PREV')[f'{c}_diff2'].diff(2)
+            df[f'{c}_pctchange2'] = df[['SK_ID_PREV', c]].groupby('SK_ID_PREV')[c].pct_change(2)
+#            df[f'{c}_pctchange2_pctchange'] = df[['SK_ID_PREV', f'{c}_pctchange']].groupby('SK_ID_PREV')[f'{c}_pctchange'].pct_change(2)
         
         df.replace(np.inf, np.nan, inplace=True) # TODO: any other plan?
         df.replace(-np.inf, np.nan, inplace=True)

@@ -81,6 +81,8 @@ group_kfold = GroupKFold(n_splits=NFOLD)
 sub_train['g'] = sub_train.index % NFOLD
 
 CAT = list( set(X.columns)&set(utils_cat.ALL))
+
+
 # =============================================================================
 # cv
 # =============================================================================

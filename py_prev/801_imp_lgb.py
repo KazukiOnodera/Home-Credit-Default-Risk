@@ -29,7 +29,7 @@ SEED = 71
 param = {
          'objective': 'binary',
          'metric': 'auc',
-         'learning_rate': 0.02,
+         'learning_rate': 0.01,
          'max_depth': 6,
          'num_leaves': 63,
          'max_bin': 255,
@@ -52,6 +52,9 @@ param = {
 
 use_files = ['train_f1', 'train_f201', 'train_f301', 'train_f401']
 
+
+os.system(f'rm -rf ../feature_prev_unused')
+os.system(f'mkdir ../feature_prev_unused')
 
 # =============================================================================
 # load
@@ -81,38 +84,16 @@ group_kfold = GroupKFold(n_splits=NFOLD)
 sub_train['g'] = sub_train.index % NFOLD
 
 CAT = list( set(X.columns)&set(utils_cat.ALL))
-# =============================================================================
-# cv
-# =============================================================================
-dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
-gc.collect()
-
-ret = lgb.cv(param, dtrain, 9999, folds=group_kfold.split(X, sub_train['y'], 
-                                                          sub_train['g']), 
-             early_stopping_rounds=100, verbose_eval=50,
-             seed=SEED)
-
-result = f"CV auc-mean: {ret['auc-mean'][-1]}"
-print(result)
-
-utils.send_line(result)
-
 
 # =============================================================================
-# train
+# imp
 # =============================================================================
 dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
-#model = lgb.train(param, dtrain, len(ret['auc-mean']))
 model = lgb.train(param, dtrain, 1000)
 imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
 
 
-imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
-
-"""
-imp = pd.read_csv('LOG/imp_909_cv.py.csv')
-"""
-
+imp.to_csv(f'LOG/imp_{__file__}-1.csv', index=False)
 
 from multiprocessing import Pool
 
@@ -127,7 +108,42 @@ pool.close()
 
 
 
+## =============================================================================
+## all data
+## =============================================================================
+#files = utils.get_use_files(use_files, True)
+#
+#X = pd.concat([
+#                pd.read_feather(f) for f in tqdm(files, mininterval=60)
+#               ], axis=1)
+#y = utils.read_pickles('../data/label').TARGET
+#
+#
+#if X.columns.duplicated().sum()>0:
+#    raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
+#print('no dup :) ')
+#print(f'X.shape {X.shape}')
+#
+#gc.collect()
+#
+#CAT = list( set(X.columns)&set(utils_cat.ALL))
+#print(f'CAT: {CAT}')
+#
+## =============================================================================
+## imp
+## =============================================================================
+#dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
+#model = lgb.train(param, dtrain, 1000)
+#imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
+#
+#
+#imp.to_csv(f'LOG/imp_{__file__}-2.csv', index=False)
+
+
+
+
+
 #==============================================================================
 utils.end(__file__)
-utils.stop_instance()
+#utils.stop_instance()
 
