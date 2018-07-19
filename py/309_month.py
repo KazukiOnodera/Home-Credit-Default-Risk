@@ -37,6 +37,10 @@ test = utils.load_test([KEY])
 COL = ['AMT_PAYMENT', 'AMT_PAYMENT-d-app_AMT_INCOME_TOTAL', 'AMT_PAYMENT-d-app_AMT_CREDIT',
        'AMT_PAYMENT-d-app_AMT_ANNUITY', 'AMT_PAYMENT-d-app_AMT_GOODS_PRICE']
 
+num_agg = {}
+for c in COL:
+    num_agg[c] = ['min', 'mean', 'max', 'var']
+
 # =============================================================================
 # 
 # =============================================================================
@@ -49,7 +53,7 @@ def aggregate(args):
     
     df = df.groupby([KEY, 'SK_ID_PREV', 'month'])[COL].sum().reset_index()
     
-    df_agg = df.groupby(KEY).agg({**utils_agg.ins_num_aggregations})
+    df_agg = df.groupby(KEY).agg({**num_agg})
     df_agg.columns = pd.Index([e[0] + "_" + e[1] for e in df_agg.columns.tolist()])
     
     df_agg['INS_COUNT'] = df.groupby(KEY).size()

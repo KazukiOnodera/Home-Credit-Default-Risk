@@ -573,6 +573,18 @@ def multi(p):
         df['SK_DPD_diff_over20'] = (df['SK_DPD_diff']>20)*1
         df['SK_DPD_diff_over25'] = (df['SK_DPD_diff']>25)*1
         
+        
+        col = []
+        df.sort_values(['SK_ID_PREV', 'MONTHS_BALANCE'], inplace=True)
+        df['CNT_INSTALMENT_FUTURE_diff'] = df[['SK_ID_PREV', 'CNT_INSTALMENT_FUTURE']].groupby('SK_ID_PREV')['CNT_INSTALMENT_FUTURE'].diff()
+        df['CNT_INSTALMENT_FUTURE_diff_diff'] = df[['SK_ID_PREV', 'CNT_INSTALMENT_FUTURE_diff']].groupby('SK_ID_PREV')['CNT_INSTALMENT_FUTURE_diff'].diff()
+        df['CNT_INSTALMENT_FUTURE_pct_change'] = df[['SK_ID_PREV', 'CNT_INSTALMENT_FUTURE']].groupby('SK_ID_PREV')['CNT_INSTALMENT_FUTURE'].pct_change()
+        df['CNT_INSTALMENT-m-CNT_INSTALMENT_FUTURE'] = df['CNT_INSTALMENT'] - df['CNT_INSTALMENT_FUTURE']
+        df['CNT_INSTALMENT_FUTURE-d-CNT_INSTALMENT'] = df['CNT_INSTALMENT_FUTURE'] / df['CNT_INSTALMENT']
+        
+        
+        
+        
         df.replace(np.inf, np.nan, inplace=True) # TODO: any other plan?
         df.replace(-np.inf, np.nan, inplace=True)
         
