@@ -93,7 +93,7 @@ model = lgb.train(param, dtrain, 1000)
 imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
 
 
-imp.to_csv(f'LOG/imp_{__file__}-1.csv', index=False)
+imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
 
 from multiprocessing import Pool
 
