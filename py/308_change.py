@@ -36,7 +36,7 @@ test = utils.load_test([KEY])
 prev = utils.read_pickles('../data/previous_application', ['SK_ID_PREV', 'NAME_CONTRACT_TYPE'])
 
 COL = ['AMT_PAYMENT', 'AMT_PAYMENT-d-app_AMT_INCOME_TOTAL', 'AMT_PAYMENT-d-app_AMT_CREDIT',
-       'AMT_PAYMENT-d-app_AMT_CREDIT', 'AMT_PAYMENT-d-app_AMT_ANNUITY', 'AMT_PAYMENT-d-app_AMT_GOODS_PRICE']
+       'AMT_PAYMENT-d-app_AMT_ANNUITY', 'AMT_PAYMENT-d-app_AMT_GOODS_PRICE']
 # =============================================================================
 # 
 # =============================================================================
