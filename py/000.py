@@ -10,6 +10,8 @@ Created on Wed May 23 11:11:57 2018
 -p- -> +
 -m- -> -
 
+nohup python -u 
+
 """
 
 import numpy as np
@@ -867,7 +869,7 @@ def multi(p):
 1
 
 
-multi(int(argv))
+multi(int(argv[2]))
 
 
 #==============================================================================
