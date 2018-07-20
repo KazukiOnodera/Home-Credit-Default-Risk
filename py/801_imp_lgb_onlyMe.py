@@ -131,8 +131,15 @@ dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
 model = lgb.train(param, dtrain, 1000)
 imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
 
-
+"""
+__file__ = '801_imp_lgb_onlyMe.py'
+"""
 imp.to_csv(f'LOG/imp_{__file__}-2.csv', index=False)
+
+col = imp[imp['split']==0]['feature'].tolist()
+pool = Pool(cpu_count())
+pool.map(multi_touch, col)
+pool.close()
 
 
 
