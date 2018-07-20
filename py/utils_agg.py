@@ -623,9 +623,21 @@ bure_num_aggregations = {
 }
 
 
+# =============================================================================
+# 
+# =============================================================================
 
-
-
+bb_num_aggregations = {
+        'MONTHS_BALANCE': ['min', 'max', 'mean', 'sum', 'var', 'size'],
+         'STATUS_0': stats, 
+         'STATUS_1': stats, 
+         'STATUS_2': stats,
+         'STATUS_3': stats, 
+         'STATUS_4': stats, 
+         'STATUS_5': stats, 
+         'STATUS_C': stats, 
+         'STATUS_X': stats,
+         }
 
 
 

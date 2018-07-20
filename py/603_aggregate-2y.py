@@ -15,7 +15,7 @@ import gc
 import os
 from multiprocessing import Pool, cpu_count
 NTHREAD = cpu_count()
-import utils
+import utils, utils_agg
 utils.start(__file__)
 #==============================================================================
 PREF = 'f603_'
@@ -36,13 +36,6 @@ bb = bb[bb['MONTHS_BALANCE'].between(month_start, month_end)]
 bb = pd.merge(bb, bure, on='SK_ID_BUREAU', how='left')
 
 
-num_aggregations = {
-    # TODO: optimize stats
-    'MONTHS_BALANCE': ['min', 'max', 'mean', 'sum', 'var', 'size'],
-}
-
-
-col_cat = ['STATUS']
 
 train = utils.load_train([KEY])
 test = utils.load_test([KEY])
@@ -55,20 +48,9 @@ def aggregate(args):
     print(args)
     k, v, prefix = args
     
-    df = utils.get_dummies(bb[bb[k]==v])
+    df = (bb[bb[k]==v])
     
-    li = []
-    for c1 in df.columns:
-        for c2 in col_cat:
-            if c1.startswith(c2+'_'):
-                li.append(c1)
-                break
-    
-    cat_aggregations = {}
-    for cat in li:
-        cat_aggregations[cat] = ['mean', 'sum']
-    
-    df_agg = df.groupby(KEY).agg({**num_aggregations, **cat_aggregations})
+    df_agg = df.groupby(KEY).agg({{**utils_agg.bb_num_aggregations}})
     df_agg.columns = pd.Index([prefix + '_' + e[0] + "_" + e[1] for e in df_agg.columns.tolist()])
     
     df_agg[f'{prefix}_BURE_COUNT'] = df.groupby(KEY).size()
