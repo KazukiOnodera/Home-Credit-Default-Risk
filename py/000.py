@@ -868,7 +868,7 @@ def multi(p):
 #pool.close()
 1
 
-
+print(argv)
 multi(int(argv[2]))
 
 
