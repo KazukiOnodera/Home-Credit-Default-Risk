@@ -49,7 +49,7 @@ def aggregate(args):
     
     df = (bb[bb[k]==v])
     
-    df_agg = df.groupby(KEY).agg({{**utils_agg.bb_num_aggregations}})
+    df_agg = df.groupby(KEY).agg(utils_agg.bb_num_aggregations)
     df_agg.columns = pd.Index([prefix + '_' + e[0] + "_" + e[1] for e in df_agg.columns.tolist()])
     
     df_agg[f'{prefix}_BURE_COUNT'] = df.groupby(KEY).size()
