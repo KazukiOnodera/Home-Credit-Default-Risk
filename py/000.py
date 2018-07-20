@@ -18,6 +18,8 @@ from multiprocessing import Pool, cpu_count
 NTHREAD = cpu_count()
 from itertools import combinations
 from tqdm import tqdm
+import sys
+argv = sys.argv
 import os, utils, gc
 utils.start(__file__)
 #==============================================================================
@@ -859,9 +861,14 @@ def multi(p):
 # =============================================================================
 # main
 # =============================================================================
-pool = Pool(NTHREAD)
-callback = pool.map(multi, range(10))
-pool.close()
+#pool = Pool(NTHREAD)
+#callback = pool.map(multi, range(10))
+#pool.close()
+1
+
+
+multi(int(argv))
+
 
 #==============================================================================
 utils.end(__file__)
