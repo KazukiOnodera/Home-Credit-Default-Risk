@@ -22,7 +22,9 @@ import os, utils, gc
 utils.start(__file__)
 #==============================================================================
 
-folders = ['../data', '../feature', '../feature_unused', 
+folders = [
+#        '../data', 
+        '../feature', '../feature_unused', 
 #           '../feature_var0', '../feature_corr1'
            ]
 for fol in folders:
@@ -132,7 +134,6 @@ def multi(p):
             df['OWN_CAR_AGE-m-DAYS_BIRTH'] = df['DAYS_BIRTH'] + (df['OWN_CAR_AGE']*365)
             df['OWN_CAR_AGE-d-DAYS_EMPLOYED'] = df['OWN_CAR_AGE'] / df['DAYS_EMPLOYED']
             df['OWN_CAR_AGE-m-DAYS_EMPLOYED'] = df['DAYS_EMPLOYED'] + (df['OWN_CAR_AGE']*365)
-            
             
             df['cnt_adults'] = df['CNT_FAM_MEMBERS'] - df['CNT_CHILDREN']
             df['CNT_CHILDREN-d-CNT_FAM_MEMBERS'] = df['CNT_CHILDREN'] / df['CNT_FAM_MEMBERS']
@@ -571,27 +572,27 @@ def multi(p):
         feature = f'days_weighted_delay_tsw3' # Time Series Weight
         df[feature] = df['days_weighted_delay'] * (1 + (df['DAYS_ENTRY_PAYMENT']*decay) )
         
-        df_tmp = pd.DataFrame()
-        for i in range(0, 50, 5):
-            c1 = f'delayed_day_over{i}'
-            df_tmp[c1] = (df['days_delayed_payment']>i)*1
-            
-            c2 = f'delayed_money_{i}'
-            df_tmp[c2] = df_tmp[c1] * df.AMT_PAYMENT
-            
-            c3 = f'delayed_money_ratio_{i}'
-            df_tmp[c3] = df_tmp[c1] * df.amt_ratio
-            
-            c1 = f'not-delayed_day_{i}'
-            df_tmp[c1] = (df['days_delayed_payment']<=i)*1
-            
-            c2 = f'not-delayed_money_{i}'
-            df_tmp[c2] = df_tmp[c1] * df.AMT_PAYMENT
-            
-            c3 = f'not-delayed_money_ratio_{i}'
-            df_tmp[c3] = df_tmp[c1] * df.amt_ratio
-        
-        df = pd.concat([df, df_tmp], axis=1)
+#        df_tmp = pd.DataFrame()
+#        for i in range(0, 50, 5):
+#            c1 = f'delayed_day_over{i}'
+#            df_tmp[c1] = (df['days_delayed_payment']>i)*1
+#            
+#            c2 = f'delayed_money_{i}'
+#            df_tmp[c2] = df_tmp[c1] * df.AMT_PAYMENT
+#            
+#            c3 = f'delayed_money_ratio_{i}'
+#            df_tmp[c3] = df_tmp[c1] * df.amt_ratio
+#            
+#            c1 = f'not-delayed_day_{i}'
+#            df_tmp[c1] = (df['days_delayed_payment']<=i)*1
+#            
+#            c2 = f'not-delayed_money_{i}'
+#            df_tmp[c2] = df_tmp[c1] * df.AMT_PAYMENT
+#            
+#            c3 = f'not-delayed_money_ratio_{i}'
+#            df_tmp[c3] = df_tmp[c1] * df.amt_ratio
+#        
+#        df = pd.concat([df, df_tmp], axis=1)
         
         df.replace(np.inf, np.nan, inplace=True) # TODO: any other plan?
         df.replace(-np.inf, np.nan, inplace=True)
