@@ -866,10 +866,8 @@ def multi(p):
 #pool = Pool(NTHREAD)
 #callback = pool.map(multi, range(10))
 #pool.close()
-1
-
-print(argv)
-multi(int(argv[2]))
+        
+multi(int(argv[1]))
 
 
 #==============================================================================
