@@ -17,6 +17,7 @@ import pandas as pd
 from multiprocessing import Pool, cpu_count
 NTHREAD = cpu_count()
 from itertools import combinations
+from tqdm import tqdm
 import os, utils, gc
 utils.start(__file__)
 #==============================================================================
@@ -328,6 +329,46 @@ def multi(p):
         df['AMT_CREDIT-m-app_AMT_GOODS_PRICE-d-app_AMT_INCOME_TOTAL']      = (df['AMT_CREDIT']      - df['app_AMT_GOODS_PRICE']) / df['app_AMT_INCOME_TOTAL']
         df['AMT_GOODS_PRICE-m-app_AMT_GOODS_PRICE-d-app_AMT_INCOME_TOTAL'] = (df['AMT_GOODS_PRICE'] - df['app_AMT_GOODS_PRICE']) / df['app_AMT_INCOME_TOTAL']
         
+        
+        df.sort_values(['SK_ID_CURR', 'DAYS_DECISION'], inplace=True)
+        df.reset_index(drop=True, inplace=True)
+        col = ['CNT_INSTALMENT_FUTURE', 'SK_DPD', 'SK_DPD_DEF']
+        
+        def multi_prev(c):
+            ret_diff = []
+            ret_pctchng = []
+            key_bk = x_bk = None
+            for key, x in df[['SK_ID_CURR', c]].values:
+#            for key, x in tqdm(df[['SK_ID_CURR', c]].values, mininterval=30):
+                
+                if key_bk is None:
+                    ret_diff.append(None)
+                    ret_pctchng.append(None)
+                else:
+                    if key_bk == key:
+                        ret_diff.append(x - x_bk)
+                        ret_pctchng.append( (x_bk-x) / x_bk)
+                    else:
+                        ret_diff.append(None)
+                        ret_pctchng.append(None)
+                key_bk = key
+                x_bk = x
+                
+            ret_diff = pd.Series(ret_diff, name=f'{c}_diff')
+            ret_pctchng = pd.Series(ret_pctchng, name=f'{c}_pctchange')
+            ret = pd.concat([ret_diff, ret_pctchng], axis=1)
+            
+            return ret
+        
+        pool = Pool(len(col))
+        callback = pd.concat(pool.map(multi_prev, col), axis=1)
+        print('===== PREV ====')
+        print(callback.columns.tolist())
+        pool.close()
+        df = pd.concat([df, callback], axis=1)
+        
+        
+        
         # app & day
         col_prev = ['DAYS_FIRST_DRAWING', 'DAYS_FIRST_DUE', 'DAYS_LAST_DUE_1ST_VERSION', 
                     'DAYS_LAST_DUE', 'DAYS_TERMINATION']
@@ -423,14 +464,48 @@ def multi(p):
 #        df['MONTHS_BALANCE_max'] = df.groupby('SK_ID_PREV').MONTHS_BALANCE.transform('max')
 #        df.loc[(df.CNT_INSTALMENT_FUTURE_min!=0) & (df.MONTHS_BALANCE_max!=-1)]
         
-        df.sort_values(['SK_ID_PREV', 'MONTHS_BALANCE'], inplace=True)
-        df['CNT_INSTALMENT_FUTURE_diff'] = df[['SK_ID_PREV', 'CNT_INSTALMENT_FUTURE']].groupby('SK_ID_PREV')['CNT_INSTALMENT_FUTURE'].diff()
-        df['CNT_INSTALMENT_FUTURE_diff_diff'] = df[['SK_ID_PREV', 'CNT_INSTALMENT_FUTURE_diff']].groupby('SK_ID_PREV')['CNT_INSTALMENT_FUTURE_diff'].diff()
-        df['CNT_INSTALMENT_FUTURE_pct_change'] = df[['SK_ID_PREV', 'CNT_INSTALMENT_FUTURE']].groupby('SK_ID_PREV')['CNT_INSTALMENT_FUTURE'].pct_change()
         df['CNT_INSTALMENT-m-CNT_INSTALMENT_FUTURE'] = df['CNT_INSTALMENT'] - df['CNT_INSTALMENT_FUTURE']
         df['CNT_INSTALMENT_FUTURE-d-CNT_INSTALMENT'] = df['CNT_INSTALMENT_FUTURE'] / df['CNT_INSTALMENT']
         
-        df['SK_DPD_diff'] = df['SK_DPD'] - df['SK_DPD_DEF']
+        df.sort_values(['SK_ID_PREV', 'MONTHS_BALANCE'], inplace=True)
+        df.reset_index(drop=True, inplace=True)
+        col = ['CNT_INSTALMENT_FUTURE', 'SK_DPD', 'SK_DPD_DEF']
+        
+        def multi_pos(c):
+            ret_diff = []
+            ret_pctchng = []
+            key_bk = x_bk = None
+            for key, x in df[['SK_ID_PREV', c]].values:
+#            for key, x in tqdm(df[['SK_ID_CURR', c]].values, mininterval=30):
+                
+                if key_bk is None:
+                    ret_diff.append(None)
+                    ret_pctchng.append(None)
+                else:
+                    if key_bk == key:
+                        ret_diff.append(x - x_bk)
+                        ret_pctchng.append( (x_bk-x) / x_bk)
+                    else:
+                        ret_diff.append(None)
+                        ret_pctchng.append(None)
+                key_bk = key
+                x_bk = x
+                
+            ret_diff = pd.Series(ret_diff, name=f'{c}_diff')
+            ret_pctchng = pd.Series(ret_pctchng, name=f'{c}_pctchange')
+            ret = pd.concat([ret_diff, ret_pctchng], axis=1)
+            
+            return ret
+        
+        pool = Pool(len(col))
+        callback = pd.concat(pool.map(multi_pos, col), axis=1)
+        print('===== POS ====')
+        print(callback.columns.tolist())
+        pool.close()
+        df = pd.concat([df, callback], axis=1)
+        
+        
+        df['SK_DPD-m-SK_DPD_DEF'] = df['SK_DPD'] - df['SK_DPD_DEF']
 #        df['SK_DPD_diff_over0'] = (df['SK_DPD_diff']>0)*1
 #        df['SK_DPD_diff_over5']  = (df['SK_DPD_diff']>5)*1
 #        df['SK_DPD_diff_over10'] = (df['SK_DPD_diff']>10)*1
@@ -589,17 +664,39 @@ def multi(p):
                ]
         
         df.sort_values(['SK_ID_PREV', 'MONTHS_BALANCE'], inplace=True)
-        for c in col:
-            print(c)
-            df[f'{c}_diff'] = df[['SK_ID_PREV', c]].groupby('SK_ID_PREV')[c].diff()
-            df[f'{c}_diff_diff'] = df[['SK_ID_PREV', f'{c}_diff']].groupby('SK_ID_PREV')[f'{c}_diff'].diff()
-            df[f'{c}_pctchange'] = df[['SK_ID_PREV', c]].groupby('SK_ID_PREV')[c].pct_change()
-            df[f'{c}_pctchange_pctchange'] = df[['SK_ID_PREV', f'{c}_pctchange']].groupby('SK_ID_PREV')[f'{c}_pctchange'].pct_change()
+        df.reset_index(drop=True, inplace=True)
+        
+        def multi_cre(c):
+            ret_diff = []
+            ret_pctchng = []
+            key_bk = x_bk = None
+            for key, x in df[['SK_ID_PREV', c]].values:
+                
+                if key_bk is None:
+                    ret_diff.append(None)
+                    ret_pctchng.append(None)
+                else:
+                    if key_bk == key:
+                        ret_diff.append(x - x_bk)
+                        ret_pctchng.append( (x_bk-x) / x_bk)
+                    else:
+                        ret_diff.append(None)
+                        ret_pctchng.append(None)
+                key_bk = key
+                x_bk = x
+                
+            ret_diff = pd.Series(ret_diff, name=f'{c}_diff')
+            ret_pctchng = pd.Series(ret_pctchng, name=f'{c}_pctchange')
+            ret = pd.concat([ret_diff, ret_pctchng], axis=1)
             
-            df[f'{c}_diff2'] = df[['SK_ID_PREV', c]].groupby('SK_ID_PREV')[c].diff(2)
-            df[f'{c}_diff2_diff2'] = df[['SK_ID_PREV', f'{c}_diff2']].groupby('SK_ID_PREV')[f'{c}_diff2'].diff(2)
-#            df[f'{c}_pctchange2'] = df[['SK_ID_PREV', c]].groupby('SK_ID_PREV')[c].pct_change(2)
-#            df[f'{c}_pctchange2_pctchange'] = df[['SK_ID_PREV', f'{c}_pctchange']].groupby('SK_ID_PREV')[f'{c}_pctchange'].pct_change(2)
+            return ret
+        
+        pool = Pool(len(col))
+        callback = pd.concat(pool.map(multi_cre, col), axis=1)
+        print('===== CRE ====')
+        print(callback.columns.tolist())
+        pool.close()
+        df = pd.concat([df, callback], axis=1)
         
         df.replace(np.inf, np.nan, inplace=True) # TODO: any other plan?
         df.replace(-np.inf, np.nan, inplace=True)
@@ -612,8 +709,7 @@ def multi(p):
         # =============================================================================        
         df = pd.read_csv('../input/bureau.csv.zip')
         
-        trte = get_trte()
-        df = pd.merge(df, trte, on='SK_ID_CURR', how='left')
+        df = pd.merge(df, get_trte(), on='SK_ID_CURR', how='left')
         
         col_bure_money = ['AMT_CREDIT_SUM', 'AMT_CREDIT_SUM_DEBT', 
                           'AMT_CREDIT_SUM_LIMIT', 'AMT_CREDIT_SUM_OVERDUE']
@@ -645,11 +741,68 @@ def multi(p):
         df['AMT_CREDIT_SUM_DEBT-p-AMT_CREDIT_SUM_LIMIT'] = df['AMT_CREDIT_SUM_DEBT'] + df['AMT_CREDIT_SUM_LIMIT']
         df['AMT_CREDIT_SUM-d-debt-p-AMT_CREDIT_SUM_DEBT-p-AMT_CREDIT_SUM_LIMIT'] = df['AMT_CREDIT_SUM'] / df['AMT_CREDIT_SUM_DEBT-p-AMT_CREDIT_SUM_LIMIT']
         
-        #df['AMT_CREDIT_SUM-d-days_end-cre'] = df['AMT_CREDIT_SUM'] / df['days_end-m-cre']
-        #df['AMT_CREDIT_SUM-d-days_fact-cre'] = df['AMT_CREDIT_SUM'] / df['days_fact-m-cre']
-        #df['AMT_CREDIT_SUM-d-days_fact-end'] = df['AMT_CREDIT_SUM'] / df['days_fact-m-end']
-        #df['AMT_CREDIT_SUM-d-days_update-cre'] = df['AMT_CREDIT_SUM'] / df['days_update-m-cre']
-        #df['AMT_CREDIT_SUM-d-days_update-end'] = df['AMT_CREDIT_SUM'] / df['days_update-m-end']
+        col = ['AMT_CREDIT_MAX_OVERDUE', 'CNT_CREDIT_PROLONG',
+               'AMT_CREDIT_SUM', 'AMT_CREDIT_SUM_DEBT', 'AMT_CREDIT_SUM_LIMIT',
+               'AMT_CREDIT_SUM_OVERDUE', 'DAYS_CREDIT_UPDATE',
+               'AMT_ANNUITY', 'AMT_CREDIT_SUM-d-app_AMT_INCOME_TOTAL',
+               'AMT_CREDIT_SUM-d-app_AMT_CREDIT', 'AMT_CREDIT_SUM-d-app_AMT_ANNUITY',
+               'AMT_CREDIT_SUM-d-app_AMT_GOODS_PRICE',
+               'AMT_CREDIT_SUM_DEBT-d-app_AMT_INCOME_TOTAL',
+               'AMT_CREDIT_SUM_DEBT-d-app_AMT_CREDIT',
+               'AMT_CREDIT_SUM_DEBT-d-app_AMT_ANNUITY',
+               'AMT_CREDIT_SUM_DEBT-d-app_AMT_GOODS_PRICE',
+               'AMT_CREDIT_SUM_LIMIT-d-app_AMT_INCOME_TOTAL',
+               'AMT_CREDIT_SUM_LIMIT-d-app_AMT_CREDIT',
+               'AMT_CREDIT_SUM_LIMIT-d-app_AMT_ANNUITY',
+               'AMT_CREDIT_SUM_LIMIT-d-app_AMT_GOODS_PRICE',
+               'AMT_CREDIT_SUM_OVERDUE-d-app_AMT_INCOME_TOTAL',
+               'AMT_CREDIT_SUM_OVERDUE-d-app_AMT_CREDIT',
+               'AMT_CREDIT_SUM_OVERDUE-d-app_AMT_ANNUITY',
+               'AMT_CREDIT_SUM_OVERDUE-d-app_AMT_GOODS_PRICE',
+               'AMT_CREDIT_SUM-m-AMT_CREDIT_SUM_DEBT',
+               'AMT_CREDIT_SUM_DEBT-d-AMT_CREDIT_SUM',
+               'AMT_CREDIT_SUM-m-AMT_CREDIT_SUM_DEBT-d-AMT_CREDIT_SUM_LIMIT',
+               'AMT_CREDIT_SUM_DEBT-d-AMT_CREDIT_SUM_LIMIT',
+               'AMT_CREDIT_SUM_DEBT-p-AMT_CREDIT_SUM_LIMIT',
+               'AMT_CREDIT_SUM-d-debt-p-AMT_CREDIT_SUM_DEBT-p-AMT_CREDIT_SUM_LIMIT'
+               
+               ]
+        
+        df.sort_values(['SK_ID_CURR', 'DAYS_CREDIT'], inplace=True)
+        df.reset_index(drop=True, inplace=True)
+        
+        def multi_b(c):
+            ret_diff = []
+            ret_pctchng = []
+            key_bk = x_bk = None
+            for key, x in df[['SK_ID_CURR', c]].values:
+#            for key, x in tqdm(df[['SK_ID_CURR', c]].values, mininterval=30):
+                
+                if key_bk is None:
+                    ret_diff.append(None)
+                    ret_pctchng.append(None)
+                else:
+                    if key_bk == key:
+                        ret_diff.append(x - x_bk)
+                        ret_pctchng.append( (x_bk-x) / x_bk)
+                    else:
+                        ret_diff.append(None)
+                        ret_pctchng.append(None)
+                key_bk = key
+                x_bk = x
+                
+            ret_diff = pd.Series(ret_diff, name=f'{c}_diff')
+            ret_pctchng = pd.Series(ret_pctchng, name=f'{c}_pctchange')
+            ret = pd.concat([ret_diff, ret_pctchng], axis=1)
+            
+            return ret
+        
+        pool = Pool(len(col))
+        callback = pd.concat(pool.map(multi_b, col), axis=1)
+        print('===== bureau ====')
+        print(callback.columns.tolist())
+        pool.close()
+        df = pd.concat([df, callback], axis=1)
         
         df.replace(np.inf, np.nan, inplace=True) # TODO: any other plan?
         df.replace(-np.inf, np.nan, inplace=True)
@@ -661,6 +814,42 @@ def multi(p):
         # bureau_balance
         # =============================================================================
         df = pd.read_csv('../input/bureau_balance.csv.zip')
+        df.sort_values(['SK_ID_BUREAU', 'MONTHS_BALANCE'], inplace=True)
+        df = pd.get_dummies(df, columns=['STATUS'])
+        df.reset_index(drop=True, inplace=True)
+        
+#        def multi_bb(c):
+#            ret_diff = []
+#            ret_pctchng = []
+#            key_bk = x_bk = None
+#            for key, x in df[['SK_ID_BUREAU', c]].values:
+#                
+#                if key_bk is None:
+#                    ret_diff.append(None)
+#                    ret_pctchng.append(None)
+#                else:
+#                    if key_bk == key:
+#                        ret_diff.append(x - x_bk)
+#                        ret_pctchng.append( (x_bk-x) / x_bk)
+#                    else:
+#                        ret_diff.append(None)
+#                        ret_pctchng.append(None)
+#                key_bk = key
+#                x_bk = x
+#                
+#            ret_diff = pd.Series(ret_diff, name=f'{c}_diff')
+#            ret_pctchng = pd.Series(ret_pctchng, name=f'{c}_pctchange')
+#            ret = pd.concat([ret_diff, ret_pctchng], axis=1)
+#            
+#            return ret
+#        
+#        pool = Pool(len(col))
+#        callback = pd.concat(pool.map(multi_bb, col), axis=1)
+#        print('===== bureau_balance ====')
+#        print(callback.columns.tolist())
+#        pool.close()
+#        df = pd.concat([df, callback], axis=1)
+        
         utils.to_pickles(df, '../data/bureau_balance', utils.SPLIT_SIZE)
     
     else:
