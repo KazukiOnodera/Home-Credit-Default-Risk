@@ -347,7 +347,61 @@ if True:
         
         df.sort_values(['SK_ID_CURR', 'DAYS_DECISION'], inplace=True)
         df.reset_index(drop=True, inplace=True)
-        col = ['CNT_INSTALMENT_FUTURE', 'SK_DPD', 'SK_DPD_DEF']
+        
+        col = [
+                'total_debt',
+                'AMT_CREDIT-d-total_debt',
+                'AMT_GOODS_PRICE-d-total_debt',
+                'AMT_GOODS_PRICE-d-AMT_CREDIT',
+                'AMT_ANNUITY-d-app_AMT_INCOME_TOTAL',
+                'AMT_APPLICATION-d-app_AMT_INCOME_TOTAL',
+                'AMT_CREDIT-d-app_AMT_INCOME_TOTAL',
+                'AMT_GOODS_PRICE-d-app_AMT_INCOME_TOTAL',
+                
+                'AMT_ANNUITY-d-app_AMT_CREDIT',
+                'AMT_APPLICATION-d-app_AMT_CREDIT',
+                'AMT_CREDIT-d-app_AMT_CREDIT',
+                'AMT_GOODS_PRICE-d-app_AMT_CREDIT',
+                
+                'AMT_ANNUITY-d-app_AMT_ANNUITY',
+                'AMT_APPLICATION-d-app_AMT_ANNUITY',
+                'AMT_CREDIT-d-app_AMT_ANNUITY',
+                'AMT_GOODS_PRICE-d-app_AMT_ANNUITY',
+                
+                'AMT_ANNUITY-d-app_AMT_GOODS_PRICE',
+                'AMT_APPLICATION-d-app_AMT_GOODS_PRICE',
+                'AMT_CREDIT-d-app_AMT_GOODS_PRICE',
+                'AMT_GOODS_PRICE-d-app_AMT_GOODS_PRICE',
+                
+                'AMT_ANNUITY-m-app_AMT_INCOME_TOTAL',
+                'AMT_APPLICATION-m-app_AMT_INCOME_TOTAL',
+                'AMT_CREDIT-m-app_AMT_INCOME_TOTAL',
+                'AMT_GOODS_PRICE-m-app_AMT_INCOME_TOTAL',
+                'AMT_ANNUITY-m-app_AMT_CREDIT',
+                'AMT_APPLICATION-m-app_AMT_CREDIT',
+                'AMT_CREDIT-m-app_AMT_CREDIT',
+                'AMT_GOODS_PRICE-m-app_AMT_CREDIT',
+                'AMT_ANNUITY-m-app_AMT_CREDIT-d-app_AMT_INCOME_TOTAL',
+                'AMT_APPLICATION-m-app_AMT_CREDIT-d-app_AMT_INCOME_TOTAL',
+                'AMT_CREDIT-m-app_AMT_CREDIT-d-app_AMT_INCOME_TOTAL',
+                'AMT_GOODS_PRICE-m-app_AMT_CREDIT-d-app_AMT_INCOME_TOTAL',
+                'AMT_ANNUITY-m-app_AMT_ANNUITY',
+                'AMT_APPLICATION-m-app_AMT_ANNUITY',
+                'AMT_CREDIT-m-app_AMT_ANNUITY',
+                'AMT_GOODS_PRICE-m-app_AMT_ANNUITY',
+                'AMT_ANNUITY-m-app_AMT_ANNUITY-d-app_AMT_INCOME_TOTAL',
+                'AMT_APPLICATION-m-app_AMT_ANNUITY-d-app_AMT_INCOME_TOTAL',
+                'AMT_CREDIT-m-app_AMT_ANNUITY-d-app_AMT_INCOME_TOTAL',
+                'AMT_GOODS_PRICE-m-app_AMT_ANNUITY-d-app_AMT_INCOME_TOTAL',
+                'AMT_ANNUITY-m-app_AMT_GOODS_PRICE',
+                'AMT_APPLICATION-m-app_AMT_GOODS_PRICE',
+                'AMT_CREDIT-m-app_AMT_GOODS_PRICE',
+                'AMT_GOODS_PRICE-m-app_AMT_GOODS_PRICE',
+                'AMT_ANNUITY-m-app_AMT_GOODS_PRICE-d-app_AMT_INCOME_TOTAL',
+                'AMT_APPLICATION-m-app_AMT_GOODS_PRICE-d-app_AMT_INCOME_TOTAL',
+                'AMT_CREDIT-m-app_AMT_GOODS_PRICE-d-app_AMT_INCOME_TOTAL',
+                'AMT_GOODS_PRICE-m-app_AMT_GOODS_PRICE-d-app_AMT_INCOME_TOTAL',    
+               ]
         
         def multi_prev(c):
             ret_diff = []
