@@ -539,8 +539,7 @@ def multi(p):
         
         df = pd.read_csv('../input/credit_card_balance.csv.zip')
         
-        trte = get_trte()
-        df = pd.merge(df, trte, on='SK_ID_CURR', how='left')
+        df = pd.merge(df, get_trte(), on='SK_ID_CURR', how='left')
         
         df[col_app_day] = df[col_app_day]/30
         
@@ -565,15 +564,30 @@ def multi(p):
         
         df['AMT_DRAWINGS_CURRENT-d-AMT_CREDIT_LIMIT_ACTUAL'] = df['AMT_DRAWINGS_CURRENT'] / df['AMT_CREDIT_LIMIT_ACTUAL']
         
-        df['SK_DPD_diff'] = df['SK_DPD'] - df['SK_DPD_DEF']
-        df['SK_DPD_diff_over0'] = (df['SK_DPD_diff']>0)*1
-        df['SK_DPD_diff_over5']  = (df['SK_DPD_diff']>5)*1
-        df['SK_DPD_diff_over10'] = (df['SK_DPD_diff']>10)*1
-        df['SK_DPD_diff_over15'] = (df['SK_DPD_diff']>15)*1
-        df['SK_DPD_diff_over20'] = (df['SK_DPD_diff']>20)*1
-        df['SK_DPD_diff_over25'] = (df['SK_DPD_diff']>25)*1
+        df['SK_DPD-m-SK_DPD_DEF'] = df['SK_DPD'] - df['SK_DPD_DEF']
+        df['SK_DPD-m-SK_DPD_DEF_over0'] = (df['SK_DPD-m-SK_DPD_DEF']>0)*1
+        df['SK_DPD-m-SK_DPD_DEF_over5']  = (df['SK_DPD-m-SK_DPD_DEF']>5)*1
+        df['SK_DPD-m-SK_DPD_DEF_over10'] = (df['SK_DPD-m-SK_DPD_DEF']>10)*1
+        df['SK_DPD-m-SK_DPD_DEF_over15'] = (df['SK_DPD-m-SK_DPD_DEF']>15)*1
+        df['SK_DPD-m-SK_DPD_DEF_over20'] = (df['SK_DPD-m-SK_DPD_DEF']>20)*1
+        df['SK_DPD-m-SK_DPD_DEF_over25'] = (df['SK_DPD-m-SK_DPD_DEF']>25)*1
         
-        col = df.columns[3:15] # TODO: app
+        col = ['AMT_BALANCE', 'AMT_CREDIT_LIMIT_ACTUAL', 'AMT_DRAWINGS_ATM_CURRENT',
+               'AMT_DRAWINGS_CURRENT', 'AMT_DRAWINGS_OTHER_CURRENT',
+               'AMT_DRAWINGS_POS_CURRENT', 'AMT_INST_MIN_REGULARITY',
+               'AMT_PAYMENT_CURRENT', 'AMT_PAYMENT_TOTAL_CURRENT',
+               'AMT_RECEIVABLE_PRINCIPAL', 'AMT_RECIVABLE', 'AMT_TOTAL_RECEIVABLE',
+               'CNT_DRAWINGS_ATM_CURRENT', 'CNT_DRAWINGS_CURRENT',
+               'CNT_DRAWINGS_OTHER_CURRENT', 'CNT_DRAWINGS_POS_CURRENT',
+               'CNT_INSTALMENT_MATURE_CUM', 'SK_DPD',
+               'SK_DPD_DEF', 'AMT_BALANCE-d-app_AMT_INCOME_TOTAL',
+               'AMT_BALANCE-d-app_AMT_CREDIT', 'AMT_BALANCE-d-app_AMT_ANNUITY',
+               'AMT_BALANCE-d-app_AMT_GOODS_PRICE', 'AMT_DRAWINGS_CURRENT-d-app_AMT_INCOME_TOTAL',
+               'AMT_DRAWINGS_CURRENT-d-app_AMT_CREDIT', 'AMT_DRAWINGS_CURRENT-d-app_AMT_ANNUITY',
+               'AMT_DRAWINGS_CURRENT-d-app_AMT_GOODS_PRICE', 'AMT_BALANCE-d-AMT_CREDIT_LIMIT_ACTUAL',
+               'AMT_BALANCE-d-AMT_DRAWINGS_CURRENT', 'AMT_DRAWINGS_CURRENT-d-AMT_CREDIT_LIMIT_ACTUAL'
+               ]
+        
         df.sort_values(['SK_ID_PREV', 'MONTHS_BALANCE'], inplace=True)
         for c in col:
             print(c)
@@ -584,7 +598,7 @@ def multi(p):
             
             df[f'{c}_diff2'] = df[['SK_ID_PREV', c]].groupby('SK_ID_PREV')[c].diff(2)
             df[f'{c}_diff2_diff2'] = df[['SK_ID_PREV', f'{c}_diff2']].groupby('SK_ID_PREV')[f'{c}_diff2'].diff(2)
-            df[f'{c}_pctchange2'] = df[['SK_ID_PREV', c]].groupby('SK_ID_PREV')[c].pct_change(2)
+#            df[f'{c}_pctchange2'] = df[['SK_ID_PREV', c]].groupby('SK_ID_PREV')[c].pct_change(2)
 #            df[f'{c}_pctchange2_pctchange'] = df[['SK_ID_PREV', f'{c}_pctchange']].groupby('SK_ID_PREV')[f'{c}_pctchange'].pct_change(2)
         
         df.replace(np.inf, np.nan, inplace=True) # TODO: any other plan?
