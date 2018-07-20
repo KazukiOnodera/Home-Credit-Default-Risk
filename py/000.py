@@ -10,7 +10,14 @@ Created on Wed May 23 11:11:57 2018
 -p- -> +
 -m- -> -
 
-nohup python -u 
+nohup python -u 000.py 0 > LOG/log_000.py_0.txt &
+nohup python -u 000.py 1 > LOG/log_000.py_1.txt &
+nohup python -u 000.py 2 > LOG/log_000.py_2.txt &
+nohup python -u 000.py 3 > LOG/log_000.py_3.txt &
+nohup python -u 000.py 4 > LOG/log_000.py_4.txt &
+nohup python -u 000.py 5 > LOG/log_000.py_5.txt &
+nohup python -u 000.py 6 > LOG/log_000.py_6.txt &
+
 
 """
 
