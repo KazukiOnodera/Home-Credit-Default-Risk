@@ -761,11 +761,23 @@ if True:
             return ret
         
         pool = Pool(len(col))
-        callback = pd.concat(pool.map(multi_cre, col), axis=1)
+        callback1 = pd.concat(pool.map(multi_cre, col), axis=1)
         print('===== CRE ====')
-        print(callback.columns.tolist())
+        col = callback1.columns.tolist()
+        print(col)
         pool.close()
-        df = pd.concat([df, callback], axis=1)
+#        callback1['SK_ID_PREV'] = df['SK_ID_PREV']
+        df = pd.concat([df, callback1], axis=1)
+        del callback1; gc.collect()
+        
+        pool = Pool(10)
+        callback2 = pd.concat(pool.map(multi_cre, col), axis=1)
+        print('===== CRE ====')
+        col = callback2.columns.tolist()
+        print(col)
+        pool.close()
+        df = pd.concat([df, callback2], axis=1)
+        del callback2; gc.collect()
         
         df.replace(np.inf, np.nan, inplace=True) # TODO: any other plan?
         df.replace(-np.inf, np.nan, inplace=True)
