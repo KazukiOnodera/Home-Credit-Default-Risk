@@ -76,7 +76,10 @@ def prep_prev(df):
 #    df['xxx'].replace(0, np.nan, inplace=True)
     return
 
-def multi(p):
+p = int(argv[1])
+
+if True:
+#def multi(p):
     if p==0:
         # =============================================================================
         # application
@@ -865,7 +868,8 @@ def multi(p):
         utils.to_pickles(df, '../data/bureau_balance', utils.SPLIT_SIZE)
     
     else:
-        return
+        pass
+#        return
 
 # =============================================================================
 # main
@@ -874,7 +878,7 @@ def multi(p):
 #callback = pool.map(multi, range(10))
 #pool.close()
         
-multi(int(argv[1]))
+#multi(int(argv[1]))
 
 
 #==============================================================================
