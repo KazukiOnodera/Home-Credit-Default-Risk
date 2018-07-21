@@ -132,6 +132,7 @@ sub['y_pred'] = 0
 
 folds = StratifiedKFold(n_splits=5, shuffle=True, random_state=47)
 
+models = []
 for n_fold, (train_index, valid_index) in enumerate(folds.split(X, y)):
     dtrain = lgb.Dataset(X.iloc[train_index], y.iloc[train_index],
                          categorical_feature=CAT)
@@ -145,8 +146,11 @@ for n_fold, (train_index, valid_index) in enumerate(folds.split(X, y)):
                   #evals_result=evals_result, 
                   verbose_eval=50
                   )
-    
+    models.append(model)
     sub.iloc[valid_index, -1] = model.predict(X.iloc[valid_index])
+
+imp = ex.getImp(models)
+imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
 
 # =============================================================================
 # output
