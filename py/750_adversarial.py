@@ -109,17 +109,17 @@ n_train = X_train.shape[0]
 # =============================================================================
 # cv
 # =============================================================================
-dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
-gc.collect()
-
-ret = lgb.cv(param, dtrain, 9999, nfold=5,
-             early_stopping_rounds=100, verbose_eval=50,
-             seed=SEED)
-
-result = f"CV auc-mean({HEAD}): {ret['auc-mean'][-1]}"
-print(result)
-
-utils.send_line(result)
+#dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
+#gc.collect()
+#
+#ret = lgb.cv(param, dtrain, 9999, nfold=5,
+#             early_stopping_rounds=100, verbose_eval=50,
+#             seed=SEED)
+#
+#result = f"CV auc-mean({HEAD}): {ret['auc-mean'][-1]}"
+#print(result)
+#
+#utils.send_line(result)
 
 # =============================================================================
 # stack
