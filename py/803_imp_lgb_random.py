@@ -78,6 +78,7 @@ np.random.seed(SEED)
 
 seeds = np.random.randint(9999, size=10)
 for i,seed in enumerate(seeds):
+    gc.collect()
     dtrain = lgb.Dataset(X_all.sample(frac=.3, random_state=seed), 
                          y_all.sample(frac=.3, random_state=seed), 
                          categorical_feature=CAT )
