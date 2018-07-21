@@ -136,6 +136,10 @@ __file__ = '801_imp_lgb_onlyMe.py'
 """
 imp.to_csv(f'LOG/imp_{__file__}-2.csv', index=False)
 
+
+def multi_touch(arg):
+    os.system(f'touch "../feature_unused/{arg}.f"')
+
 col = imp[imp['split']==0]['feature'].tolist()
 pool = Pool(cpu_count())
 pool.map(multi_touch, col)
