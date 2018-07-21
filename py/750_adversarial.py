@@ -17,7 +17,7 @@ from multiprocessing import cpu_count, Pool
 from glob import glob
 import count
 import utils, utils_cat
-#utils.start(__file__)
+utils.start(__file__)
 #==============================================================================
 
 PREF = 'f750_'
