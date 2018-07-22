@@ -17,13 +17,11 @@ import lightgbm as lgb
 from multiprocessing import cpu_count, Pool
 from glob import glob
 import count
-import utils, utils_cat
+import utils, utils_cat, utils_best
 utils.start(__file__)
 #==============================================================================
 
 SEED = 71
-
-HEAD = 600
 
 param = {
          'objective': 'binary',
@@ -50,24 +48,10 @@ param = {
 # =============================================================================
 # load
 # =============================================================================
-imp = pd.read_csv('LOG/imp_BEST.csv')
-imp['split'] /= imp['split'].max()
-imp['gain'] /= imp['gain'].max()
-imp['total'] = imp['split'] + imp['gain']
-imp.sort_values('total', ascending=False, inplace=True)
-
-
-use_files = (imp.head(HEAD).feature + '.f').tolist()
-
-files = utils.get_use_files(use_files, True)
-
-X = pd.concat([
-                pd.read_feather(f) for f in tqdm(files, mininterval=60)
-               ], axis=1)
+X = utils_best.load_best_train()
 y = utils.read_pickles('../data/label').TARGET
 
-X['nejumi'] = np.load('../feature_someone/nejumi_feature_current_ver3_rep_train.npy')
-X['CNT_PAYMENT'] = np.load('../feature_someone/CNT_PAYMENT_current_train_modif1.npy')
+weight = pd.read_feather('../feature/train_f750_y_pred.f')
 
 if X.columns.duplicated().sum()>0:
     raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
@@ -76,19 +60,38 @@ print(f'X.shape {X.shape}')
 
 gc.collect()
 
-CAT = list( set(X.columns)&set(utils_cat.ALL))
+CAT = list( set(X.columns)&set(utils_cat.ALL) )
 
 # =============================================================================
 # cv
 # =============================================================================
-dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
+dtrain = lgb.Dataset(X, y, categorical_feature=CAT ,
+                     weight=weight)
 gc.collect()
 
 ret = lgb.cv(param, dtrain, 9999, nfold=7,
              early_stopping_rounds=100, verbose_eval=50,
              seed=SEED)
 
-result = f"CV auc-mean({SEED}:{HEAD}): {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
+result = f"CV auc-mean(weight as weight): {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
+print(result)
+
+utils.send_line(result)
+
+
+# =============================================================================
+# cv
+# =============================================================================
+
+dtrain = lgb.Dataset(pd.concat([X, weight], axis=1), y, 
+                     categorical_feature=CAT)
+gc.collect()
+
+ret = lgb.cv(param, dtrain, 9999, nfold=7,
+             early_stopping_rounds=100, verbose_eval=50,
+             seed=SEED)
+
+result = f"CV auc-mean(weight as feature): {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
 print(result)
 
 utils.send_line(result)
@@ -97,7 +100,7 @@ utils.send_line(result)
 
 #==============================================================================
 utils.end(__file__)
-#utils.stop_instance()
+utils.stop_instance()
 
 
 

@@ -58,9 +58,9 @@ imp.sort_values('total', ascending=False, inplace=True)
 
 
 for HEAD in HEADS:
-    use_files = (imp.head(HEAD).feature + '.f').tolist()
+    files = ('../feature/train_' + imp.head(HEAD).feature + '.f').tolist()
     
-    files = utils.get_use_files(use_files, True)
+#    files = utils.get_use_files(use_files, True)
     
     X = pd.concat([
                     pd.read_feather(f) for f in tqdm(files, mininterval=60)
