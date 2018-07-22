@@ -9,6 +9,7 @@ Created on Sat Jul 14 01:29:16 2018
 import gc, os
 from tqdm import tqdm
 import pandas as pd
+import numpy as np
 import sys
 sys.path.append(f'/home/{os.environ.get("USER")}/PythonLibrary')
 import lgbextension as ex
@@ -66,6 +67,7 @@ for HEAD in HEADS:
                    ], axis=1)
     y = utils.read_pickles('../data/label').TARGET
     
+#    X['nejumi'] = np.load('../feature_someone/nejumi_feature_current_ver3_rep_train.npy')
     
     if X.columns.duplicated().sum()>0:
         raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
