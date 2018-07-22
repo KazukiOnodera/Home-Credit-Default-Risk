@@ -16,7 +16,7 @@ import lightgbm as lgb
 from multiprocessing import cpu_count, Pool
 from glob import glob
 import count
-import utils, utils_cat
+import utils, utils_cat, utils_best
 utils.start(__file__)
 #==============================================================================
 
@@ -51,40 +51,11 @@ param = {
 # =============================================================================
 # load
 # =============================================================================
-paths = glob('LOG/imp_803*.csv')
-
-
-
-for i,path in enumerate(paths):
-    imp = pd.read_csv(path)
-    imp['split'] /= imp['split'].max()
-    imp['gain'] /= imp['gain'].max()
-    imp['total'] = imp['split'] + imp['gain']
-    imp.sort_values('total', ascending=False, inplace=True)
-    imp.set_index('feature', inplace=True)
-    if i==0:
-        imp_all = imp
-    else:
-        imp_all['total'] += imp['total']
-
-imp_all.sort_values('total', ascending=False, inplace=True)
-imp_all.reset_index(inplace=True)
-
 # train
-use_files = (imp_all.head(HEAD).feature + '.f').tolist()
-
-files = utils.get_use_files(use_files, True)
-
-X_train = pd.concat([
-                pd.read_feather(f) for f in tqdm(files, mininterval=60)
-               ], axis=1)
+X_train = utils_best.load_best_train()
 
 # test
-files = utils.get_use_files(use_files, False)
-
-X_test = pd.concat([
-                pd.read_feather(f) for f in tqdm(files, mininterval=60)
-               ], axis=1)
+X_test = utils_best.load_best_test()
 
 X_train['target'] = 0
 X_test['target']  = 1
@@ -159,7 +130,7 @@ train = sub.iloc[:n_train,]
 test  = sub.iloc[n_train:,]
 
 utils.to_feature(train.add_prefix(PREF), '../feature/train')
-utils.to_feature(test.add_prefix(PREF), '../feature/train')
+utils.to_feature(test.add_prefix(PREF), '../feature/test')
 
 #==============================================================================
 utils.end(__file__)
