@@ -56,7 +56,6 @@ param = {
          }
 
 
-use_files = []
 np.random.seed(SEED)
 
 # =============================================================================
@@ -89,6 +88,10 @@ print(f'category: {CAT}')
 dtrain = lgb.Dataset(X, y, 
                      categorical_feature=CAT)
 COL = X.columns.tolist()
+
+X.head().to_csv(SUBMIT_FILE_PATH.replace('.csv', '_X.csv'),
+       index=False, compression='gzip')
+
 del X, y; gc.collect()
 
 
@@ -127,7 +130,7 @@ files = ('../feature/test_' + imp.head(FEATURE_SIZE).feature + '.f').tolist()
 
 dtest = pd.concat([
                 pd.read_feather(f) for f in tqdm(files, mininterval=60)
-                ], axis=1)
+                ], axis=1)[COL]
 
 
 sub = pd.read_pickle('../data/sub.p')
