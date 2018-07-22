@@ -132,6 +132,8 @@ model = lgb.train(param, dtrain, 1000)
 imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
 
 """
+imp[imp.feature.str.startswith('f311_')]
+
 __file__ = '801_imp_lgb_onlyMe.py'
 """
 imp.to_csv(f'LOG/imp_{__file__}-2.csv', index=False)
