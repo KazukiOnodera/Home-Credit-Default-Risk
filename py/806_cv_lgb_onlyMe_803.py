@@ -49,15 +49,26 @@ param = {
 # =============================================================================
 # load
 # =============================================================================
-imp = pd.read_csv('LOG/imp_801_imp_lgb_onlyMe.py-2.csv')
-imp['split'] /= imp['split'].max()
-imp['gain'] /= imp['gain'].max()
-imp['total'] = imp['split'] + imp['gain']
-imp.sort_values('total', ascending=False, inplace=True)
+paths = glob('LOG/imp_803*.csv')
+for i,path in enumerate(paths):
+    imp = pd.read_csv(path)
+    imp['split'] /= imp['split'].max()
+    imp['gain'] /= imp['gain'].max()
+    imp['total'] = imp['split'] + imp['gain']
+    imp.sort_values('total', ascending=False, inplace=True)
+    imp.set_index('feature', inplace=True)
+    if i==0:
+        imp_all = imp
+    else:
+        imp_all['total'] += imp['total']
+
+imp_all.sort_values('total', ascending=False, inplace=True)
+imp_all.reset_index(inplace=True)
+
 
 
 for HEAD in HEADS:
-    use_files = (imp.head(HEAD).feature + '.f').tolist()
+    use_files = (imp_all.head(HEAD).feature + '.f').tolist()
     
     files = utils.get_use_files(use_files, True)
     
@@ -86,7 +97,7 @@ for HEAD in HEADS:
                  early_stopping_rounds=100, verbose_eval=50,
                  seed=SEED)
     
-    result = f"CV auc-mean({SEED}:{HEAD}): {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
+    result = f"CV auc-mean({HEAD}): {ret['auc-mean'][-1]}"
     print(result)
     
     utils.send_line(result)

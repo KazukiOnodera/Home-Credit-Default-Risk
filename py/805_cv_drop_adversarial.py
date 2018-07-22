@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Sat Jul 14 01:29:16 2018
+Created on Sun Jul 22 09:20:25 2018
 
 @author: Kazuki
 """
@@ -14,7 +14,7 @@ sys.path.append(f'/home/{os.environ.get("USER")}/PythonLibrary')
 import lgbextension as ex
 import lightgbm as lgb
 from multiprocessing import cpu_count, Pool
-from glob import glob
+#from glob import glob
 import count
 import utils, utils_cat
 utils.start(__file__)
@@ -22,7 +22,7 @@ utils.start(__file__)
 
 SEED = 71
 
-HEADS = list(range(400, 1200, 100))
+HEAD = 600
 
 param = {
          'objective': 'binary',
@@ -56,45 +56,61 @@ imp['total'] = imp['split'] + imp['gain']
 imp.sort_values('total', ascending=False, inplace=True)
 
 
-for HEAD in HEADS:
-    use_files = (imp.head(HEAD).feature + '.f').tolist()
-    
-    files = utils.get_use_files(use_files, True)
-    
-    X = pd.concat([
-                    pd.read_feather(f) for f in tqdm(files, mininterval=60)
-                   ], axis=1)
-    y = utils.read_pickles('../data/label').TARGET
-    
-    
-    if X.columns.duplicated().sum()>0:
-        raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
-    print('no dup :) ')
-    print(f'X.shape {X.shape}')
-    
-    gc.collect()
-    
-    CAT = list( set(X.columns)&set(utils_cat.ALL))
-    
-    # =============================================================================
-    # cv
-    # =============================================================================
-    dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
-    gc.collect()
-    
-    ret = lgb.cv(param, dtrain, 9999, nfold=7,
-                 early_stopping_rounds=100, verbose_eval=50,
-                 seed=SEED)
-    
-    result = f"CV auc-mean({SEED}:{HEAD}): {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
-    print(result)
-    
-    utils.send_line(result)
+
+use_files = (imp.head(HEAD).feature + '.f').tolist()
+
+files = utils.get_use_files(use_files, True)
+
+X = pd.concat([
+                pd.read_feather(f) for f in tqdm(files, mininterval=60)
+               ], axis=1)
+y = utils.read_pickles('../data/label').TARGET
+
+
+if X.columns.duplicated().sum()>0:
+    raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
+print('no dup :) ')
+print(f'X.shape {X.shape}')
+
+gc.collect()
+
+
+# =============================================================================
+# drop feature
+# =============================================================================
+
+imp = pd.read_csv('LOG/imp_750_adversarial.py.csv')
+imp['split'] /= imp['split'].max()
+imp['gain'] /= imp['gain'].max()
+imp['total'] = imp['split'] + imp['gain']
+imp.sort_values('total', ascending=False, inplace=True)
+
+feature_drop = imp[imp.feature.isin(X.columns)].head(15).feature.tolist()
+
+X_ = X.drop(feature_drop, axis=1)
+CAT = list( set(X_.columns)&set(utils_cat.ALL))
+
+# =============================================================================
+# cv
+# =============================================================================
+dtrain = lgb.Dataset(X_, y, categorical_feature=CAT )
+gc.collect()
+
+ret = lgb.cv(param, dtrain, 9999, nfold=5,
+             early_stopping_rounds=100, verbose_eval=50,
+             seed=SEED)
+
+result = f"CV auc-mean({HEAD}): {ret['auc-mean'][-1]}"
+print(result)
+
+utils.send_line(result)
 
 
 
 #==============================================================================
 utils.end(__file__)
 #utils.stop_instance()
+
+
 
 
