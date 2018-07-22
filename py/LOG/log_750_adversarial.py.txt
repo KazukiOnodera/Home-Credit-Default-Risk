@@ -1,0 +1,820 @@
+train files
+f001: 236
+f002: 12
+f101: 5598
+f102: 5526
+f103: 5510
+f104: 5439
+f105: 871
+f106: 324
+f107: 6
+f108: 433
+f109: 433
+f201: 57
+f202: 55
+f203: 55
+f204: 55
+f301: 223
+f302: 223
+f303: 223
+f304: 223
+f305: 887
+f306: 60
+f307: 60
+f308: 1772
+f309: 63
+f310: 223
+f401: 920
+f402: 914
+f403: 914
+f404: 914
+f405: 914
+f406: 922
+f407: 922
+f408: 922
+f501: 637
+f502: 627
+f503: 631
+f504: 633
+f505: 1254
+f506: 627
+f601: 90
+f602: 90
+f603: 90
+f604: 90
+f701: 20
+f702: 7
+f750: 1
+
+test files
+f001: 236
+f002: 12
+f101: 5598
+f102: 5526
+f103: 5510
+f104: 5439
+f105: 871
+f106: 324
+f107: 6
+f108: 433
+f109: 433
+f201: 57
+f202: 55
+f203: 55
+f204: 55
+f301: 223
+f302: 223
+f303: 223
+f304: 223
+f305: 887
+f306: 60
+f307: 60
+f308: 1772
+f309: 63
+f310: 223
+f401: 920
+f402: 914
+f403: 914
+f404: 914
+f405: 914
+f406: 922
+f407: 922
+f408: 922
+f501: 637
+f502: 627
+f503: 631
+f504: 633
+f505: 1254
+f506: 627
+f601: 90
+f602: 90
+f603: 90
+f604: 90
+f701: 20
+f702: 7
+
+#==============================================================================
+# START!!! 750_adversarial.py    PID: 29752    time: 2018-07-21 12:40:22.581184
+#==============================================================================
+
+got 600
+  0%|          | 0/600 [00:00<?, ?it/s]100%|██████████| 600/600 [00:40<00:00, 14.82it/s]
+got 600
+  0%|          | 0/600 [00:00<?, ?it/s]100%|██████████| 600/600 [00:18<00:00, 32.33it/s]
+no dup :) 
+X.shape (356255, 600)
+Training until validation scores don't improve for 100 rounds.
+[50]	train's auc: 0.853334	valid's auc: 0.850575
+[100]	train's auc: 0.881592	valid's auc: 0.877632
+[150]	train's auc: 0.901243	valid's auc: 0.896513
+[200]	train's auc: 0.914937	valid's auc: 0.909354
+[250]	train's auc: 0.922795	valid's auc: 0.916105
+[300]	train's auc: 0.928299	valid's auc: 0.920729
+[350]	train's auc: 0.932749	valid's auc: 0.924183
+[400]	train's auc: 0.936645	valid's auc: 0.927026
+[450]	train's auc: 0.940589	valid's auc: 0.930077
+[500]	train's auc: 0.944187	valid's auc: 0.933007
+[550]	train's auc: 0.946964	valid's auc: 0.934999
+[600]	train's auc: 0.949889	valid's auc: 0.937145
+[650]	train's auc: 0.952454	valid's auc: 0.938988
+[700]	train's auc: 0.954615	valid's auc: 0.940441
+[750]	train's auc: 0.956764	valid's auc: 0.941648
+[800]	train's auc: 0.95864	valid's auc: 0.942762
+[850]	train's auc: 0.960401	valid's auc: 0.943949
+[900]	train's auc: 0.961961	valid's auc: 0.944836
+[950]	train's auc: 0.96333	valid's auc: 0.94562
+[1000]	train's auc: 0.964739	valid's auc: 0.946512
+[1050]	train's auc: 0.966098	valid's auc: 0.947227
+[1100]	train's auc: 0.967437	valid's auc: 0.948113
+[1150]	train's auc: 0.968593	valid's auc: 0.948686
+[1200]	train's auc: 0.969904	valid's auc: 0.949508
+[1250]	train's auc: 0.970997	valid's auc: 0.950056
+[1300]	train's auc: 0.972027	valid's auc: 0.950489
+[1350]	train's auc: 0.97299	valid's auc: 0.950993
+[1400]	train's auc: 0.974005	valid's auc: 0.951502
+[1450]	train's auc: 0.974879	valid's auc: 0.951963
+[1500]	train's auc: 0.975774	valid's auc: 0.952291
+[1550]	train's auc: 0.976663	valid's auc: 0.952678
+[1600]	train's auc: 0.977553	valid's auc: 0.95303
+[1650]	train's auc: 0.978387	valid's auc: 0.953439
+[1700]	train's auc: 0.979055	valid's auc: 0.95365
+[1750]	train's auc: 0.979893	valid's auc: 0.954106
+[1800]	train's auc: 0.980573	valid's auc: 0.954374
+[1850]	train's auc: 0.981261	valid's auc: 0.954781
+[1900]	train's auc: 0.981921	valid's auc: 0.954985
+[1950]	train's auc: 0.982627	valid's auc: 0.955368
+[2000]	train's auc: 0.983274	valid's auc: 0.955575
+[2050]	train's auc: 0.983939	valid's auc: 0.955853
+[2100]	train's auc: 0.98449	valid's auc: 0.956063
+[2150]	train's auc: 0.985045	valid's auc: 0.956227
+[2200]	train's auc: 0.985523	valid's auc: 0.956445
+[2250]	train's auc: 0.986013	valid's auc: 0.95668
+[2300]	train's auc: 0.986579	valid's auc: 0.957009
+[2350]	train's auc: 0.987049	valid's auc: 0.957155
+[2400]	train's auc: 0.987475	valid's auc: 0.957177
+[2450]	train's auc: 0.987933	valid's auc: 0.957353
+[2500]	train's auc: 0.988376	valid's auc: 0.957575
+[2550]	train's auc: 0.988757	valid's auc: 0.957792
+[2600]	train's auc: 0.989129	valid's auc: 0.957964
+[2650]	train's auc: 0.989525	valid's auc: 0.958065
+[2700]	train's auc: 0.989961	valid's auc: 0.958207
+[2750]	train's auc: 0.99032	valid's auc: 0.958362
+[2800]	train's auc: 0.990675	valid's auc: 0.958416
+[2850]	train's auc: 0.991056	valid's auc: 0.958522
+[2900]	train's auc: 0.991394	valid's auc: 0.958586
+[2950]	train's auc: 0.991699	valid's auc: 0.958662
+[3000]	train's auc: 0.992031	valid's auc: 0.95891
+[3050]	train's auc: 0.992316	valid's auc: 0.959049
+[3100]	train's auc: 0.992627	valid's auc: 0.959127
+[3150]	train's auc: 0.992904	valid's auc: 0.959174
+[3200]	train's auc: 0.99318	valid's auc: 0.959214
+[3250]	train's auc: 0.993443	valid's auc: 0.959345
+[3300]	train's auc: 0.993692	valid's auc: 0.959464
+[3350]	train's auc: 0.993932	valid's auc: 0.959498
+[3400]	train's auc: 0.994172	valid's auc: 0.959612
+[3450]	train's auc: 0.994422	valid's auc: 0.959713
+[3500]	train's auc: 0.994655	valid's auc: 0.959777
+[3550]	train's auc: 0.994843	valid's auc: 0.959864
+[3600]	train's auc: 0.995035	valid's auc: 0.959929
+[3650]	train's auc: 0.995229	valid's auc: 0.960043
+[3700]	train's auc: 0.995423	valid's auc: 0.960082
+[3750]	train's auc: 0.995611	valid's auc: 0.960125
+[3800]	train's auc: 0.995794	valid's auc: 0.960206
+[3850]	train's auc: 0.995981	valid's auc: 0.960274
+[3900]	train's auc: 0.996144	valid's auc: 0.960281
+[3950]	train's auc: 0.996304	valid's auc: 0.960336
+[4000]	train's auc: 0.996459	valid's auc: 0.960374
+[4050]	train's auc: 0.996605	valid's auc: 0.96042
+[4100]	train's auc: 0.996739	valid's auc: 0.960478
+[4150]	train's auc: 0.996857	valid's auc: 0.960534
+[4200]	train's auc: 0.996975	valid's auc: 0.960565
+[4250]	train's auc: 0.997098	valid's auc: 0.960604
+[4300]	train's auc: 0.997222	valid's auc: 0.96064
+[4350]	train's auc: 0.997341	valid's auc: 0.960666
+[4400]	train's auc: 0.997451	valid's auc: 0.960797
+[4450]	train's auc: 0.997552	valid's auc: 0.96085
+[4500]	train's auc: 0.997655	valid's auc: 0.96096
+[4550]	train's auc: 0.997765	valid's auc: 0.960994
+[4600]	train's auc: 0.997858	valid's auc: 0.961032
+[4650]	train's auc: 0.997949	valid's auc: 0.961086
+[4700]	train's auc: 0.998032	valid's auc: 0.961128
+[4750]	train's auc: 0.998121	valid's auc: 0.961152
+[4800]	train's auc: 0.998198	valid's auc: 0.961203
+[4850]	train's auc: 0.998281	valid's auc: 0.96123
+[4900]	train's auc: 0.998356	valid's auc: 0.961314
+[4950]	train's auc: 0.998424	valid's auc: 0.961362
+[5000]	train's auc: 0.998483	valid's auc: 0.9614
+[5050]	train's auc: 0.998548	valid's auc: 0.961413
+[5100]	train's auc: 0.998609	valid's auc: 0.961472
+[5150]	train's auc: 0.99867	valid's auc: 0.961493
+[5200]	train's auc: 0.998725	valid's auc: 0.961547
+[5250]	train's auc: 0.998778	valid's auc: 0.961567
+[5300]	train's auc: 0.998835	valid's auc: 0.961571
+[5350]	train's auc: 0.998883	valid's auc: 0.961635
+[5400]	train's auc: 0.998934	valid's auc: 0.961681
+[5450]	train's auc: 0.998978	valid's auc: 0.961753
+[5500]	train's auc: 0.999023	valid's auc: 0.961742
+[5550]	train's auc: 0.999065	valid's auc: 0.961766
+[5600]	train's auc: 0.999103	valid's auc: 0.961806
+[5650]	train's auc: 0.999141	valid's auc: 0.961827
+[5700]	train's auc: 0.999179	valid's auc: 0.961855
+[5750]	train's auc: 0.999215	valid's auc: 0.961903
+[5800]	train's auc: 0.99925	valid's auc: 0.961911
+[5850]	train's auc: 0.999285	valid's auc: 0.961926
+[5900]	train's auc: 0.999319	valid's auc: 0.961917
+[5950]	train's auc: 0.999346	valid's auc: 0.961949
+[6000]	train's auc: 0.999375	valid's auc: 0.961967
+[6050]	train's auc: 0.999404	valid's auc: 0.962005
+[6100]	train's auc: 0.999429	valid's auc: 0.962054
+[6150]	train's auc: 0.999452	valid's auc: 0.962048
+[6200]	train's auc: 0.999474	valid's auc: 0.96207
+[6250]	train's auc: 0.999496	valid's auc: 0.962136
+[6300]	train's auc: 0.999517	valid's auc: 0.962203
+[6350]	train's auc: 0.99954	valid's auc: 0.962223
+[6400]	train's auc: 0.999559	valid's auc: 0.962239
+[6450]	train's auc: 0.999579	valid's auc: 0.962279
+[6500]	train's auc: 0.999597	valid's auc: 0.962304
+[6550]	train's auc: 0.999616	valid's auc: 0.962323
+[6600]	train's auc: 0.999632	valid's auc: 0.962343
+[6650]	train's auc: 0.999649	valid's auc: 0.962365
+[6700]	train's auc: 0.999664	valid's auc: 0.962372
+Early stopping, best iteration is:
+[6611]	train's auc: 0.999636	valid's auc: 0.962375
+Training until validation scores don't improve for 100 rounds.
+[50]	train's auc: 0.855756	valid's auc: 0.857553
+[100]	train's auc: 0.883591	valid's auc: 0.883811
+[150]	train's auc: 0.900392	valid's auc: 0.899624
+[200]	train's auc: 0.913879	valid's auc: 0.911585
+[250]	train's auc: 0.921562	valid's auc: 0.918091
+[300]	train's auc: 0.92666	valid's auc: 0.922037
+[350]	train's auc: 0.931131	valid's auc: 0.925537
+[400]	train's auc: 0.935898	valid's auc: 0.929105
+[450]	train's auc: 0.939979	valid's auc: 0.932149
+[500]	train's auc: 0.943599	valid's auc: 0.934962
+[550]	train's auc: 0.946646	valid's auc: 0.937132
+[600]	train's auc: 0.949542	valid's auc: 0.939194
+[650]	train's auc: 0.951808	valid's auc: 0.940471
+[700]	train's auc: 0.954109	valid's auc: 0.942008
+[750]	train's auc: 0.956109	valid's auc: 0.94314
+[800]	train's auc: 0.957956	valid's auc: 0.944161
+[850]	train's auc: 0.959848	valid's auc: 0.945337
+[900]	train's auc: 0.961348	valid's auc: 0.946247
+[950]	train's auc: 0.962983	valid's auc: 0.9473
+[1000]	train's auc: 0.964453	valid's auc: 0.948108
+[1050]	train's auc: 0.965808	valid's auc: 0.948748
+[1100]	train's auc: 0.967189	valid's auc: 0.949601
+[1150]	train's auc: 0.968517	valid's auc: 0.950275
+[1200]	train's auc: 0.969631	valid's auc: 0.950709
+[1250]	train's auc: 0.970809	valid's auc: 0.951269
+[1300]	train's auc: 0.97194	valid's auc: 0.951842
+[1350]	train's auc: 0.972989	valid's auc: 0.952345
+[1400]	train's auc: 0.973885	valid's auc: 0.952702
+[1450]	train's auc: 0.974894	valid's auc: 0.953206
+[1500]	train's auc: 0.975801	valid's auc: 0.953639
+[1550]	train's auc: 0.976609	valid's auc: 0.953994
+[1600]	train's auc: 0.977517	valid's auc: 0.954371
+[1650]	train's auc: 0.978313	valid's auc: 0.954692
+[1700]	train's auc: 0.979054	valid's auc: 0.95492
+[1750]	train's auc: 0.979786	valid's auc: 0.955275
+[1800]	train's auc: 0.980427	valid's auc: 0.955466
+[1850]	train's auc: 0.981119	valid's auc: 0.95577
+[1900]	train's auc: 0.981797	valid's auc: 0.956023
+[1950]	train's auc: 0.982441	valid's auc: 0.956288
+[2000]	train's auc: 0.983056	valid's auc: 0.956607
+[2050]	train's auc: 0.98366	valid's auc: 0.956883
+[2100]	train's auc: 0.984215	valid's auc: 0.957103
+[2150]	train's auc: 0.984709	valid's auc: 0.95721
+[2200]	train's auc: 0.985234	valid's auc: 0.95735
+[2250]	train's auc: 0.985768	valid's auc: 0.957464
+[2300]	train's auc: 0.986275	valid's auc: 0.957601
+[2350]	train's auc: 0.986758	valid's auc: 0.95781
+[2400]	train's auc: 0.987263	valid's auc: 0.958049
+[2450]	train's auc: 0.987722	valid's auc: 0.958244
+[2500]	train's auc: 0.98816	valid's auc: 0.958381
+[2550]	train's auc: 0.988575	valid's auc: 0.958475
+[2600]	train's auc: 0.988986	valid's auc: 0.958628
+[2650]	train's auc: 0.989359	valid's auc: 0.958838
+[2700]	train's auc: 0.989713	valid's auc: 0.959026
+[2750]	train's auc: 0.990122	valid's auc: 0.959234
+[2800]	train's auc: 0.990462	valid's auc: 0.959338
+[2850]	train's auc: 0.990796	valid's auc: 0.95937
+[2900]	train's auc: 0.991115	valid's auc: 0.959453
+[2950]	train's auc: 0.99147	valid's auc: 0.959517
+[3000]	train's auc: 0.991792	valid's auc: 0.959712
+[3050]	train's auc: 0.9921	valid's auc: 0.959788
+[3100]	train's auc: 0.992381	valid's auc: 0.959875
+[3150]	train's auc: 0.992664	valid's auc: 0.959976
+[3200]	train's auc: 0.992951	valid's auc: 0.960069
+[3250]	train's auc: 0.993183	valid's auc: 0.960191
+[3300]	train's auc: 0.993429	valid's auc: 0.960248
+[3350]	train's auc: 0.993669	valid's auc: 0.960337
+[3400]	train's auc: 0.993922	valid's auc: 0.960357
+[3450]	train's auc: 0.99418	valid's auc: 0.960525
+[3500]	train's auc: 0.994403	valid's auc: 0.960557
+[3550]	train's auc: 0.994637	valid's auc: 0.960614
+[3600]	train's auc: 0.994847	valid's auc: 0.960653
+[3650]	train's auc: 0.995049	valid's auc: 0.960706
+[3700]	train's auc: 0.995241	valid's auc: 0.960753
+[3750]	train's auc: 0.995438	valid's auc: 0.960789
+[3800]	train's auc: 0.995617	valid's auc: 0.96084
+[3850]	train's auc: 0.995788	valid's auc: 0.960895
+[3900]	train's auc: 0.995965	valid's auc: 0.960928
+[3950]	train's auc: 0.996131	valid's auc: 0.960936
+[4000]	train's auc: 0.996296	valid's auc: 0.961
+[4050]	train's auc: 0.996449	valid's auc: 0.961099
+[4100]	train's auc: 0.996587	valid's auc: 0.961196
+[4150]	train's auc: 0.996723	valid's auc: 0.961225
+[4200]	train's auc: 0.996847	valid's auc: 0.961318
+[4250]	train's auc: 0.996966	valid's auc: 0.96138
+[4300]	train's auc: 0.997094	valid's auc: 0.961436
+[4350]	train's auc: 0.997206	valid's auc: 0.961526
+[4400]	train's auc: 0.997317	valid's auc: 0.961543
+[4450]	train's auc: 0.997425	valid's auc: 0.961589
+[4500]	train's auc: 0.997535	valid's auc: 0.961614
+[4550]	train's auc: 0.997627	valid's auc: 0.961661
+[4600]	train's auc: 0.99773	valid's auc: 0.961679
+[4650]	train's auc: 0.997824	valid's auc: 0.961706
+[4700]	train's auc: 0.997913	valid's auc: 0.961707
+[4750]	train's auc: 0.998002	valid's auc: 0.961715
+[4800]	train's auc: 0.998079	valid's auc: 0.961809
+[4850]	train's auc: 0.998166	valid's auc: 0.961829
+[4900]	train's auc: 0.998243	valid's auc: 0.961896
+[4950]	train's auc: 0.998315	valid's auc: 0.961936
+[5000]	train's auc: 0.998391	valid's auc: 0.962021
+[5050]	train's auc: 0.998467	valid's auc: 0.962096
+[5100]	train's auc: 0.998531	valid's auc: 0.96212
+[5150]	train's auc: 0.998593	valid's auc: 0.962165
+[5200]	train's auc: 0.99865	valid's auc: 0.962188
+[5250]	train's auc: 0.998703	valid's auc: 0.962193
+[5300]	train's auc: 0.998756	valid's auc: 0.962184
+[5350]	train's auc: 0.998811	valid's auc: 0.962236
+[5400]	train's auc: 0.998863	valid's auc: 0.962243
+[5450]	train's auc: 0.998906	valid's auc: 0.962282
+[5500]	train's auc: 0.998954	valid's auc: 0.962325
+[5550]	train's auc: 0.998998	valid's auc: 0.962359
+[5600]	train's auc: 0.99904	valid's auc: 0.962449
+[5650]	train's auc: 0.999088	valid's auc: 0.96245
+[5700]	train's auc: 0.999126	valid's auc: 0.962478
+[5750]	train's auc: 0.999167	valid's auc: 0.962489
+[5800]	train's auc: 0.999202	valid's auc: 0.962534
+[5850]	train's auc: 0.999235	valid's auc: 0.962577
+[5900]	train's auc: 0.999267	valid's auc: 0.962619
+[5950]	train's auc: 0.999301	valid's auc: 0.962635
+[6000]	train's auc: 0.999331	valid's auc: 0.962661
+[6050]	train's auc: 0.999359	valid's auc: 0.962651
+[6100]	train's auc: 0.999388	valid's auc: 0.962675
+[6150]	train's auc: 0.999415	valid's auc: 0.962686
+[6200]	train's auc: 0.99944	valid's auc: 0.962701
+[6250]	train's auc: 0.99946	valid's auc: 0.962734
+[6300]	train's auc: 0.999482	valid's auc: 0.962766
+[6350]	train's auc: 0.999504	valid's auc: 0.962793
+[6400]	train's auc: 0.999527	valid's auc: 0.962828
+[6450]	train's auc: 0.999549	valid's auc: 0.962898
+[6500]	train's auc: 0.99957	valid's auc: 0.962934
+[6550]	train's auc: 0.999588	valid's auc: 0.962958
+[6600]	train's auc: 0.999605	valid's auc: 0.962972
+[6650]	train's auc: 0.99962	valid's auc: 0.963016
+[6700]	train's auc: 0.999636	valid's auc: 0.963017
+[6750]	train's auc: 0.999652	valid's auc: 0.963039
+[6800]	train's auc: 0.999667	valid's auc: 0.96309
+[6850]	train's auc: 0.99968	valid's auc: 0.963135
+[6900]	train's auc: 0.999694	valid's auc: 0.963155
+[6950]	train's auc: 0.999706	valid's auc: 0.963171
+[7000]	train's auc: 0.999719	valid's auc: 0.963188
+[7050]	train's auc: 0.999731	valid's auc: 0.963209
+[7100]	train's auc: 0.999744	valid's auc: 0.963199
+Early stopping, best iteration is:
+[7040]	train's auc: 0.999728	valid's auc: 0.963219
+Training until validation scores don't improve for 100 rounds.
+[50]	train's auc: 0.858253	valid's auc: 0.854022
+[100]	train's auc: 0.886282	valid's auc: 0.881689
+[150]	train's auc: 0.901764	valid's auc: 0.896451
+[200]	train's auc: 0.914352	valid's auc: 0.90802
+[250]	train's auc: 0.921979	valid's auc: 0.914793
+[300]	train's auc: 0.927799	valid's auc: 0.919845
+[350]	train's auc: 0.932374	valid's auc: 0.92335
+[400]	train's auc: 0.936687	valid's auc: 0.926751
+[450]	train's auc: 0.940332	valid's auc: 0.929491
+[500]	train's auc: 0.943629	valid's auc: 0.93193
+[550]	train's auc: 0.946415	valid's auc: 0.933793
+[600]	train's auc: 0.949191	valid's auc: 0.935702
+[650]	train's auc: 0.951801	valid's auc: 0.937525
+[700]	train's auc: 0.954008	valid's auc: 0.939064
+[750]	train's auc: 0.956016	valid's auc: 0.940345
+[800]	train's auc: 0.957942	valid's auc: 0.941669
+[850]	train's auc: 0.959545	valid's auc: 0.942709
+[900]	train's auc: 0.961246	valid's auc: 0.943727
+[950]	train's auc: 0.96286	valid's auc: 0.944818
+[1000]	train's auc: 0.964318	valid's auc: 0.94565
+[1050]	train's auc: 0.965729	valid's auc: 0.946691
+[1100]	train's auc: 0.967068	valid's auc: 0.947516
+[1150]	train's auc: 0.968205	valid's auc: 0.948148
+[1200]	train's auc: 0.969664	valid's auc: 0.949069
+[1250]	train's auc: 0.970742	valid's auc: 0.949594
+[1300]	train's auc: 0.97176	valid's auc: 0.950142
+[1350]	train's auc: 0.972861	valid's auc: 0.950832
+[1400]	train's auc: 0.973862	valid's auc: 0.951314
+[1450]	train's auc: 0.974845	valid's auc: 0.951662
+[1500]	train's auc: 0.975718	valid's auc: 0.95214
+[1550]	train's auc: 0.976669	valid's auc: 0.952745
+[1600]	train's auc: 0.977406	valid's auc: 0.953016
+[1650]	train's auc: 0.978297	valid's auc: 0.953605
+[1700]	train's auc: 0.979106	valid's auc: 0.953874
+[1750]	train's auc: 0.97989	valid's auc: 0.95434
+[1800]	train's auc: 0.980622	valid's auc: 0.954562
+[1850]	train's auc: 0.981342	valid's auc: 0.954739
+[1900]	train's auc: 0.982038	valid's auc: 0.955109
+[1950]	train's auc: 0.982603	valid's auc: 0.955232
+[2000]	train's auc: 0.983243	valid's auc: 0.955513
+[2050]	train's auc: 0.98378	valid's auc: 0.955694
+[2100]	train's auc: 0.98434	valid's auc: 0.955955
+[2150]	train's auc: 0.984871	valid's auc: 0.956105
+[2200]	train's auc: 0.985418	valid's auc: 0.956224
+[2250]	train's auc: 0.985934	valid's auc: 0.956333
+[2300]	train's auc: 0.986433	valid's auc: 0.956549
+[2350]	train's auc: 0.986992	valid's auc: 0.956741
+[2400]	train's auc: 0.987471	valid's auc: 0.956994
+[2450]	train's auc: 0.987921	valid's auc: 0.957119
+[2500]	train's auc: 0.988361	valid's auc: 0.957182
+[2550]	train's auc: 0.988765	valid's auc: 0.957361
+[2600]	train's auc: 0.989177	valid's auc: 0.957511
+[2650]	train's auc: 0.989544	valid's auc: 0.957632
+[2700]	train's auc: 0.989916	valid's auc: 0.957754
+[2750]	train's auc: 0.99028	valid's auc: 0.957895
+[2800]	train's auc: 0.99064	valid's auc: 0.958
+[2850]	train's auc: 0.991003	valid's auc: 0.958041
+[2900]	train's auc: 0.991314	valid's auc: 0.958211
+[2950]	train's auc: 0.991642	valid's auc: 0.958278
+[3000]	train's auc: 0.991954	valid's auc: 0.958361
+[3050]	train's auc: 0.992245	valid's auc: 0.958532
+[3100]	train's auc: 0.99256	valid's auc: 0.958627
+[3150]	train's auc: 0.992856	valid's auc: 0.958757
+[3200]	train's auc: 0.993134	valid's auc: 0.958831
+[3250]	train's auc: 0.993395	valid's auc: 0.958912
+[3300]	train's auc: 0.993634	valid's auc: 0.958996
+[3350]	train's auc: 0.993877	valid's auc: 0.95908
+[3400]	train's auc: 0.994106	valid's auc: 0.959161
+[3450]	train's auc: 0.994335	valid's auc: 0.959236
+[3500]	train's auc: 0.994557	valid's auc: 0.959327
+[3550]	train's auc: 0.994785	valid's auc: 0.959388
+[3600]	train's auc: 0.99497	valid's auc: 0.959477
+[3650]	train's auc: 0.995174	valid's auc: 0.959626
+[3700]	train's auc: 0.995369	valid's auc: 0.959688
+[3750]	train's auc: 0.995556	valid's auc: 0.959723
+[3800]	train's auc: 0.995741	valid's auc: 0.959794
+[3850]	train's auc: 0.995922	valid's auc: 0.959833
+[3900]	train's auc: 0.996074	valid's auc: 0.959963
+[3950]	train's auc: 0.996218	valid's auc: 0.960014
+[4000]	train's auc: 0.996384	valid's auc: 0.960053
+[4050]	train's auc: 0.996536	valid's auc: 0.960111
+[4100]	train's auc: 0.996686	valid's auc: 0.960219
+[4150]	train's auc: 0.996831	valid's auc: 0.960308
+[4200]	train's auc: 0.996963	valid's auc: 0.960354
+[4250]	train's auc: 0.997087	valid's auc: 0.96045
+[4300]	train's auc: 0.997202	valid's auc: 0.960473
+[4350]	train's auc: 0.997314	valid's auc: 0.960522
+[4400]	train's auc: 0.997414	valid's auc: 0.960547
+[4450]	train's auc: 0.997521	valid's auc: 0.960577
+[4500]	train's auc: 0.99762	valid's auc: 0.960676
+[4550]	train's auc: 0.997719	valid's auc: 0.96075
+[4600]	train's auc: 0.997826	valid's auc: 0.960812
+[4650]	train's auc: 0.99792	valid's auc: 0.960866
+[4700]	train's auc: 0.998003	valid's auc: 0.960912
+[4750]	train's auc: 0.99808	valid's auc: 0.960974
+[4800]	train's auc: 0.998164	valid's auc: 0.961088
+[4850]	train's auc: 0.998235	valid's auc: 0.96111
+[4900]	train's auc: 0.998318	valid's auc: 0.961131
+[4950]	train's auc: 0.998388	valid's auc: 0.961189
+[5000]	train's auc: 0.998457	valid's auc: 0.961216
+[5050]	train's auc: 0.998516	valid's auc: 0.961284
+[5100]	train's auc: 0.998578	valid's auc: 0.961316
+[5150]	train's auc: 0.998643	valid's auc: 0.961353
+[5200]	train's auc: 0.998701	valid's auc: 0.961406
+[5250]	train's auc: 0.998757	valid's auc: 0.96145
+[5300]	train's auc: 0.998816	valid's auc: 0.961471
+[5350]	train's auc: 0.998866	valid's auc: 0.961564
+[5400]	train's auc: 0.998914	valid's auc: 0.961613
+[5450]	train's auc: 0.998965	valid's auc: 0.961662
+[5500]	train's auc: 0.999008	valid's auc: 0.961683
+[5550]	train's auc: 0.999051	valid's auc: 0.961688
+[5600]	train's auc: 0.99909	valid's auc: 0.961722
+[5650]	train's auc: 0.99913	valid's auc: 0.9618
+[5700]	train's auc: 0.999168	valid's auc: 0.961836
+[5750]	train's auc: 0.999209	valid's auc: 0.961851
+[5800]	train's auc: 0.999241	valid's auc: 0.961862
+[5850]	train's auc: 0.999276	valid's auc: 0.961943
+[5900]	train's auc: 0.999307	valid's auc: 0.961968
+[5950]	train's auc: 0.999337	valid's auc: 0.961976
+[6000]	train's auc: 0.999365	valid's auc: 0.961993
+[6050]	train's auc: 0.999392	valid's auc: 0.962003
+[6100]	train's auc: 0.999418	valid's auc: 0.962071
+[6150]	train's auc: 0.999443	valid's auc: 0.96212
+[6200]	train's auc: 0.999469	valid's auc: 0.962159
+[6250]	train's auc: 0.999489	valid's auc: 0.962206
+[6300]	train's auc: 0.999511	valid's auc: 0.962215
+[6350]	train's auc: 0.999533	valid's auc: 0.962252
+[6400]	train's auc: 0.999555	valid's auc: 0.962279
+[6450]	train's auc: 0.999575	valid's auc: 0.962312
+[6500]	train's auc: 0.999594	valid's auc: 0.962321
+[6550]	train's auc: 0.999611	valid's auc: 0.962307
+[6600]	train's auc: 0.999631	valid's auc: 0.962329
+[6650]	train's auc: 0.999647	valid's auc: 0.962352
+[6700]	train's auc: 0.999663	valid's auc: 0.962413
+[6750]	train's auc: 0.999677	valid's auc: 0.962427
+[6800]	train's auc: 0.999691	valid's auc: 0.962494
+[6850]	train's auc: 0.999704	valid's auc: 0.962581
+[6900]	train's auc: 0.999719	valid's auc: 0.962611
+[6950]	train's auc: 0.999731	valid's auc: 0.962665
+[7000]	train's auc: 0.999743	valid's auc: 0.962678
+[7050]	train's auc: 0.999754	valid's auc: 0.962713
+[7100]	train's auc: 0.999765	valid's auc: 0.962728
+[7150]	train's auc: 0.999775	valid's auc: 0.962753
+[7200]	train's auc: 0.999787	valid's auc: 0.962743
+[7250]	train's auc: 0.999796	valid's auc: 0.962777
+[7300]	train's auc: 0.999805	valid's auc: 0.962829
+[7350]	train's auc: 0.999811	valid's auc: 0.962855
+[7400]	train's auc: 0.999819	valid's auc: 0.96288
+[7450]	train's auc: 0.999827	valid's auc: 0.962903
+[7500]	train's auc: 0.999835	valid's auc: 0.962917
+[7550]	train's auc: 0.999842	valid's auc: 0.962951
+[7600]	train's auc: 0.99985	valid's auc: 0.962945
+[7650]	train's auc: 0.999856	valid's auc: 0.962939
+Early stopping, best iteration is:
+[7553]	train's auc: 0.999843	valid's auc: 0.962953
+Training until validation scores don't improve for 100 rounds.
+[50]	train's auc: 0.864607	valid's auc: 0.860653
+[100]	train's auc: 0.886608	valid's auc: 0.882175
+[150]	train's auc: 0.901828	valid's auc: 0.896529
+[200]	train's auc: 0.913672	valid's auc: 0.907466
+[250]	train's auc: 0.921505	valid's auc: 0.914389
+[300]	train's auc: 0.927141	valid's auc: 0.919241
+[350]	train's auc: 0.931698	valid's auc: 0.922792
+[400]	train's auc: 0.935859	valid's auc: 0.926003
+[450]	train's auc: 0.939534	valid's auc: 0.928664
+[500]	train's auc: 0.943069	valid's auc: 0.931332
+[550]	train's auc: 0.946561	valid's auc: 0.934029
+[600]	train's auc: 0.949425	valid's auc: 0.936092
+[650]	train's auc: 0.951795	valid's auc: 0.937696
+[700]	train's auc: 0.954127	valid's auc: 0.939164
+[750]	train's auc: 0.956272	valid's auc: 0.940639
+[800]	train's auc: 0.95823	valid's auc: 0.942015
+[850]	train's auc: 0.959955	valid's auc: 0.943094
+[900]	train's auc: 0.9616	valid's auc: 0.944073
+[950]	train's auc: 0.963124	valid's auc: 0.944985
+[1000]	train's auc: 0.964761	valid's auc: 0.945944
+[1050]	train's auc: 0.96601	valid's auc: 0.946624
+[1100]	train's auc: 0.967369	valid's auc: 0.947223
+[1150]	train's auc: 0.968675	valid's auc: 0.948024
+[1200]	train's auc: 0.969844	valid's auc: 0.948733
+[1250]	train's auc: 0.971059	valid's auc: 0.94944
+[1300]	train's auc: 0.972049	valid's auc: 0.94987
+[1350]	train's auc: 0.973176	valid's auc: 0.950482
+[1400]	train's auc: 0.974115	valid's auc: 0.950824
+[1450]	train's auc: 0.975072	valid's auc: 0.951337
+[1500]	train's auc: 0.97594	valid's auc: 0.951631
+[1550]	train's auc: 0.976895	valid's auc: 0.952255
+[1600]	train's auc: 0.977781	valid's auc: 0.952769
+[1650]	train's auc: 0.978496	valid's auc: 0.952944
+[1700]	train's auc: 0.979289	valid's auc: 0.9534
+[1750]	train's auc: 0.980061	valid's auc: 0.95368
+[1800]	train's auc: 0.980742	valid's auc: 0.953963
+[1850]	train's auc: 0.981364	valid's auc: 0.954269
+[1900]	train's auc: 0.982079	valid's auc: 0.954449
+[1950]	train's auc: 0.982809	valid's auc: 0.954893
+[2000]	train's auc: 0.983429	valid's auc: 0.955199
+[2050]	train's auc: 0.984017	valid's auc: 0.955614
+[2100]	train's auc: 0.984566	valid's auc: 0.955783
+[2150]	train's auc: 0.985135	valid's auc: 0.956052
+[2200]	train's auc: 0.98567	valid's auc: 0.95622
+[2250]	train's auc: 0.986182	valid's auc: 0.956301
+[2300]	train's auc: 0.986615	valid's auc: 0.956427
+[2350]	train's auc: 0.98705	valid's auc: 0.95659
+[2400]	train's auc: 0.987514	valid's auc: 0.956823
+[2450]	train's auc: 0.987964	valid's auc: 0.956968
+[2500]	train's auc: 0.988406	valid's auc: 0.957105
+[2550]	train's auc: 0.98878	valid's auc: 0.957281
+[2600]	train's auc: 0.989204	valid's auc: 0.95752
+[2650]	train's auc: 0.989591	valid's auc: 0.957654
+[2700]	train's auc: 0.989962	valid's auc: 0.95778
+[2750]	train's auc: 0.990298	valid's auc: 0.957899
+[2800]	train's auc: 0.990651	valid's auc: 0.95797
+[2850]	train's auc: 0.990966	valid's auc: 0.958057
+[2900]	train's auc: 0.991305	valid's auc: 0.958172
+[2950]	train's auc: 0.991641	valid's auc: 0.958236
+[3000]	train's auc: 0.991949	valid's auc: 0.95831
+[3050]	train's auc: 0.992267	valid's auc: 0.958425
+[3100]	train's auc: 0.992557	valid's auc: 0.958487
+[3150]	train's auc: 0.992845	valid's auc: 0.958539
+[3200]	train's auc: 0.993094	valid's auc: 0.958648
+[3250]	train's auc: 0.993377	valid's auc: 0.95876
+[3300]	train's auc: 0.993647	valid's auc: 0.958833
+[3350]	train's auc: 0.993899	valid's auc: 0.958899
+[3400]	train's auc: 0.994128	valid's auc: 0.958946
+[3450]	train's auc: 0.994348	valid's auc: 0.958997
+[3500]	train's auc: 0.99456	valid's auc: 0.959056
+[3550]	train's auc: 0.99476	valid's auc: 0.959138
+[3600]	train's auc: 0.994962	valid's auc: 0.959258
+[3650]	train's auc: 0.995153	valid's auc: 0.959322
+[3700]	train's auc: 0.995337	valid's auc: 0.959353
+[3750]	train's auc: 0.995498	valid's auc: 0.95941
+[3800]	train's auc: 0.995689	valid's auc: 0.959455
+[3850]	train's auc: 0.995869	valid's auc: 0.959553
+[3900]	train's auc: 0.996046	valid's auc: 0.959642
+[3950]	train's auc: 0.996214	valid's auc: 0.959664
+[4000]	train's auc: 0.996374	valid's auc: 0.959732
+[4050]	train's auc: 0.996516	valid's auc: 0.959796
+[4100]	train's auc: 0.996656	valid's auc: 0.959819
+[4150]	train's auc: 0.996796	valid's auc: 0.959853
+[4200]	train's auc: 0.996937	valid's auc: 0.959887
+[4250]	train's auc: 0.997056	valid's auc: 0.959929
+[4300]	train's auc: 0.997175	valid's auc: 0.959993
+[4350]	train's auc: 0.997275	valid's auc: 0.960075
+[4400]	train's auc: 0.997379	valid's auc: 0.960164
+[4450]	train's auc: 0.997498	valid's auc: 0.960268
+[4500]	train's auc: 0.997604	valid's auc: 0.960295
+[4550]	train's auc: 0.997709	valid's auc: 0.960353
+[4600]	train's auc: 0.997811	valid's auc: 0.96042
+[4650]	train's auc: 0.997917	valid's auc: 0.960419
+[4700]	train's auc: 0.998013	valid's auc: 0.960467
+[4750]	train's auc: 0.998096	valid's auc: 0.960543
+[4800]	train's auc: 0.998173	valid's auc: 0.960578
+[4850]	train's auc: 0.998249	valid's auc: 0.960635
+[4900]	train's auc: 0.998322	valid's auc: 0.960654
+[4950]	train's auc: 0.998398	valid's auc: 0.960662
+[5000]	train's auc: 0.998473	valid's auc: 0.960671
+[5050]	train's auc: 0.998539	valid's auc: 0.960694
+[5100]	train's auc: 0.998603	valid's auc: 0.960699
+[5150]	train's auc: 0.998654	valid's auc: 0.96075
+[5200]	train's auc: 0.998713	valid's auc: 0.960804
+[5250]	train's auc: 0.998769	valid's auc: 0.960827
+[5300]	train's auc: 0.998826	valid's auc: 0.960861
+[5350]	train's auc: 0.998879	valid's auc: 0.960887
+[5400]	train's auc: 0.99893	valid's auc: 0.960961
+[5450]	train's auc: 0.998978	valid's auc: 0.961011
+[5500]	train's auc: 0.999021	valid's auc: 0.961017
+[5550]	train's auc: 0.999067	valid's auc: 0.961061
+[5600]	train's auc: 0.99911	valid's auc: 0.961072
+[5650]	train's auc: 0.99915	valid's auc: 0.961083
+[5700]	train's auc: 0.999184	valid's auc: 0.961131
+[5750]	train's auc: 0.999222	valid's auc: 0.961158
+[5800]	train's auc: 0.999252	valid's auc: 0.961192
+[5850]	train's auc: 0.999288	valid's auc: 0.961225
+[5900]	train's auc: 0.999316	valid's auc: 0.961254
+[5950]	train's auc: 0.999345	valid's auc: 0.961269
+[6000]	train's auc: 0.999374	valid's auc: 0.961304
+[6050]	train's auc: 0.999404	valid's auc: 0.961367
+[6100]	train's auc: 0.999431	valid's auc: 0.961406
+[6150]	train's auc: 0.999455	valid's auc: 0.96143
+[6200]	train's auc: 0.99948	valid's auc: 0.961459
+[6250]	train's auc: 0.999507	valid's auc: 0.961447
+[6300]	train's auc: 0.999528	valid's auc: 0.961501
+[6350]	train's auc: 0.999546	valid's auc: 0.96154
+[6400]	train's auc: 0.999567	valid's auc: 0.961543
+[6450]	train's auc: 0.999587	valid's auc: 0.961562
+[6500]	train's auc: 0.999606	valid's auc: 0.961583
+[6550]	train's auc: 0.999625	valid's auc: 0.961616
+[6600]	train's auc: 0.999641	valid's auc: 0.961622
+[6650]	train's auc: 0.999655	valid's auc: 0.961639
+[6700]	train's auc: 0.999671	valid's auc: 0.96163
+[6750]	train's auc: 0.999685	valid's auc: 0.961643
+Early stopping, best iteration is:
+[6659]	train's auc: 0.999659	valid's auc: 0.961657
+Training until validation scores don't improve for 100 rounds.
+[50]	train's auc: 0.861147	valid's auc: 0.857414
+[100]	train's auc: 0.885756	valid's auc: 0.880769
+[150]	train's auc: 0.90203	valid's auc: 0.896403
+[200]	train's auc: 0.91423	valid's auc: 0.907576
+[250]	train's auc: 0.922683	valid's auc: 0.915386
+[300]	train's auc: 0.928617	valid's auc: 0.9202
+[350]	train's auc: 0.933167	valid's auc: 0.923747
+[400]	train's auc: 0.937417	valid's auc: 0.927003
+[450]	train's auc: 0.941437	valid's auc: 0.930223
+[500]	train's auc: 0.944973	valid's auc: 0.932873
+[550]	train's auc: 0.947956	valid's auc: 0.934943
+[600]	train's auc: 0.950985	valid's auc: 0.937218
+[650]	train's auc: 0.953665	valid's auc: 0.939212
+[700]	train's auc: 0.955817	valid's auc: 0.940621
+[750]	train's auc: 0.957652	valid's auc: 0.941687
+[800]	train's auc: 0.959515	valid's auc: 0.942856
+[850]	train's auc: 0.961219	valid's auc: 0.943852
+[900]	train's auc: 0.962761	valid's auc: 0.944725
+[950]	train's auc: 0.964249	valid's auc: 0.945551
+[1000]	train's auc: 0.965766	valid's auc: 0.946491
+[1050]	train's auc: 0.967131	valid's auc: 0.947237
+[1100]	train's auc: 0.968524	valid's auc: 0.948049
+[1150]	train's auc: 0.969793	valid's auc: 0.9487
+[1200]	train's auc: 0.970938	valid's auc: 0.949337
+[1250]	train's auc: 0.971974	valid's auc: 0.949769
+[1300]	train's auc: 0.973002	valid's auc: 0.950551
+[1350]	train's auc: 0.974005	valid's auc: 0.950987
+[1400]	train's auc: 0.974841	valid's auc: 0.951272
+[1450]	train's auc: 0.97585	valid's auc: 0.951703
+[1500]	train's auc: 0.976858	valid's auc: 0.952198
+[1550]	train's auc: 0.977683	valid's auc: 0.952513
+[1600]	train's auc: 0.978465	valid's auc: 0.952914
+[1650]	train's auc: 0.979192	valid's auc: 0.953141
+[1700]	train's auc: 0.979933	valid's auc: 0.953396
+[1750]	train's auc: 0.980696	valid's auc: 0.953774
+[1800]	train's auc: 0.981468	valid's auc: 0.953989
+[1850]	train's auc: 0.982161	valid's auc: 0.954233
+[1900]	train's auc: 0.982815	valid's auc: 0.954477
+[1950]	train's auc: 0.983448	valid's auc: 0.954698
+[2000]	train's auc: 0.984024	valid's auc: 0.954918
+[2050]	train's auc: 0.984551	valid's auc: 0.955081
+[2100]	train's auc: 0.985086	valid's auc: 0.955369
+[2150]	train's auc: 0.985629	valid's auc: 0.955557
+[2200]	train's auc: 0.986104	valid's auc: 0.955709
+[2250]	train's auc: 0.986571	valid's auc: 0.95587
+[2300]	train's auc: 0.987058	valid's auc: 0.95613
+[2350]	train's auc: 0.987523	valid's auc: 0.956427
+[2400]	train's auc: 0.987968	valid's auc: 0.956647
+[2450]	train's auc: 0.988428	valid's auc: 0.956791
+[2500]	train's auc: 0.988859	valid's auc: 0.95689
+[2550]	train's auc: 0.989262	valid's auc: 0.957067
+[2600]	train's auc: 0.989632	valid's auc: 0.957164
+[2650]	train's auc: 0.990023	valid's auc: 0.957268
+[2700]	train's auc: 0.990388	valid's auc: 0.957389
+[2750]	train's auc: 0.990782	valid's auc: 0.95764
+[2800]	train's auc: 0.991147	valid's auc: 0.95782
+[2850]	train's auc: 0.991472	valid's auc: 0.958035
+[2900]	train's auc: 0.99182	valid's auc: 0.958089
+[2950]	train's auc: 0.992124	valid's auc: 0.95817
+[3000]	train's auc: 0.992385	valid's auc: 0.958246
+[3050]	train's auc: 0.992684	valid's auc: 0.958399
+[3100]	train's auc: 0.992955	valid's auc: 0.958501
+[3150]	train's auc: 0.993224	valid's auc: 0.958613
+[3200]	train's auc: 0.993477	valid's auc: 0.958658
+[3250]	train's auc: 0.993733	valid's auc: 0.958808
+[3300]	train's auc: 0.993973	valid's auc: 0.958894
+[3350]	train's auc: 0.994215	valid's auc: 0.958925
+[3400]	train's auc: 0.994436	valid's auc: 0.958973
+[3450]	train's auc: 0.994672	valid's auc: 0.959117
+[3500]	train's auc: 0.994886	valid's auc: 0.959163
+[3550]	train's auc: 0.995093	valid's auc: 0.959195
+[3600]	train's auc: 0.99529	valid's auc: 0.959237
+[3650]	train's auc: 0.995482	valid's auc: 0.959297
+[3700]	train's auc: 0.995665	valid's auc: 0.959341
+[3750]	train's auc: 0.995843	valid's auc: 0.959379
+[3800]	train's auc: 0.996005	valid's auc: 0.959499
+[3850]	train's auc: 0.996166	valid's auc: 0.959532
+[3900]	train's auc: 0.996314	valid's auc: 0.959647
+[3950]	train's auc: 0.996465	valid's auc: 0.959654
+[4000]	train's auc: 0.996607	valid's auc: 0.95977
+[4050]	train's auc: 0.996746	valid's auc: 0.959834
+[4100]	train's auc: 0.996868	valid's auc: 0.959898
+[4150]	train's auc: 0.996996	valid's auc: 0.959917
+[4200]	train's auc: 0.997114	valid's auc: 0.959954
+[4250]	train's auc: 0.997248	valid's auc: 0.959967
+[4300]	train's auc: 0.997363	valid's auc: 0.96001
+[4350]	train's auc: 0.997473	valid's auc: 0.960035
+[4400]	train's auc: 0.997575	valid's auc: 0.960092
+[4450]	train's auc: 0.997673	valid's auc: 0.960168
+[4500]	train's auc: 0.997784	valid's auc: 0.960201
+[4550]	train's auc: 0.997874	valid's auc: 0.960238
+[4600]	train's auc: 0.997972	valid's auc: 0.960276
+[4650]	train's auc: 0.998062	valid's auc: 0.960283
+[4700]	train's auc: 0.998148	valid's auc: 0.960321
+[4750]	train's auc: 0.998224	valid's auc: 0.960316
+[4800]	train's auc: 0.998296	valid's auc: 0.960395
+[4850]	train's auc: 0.998359	valid's auc: 0.960426
+[4900]	train's auc: 0.99843	valid's auc: 0.960454
+[4950]	train's auc: 0.9985	valid's auc: 0.960466
+[5000]	train's auc: 0.998572	valid's auc: 0.960482
+[5050]	train's auc: 0.998635	valid's auc: 0.960515
+[5100]	train's auc: 0.998693	valid's auc: 0.960545
+[5150]	train's auc: 0.998742	valid's auc: 0.960661
+[5200]	train's auc: 0.998799	valid's auc: 0.96067
+[5250]	train's auc: 0.998851	valid's auc: 0.960701
+[5300]	train's auc: 0.998905	valid's auc: 0.960767
+[5350]	train's auc: 0.998962	valid's auc: 0.960813
+[5400]	train's auc: 0.999008	valid's auc: 0.960891
+[5450]	train's auc: 0.999052	valid's auc: 0.960955
+[5500]	train's auc: 0.999094	valid's auc: 0.960976
+[5550]	train's auc: 0.999139	valid's auc: 0.960998
+[5600]	train's auc: 0.999176	valid's auc: 0.961007
+[5650]	train's auc: 0.99921	valid's auc: 0.961035
+[5700]	train's auc: 0.999242	valid's auc: 0.961087
+[5750]	train's auc: 0.999274	valid's auc: 0.961115
+[5800]	train's auc: 0.999304	valid's auc: 0.961191
+[5850]	train's auc: 0.999333	valid's auc: 0.961216
+[5900]	train's auc: 0.999361	valid's auc: 0.96125
+[5950]	train's auc: 0.999389	valid's auc: 0.961299
+[6000]	train's auc: 0.999418	valid's auc: 0.961302
+[6050]	train's auc: 0.999444	valid's auc: 0.961366
+[6100]	train's auc: 0.999465	valid's auc: 0.961394
+[6150]	train's auc: 0.999489	valid's auc: 0.961408
+[6200]	train's auc: 0.999514	valid's auc: 0.961414
+[6250]	train's auc: 0.999534	valid's auc: 0.961431
+[6300]	train's auc: 0.999552	valid's auc: 0.961468
+[6350]	train's auc: 0.999574	valid's auc: 0.961541
+[6400]	train's auc: 0.999594	valid's auc: 0.96156
+[6450]	train's auc: 0.999613	valid's auc: 0.961582
+[6500]	train's auc: 0.999631	valid's auc: 0.961593
+Early stopping, best iteration is:
+[6421]	train's auc: 0.999601	valid's auc: 0.961597
+
+#==============================================================================
+# SUCCESS !!! 750_adversarial.py
+#==============================================================================
+
+time: 42.80min

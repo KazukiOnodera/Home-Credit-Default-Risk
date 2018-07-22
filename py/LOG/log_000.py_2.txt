@@ -1,0 +1,17 @@
+
+#==============================================================================
+# START!!! 000.py    PID: 7766    time: 2018-07-20 08:57:38.396508
+#==============================================================================
+
+mkdir: cannot create directory ‘../feature’: File exists
+mkdir: cannot create directory ‘../feature_unused’: File exists
+===== POS ====
+['CNT_INSTALMENT_FUTURE_diff', 'CNT_INSTALMENT_FUTURE_pctchange', 'SK_DPD_diff', 'SK_DPD_pctchange', 'SK_DPD_DEF_diff', 'SK_DPD_DEF_pctchange']
+shape: (9454108, 17)
+0it [00:00, ?it/s]1it [00:00,  1.18it/s]2it [00:01,  1.26it/s]3it [00:02,  1.33it/s]4it [00:02,  1.36it/s]5it [00:03,  1.38it/s]6it [00:04,  1.39it/s]7it [00:05,  1.40it/s]8it [00:05,  1.36it/s]9it [00:07,  1.28it/s]10it [00:08,  1.17it/s]11it [00:09,  1.15it/s]12it [00:11,  1.08it/s]13it [00:11,  1.09it/s]14it [00:13,  1.04it/s]15it [00:14,  1.06it/s]16it [00:15,  1.02it/s]17it [00:16,  1.02it/s]18it [00:18,  1.00s/it]19it [00:19,  1.01s/it]20it [00:20,  1.05s/it]
+
+#==============================================================================
+# SUCCESS !!! 000.py
+#==============================================================================
+
+time: 1.99min

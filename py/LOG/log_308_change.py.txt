@@ -1,0 +1,112 @@
+
+#==============================================================================
+# START!!! 308_change.py    PID: 60245    time: 2018-07-20 11:14:51.757558
+#==============================================================================
+
+rm: cannot remove '../feature/t*_f308_*': No such file or directory
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:00<00:11,  1.61it/s] 10%|█         | 2/20 [00:00<00:08,  2.06it/s] 15%|█▌        | 3/20 [00:01<00:07,  2.22it/s] 20%|██        | 4/20 [00:01<00:06,  2.59it/s] 25%|██▌       | 5/20 [00:01<00:05,  2.75it/s] 30%|███       | 6/20 [00:02<00:04,  2.90it/s] 35%|███▌      | 7/20 [00:02<00:04,  2.95it/s] 40%|████      | 8/20 [00:02<00:03,  3.00it/s] 45%|████▌     | 9/20 [00:03<00:03,  2.97it/s] 50%|█████     | 10/20 [00:03<00:03,  3.03it/s] 55%|█████▌    | 11/20 [00:03<00:02,  3.09it/s] 60%|██████    | 12/20 [00:03<00:02,  3.15it/s] 65%|██████▌   | 13/20 [00:04<00:02,  3.19it/s] 70%|███████   | 14/20 [00:04<00:01,  3.24it/s] 75%|███████▌  | 15/20 [00:04<00:01,  3.31it/s] 80%|████████  | 16/20 [00:04<00:01,  3.39it/s] 85%|████████▌ | 17/20 [00:05<00:00,  3.36it/s] 90%|█████████ | 18/20 [00:05<00:00,  3.33it/s] 95%|█████████▌| 19/20 [00:05<00:00,  3.33it/s]100%|██████████| 20/20 [00:06<00:00,  3.33it/s]
+  0%|          | 0/20 [00:00<?, ?it/s] 10%|█         | 2/20 [00:00<00:00, 19.53it/s] 25%|██▌       | 5/20 [00:00<00:00, 23.03it/s] 35%|███▌      | 7/20 [00:00<00:00, 20.95it/s] 45%|████▌     | 9/20 [00:00<00:00, 17.50it/s] 55%|█████▌    | 11/20 [00:00<00:00, 17.43it/s] 65%|██████▌   | 13/20 [00:00<00:00, 16.04it/s] 75%|███████▌  | 15/20 [00:00<00:00, 15.26it/s] 85%|████████▌ | 17/20 [00:01<00:00, 14.80it/s] 95%|█████████▌| 19/20 [00:01<00:00, 14.42it/s]100%|██████████| 20/20 [00:01<00:00, 14.31it/s]
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:09<02:56,  9.30s/it] 10%|█         | 2/20 [00:17<02:35,  8.66s/it] 15%|█▌        | 3/20 [00:24<02:16,  8.01s/it] 20%|██        | 4/20 [00:31<02:04,  7.78s/it] 25%|██▌       | 5/20 [00:37<01:53,  7.60s/it] 30%|███       | 6/20 [00:46<01:47,  7.69s/it] 35%|███▌      | 7/20 [00:55<01:42,  7.90s/it] 40%|████      | 8/20 [01:05<01:38,  8.24s/it] 45%|████▌     | 9/20 [01:15<01:32,  8.41s/it] 50%|█████     | 10/20 [01:24<01:24,  8.49s/it] 55%|█████▌    | 11/20 [01:33<01:16,  8.54s/it] 60%|██████    | 12/20 [01:43<01:08,  8.62s/it] 65%|██████▌   | 13/20 [01:52<01:00,  8.65s/it] 70%|███████   | 14/20 [02:00<00:51,  8.64s/it] 75%|███████▌  | 15/20 [02:07<00:42,  8.50s/it] 80%|████████  | 16/20 [02:11<00:32,  8.23s/it] 85%|████████▌ | 17/20 [02:15<00:23,  7.99s/it] 90%|█████████ | 18/20 [02:20<00:15,  7.79s/it] 95%|█████████▌| 19/20 [02:23<00:07,  7.55s/it]100%|██████████| 20/20 [02:25<00:00,  7.30s/it]
+('../data/installments_payments', '') ('Consumer loans', 'cons_')
+('../data/installments_payments', '') ('Cash loans', 'cas_')
+('../data/installments_payments', '') ('Revolving loans', 'rev_')
+('../data/installments_payments', '') ('NA', 'nan_')
+('../data/installments_payments_delay', 'delay_') ('Consumer loans', 'cons_')
+('../data/installments_payments_delay', 'delay_') ('Cash loans', 'cas_')
+('../data/installments_payments_delay', 'delay_') ('Revolving loans', 'rev_')
+('../data/installments_payments_delay', 'delay_') ('NA', 'nan_')
+('../data/installments_payments', 'notdelay_') ('Consumer loans', 'cons_')
+('../data/installments_payments', 'notdelay_') ('Cash loans', 'cas_')
+('../data/installments_payments', 'notdelay_') ('Revolving loans', 'rev_')
+('../data/installments_payments', 'notdelay_') ('NA', 'nan_')
+  0%|          | 0/20 [00:00<?, ?it/s]  0%|          | 0/20 [00:00<?, ?it/s]  0%|          | 0/20 [00:00<?, ?it/s]  0%|          | 0/20 [00:00<?, ?it/s]  0%|          | 0/20 [00:00<?, ?it/s]  0%|          | 0/20 [00:00<?, ?it/s]  0%|          | 0/20 [00:00<?, ?it/s]  0%|          | 0/20 [00:00<?, ?it/s]  0%|          | 0/20 [00:00<?, ?it/s]  0%|          | 0/20 [00:00<?, ?it/s]  0%|          | 0/20 [00:00<?, ?it/s]  0%|          | 0/20 [00:00<?, ?it/s] 10%|█         | 2/20 [00:00<00:01, 14.63it/s] 10%|█         | 2/20 [00:00<00:01, 14.60it/s] 10%|█         | 2/20 [00:00<00:01, 13.71it/s] 10%|█         | 2/20 [00:00<00:01, 13.73it/s] 15%|█▌        | 3/20 [00:00<00:02,  8.40it/s] 20%|██        | 4/20 [00:00<00:01,  9.66it/s] 20%|██        | 4/20 [00:00<00:01,  9.23it/s] 20%|██        | 4/20 [00:00<00:01,  8.88it/s] 25%|██▌       | 5/20 [00:00<00:01, 10.19it/s] 30%|███       | 6/20 [00:00<00:01, 11.13it/s] 30%|███       | 6/20 [00:00<00:01, 11.01it/s] 30%|███       | 6/20 [00:00<00:01, 10.81it/s] 45%|████▌     | 9/20 [00:00<00:00, 13.84it/s] 45%|████▌     | 9/20 [00:00<00:00, 13.78it/s] 45%|████▌     | 9/20 [00:00<00:00, 13.68it/s]  5%|▌         | 1/20 [00:00<00:13,  1.44it/s]  5%|▌         | 1/20 [00:00<00:13,  1.44it/s]  5%|▌         | 1/20 [00:00<00:13,  1.44it/s]  5%|▌         | 1/20 [00:00<00:13,  1.43it/s]  5%|▌         | 1/20 [00:00<00:13,  1.43it/s] 50%|█████     | 10/20 [00:00<00:00, 14.08it/s]  5%|▌         | 1/20 [00:00<00:14,  1.33it/s]  5%|▌         | 1/20 [00:00<00:14,  1.31it/s]  5%|▌         | 1/20 [00:00<00:14,  1.30it/s] 60%|██████    | 12/20 [00:00<00:00, 15.52it/s] 65%|██████▌   | 13/20 [00:00<00:00, 16.19it/s] 65%|██████▌   | 13/20 [00:00<00:00, 16.19it/s] 60%|██████    | 12/20 [00:00<00:00, 14.59it/s] 75%|███████▌  | 15/20 [00:00<00:00, 16.55it/s] 70%|███████   | 14/20 [00:00<00:00, 15.05it/s] 80%|████████  | 16/20 [00:00<00:00, 17.01it/s] 80%|████████  | 16/20 [00:00<00:00, 17.00it/s]100%|██████████| 20/20 [00:01<00:00, 19.98it/s]
+100%|██████████| 20/20 [00:01<00:00, 19.23it/s]
+100%|██████████| 20/20 [00:01<00:00, 19.24it/s]
+ 90%|█████████ | 18/20 [00:01<00:00, 17.24it/s]100%|██████████| 20/20 [00:01<00:00, 18.47it/s]
+ 10%|█         | 2/20 [00:01<00:11,  1.50it/s] 10%|█         | 2/20 [00:01<00:11,  1.50it/s] 10%|█         | 2/20 [00:01<00:12,  1.50it/s] 10%|█         | 2/20 [00:01<00:13,  1.36it/s] 10%|█         | 2/20 [00:01<00:13,  1.36it/s] 10%|█         | 2/20 [00:01<00:13,  1.36it/s] 10%|█         | 2/20 [00:01<00:13,  1.34it/s] 10%|█         | 2/20 [00:01<00:13,  1.34it/s] 15%|█▌        | 3/20 [00:01<00:10,  1.55it/s] 15%|█▌        | 3/20 [00:02<00:11,  1.47it/s] 15%|█▌        | 3/20 [00:02<00:11,  1.47it/s] 15%|█▌        | 3/20 [00:02<00:11,  1.43it/s] 15%|█▌        | 3/20 [00:02<00:11,  1.43it/s] 15%|█▌        | 3/20 [00:02<00:11,  1.43it/s] 15%|█▌        | 3/20 [00:02<00:11,  1.42it/s] 15%|█▌        | 3/20 [00:02<00:12,  1.36it/s] 20%|██        | 4/20 [00:02<00:10,  1.56it/s] 20%|██        | 4/20 [00:02<00:10,  1.56it/s] 20%|██        | 4/20 [00:02<00:10,  1.50it/s] 20%|██        | 4/20 [00:02<00:10,  1.50it/s] 20%|██        | 4/20 [00:02<00:10,  1.49it/s] 20%|██        | 4/20 [00:02<00:10,  1.49it/s] 20%|██        | 4/20 [00:02<00:10,  1.48it/s] 20%|██        | 4/20 [00:02<00:11,  1.44it/s] 25%|██▌       | 5/20 [00:03<00:09,  1.61it/s] 25%|██▌       | 5/20 [00:03<00:09,  1.61it/s] 25%|██▌       | 5/20 [00:03<00:09,  1.58it/s] 25%|██▌       | 5/20 [00:03<00:09,  1.57it/s] 25%|██▌       | 5/20 [00:03<00:10,  1.49it/s] 25%|██▌       | 5/20 [00:03<00:10,  1.43it/s] 25%|██▌       | 5/20 [00:03<00:10,  1.42it/s] 25%|██▌       | 5/20 [00:03<00:10,  1.41it/s] 30%|███       | 6/20 [00:03<00:08,  1.66it/s] 30%|███       | 6/20 [00:03<00:08,  1.65it/s] 30%|███       | 6/20 [00:03<00:08,  1.63it/s] 30%|███       | 6/20 [00:03<00:08,  1.61it/s] 30%|███       | 6/20 [00:03<00:09,  1.54it/s] 30%|███       | 6/20 [00:04<00:09,  1.49it/s] 30%|███       | 6/20 [00:04<00:09,  1.47it/s] 30%|███       | 6/20 [00:04<00:09,  1.46it/s] 35%|███▌      | 7/20 [00:04<00:07,  1.70it/s] 35%|███▌      | 7/20 [00:04<00:07,  1.68it/s] 35%|███▌      | 7/20 [00:04<00:07,  1.67it/s] 35%|███▌      | 7/20 [00:04<00:07,  1.64it/s] 35%|███▌      | 7/20 [00:04<00:08,  1.57it/s] 35%|███▌      | 7/20 [00:04<00:08,  1.55it/s] 40%|████      | 8/20 [00:04<00:06,  1.74it/s] 35%|███▌      | 7/20 [00:04<00:08,  1.52it/s] 40%|████      | 8/20 [00:04<00:06,  1.72it/s] 35%|███▌      | 7/20 [00:04<00:08,  1.51it/s] 40%|████      | 8/20 [00:04<00:07,  1.70it/s] 40%|████      | 8/20 [00:04<00:07,  1.65it/s] 40%|████      | 8/20 [00:05<00:07,  1.59it/s] 40%|████      | 8/20 [00:05<00:07,  1.58it/s] 40%|████      | 8/20 [00:05<00:07,  1.56it/s] 45%|████▌     | 9/20 [00:05<00:06,  1.75it/s] 45%|████▌     | 9/20 [00:05<00:06,  1.74it/s] 45%|████▌     | 9/20 [00:05<00:06,  1.71it/s] 40%|████      | 8/20 [00:05<00:07,  1.52it/s]remove var<=0: Index(['DBD_diff_min', 'DBD_diff_mean', 'DBD_diff_max', 'DBD_diff_var'], dtype='object')
+ 45%|████▌     | 9/20 [00:05<00:06,  1.64it/s] 45%|████▌     | 9/20 [00:05<00:06,  1.60it/s] 45%|████▌     | 9/20 [00:05<00:06,  1.59it/s] 45%|████▌     | 9/20 [00:05<00:06,  1.58it/s] 50%|█████     | 10/20 [00:05<00:05,  1.74it/s] 50%|█████     | 10/20 [00:05<00:05,  1.74it/s] 50%|█████     | 10/20 [00:05<00:05,  1.71it/s] 45%|████▌     | 9/20 [00:05<00:07,  1.54it/s] 50%|█████     | 10/20 [00:06<00:06,  1.63it/s] 50%|█████     | 10/20 [00:06<00:06,  1.61it/s] 50%|█████     | 10/20 [00:06<00:06,  1.61it/s] 50%|█████     | 10/20 [00:06<00:06,  1.60it/s] 55%|█████▌    | 11/20 [00:06<00:05,  1.74it/s] 55%|█████▌    | 11/20 [00:06<00:05,  1.73it/s] 55%|█████▌    | 11/20 [00:06<00:05,  1.72it/s] 50%|█████     | 10/20 [00:06<00:06,  1.56it/s] 55%|█████▌    | 11/20 [00:06<00:05,  1.62it/s] 55%|█████▌    | 11/20 [00:06<00:05,  1.62it/s] 55%|█████▌    | 11/20 [00:06<00:05,  1.62it/s] 55%|█████▌    | 11/20 [00:06<00:05,  1.61it/s] 60%|██████    | 12/20 [00:06<00:04,  1.73it/s] 55%|█████▌    | 11/20 [00:06<00:05,  1.58it/s] 60%|██████    | 12/20 [00:06<00:04,  1.72it/s] 60%|██████    | 12/20 [00:07<00:04,  1.71it/s] 60%|██████    | 12/20 [00:07<00:04,  1.64it/s] 60%|██████    | 12/20 [00:07<00:04,  1.64it/s] 60%|██████    | 12/20 [00:07<00:04,  1.63it/s] 60%|██████    | 12/20 [00:07<00:04,  1.62it/s] 60%|██████    | 12/20 [00:07<00:05,  1.60it/s] 65%|██████▌   | 13/20 [00:07<00:04,  1.72it/s] 65%|██████▌   | 13/20 [00:07<00:04,  1.72it/s] 65%|██████▌   | 13/20 [00:07<00:04,  1.70it/s] 65%|██████▌   | 13/20 [00:07<00:04,  1.64it/s] 65%|██████▌   | 13/20 [00:07<00:04,  1.63it/s] 65%|██████▌   | 13/20 [00:07<00:04,  1.63it/s] 65%|██████▌   | 13/20 [00:07<00:04,  1.63it/s] 65%|██████▌   | 13/20 [00:08<00:04,  1.60it/s] 70%|███████   | 14/20 [00:08<00:03,  1.72it/s] 70%|███████   | 14/20 [00:08<00:03,  1.70it/s] 70%|███████   | 14/20 [00:08<00:03,  1.68it/s] 70%|███████   | 14/20 [00:08<00:03,  1.65it/s] 70%|███████   | 14/20 [00:08<00:03,  1.64it/s] 70%|███████   | 14/20 [00:08<00:03,  1.62it/s] 70%|███████   | 14/20 [00:08<00:03,  1.62it/s]remove var<=0: Index(['NUM_INSTALMENT_VERSION_diff_min', 'NUM_INSTALMENT_VERSION_diff_mean',
+       'NUM_INSTALMENT_VERSION_diff_max', 'NUM_INSTALMENT_VERSION_diff_var',
+       'AMT_ANNUITY_diff_min', 'AMT_ANNUITY_diff_mean', 'AMT_ANNUITY_diff_max',
+       'AMT_ANNUITY_diff_var', 'AMT_ANNUITY_pctchange_min',
+       'AMT_ANNUITY_pctchange_mean', 'AMT_ANNUITY_pctchange_max',
+       'AMT_ANNUITY_pctchange_var', 'DBD_diff_min', 'DBD_diff_mean',
+       'DBD_diff_max', 'DBD_diff_var'],
+      dtype='object')
+ 70%|███████   | 14/20 [00:08<00:03,  1.61it/s] 75%|███████▌  | 15/20 [00:08<00:02,  1.70it/s] 75%|███████▌  | 15/20 [00:08<00:02,  1.69it/s] 75%|███████▌  | 15/20 [00:09<00:03,  1.66it/s] 75%|███████▌  | 15/20 [00:09<00:03,  1.66it/s] 75%|███████▌  | 15/20 [00:09<00:03,  1.64it/s] 75%|███████▌  | 15/20 [00:09<00:03,  1.63it/s] 75%|███████▌  | 15/20 [00:09<00:03,  1.62it/s] 80%|████████  | 16/20 [00:09<00:02,  1.70it/s] 80%|████████  | 16/20 [00:09<00:02,  1.70it/s] 75%|███████▌  | 15/20 [00:09<00:03,  1.58it/s] 80%|████████  | 16/20 [00:09<00:02,  1.66it/s] 80%|████████  | 16/20 [00:09<00:02,  1.65it/s] 80%|████████  | 16/20 [00:09<00:02,  1.63it/s] 80%|████████  | 16/20 [00:09<00:02,  1.63it/s] 80%|████████  | 16/20 [00:09<00:02,  1.62it/s] 85%|████████▌ | 17/20 [00:09<00:01,  1.71it/s] 80%|████████  | 16/20 [00:09<00:02,  1.60it/s] 85%|████████▌ | 17/20 [00:10<00:01,  1.65it/s] 85%|████████▌ | 17/20 [00:10<00:01,  1.64it/s] 85%|████████▌ | 17/20 [00:10<00:01,  1.64it/s] 85%|████████▌ | 17/20 [00:10<00:01,  1.63it/s] 85%|████████▌ | 17/20 [00:10<00:01,  1.63it/s] 90%|█████████ | 18/20 [00:10<00:01,  1.72it/s] 85%|████████▌ | 17/20 [00:10<00:01,  1.62it/s] 85%|████████▌ | 17/20 [00:10<00:01,  1.62it/s] 90%|█████████ | 18/20 [00:10<00:01,  1.67it/s] 90%|█████████ | 18/20 [00:10<00:01,  1.65it/s] 90%|█████████ | 18/20 [00:10<00:01,  1.65it/s] 90%|█████████ | 18/20 [00:10<00:01,  1.64it/s] 95%|█████████▌| 19/20 [00:11<00:00,  1.73it/s] 90%|█████████ | 18/20 [00:11<00:01,  1.63it/s] 90%|█████████ | 18/20 [00:11<00:01,  1.63it/s] 90%|█████████ | 18/20 [00:11<00:01,  1.59it/s] 95%|█████████▌| 19/20 [00:11<00:00,  1.68it/s] 95%|█████████▌| 19/20 [00:11<00:00,  1.67it/s] 95%|█████████▌| 19/20 [00:11<00:00,  1.67it/s] 95%|█████████▌| 19/20 [00:11<00:00,  1.65it/s] 95%|█████████▌| 19/20 [00:11<00:00,  1.65it/s]100%|██████████| 20/20 [00:11<00:00,  1.74it/s]
+ 95%|█████████▌| 19/20 [00:11<00:00,  1.65it/s]100%|██████████| 20/20 [00:11<00:00,  1.70it/s]
+ 95%|█████████▌| 19/20 [00:11<00:00,  1.60it/s]100%|██████████| 20/20 [00:11<00:00,  1.69it/s]
+100%|██████████| 20/20 [00:11<00:00,  1.69it/s]
+100%|██████████| 20/20 [00:11<00:00,  1.67it/s]
+100%|██████████| 20/20 [00:11<00:00,  1.67it/s]
+100%|██████████| 20/20 [00:12<00:00,  1.66it/s]
+100%|██████████| 20/20 [00:12<00:00,  1.61it/s]
+remove var<=0: Index(['AMT_ANNUITY_diff_min', 'AMT_ANNUITY_diff_mean', 'AMT_ANNUITY_diff_max',
+       'AMT_ANNUITY_diff_var', 'AMT_ANNUITY_pctchange_min',
+       'AMT_ANNUITY_pctchange_mean', 'AMT_ANNUITY_pctchange_max',
+       'AMT_ANNUITY_pctchange_var', 'CNT_PAYMENT_diff_min',
+       'CNT_PAYMENT_diff_mean', 'CNT_PAYMENT_diff_max', 'CNT_PAYMENT_diff_var',
+       'CNT_PAYMENT_pctchange_min', 'CNT_PAYMENT_pctchange_mean',
+       'CNT_PAYMENT_pctchange_max', 'CNT_PAYMENT_pctchange_var',
+       'DBD_diff_min', 'DBD_diff_mean', 'DBD_diff_max', 'DBD_diff_var'],
+      dtype='object')
+remove var<=0: Index(['AMT_ANNUITY_diff_min', 'AMT_ANNUITY_diff_mean', 'AMT_ANNUITY_diff_max',
+       'AMT_ANNUITY_diff_var', 'AMT_ANNUITY_pctchange_min',
+       'AMT_ANNUITY_pctchange_mean', 'AMT_ANNUITY_pctchange_max',
+       'AMT_ANNUITY_pctchange_var', 'CNT_PAYMENT_diff_min',
+       'CNT_PAYMENT_diff_mean', 'CNT_PAYMENT_diff_max', 'CNT_PAYMENT_diff_var',
+       'CNT_PAYMENT_pctchange_min', 'CNT_PAYMENT_pctchange_mean',
+       'CNT_PAYMENT_pctchange_max', 'CNT_PAYMENT_pctchange_var',
+       'DBD_diff_min', 'DBD_diff_mean', 'DBD_diff_max', 'DBD_diff_var'],
+      dtype='object')
+remove var<=0: Index(['NUM_INSTALMENT_VERSION_diff_min', 'NUM_INSTALMENT_VERSION_diff_mean',
+       'NUM_INSTALMENT_VERSION_diff_max', 'NUM_INSTALMENT_VERSION_diff_var',
+       'AMT_ANNUITY_diff_min', 'AMT_ANNUITY_diff_mean', 'AMT_ANNUITY_diff_max',
+       'AMT_ANNUITY_diff_var', 'AMT_ANNUITY_pctchange_min',
+       'AMT_ANNUITY_pctchange_mean', 'AMT_ANNUITY_pctchange_max',
+       'AMT_ANNUITY_pctchange_var'],
+      dtype='object')
+remove var<=0: Index(['NUM_INSTALMENT_VERSION_diff_min', 'NUM_INSTALMENT_VERSION_diff_mean',
+       'NUM_INSTALMENT_VERSION_diff_max', 'NUM_INSTALMENT_VERSION_diff_var',
+       'AMT_ANNUITY_diff_min', 'AMT_ANNUITY_diff_mean', 'AMT_ANNUITY_diff_max',
+       'AMT_ANNUITY_diff_var', 'AMT_ANNUITY_pctchange_min',
+       'AMT_ANNUITY_pctchange_mean', 'AMT_ANNUITY_pctchange_max',
+       'AMT_ANNUITY_pctchange_var'],
+      dtype='object')
+remove var<=0: Index(['AMT_ANNUITY_diff_min', 'AMT_ANNUITY_diff_mean', 'AMT_ANNUITY_diff_max',
+       'AMT_ANNUITY_diff_var', 'AMT_ANNUITY_pctchange_min',
+       'AMT_ANNUITY_pctchange_mean', 'AMT_ANNUITY_pctchange_max',
+       'AMT_ANNUITY_pctchange_var', 'CNT_PAYMENT_diff_min',
+       'CNT_PAYMENT_diff_mean', 'CNT_PAYMENT_diff_max', 'CNT_PAYMENT_diff_var',
+       'CNT_PAYMENT_pctchange_min', 'CNT_PAYMENT_pctchange_mean',
+       'CNT_PAYMENT_pctchange_max', 'CNT_PAYMENT_pctchange_var'],
+      dtype='object')
+remove var<=0: Index(['AMT_ANNUITY_diff_min', 'AMT_ANNUITY_diff_mean', 'AMT_ANNUITY_diff_max',
+       'AMT_ANNUITY_diff_var', 'AMT_ANNUITY_pctchange_min',
+       'AMT_ANNUITY_pctchange_mean', 'AMT_ANNUITY_pctchange_max',
+       'AMT_ANNUITY_pctchange_var', 'CNT_PAYMENT_diff_min',
+       'CNT_PAYMENT_diff_mean', 'CNT_PAYMENT_diff_max', 'CNT_PAYMENT_diff_var',
+       'CNT_PAYMENT_pctchange_min', 'CNT_PAYMENT_pctchange_mean',
+       'CNT_PAYMENT_pctchange_max', 'CNT_PAYMENT_pctchange_var'],
+      dtype='object')
+remove var<=0: Index(['AMT_ANNUITY_diff_min', 'AMT_ANNUITY_diff_mean', 'AMT_ANNUITY_diff_max',
+       'AMT_ANNUITY_diff_var', 'AMT_ANNUITY_pctchange_min',
+       'AMT_ANNUITY_pctchange_mean', 'AMT_ANNUITY_pctchange_max',
+       'AMT_ANNUITY_pctchange_var', 'CNT_PAYMENT_diff_min',
+       'CNT_PAYMENT_diff_mean', 'CNT_PAYMENT_diff_max', 'CNT_PAYMENT_diff_var',
+       'CNT_PAYMENT_pctchange_min', 'CNT_PAYMENT_pctchange_mean',
+       'CNT_PAYMENT_pctchange_max', 'CNT_PAYMENT_pctchange_var'],
+      dtype='object')
+remove var<=0: Index(['AMT_ANNUITY_diff_min', 'AMT_ANNUITY_diff_mean', 'AMT_ANNUITY_diff_max',
+       'AMT_ANNUITY_diff_var', 'AMT_ANNUITY_pctchange_min',
+       'AMT_ANNUITY_pctchange_mean', 'AMT_ANNUITY_pctchange_max',
+       'AMT_ANNUITY_pctchange_var', 'CNT_PAYMENT_diff_min',
+       'CNT_PAYMENT_diff_mean', 'CNT_PAYMENT_diff_max', 'CNT_PAYMENT_diff_var',
+       'CNT_PAYMENT_pctchange_min', 'CNT_PAYMENT_pctchange_mean',
+       'CNT_PAYMENT_pctchange_max', 'CNT_PAYMENT_pctchange_var'],
+      dtype='object')
+
+#==============================================================================
+# SUCCESS !!! 308_change.py
+#==============================================================================
+
+time: 7.21min
