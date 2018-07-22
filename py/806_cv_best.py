@@ -66,7 +66,7 @@ CAT = list( set(X.columns)&set(utils_cat.ALL) )
 # cv
 # =============================================================================
 dtrain = lgb.Dataset(X, y, categorical_feature=CAT ,
-                     weight=weight.values)
+                     weight=weight.values.flatten())
 gc.collect()
 
 ret = lgb.cv(param, dtrain, 9999, nfold=7,
