@@ -65,7 +65,6 @@ for i in range(1, SHIFT+1):
     df_s = df.shift(i)
     
     df_s.loc[df_s[KEY]!=df[KEY], df.columns] = 0
-    df_s.loc[df_s[KEY]!=df[KEY], 'NAME_CONTRACT_STATUS'] = 'NA'
     
     for c in df_s.columns[2:]:
         merged[c] += df_s[c]
