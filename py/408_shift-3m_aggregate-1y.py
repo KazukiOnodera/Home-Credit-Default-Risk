@@ -54,19 +54,19 @@ def get_trte():
 # =============================================================================
 # 
 # =============================================================================
-cre = pd.read_csv('../input/credit_card_balance.csv.zip')
-cre.sort_values(['SK_ID_PREV', 'MONTHS_BALANCE'], inplace=True)
-cre.reset_index(drop=True, inplace=True)
+df = pd.read_csv('../input/credit_card_balance.csv.zip')
+df.sort_values(['SK_ID_PREV', 'MONTHS_BALANCE'], inplace=True)
+df.reset_index(drop=True, inplace=True)
 
-merged = cre[cre.columns[:3]]
+merged = df.copy()
 
 for i in range(1, SHIFT+1):
-    cre_s = cre.shift(i)
+    df_s = df.shift(i)
     
-    cre_s.loc[cre['SK_ID_PREV']!=cre_s['SK_ID_PREV'], cre_s.columns] = None
+    df_s.loc[df_s['SK_ID_PREV']!=df['SK_ID_PREV'], df.columns] = 0
     
-    for c in cre_s.columns[3:]:
-        merged[c] = cre[c] + cre_s[c]
+    for c in df_s.columns[3:]:
+        merged[c] += df_s[c]
 
 
 df = pd.merge(merged, get_trte(), on='SK_ID_CURR', how='left')
