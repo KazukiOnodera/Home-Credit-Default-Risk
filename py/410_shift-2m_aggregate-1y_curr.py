@@ -55,6 +55,7 @@ def get_trte():
 # 
 # =============================================================================
 df = pd.read_csv('../input/credit_card_balance.csv.zip').drop('SK_ID_PREV', axis=1)
+df = df.groupby([KEY, 'MONTHS_BALANCE']).sum().reset_index()
 df.sort_values([KEY, 'MONTHS_BALANCE'], inplace=True)
 df.reset_index(drop=True, inplace=True)
 
