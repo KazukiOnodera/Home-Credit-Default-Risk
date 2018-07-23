@@ -29,13 +29,13 @@ os.system(f'rm ../feature/t*_{PREF}*')
 # =============================================================================
 
 df = pd.read_csv('../input/installments_payments.csv.zip',
-                 usecols=['SK_ID_CURR', 'DAYS_ENTRY_PAYMENT', 'AMT_PAYMENT'])
+                 usecols=['SK_ID_CURR', 'SK_ID_PREV', 'DAYS_ENTRY_PAYMENT', 'AMT_PAYMENT'])
 
 df['month'] = (df['DAYS_ENTRY_PAYMENT']/30).map(np.floor)
 df = df.groupby([KEY, 'month']).sum().reset_index()
 df.drop('DAYS_ENTRY_PAYMENT', axis=1, inplace=True)
 
-df.sort_values([KEY, 'month'], inplace=True)
+df.sort_values([KEY, 'SK_ID_PREV', 'month'], inplace=True)
 df.reset_index(drop=True, inplace=True)
 
 merged = df.copy()
@@ -71,12 +71,12 @@ def get_trte():
                       ignore_index=True)
     return trte
 
-df = pd.merge(merged, get_trte(), on='SK_ID_CURR', how='left')
+df = pd.merge(merged, get_trte(), on=KEY, how='left')
 
 prev = pd.read_csv('../input/previous_application.csv.zip', 
-                   usecols=[KEY, 'CNT_PAYMENT', 'AMT_ANNUITY'])
+                   usecols=['SK_ID_PREV', 'CNT_PAYMENT', 'AMT_ANNUITY'])
 prev['CNT_PAYMENT'].replace(0, np.nan, inplace=True)
-df = pd.merge(df, prev, on=KEY, how='left')
+df = pd.merge(df, prev, on='SK_ID_PREV', how='left')
 del prev; gc.collect()
 
 # app
