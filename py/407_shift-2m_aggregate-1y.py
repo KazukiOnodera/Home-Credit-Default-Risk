@@ -14,7 +14,7 @@ from multiprocessing import Pool, cpu_count
 NTHREAD = cpu_count()
 import utils_agg
 import utils
-#utils.start(__file__)
+utils.start(__file__)
 #==============================================================================
 PREF = 'f407_'
 
@@ -64,6 +64,7 @@ for i in range(1, SHIFT+1):
     df_s = df.shift(i)
     
     df_s.loc[df_s['SK_ID_PREV']!=df['SK_ID_PREV'], df.columns] = 0
+    df_s.loc[df_s['SK_ID_PREV']!=df['SK_ID_PREV'], 'NAME_CONTRACT_STATUS'] = 'NA'
     
     for c in df_s.columns[3:]:
         merged[c] += df_s[c]
