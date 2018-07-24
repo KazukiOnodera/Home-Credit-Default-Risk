@@ -141,10 +141,7 @@ files = ('../feature/test_' + imp.head(FEATURE_SIZE).feature + '.f').tolist()
 
 dtest = pd.concat([
                 pd.read_feather(f) for f in tqdm(files, mininterval=60)
-                ], axis=1)
-
-dtest['nejumi'] = np.load('../feature_someone/nejumi_feature_current_ver3_rep_test.npy')
-dtest = dtest[COL]
+                ], axis=1)[COL]
 
 sub = pd.read_pickle('../data/sub.p')
 
