@@ -12,7 +12,6 @@ import gc
 import os
 from multiprocessing import Pool
 #NTHREAD = cpu_count()
-import utils_agg
 import utils
 utils.start(__file__)
 #==============================================================================
@@ -37,11 +36,11 @@ df['days_delayed_payment'] = df['DAYS_ENTRY_PAYMENT'] - df['DAYS_INSTALMENT']
 df['amt_ratio'] = df['AMT_PAYMENT'] / df['AMT_INSTALMENT']
 df['amt_delta'] = df['AMT_INSTALMENT'] - df['AMT_PAYMENT']
 df['days_weighted_delay'] = df['amt_ratio'] * df['days_delayed_payment']
-
-
 df['month'] = (df['DAYS_ENTRY_PAYMENT']/30).map(np.floor)
+
 df = df.groupby([KEY, 'SK_ID_PREV', 'month']).sum().reset_index()
-df.drop('DAYS_ENTRY_PAYMENT', axis=1, inplace=True)
+df.drop(['DAYS_INSTALMENT', 'DAYS_ENTRY_PAYMENT', 'AMT_INSTALMENT'], 
+        axis=1, inplace=True)
 
 df.sort_values(['SK_ID_PREV', 'month'], inplace=True)
 df.reset_index(drop=True, inplace=True)
@@ -125,7 +124,8 @@ def multi_ins(c):
     
     return ret
 
-col = ['AMT_PAYMENT',
+col = ['days_delayed_payment', 'amt_ratio', 'amt_delta', 'days_weighted_delay',
+       'AMT_PAYMENT',
        'AMT_PAYMENT-d-app_AMT_INCOME_TOTAL', 'AMT_PAYMENT-d-app_AMT_CREDIT',
        'AMT_PAYMENT-d-app_AMT_ANNUITY', 'AMT_PAYMENT-d-app_AMT_GOODS_PRICE',
        'AMT_PAYMENT-d-AMT_ANNUITY', 'AMT_PAYMENT-m-AMT_ANNUITY']
@@ -138,14 +138,14 @@ pool.close()
 df = pd.concat([df, callback1], axis=1)
 del callback1; gc.collect()
 
-pool = Pool(10)
-callback2 = pd.concat(pool.map(multi_ins, col), axis=1)
-print('===== INS ====')
-col = callback2.columns.tolist()
-print(col)
-pool.close()
-df = pd.concat([df, callback2], axis=1)
-del callback2; gc.collect()
+#pool = Pool(10)
+#callback2 = pd.concat(pool.map(multi_ins, col), axis=1)
+#print('===== INS ====')
+#col = callback2.columns.tolist()
+#print(col)
+#pool.close()
+#df = pd.concat([df, callback2], axis=1)
+#del callback2; gc.collect()
 
 df.replace(np.inf, np.nan, inplace=True) # TODO: any other plan?
 df.replace(-np.inf, np.nan, inplace=True)

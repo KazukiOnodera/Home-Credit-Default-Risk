@@ -11,7 +11,6 @@ import pandas as pd
 import gc, os
 from multiprocessing import Pool
 #NTHREAD = cpu_count()
-import utils_agg
 import utils
 utils.start(__file__)
 #==============================================================================
@@ -29,13 +28,22 @@ os.system(f'rm ../feature/t*_{PREF}*')
 # =============================================================================
 
 df = pd.read_csv('../input/installments_payments.csv.zip',
-                 usecols=['SK_ID_CURR', 'SK_ID_PREV', 'DAYS_ENTRY_PAYMENT', 'AMT_PAYMENT'])
+                 usecols=['SK_ID_CURR', 'DAYS_ENTRY_PAYMENT', 'DAYS_INSTALMENT',
+                          'AMT_INSTALMENT', 'AMT_PAYMENT'])
 
+
+df['days_delayed_payment'] = df['DAYS_ENTRY_PAYMENT'] - df['DAYS_INSTALMENT']
+df['amt_ratio'] = df['AMT_PAYMENT'] / df['AMT_INSTALMENT']
+df['amt_delta'] = df['AMT_INSTALMENT'] - df['AMT_PAYMENT']
+df['days_weighted_delay'] = df['amt_ratio'] * df['days_delayed_payment']
 df['month'] = (df['DAYS_ENTRY_PAYMENT']/30).map(np.floor)
-df = df.groupby([KEY, 'month']).sum().reset_index()
-df.drop('DAYS_ENTRY_PAYMENT', axis=1, inplace=True)
 
-df.sort_values([KEY, 'SK_ID_PREV', 'month'], inplace=True)
+
+df = df.groupby([KEY, 'month']).sum().reset_index()
+df.drop(['DAYS_ENTRY_PAYMENT', 'DAYS_ENTRY_PAYMENT', 'AMT_INSTALMENT'], 
+        axis=1, inplace=True)
+
+df.sort_values([KEY, 'month'], inplace=True)
 df.reset_index(drop=True, inplace=True)
 
 merged = df.copy()
@@ -73,11 +81,6 @@ def get_trte():
 
 df = pd.merge(merged, get_trte(), on=KEY, how='left')
 
-prev = pd.read_csv('../input/previous_application.csv.zip', 
-                   usecols=['SK_ID_PREV', 'CNT_PAYMENT', 'AMT_ANNUITY'])
-prev['CNT_PAYMENT'].replace(0, np.nan, inplace=True)
-df = pd.merge(df, prev, on='SK_ID_PREV', how='left')
-del prev; gc.collect()
 
 # app
 df['AMT_PAYMENT-d-app_AMT_INCOME_TOTAL'] = df['AMT_PAYMENT'] / df['app_AMT_INCOME_TOTAL']
@@ -117,7 +120,8 @@ def multi_ins(c):
     
     return ret
 
-col = ['AMT_PAYMENT',
+col = ['days_delayed_payment', 'amt_ratio', 'amt_delta', 'days_weighted_delay',
+       'AMT_PAYMENT',
        'AMT_PAYMENT-d-app_AMT_INCOME_TOTAL', 'AMT_PAYMENT-d-app_AMT_CREDIT',
        'AMT_PAYMENT-d-app_AMT_ANNUITY', 'AMT_PAYMENT-d-app_AMT_GOODS_PRICE',
        'AMT_PAYMENT-d-AMT_ANNUITY', 'AMT_PAYMENT-m-AMT_ANNUITY']
@@ -130,14 +134,14 @@ pool.close()
 df = pd.concat([df, callback1], axis=1)
 del callback1; gc.collect()
 
-pool = Pool(3)
-callback2 = pd.concat(pool.map(multi_ins, col), axis=1)
-print('===== INS ====')
-col = callback2.columns.tolist()
-print(col)
-pool.close()
-df = pd.concat([df, callback2], axis=1)
-del callback2; gc.collect()
+#pool = Pool(3)
+#callback2 = pd.concat(pool.map(multi_ins, col), axis=1)
+#print('===== INS ====')
+#col = callback2.columns.tolist()
+#print(col)
+#pool.close()
+#df = pd.concat([df, callback2], axis=1)
+#del callback2; gc.collect()
 
 df.replace(np.inf, np.nan, inplace=True) # TODO: any other plan?
 df.replace(-np.inf, np.nan, inplace=True)
@@ -152,7 +156,7 @@ test = utils.load_test([KEY])
 df.drop(['app_AMT_INCOME_TOTAL', 'app_AMT_CREDIT', 'app_AMT_ANNUITY',
        'app_AMT_GOODS_PRICE', 'AMT_ANNUITY', 'CNT_PAYMENT'], axis=1, inplace=True)
 
-stats = ['min', 'mean', 'max', 'var']
+stats = ['min', 'mean', 'max', 'var', 'sum']
 num_aggregations = {}
 for c in df.columns[2:]:
     num_aggregations[c] = stats
