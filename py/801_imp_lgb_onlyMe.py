@@ -25,6 +25,8 @@ SEED = 71
 HEAD = 1000 * 100
 #HEAD = None
 
+RESET = False
+
 param = {
          'objective': 'binary',
          'metric': 'auc',
@@ -49,59 +51,60 @@ param = {
 
 use_files = ['train_f'] # only me
 
-os.system(f'rm -rf ../feature_unused')
-os.system(f'mkdir ../feature_unused')
 
 # =============================================================================
-# load
+# reset load
 # =============================================================================
+if RESET:
+    os.system(f'rm -rf ../feature_unused')
+    os.system(f'mkdir ../feature_unused')
 
-files = utils.get_use_files(use_files, True)
-
-if HEAD is not None:
-    X = pd.concat([
-                    pd.read_feather(f).head(HEAD) for f in tqdm(files, mininterval=60)
-                   ], axis=1)
-    y = utils.read_pickles('../data/label').head(HEAD).TARGET
-else:
-    X = pd.concat([
-                    pd.read_feather(f) for f in tqdm(files, mininterval=60)
-                   ], axis=1)
-    y = utils.read_pickles('../data/label').TARGET
-
-
-if X.columns.duplicated().sum()>0:
-    raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
-print('no dup :) ')
-print(f'X.shape {X.shape}')
-
-gc.collect()
-
-CAT = list( set(X.columns)&set(utils_cat.ALL))
-print(f'CAT: {CAT}')
-
-# =============================================================================
-# imp
-# =============================================================================
-dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
-model = lgb.train(param, dtrain, 1000)
-imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
-
-
-imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
-
-"""
-imp = pd.read_csv('LOG/imp_801_imp_lgb.py.csv')
-"""
-
-def multi_touch(arg):
-    os.system(f'touch "../feature_unused/{arg}.f"')
-
-
-col = imp[imp['split']==0]['feature'].tolist()
-pool = Pool(cpu_count())
-pool.map(multi_touch, col)
-pool.close()
+    files = utils.get_use_files(use_files, True)
+    
+    if HEAD is not None:
+        X = pd.concat([
+                        pd.read_feather(f).head(HEAD) for f in tqdm(files, mininterval=60)
+                       ], axis=1)
+        y = utils.read_pickles('../data/label').head(HEAD).TARGET
+    else:
+        X = pd.concat([
+                        pd.read_feather(f) for f in tqdm(files, mininterval=60)
+                       ], axis=1)
+        y = utils.read_pickles('../data/label').TARGET
+    
+    
+    if X.columns.duplicated().sum()>0:
+        raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
+    print('no dup :) ')
+    print(f'X.shape {X.shape}')
+    
+    gc.collect()
+    
+    CAT = list( set(X.columns)&set(utils_cat.ALL))
+    print(f'CAT: {CAT}')
+    
+    # =============================================================================
+    # imp
+    # =============================================================================
+    dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
+    model = lgb.train(param, dtrain, 1000)
+    imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
+    
+    
+    imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
+    
+    """
+    imp = pd.read_csv('LOG/imp_801_imp_lgb.py.csv')
+    """
+    
+    def multi_touch(arg):
+        os.system(f'touch "../feature_unused/{arg}.f"')
+    
+    
+    col = imp[imp['split']==0]['feature'].tolist()
+    pool = Pool(cpu_count())
+    pool.map(multi_touch, col)
+    pool.close()
 
 # =============================================================================
 # all data
@@ -128,7 +131,7 @@ print(f'CAT: {CAT}')
 # imp
 # =============================================================================
 dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
-model = lgb.train(param, dtrain, 1000)
+model = lgb.train(param, dtrain, 3000)
 imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
 
 """
