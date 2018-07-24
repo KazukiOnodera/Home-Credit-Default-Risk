@@ -49,7 +49,7 @@ param = {
          'seed': SEED
          }
 
-use_files = ['train_f'] # only me
+use_files = ['train_']
 
 
 # =============================================================================
@@ -131,7 +131,7 @@ print(f'CAT: {CAT}')
 # imp
 # =============================================================================
 dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
-model = lgb.train(param, dtrain, 4000)
+model = lgb.train(param, dtrain, 3000)
 imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
 
 """

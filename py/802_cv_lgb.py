@@ -67,7 +67,7 @@ for HEAD in HEADS:
                    ], axis=1)
     y = utils.read_pickles('../data/label').TARGET
     
-    X['nejumi'] = np.load('../feature_someone/train_nejumi.npy')
+#    X['nejumi'] = np.load('../feature_someone/train_nejumi.npy')
     
     if X.columns.duplicated().sum()>0:
         raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
