@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Tue Jul 24 17:48:46 2018
+Created on Tue Jul 24 22:10:03 2018
 
-@author: kazuki.onodera
+@author: Kazuki
 
 params:
     {
     day: 1y
-    amt: abs
+    amt: ratio
     delay: True
     descrete_method: quantile, 5%
     }
@@ -24,11 +24,11 @@ from multiprocessing import Pool
 import utils
 utils.start(__file__)
 #==============================================================================
-PREF = 'f320_'
+PREF = 'f321_'
 
 KEY = 'SK_ID_CURR'
 
-MONEY_FEATURE = 'AMT_PAYMENT-d-app_AMT_INCOME_TOTAL'
+MONEY_FEATURE = 'amt_ratio'
 
 day_start = -365*1  # min: -2922
 day_end   = -365*0  # min: -2922
@@ -70,7 +70,7 @@ df['AMT_PAYMENT-d-app_AMT_CREDIT']      = df['AMT_PAYMENT'] / df['app_AMT_CREDIT
 df['AMT_PAYMENT-d-app_AMT_ANNUITY']     = df['AMT_PAYMENT'] / df['app_AMT_ANNUITY']
 df['AMT_PAYMENT-d-app_AMT_GOODS_PRICE'] = df['AMT_PAYMENT'] / df['app_AMT_GOODS_PRICE']
 
-
+df['amt_ratio'] = df['AMT_PAYMENT'] / df['AMT_INSTALMENT']
 df['delay'] = df['DAYS_ENTRY_PAYMENT'] - df['DAYS_INSTALMENT']
 
 df = df[df['delay']>0]
