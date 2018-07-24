@@ -30,7 +30,14 @@ os.system(f'rm ../feature/t*_{PREF}*')
 # =============================================================================
 
 df = pd.read_csv('../input/installments_payments.csv.zip',
-                 usecols=['SK_ID_PREV', 'SK_ID_CURR', 'DAYS_ENTRY_PAYMENT', 'AMT_PAYMENT'])
+                 usecols=['SK_ID_PREV', 'SK_ID_CURR', 'DAYS_ENTRY_PAYMENT', 'DAYS_INSTALMENT',
+                          'AMT_INSTALMENT', 'AMT_PAYMENT'])
+
+df['days_delayed_payment'] = df['DAYS_ENTRY_PAYMENT'] - df['DAYS_INSTALMENT']
+df['amt_ratio'] = df['AMT_PAYMENT'] / df['AMT_INSTALMENT']
+df['amt_delta'] = df['AMT_INSTALMENT'] - df['AMT_PAYMENT']
+df['days_weighted_delay'] = df['amt_ratio'] * df['days_delayed_payment']
+
 
 df['month'] = (df['DAYS_ENTRY_PAYMENT']/30).map(np.floor)
 df = df.groupby([KEY, 'SK_ID_PREV', 'month']).sum().reset_index()
@@ -153,7 +160,7 @@ test = utils.load_test([KEY])
 df.drop(['app_AMT_INCOME_TOTAL', 'app_AMT_CREDIT', 'app_AMT_ANNUITY',
        'app_AMT_GOODS_PRICE', 'AMT_ANNUITY', 'CNT_PAYMENT'], axis=1, inplace=True)
 
-stats = ['min', 'mean', 'max', 'var']
+stats = ['min', 'mean', 'max', 'var', 'sum']
 num_aggregations = {}
 for c in df.columns[3:]:
     num_aggregations[c] = stats
