@@ -27,6 +27,8 @@ HEAD = 1000 * 100
 
 RESET = False
 
+ONLY_ME = True
+
 param = {
          'objective': 'binary',
          'metric': 'auc',
@@ -49,7 +51,11 @@ param = {
          'seed': SEED
          }
 
-use_files = ['train_f']
+
+if ONLY_ME:
+    use_files = ['train_f']
+else:
+    use_files = ['train_']
 
 
 # =============================================================================
