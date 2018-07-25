@@ -1,84 +1,0 @@
-train files
-f001: 248
-f101: 2783
-f102: 2733
-f103: 2745
-f104: 2717
-f105: 871
-f106: 324
-f107: 6
-f108: 337
-f109: 337
-f201: 57
-f202: 53
-f203: 53
-f204: 53
-f301: 882
-f302: 887
-f303: 899
-f304: 914
-f305: 3582
-f306: 60
-f307: 60
-f401: 200
-f402: 194
-f403: 194
-f404: 194
-f501: 397
-f502: 387
-f503: 391
-f504: 393
-f505: 774
-f601: 58
-f701: 20
-
-test files
-f001: 248
-f101: 2783
-f102: 2733
-f103: 2745
-f104: 2717
-f105: 871
-f106: 324
-f107: 6
-f108: 337
-f109: 337
-f201: 57
-f202: 53
-f203: 53
-f204: 53
-f301: 882
-f302: 887
-f303: 899
-f304: 914
-f305: 3582
-f306: 60
-f307: 60
-f401: 200
-f402: 194
-f403: 194
-f404: 194
-f501: 397
-f502: 387
-f503: 391
-f504: 393
-f505: 774
-f601: 58
-f701: 20
-
-#==============================================================================
-# START!!! 806_cv_xgb_maxwell.py    PID: 5960    time: 2018-07-11 06:30:08.102357
-#==============================================================================
-
-got 7902
-  0%|          | 0/7902 [00:00<?, ?it/s] 11%|█         | 878/7902 [01:00<08:00, 14.62it/s] 11%|█         | 878/7902 [01:20<10:40, 10.97it/s] 20%|██        | 1591/7902 [02:00<07:56, 13.25it/s] 20%|██        | 1591/7902 [02:20<09:15, 11.36it/s] 31%|███       | 2428/7902 [03:00<06:46, 13.48it/s] 31%|███       | 2428/7902 [03:20<07:30, 12.14it/s] 43%|████▎     | 3395/7902 [04:00<05:18, 14.14it/s] 43%|████▎     | 3395/7902 [04:20<05:45, 13.06it/s] 56%|█████▌    | 4402/7902 [05:00<03:58, 14.66it/s] 56%|█████▌    | 4402/7902 [05:20<04:14, 13.76it/s] 68%|██████▊   | 5375/7902 [06:00<02:49, 14.92it/s] 68%|██████▊   | 5375/7902 [06:20<02:58, 14.14it/s] 82%|████████▏ | 6448/7902 [07:00<01:34, 15.34it/s] 82%|████████▏ | 6448/7902 [07:20<01:39, 14.65it/s] 90%|█████████ | 7150/7902 [08:00<00:50, 14.89it/s] 90%|█████████ | 7150/7902 [08:20<00:52, 14.30it/s]100%|██████████| 7902/7902 [08:53<00:00, 14.80it/s]
-  0%|          | 0/20 [00:00<?, ?it/s]100%|██████████| 20/20 [00:00<00:00, 1891.54it/s]
-no dup :) 
-X.shape (307511, 9513)
-category: ['f108_NAME_TYPE_SUITE', 'f001_CODE_GENDER', 'f001_ORGANIZATION_TYPE', 'f108_NAME_YIELD_GROUP', 'f001_NAME_EDUCATION_TYPE', 'f108_WEEKDAY_APPR_PROCESS_START', 'f001_WEEKDAY_APPR_PROCESS_START', 'f001_FLAG_OWN_REALTY', 'f001_WALLSMATERIAL_MODE', 'f001_OCCUPATION_TYPE', 'f108_NAME_GOODS_CATEGORY', 'f001_NAME_INCOME_TYPE', 'f001_NAME_HOUSING_TYPE', 'f108_PRODUCT_COMBINATION', 'f001_NAME_FAMILY_STATUS', 'f108_NAME_SELLER_INDUSTRY', 'f108_CODE_REJECT_REASON', 'FLAG_PHONE_PATTERN', 'FLAG_DOC_PATTERN', 'f108_CHANNEL_TYPE']
-[06:51:59] Tree method is selected to be 'hist', which uses a single updater grow_fast_histmaker.
-[06:53:38] Tree method is selected to be 'hist', which uses a single updater grow_fast_histmaker.
-[06:55:27] Tree method is selected to be 'hist', which uses a single updater grow_fast_histmaker.
-[06:57:11] Tree method is selected to be 'hist', which uses a single updater grow_fast_histmaker.
-[06:58:55] Tree method is selected to be 'hist', which uses a single updater grow_fast_histmaker.
-[0]	train-auc:0.786613+0.00236424	test-auc:0.77833+0.00377069

@@ -1,0 +1,15 @@
+
+#==============================================================================
+# START!!! 314_shift-3m_aggregate-1y.py    PID: 4670    time: 2018-07-24 03:25:25.225772
+#==============================================================================
+
+===== INS ====
+['days_delayed_payment_diff', 'days_delayed_payment_pctchange', 'amt_ratio_diff', 'amt_ratio_pctchange', 'amt_delta_diff', 'amt_delta_pctchange', 'days_weighted_delay_diff', 'days_weighted_delay_pctchange', 'AMT_PAYMENT_diff', 'AMT_PAYMENT_pctchange', 'AMT_PAYMENT-d-app_AMT_INCOME_TOTAL_diff', 'AMT_PAYMENT-d-app_AMT_INCOME_TOTAL_pctchange', 'AMT_PAYMENT-d-app_AMT_CREDIT_diff', 'AMT_PAYMENT-d-app_AMT_CREDIT_pctchange', 'AMT_PAYMENT-d-app_AMT_ANNUITY_diff', 'AMT_PAYMENT-d-app_AMT_ANNUITY_pctchange', 'AMT_PAYMENT-d-app_AMT_GOODS_PRICE_diff', 'AMT_PAYMENT-d-app_AMT_GOODS_PRICE_pctchange', 'AMT_PAYMENT-d-AMT_ANNUITY_diff', 'AMT_PAYMENT-d-AMT_ANNUITY_pctchange', 'AMT_PAYMENT-m-AMT_ANNUITY_diff', 'AMT_PAYMENT-m-AMT_ANNUITY_pctchange']
+  0%|          | 0/20 [00:00<?, ?it/s] 20%|██        | 4/20 [00:00<00:00, 37.16it/s] 40%|████      | 8/20 [00:00<00:00, 35.84it/s] 60%|██████    | 12/20 [00:00<00:00, 36.24it/s] 80%|████████  | 16/20 [00:00<00:00, 35.28it/s] 95%|█████████▌| 19/20 [00:00<00:00, 32.60it/s]100%|██████████| 20/20 [00:00<00:00, 31.40it/s]
+  0%|          | 0/20 [00:00<?, ?it/s]100%|██████████| 20/20 [00:00<00:00, 226.69it/s]
+
+#==============================================================================
+# SUCCESS !!! 314_shift-3m_aggregate-1y.py
+#==============================================================================
+
+time: 2.98min

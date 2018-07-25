@@ -1,0 +1,35 @@
+
+#==============================================================================
+# START!!! 315_shift-1m_aggregate-1y_curr.py    PID: 4673    time: 2018-07-24 03:25:25.192729
+#==============================================================================
+
+rm: cannot remove '../feature/t*_f315_*': No such file or directory
+Traceback (most recent call last):
+  File "/home/Kazuki/anaconda3/lib/python3.6/site-packages/pandas/core/indexes/base.py", line 2525, in get_loc
+    return self._engine.get_loc(key)
+  File "pandas/_libs/index.pyx", line 117, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 139, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 1265, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 1273, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'AMT_ANNUITY'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "315_shift-1m_aggregate-1y_curr.py", line 92, in <module>
+    df['AMT_PAYMENT-d-AMT_ANNUITY'] = df['AMT_PAYMENT'] / df['AMT_ANNUITY']
+  File "/home/Kazuki/anaconda3/lib/python3.6/site-packages/pandas/core/frame.py", line 2139, in __getitem__
+    return self._getitem_column(key)
+  File "/home/Kazuki/anaconda3/lib/python3.6/site-packages/pandas/core/frame.py", line 2146, in _getitem_column
+    return self._get_item_cache(key)
+  File "/home/Kazuki/anaconda3/lib/python3.6/site-packages/pandas/core/generic.py", line 1842, in _get_item_cache
+    values = self._data.get(item)
+  File "/home/Kazuki/anaconda3/lib/python3.6/site-packages/pandas/core/internals.py", line 3843, in get
+    loc = self.items.get_loc(item)
+  File "/home/Kazuki/anaconda3/lib/python3.6/site-packages/pandas/core/indexes/base.py", line 2527, in get_loc
+    return self._engine.get_loc(self._maybe_cast_indexer(key))
+  File "pandas/_libs/index.pyx", line 117, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 139, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 1265, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 1273, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'AMT_ANNUITY'
