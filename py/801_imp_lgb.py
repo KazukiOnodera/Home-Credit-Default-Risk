@@ -14,6 +14,7 @@ sys.path.append(f'/home/{os.environ.get("USER")}/PythonLibrary')
 import lgbextension as ex
 import lightgbm as lgb
 from multiprocessing import cpu_count, Pool
+from collections import defaultdict
 #from glob import glob
 import count
 import utils, utils_cat
@@ -143,9 +144,78 @@ imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
 """
 imp[imp.feature.str.startswith('f312_')]
 
-__file__ = '801_imp_lgb_onlyMe.py'
+__file__ = '801_imp_lgb.py'
 """
 imp.to_csv(f'LOG/imp_{__file__}-2.csv', index=False)
+
+
+print('top100')
+keys = [c.split('_')[0] for c in imp.feature[:100]]
+di = defaultdict(int)
+for k in keys:
+    di[k] += 1
+for k,v in di.items():
+    print(f'{k}: {v}')
+    
+print('top100 - 200')
+keys = [c.split('_')[0] for c in imp.feature[100:200]]
+di = defaultdict(int)
+for k in keys:
+    di[k] += 1
+for k,v in di.items():
+    print(f'{k}: {v}')
+    
+print('top200 - 300')
+keys = [c.split('_')[0] for c in imp.feature[200:300]]
+di = defaultdict(int)
+for k in keys:
+    di[k] += 1
+for k,v in di.items():
+    print(f'{k}: {v}')
+    
+print('top300 - 400')
+keys = [c.split('_')[0] for c in imp.feature[300:400]]
+di = defaultdict(int)
+for k in keys:
+    di[k] += 1
+for k,v in di.items():
+    print(f'{k}: {v}')
+    
+print('top400 - 500')
+keys = [c.split('_')[0] for c in imp.feature[400:500]]
+di = defaultdict(int)
+for k in keys:
+    di[k] += 1
+for k,v in di.items():
+    print(f'{k}: {v}')
+    
+print('top500 - 600')
+keys = [c.split('_')[0] for c in imp.feature[500:600]]
+di = defaultdict(int)
+for k in keys:
+    di[k] += 1
+for k,v in di.items():
+    print(f'{k}: {v}')
+    
+print('top600 - 700')
+keys = [c.split('_')[0] for c in imp.feature[600:700]]
+di = defaultdict(int)
+for k in keys:
+    di[k] += 1
+for k,v in di.items():
+    print(f'{k}: {v}')
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def multi_touch(arg):
