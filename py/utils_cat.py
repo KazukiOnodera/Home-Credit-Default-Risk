@@ -87,7 +87,7 @@ maxwell = ['Mxw_FLAG_PHONE_PATTERN', 'Mxw_FLAG_DOC_PATTERN']
 # all
 # =============================================================================
 
-ALL = f002 + f108 + f109 + f590 + f510 + maxwell
+ALL = f002 + f108 + f109 + f509 + f510 + maxwell
 
 
 
