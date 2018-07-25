@@ -29,7 +29,7 @@ FEATURE_SIZE = 600
 # =============================================================================
 # load train
 # =============================================================================
-imp = pd.read_csv('LOG/imp_BEST.csv')
+imp = pd.read_csv('LOG/imp_801_imp_lgb.py-2.csv')
 imp['split'] /= imp['split'].max()
 imp['gain'] /= imp['gain'].max()
 imp['total'] = imp['split'] + imp['gain']
@@ -43,7 +43,7 @@ X = pd.concat([
                ], axis=1)
 y = utils.read_pickles('../data/label').TARGET
 
-X['nejumi'] = np.load('../feature_someone/nejumi_feature_current_ver3_rep_train.npy')
+X['nejumi'] = np.load('../feature_someone/train_nejumi.npy')
 
 if X.columns.duplicated().sum()>0:
     raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
@@ -65,7 +65,7 @@ dtest = pd.concat([
                 pd.read_feather(f) for f in tqdm(files, mininterval=60)
                 ], axis=1)
 
-dtest['nejumi'] = np.load('../feature_someone/nejumi_feature_current_ver3_rep_test.npy')
+dtest['nejumi'] = np.load('../feature_someone/test_nejumi.npy')
 dtest = dtest[COL]
 
 # =============================================================================
@@ -73,5 +73,19 @@ dtest = dtest[COL]
 # =============================================================================
 X_train, X_test = X.align(dtest, join='inner', axis=1)
 
-X_train.to_feather('../data/X_train_LB0.802.f')
-X_test.to_feather('../data/X_test_LB0.802.f')
+
+print(f'train.shape: {X_train.shape}, test.shape: {X_test.shape}')
+
+X_train.to_feather('../data/X_train_LB0.804.f')
+X_test.to_feather('../data/X_test_LB0.804.f')
+
+
+# =============================================================================
+# 
+# =============================================================================
+tmp = pd.read_csv('../output/725-2_X.csv.gz')
+
+print(tmp.columns.difference(X_train.columns))
+print(X_train.columns.difference(tmp.columns))
+print(tmp.columns.difference(X_test.columns))
+
