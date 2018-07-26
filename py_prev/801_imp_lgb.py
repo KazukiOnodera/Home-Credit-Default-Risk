@@ -48,9 +48,7 @@ param = {
          'seed': SEED
          }
 
-
-
-use_files = ['train_f1', 'train_f201', 'train_f301', 'train_f401']
+use_files = []
 
 
 os.system(f'rm -rf ../feature_prev_unused')
@@ -92,6 +90,11 @@ dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
 model = lgb.train(param, dtrain, 1000)
 imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
 
+imp['split'] /= imp['split'].max()
+imp['gain'] /= imp['gain'].max()
+imp['total'] = imp['split'] + imp['gain']
+imp.sort_values('total', ascending=False, inplace=True)
+imp.reset_idnex(drop=True, inplace=True)
 
 imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
 
