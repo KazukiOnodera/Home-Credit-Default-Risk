@@ -94,7 +94,7 @@ imp['split'] /= imp['split'].max()
 imp['gain'] /= imp['gain'].max()
 imp['total'] = imp['split'] + imp['gain']
 imp.sort_values('total', ascending=False, inplace=True)
-imp.reset_idnex(drop=True, inplace=True)
+imp.reset_index(drop=True, inplace=True)
 
 imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
 
