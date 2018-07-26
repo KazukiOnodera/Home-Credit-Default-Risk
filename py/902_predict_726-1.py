@@ -28,7 +28,7 @@ LOOP = 3
 
 SEED = 71
 
-SUBMIT_FILE_PATH = '../output/726-1.csv.gz'
+SUBMIT_FILE_PATH = '../output/726-1_check_same_feature.csv.gz'
 
 COMMENT = f'CV auc-mean(7 fold): 0.80365 + 0.00365 all(458)+nejumi'
 
