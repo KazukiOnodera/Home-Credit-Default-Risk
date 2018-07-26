@@ -27,7 +27,7 @@ os.system(f'rm ../feature/t*_{PREF}*')
 # =============================================================================
 bure = utils.read_pickles('../data/bureau')
 
-# latest
+# first
 bure = bure.sort_values([KEY, 'DAYS_CREDIT'], ascending=[True, False]).drop_duplicates(KEY, keep='last').reset_index(drop=True)
 
 # =============================================================================

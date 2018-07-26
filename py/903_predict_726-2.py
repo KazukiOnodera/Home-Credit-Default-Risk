@@ -96,7 +96,14 @@ CAT = list( set(X_train.columns)&set(utils_cat.ALL))
 
 print(f'category: {CAT}')
 
-keys = sorted([c.split('_')[0] for c in X_train.columns])
+keys = sorted([c.split('_')[0][:2] for c in df_lb800.columns])
+di = defaultdict(int)
+for k in keys:
+    di[k] += 1
+for k,v in di.items():
+    print(f'{k}: {v}')
+
+keys = sorted([c.split('_')[0][:2] for c in df_lb804.columns])
 di = defaultdict(int)
 for k in keys:
     di[k] += 1
