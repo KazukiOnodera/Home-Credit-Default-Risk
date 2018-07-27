@@ -51,8 +51,8 @@ param = {
 use_files = []
 
 
-os.system(f'rm -rf ../feature_prev_unused')
-os.system(f'mkdir ../feature_prev_unused')
+#os.system(f'rm -rf ../feature_prev_unused')
+#os.system(f'mkdir ../feature_prev_unused')
 
 # =============================================================================
 # load
@@ -87,7 +87,7 @@ CAT = list( set(X.columns)&set(utils_cat.ALL))
 # imp
 # =============================================================================
 dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
-model = lgb.train(param, dtrain, 1000)
+model = lgb.train(param, dtrain, 3000)
 imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
 
 imp['split'] /= imp['split'].max()
