@@ -51,6 +51,7 @@ param = {
          }
 
 imp = pd.read_csv('LOG/imp_0728.py.csv').sort_values('total', ascending=False)
+imp = imp[~imp.feature.str.startswith('f101_app_')].reset_index(drop=True)
 
 val = utils.read_pickles('../data/prev_train', ['NAME_CONTRACT_STATUS'])
 tr_ind = val[val['NAME_CONTRACT_STATUS']=='Approved'].index

@@ -54,6 +54,7 @@ param = {
          }
 
 imp = pd.read_csv('LOG/imp_0728.py.csv').sort_values('total', ascending=False)
+imp = imp[~imp.feature.str.startswith('f101_app_')].reset_index(drop=True)
 
 val = utils.read_pickles('../data/prev_train', ['DAYS_DECISION'])
 tr_ind = val[val['DAYS_DECISION'].between(day_start, day_end)].index

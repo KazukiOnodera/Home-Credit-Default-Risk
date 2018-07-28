@@ -48,10 +48,18 @@ param = {
 # =============================================================================
 # load
 # =============================================================================
-X = utils_best.load_best_train()
+X = utils_best.load_train_lb804()
 y = utils.read_pickles('../data/label').TARGET
 
-weight = pd.read_feather('../feature/train_f750_y_pred.f')
+
+col = [c for c in X.columns if 'f70' in c]
+X.drop(col, axis=1, inplace=True)
+files = glob('../feature/train_f70*')
+X_ = pd.concat([pd.read_feather(f) for f in tqdm(files, mininterval=60)
+                ], axis=1)
+
+X = pd.concat([X, X_], axis=1)
+del X_
 
 if X.columns.duplicated().sum()>0:
     raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
@@ -65,15 +73,14 @@ CAT = list( set(X.columns)&set(utils_cat.ALL) )
 # =============================================================================
 # cv
 # =============================================================================
-dtrain = lgb.Dataset(X, y, categorical_feature=CAT ,
-                     weight=weight.values.flatten())
+dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
 gc.collect()
 
 ret = lgb.cv(param, dtrain, 9999, nfold=7,
              early_stopping_rounds=100, verbose_eval=50,
              seed=SEED)
 
-result = f"CV auc-mean(weight as weight): {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
+result = f"CV auc-mean: {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
 print(result)
 
 utils.send_line(result)
