@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Sat Jul 14 01:07:21 2018
+Created on Sun Jul 29 01:36:21 2018
 
 @author: Kazuki
 """
@@ -13,7 +13,7 @@ import utils
 utils.start(__file__)
 #==============================================================================
 
-PREF = 'f702_'
+PREF = 'f703_'
 
 KEY = 'SK_ID_CURR'
 
@@ -26,8 +26,8 @@ train = utils.load_train([KEY]).set_index(KEY)
 test = utils.load_test([KEY]).set_index(KEY)
 
 
-prev_train = pd.read_feather('../data/prev_train_imputation_f702.f')
-prev_test  = pd.read_feather('../data/prev_test_imputation_f702.f')
+prev_train = pd.read_feather('../data/prev_train_imputation_f703.f')
+prev_test  = pd.read_feather('../data/prev_test_imputation_f703.f')
 
 
 # =============================================================================
@@ -65,6 +65,7 @@ utils.to_feature(test.add_prefix(PREF),  '../feature/test')
 
 #==============================================================================
 utils.end(__file__)
+
 
 
 
