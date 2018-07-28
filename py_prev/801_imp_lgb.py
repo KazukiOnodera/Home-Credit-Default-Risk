@@ -108,43 +108,6 @@ pool = Pool(cpu_count())
 pool.map(multi_touch, col)
 pool.close()
 
-
-
-## =============================================================================
-## all data
-## =============================================================================
-#files = utils.get_use_files(use_files, True)
-#
-#X = pd.concat([
-#                pd.read_feather(f) for f in tqdm(files, mininterval=60)
-#               ], axis=1)
-#y = utils.read_pickles('../data/label').TARGET
-#
-#
-#if X.columns.duplicated().sum()>0:
-#    raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
-#print('no dup :) ')
-#print(f'X.shape {X.shape}')
-#
-#gc.collect()
-#
-#CAT = list( set(X.columns)&set(utils_cat.ALL))
-#print(f'CAT: {CAT}')
-#
-## =============================================================================
-## imp
-## =============================================================================
-#dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
-#model = lgb.train(param, dtrain, 1000)
-#imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
-#
-#
-#imp.to_csv(f'LOG/imp_{__file__}-2.csv', index=False)
-
-
-
-
-
 #==============================================================================
 utils.end(__file__)
 #utils.stop_instance()

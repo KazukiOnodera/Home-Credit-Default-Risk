@@ -34,6 +34,12 @@ def load_train_lb804():
 def load_test_lb084():
     return pd.read_feather('../data/X_test_LB0.804.f')
 
+def load_cat_lb804():
+    return ['f108_NAME_GOODS_CATEGORY', 'f002_WEEKDAY_APPR_PROCESS_START', 
+            'f109_NAME_GOODS_CATEGORY', 'f108_NAME_TYPE_SUITE', 'f109_PRODUCT_COMBINATION', 
+            'f002_NAME_FAMILY_STATUS', 'f002_OCCUPATION_TYPE', 'f108_PRODUCT_COMBINATION', 
+            'f510_CREDIT_TYPE', 'f002_WALLSMATERIAL_MODE', 'f002_NAME_INCOME_TYPE', 
+            'f002_NAME_EDUCATION_TYPE', 'f002_ORGANIZATION_TYPE', 'f509_CREDIT_TYPE']
 
 # =============================================================================
 # LB804

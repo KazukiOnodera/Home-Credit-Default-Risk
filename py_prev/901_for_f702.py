@@ -23,6 +23,8 @@ import utils
 utils.start(__file__)
 #==============================================================================
 
+HEAD = 300
+
 NFOLD = 5
 
 SEED = 71
@@ -49,16 +51,12 @@ param = {
          'seed': SEED
          }
 
-
-
-use_files = []
-
+imp = pd.read_csv('LOG/imp_0728.py.csv').sort_values('total', ascending=False)
 
 # =============================================================================
 # load train
 # =============================================================================
-
-files = utils.get_use_files(use_files, True)
+files = ('../feature_prev/train_' + imp.head(HEAD).feature + '.f').tolist()
 
 X_train = pd.concat([
                 pd.read_feather(f) for f in tqdm(files, mininterval=60)
@@ -88,7 +86,7 @@ CAT = list( set(X_train.columns)&set(utils_cat.ALL))
 # =============================================================================
 # load test
 # =============================================================================
-files = utils.get_use_files(use_files, False)
+files = ('../feature_prev/test_' + imp.head(HEAD).feature + '.f').tolist()
 
 X_test = pd.concat([
                 pd.read_feather(f) for f in tqdm(files, mininterval=60)
@@ -97,7 +95,7 @@ X_test = pd.concat([
 sub_test = utils.read_pickles('../data/prev_test', ['SK_ID_CURR', 'SK_ID_PREV']).set_index('SK_ID_CURR')
 
 # =============================================================================
-# predict
+# predict with eraly stopping
 # =============================================================================
 sub_train['y_pred'] = 0
 sub_test['y_pred'] = 0
@@ -130,8 +128,8 @@ print('test:', sub_test.y_pred.describe())
 # save
 # =============================================================================
 
-sub_train.to_feather('../data/prev_train_imputation.f')
-sub_test.to_feather('../data/prev_test_imputation.f')
+sub_train.to_feather('../data/prev_train_imputation_f702.f')
+sub_test.to_feather('../data/prev_test_imputation_f702.f')
 
 
 
