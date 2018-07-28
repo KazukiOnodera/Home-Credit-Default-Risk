@@ -98,7 +98,7 @@ files = ('../feature_prev/test_' + imp.head(HEAD).feature + '.f').tolist()
 
 X_test = pd.concat([
                 pd.read_feather(f) for f in tqdm(files, mininterval=60)
-               ], axis=1)
+               ], axis=1).iloc[te_ind]
 
 sub_test = utils.read_pickles('../data/prev_test', ['SK_ID_CURR', 'SK_ID_PREV']).set_index('SK_ID_CURR').iloc[te_ind]
 
