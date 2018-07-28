@@ -27,10 +27,6 @@ SEED = 71
 
 HEADS = list(range(300, 1000, 100))
 
-day_start = -365*1 # min: -2922
-day_end   = -365*0 # min: -2922
-
-
 param = {
          'objective': 'binary',
          'metric': 'auc',
