@@ -68,8 +68,8 @@ files = ('../feature_prev/train_' + imp.head(HEAD).feature + '.f').tolist()
 
 X_train = pd.concat([
                 pd.read_feather(f) for f in tqdm(files, mininterval=60)
-               ], axis=1)[tr_ind]
-y_train = utils.read_pickles('../data/prev_label').TARGET[tr_ind]
+               ], axis=1).iloc[tr_ind]
+y_train = utils.read_pickles('../data/prev_label').iloc[tr_ind].TARGET
 
 
 if X_train.columns.duplicated().sum()>0:
