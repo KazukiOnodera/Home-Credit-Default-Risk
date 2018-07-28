@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Sat Jul 28 18:29:52 2018
+Created on Sat Jul 28 20:27:14 2018
 
 @author: Kazuki
 """
@@ -47,8 +47,8 @@ param = {
          
          'colsample_bytree': 0.9,
          'subsample': 0.9,
-#         'nthread': 32,
-         'nthread': cpu_count(),
+         'nthread': 16,
+#         'nthread': cpu_count(),
          'bagging_freq': 1,
          'verbose':-1,
          'seed': SEED
@@ -67,12 +67,12 @@ X_all = pd.concat([
                ], axis=1)
 y = utils.read_pickles('../data/prev_label').TARGET
 
-val = utils.read_pickles('../data/prev_train', ['DAYS_DECISION'])
-ind = val[val['DAYS_DECISION'].between(day_start, day_end)].index
+val = utils.read_pickles('../data/prev_train', ['NAME_CONTRACT_STATUS'])
+ind = val[val['NAME_CONTRACT_STATUS']=='Approved'].index
 y = y[ind]
 
 
-sub_train = utils.read_pickles('../data/prev_train', ['SK_ID_CURR']).set_index('SK_ID_CURR')
+sub_train = utils.read_pickles('../data/prev_train', ['SK_ID_CURR']).set_index('SK_ID_CURR').iloc[ind]
 sub_train['y'] = y.values
 sub_train['cnt'] = sub_train.index.value_counts()
 sub_train['w'] = 1 / sub_train.cnt.values
@@ -94,7 +94,6 @@ for HEAD in HEADS:
     
     CAT = list( set(X.columns)&set(utils_cat.ALL))
     
-    
     # =============================================================================
     # cv
     # =============================================================================
@@ -115,5 +114,6 @@ for HEAD in HEADS:
 #==============================================================================
 utils.end(__file__)
 #utils.stop_instance()
+
 
 
