@@ -17,7 +17,7 @@ import lightgbm as lgb
 from multiprocessing import cpu_count, Pool
 from glob import glob
 import count
-import utils, utils_cat, utils_best
+import utils, utils_best
 #utils.start(__file__)
 #==============================================================================
 
@@ -70,7 +70,7 @@ print(f'X.shape {X.shape}')
 
 gc.collect()
 
-CAT = list( set(X.columns)&set(utils_cat.ALL) )
+CAT = list( set(X.columns)&set(utils_best.load_cat_lb804()) )
 
 # =============================================================================
 # cv
@@ -82,7 +82,7 @@ ret = lgb.cv(param, dtrain, 9999, nfold=7,
              early_stopping_rounds=100, verbose_eval=50,
              seed=SEED)
 
-result = f"CV auc-mean: {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
+result = f"CV auc-mean({new_feature}): {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
 print(result)
 
 utils.send_line(result)
