@@ -67,13 +67,16 @@ print(f'X.shape {X.shape}')
 
 gc.collect()
 
+#COL = X.columns
+#X.columns = ['f'+str(i) for i in range(X.shape[1])]
+X['cat'] = 1
 # =============================================================================
 # cv
 # =============================================================================
-dtrain = lgb.Dataset(X, y )
+dtrain = lgb.Dataset(X, y, categorical_feature=['cat'])
 gc.collect()
 
-ret = lgb.cv(param, dtrain, 9999, nfold=5,
+ret = lgb.cv(param, dtrain, 9999, nfold=5, categorical_feature=['cat'],
              early_stopping_rounds=100, verbose_eval=50,
              seed=SEED)
 
@@ -88,8 +91,8 @@ utils.send_line(result)
 # imp
 # =============================================================================
 dtrain = lgb.Dataset(X, y )
-#model = lgb.train(param, dtrain, len(ret['auc-mean']))
-model = lgb.train(param, dtrain, 1000)
+model = lgb.train(param, dtrain, len(ret['auc-mean']))
+#model = lgb.train(param, dtrain, 1000)
 imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
 
 
