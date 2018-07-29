@@ -4,6 +4,9 @@
 Created on Sat Jul 14 01:29:16 2018
 
 @author: Kazuki
+
+nohup python run2.py 801_imp_lgb.py 802_cv_lgb.py &
+
 """
 
 import gc, os
