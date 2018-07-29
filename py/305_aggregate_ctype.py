@@ -15,7 +15,7 @@ from multiprocessing import Pool, cpu_count
 NTHREAD = cpu_count()
 import utils_agg
 import utils
-#utils.start(__file__)
+utils.start(__file__)
 #==============================================================================
 PREF = 'f305_'
 
