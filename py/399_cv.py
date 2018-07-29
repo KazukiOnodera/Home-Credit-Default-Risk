@@ -51,7 +51,7 @@ param = {
 # =============================================================================
 
 files = []
-for i in range(312, 323):
+for i in range(318, 323):
     files += glob(f'../feature/train_f{i}*')
 
 X = pd.concat([
@@ -76,11 +76,11 @@ X['cat'] = 1
 dtrain = lgb.Dataset(X, y, categorical_feature=['cat'])
 gc.collect()
 
-ret = lgb.cv(param, dtrain, 9999, nfold=5, categorical_feature=['cat'],
+ret = lgb.cv(param, dtrain, 9999, nfold=7, categorical_feature=['cat'],
              early_stopping_rounds=100, verbose_eval=50,
              seed=SEED)
 
-result = f"CV auc-mean(bench): {ret['auc-mean'][-1]}\nbest round {len(ret['auc-mean'])}"
+result = f"CV auc-mean(318~322): {ret['auc-mean'][-1]}\nbest round {len(ret['auc-mean'])}"
 print(result)
 
 utils.send_line(result)
@@ -90,7 +90,7 @@ utils.send_line(result)
 # =============================================================================
 # imp
 # =============================================================================
-dtrain = lgb.Dataset(X, y )
+dtrain = lgb.Dataset(X, y, categorical_feature=['cat'])
 model = lgb.train(param, dtrain, len(ret['auc-mean']))
 #model = lgb.train(param, dtrain, 1000)
 imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
