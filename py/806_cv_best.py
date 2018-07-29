@@ -18,7 +18,7 @@ from multiprocessing import cpu_count, Pool
 from glob import glob
 import count
 import utils, utils_cat, utils_best
-utils.start(__file__)
+#utils.start(__file__)
 #==============================================================================
 
 SEED = 71
@@ -52,9 +52,9 @@ X = utils_best.load_train_lb804()
 y = utils.read_pickles('../data/label').TARGET
 
 
-col = [c for c in X.columns if 'f70' in c]
+col = [c for c in X.columns if 'f398' in c]
 X.drop(col, axis=1, inplace=True)
-files = glob('../feature/train_f70*')
+files = glob('../feature/train_f398*')
 X_ = pd.concat([pd.read_feather(f) for f in tqdm(files, mininterval=60)
                 ], axis=1)
 
@@ -81,24 +81,6 @@ ret = lgb.cv(param, dtrain, 9999, nfold=7,
              seed=SEED)
 
 result = f"CV auc-mean: {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
-print(result)
-
-utils.send_line(result)
-
-
-# =============================================================================
-# cv
-# =============================================================================
-
-dtrain = lgb.Dataset(pd.concat([X, weight], axis=1), y, 
-                     categorical_feature=CAT)
-gc.collect()
-
-ret = lgb.cv(param, dtrain, 9999, nfold=7,
-             early_stopping_rounds=100, verbose_eval=50,
-             seed=SEED)
-
-result = f"CV auc-mean(weight as feature): {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
 print(result)
 
 utils.send_line(result)

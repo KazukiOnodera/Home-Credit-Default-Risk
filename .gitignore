@@ -5,6 +5,9 @@ feature_someone/
 feature_unused/
 feature_prev/
 feature_prev_unused/
+feature_bureau/
+feature_bureau_unused/
+
 
 input/
 output/
@@ -19,5 +22,6 @@ py/~$*.xls*
 jn/.ipynb_checkpoints
 py_prev/__pycache__/*
 
+py_bureau/__pycache__/*
 
 
