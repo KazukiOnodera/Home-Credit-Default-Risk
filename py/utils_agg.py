@@ -7,9 +7,9 @@ Created on Thu Jul  5 19:27:07 2018
 """
 
 
-stats = ['min', 'mean', 'max', 'var']
+stats = ['min', 'mean', 'max', 'std']
 
-stats_sum = ['min', 'mean', 'max', 'var', 'sum']
+stats_sum = ['min', 'mean', 'max', 'std', 'sum']
 
 # =============================================================================
 # prev
@@ -133,13 +133,13 @@ prev_num_aggregations = {
     'DAYS_TERMINATION-d-app_DAYS_ID_PUBLISH': stats,
     'DAYS_TERMINATION-d-app_DAYS_LAST_PHONE_CHANGE': stats,    
     
-    'cnt_paid':   ['min', 'mean', 'max', 'var', 'sum'],
+    'cnt_paid':   ['min', 'mean', 'max', 'std', 'sum'],
     'cnt_paid_ratio': stats,
-    'cnt_unpaid': ['min', 'mean', 'max', 'var', 'sum'],
-    'amt_paid':   ['min', 'mean', 'max', 'var', 'sum'],
-    'amt_unpaid': ['min', 'mean', 'max', 'var', 'sum'],
-    'active':     ['min', 'mean', 'max', 'var', 'sum'],
-    'completed':  ['min', 'mean', 'max', 'var', 'sum'],
+    'cnt_unpaid': ['min', 'mean', 'max', 'std', 'sum'],
+    'amt_paid':   ['min', 'mean', 'max', 'std', 'sum'],
+    'amt_unpaid': ['min', 'mean', 'max', 'std', 'sum'],
+    'active':     ['min', 'mean', 'max', 'std', 'sum'],
+    'completed':  ['min', 'mean', 'max', 'std', 'sum'],
     
     # diff & chng
 'total_debt_diff': stats,
@@ -247,26 +247,26 @@ prev_num_aggregations = {
 pos_num_aggregations = {
     # TODO: optimize stats
     'MONTHS_BALANCE': ['min', 'max', 'mean', 'size'],
-    'SK_DPD': ['max', 'mean', 'var'],
-    'SK_DPD_DEF': ['max', 'mean', 'var'],
+    'SK_DPD': ['max', 'mean', 'std'],
+    'SK_DPD_DEF': ['max', 'mean', 'std'],
     
     'CNT_INSTALMENT-m-CNT_INSTALMENT_FUTURE':  stats,
     'CNT_INSTALMENT_FUTURE-d-CNT_INSTALMENT': stats,
     
      # diff
-     'SK_DPD-m-SK_DPD_DEF':          ['max', 'mean', 'var', 'sum'],
+     'SK_DPD-m-SK_DPD_DEF':          ['max', 'mean', 'std', 'sum'],
      'CNT_INSTALMENT_FUTURE_diff': stats,
      'CNT_INSTALMENT_FUTURE_pctchange': stats,
      'SK_DPD_diff': stats,
      'SK_DPD_pctchange': stats,
      'SK_DPD_DEF_diff': stats,
      'SK_DPD_DEF_pctchange': stats,
-#    'SK_DPD_diff_over0':    ['max', 'mean', 'var', 'sum'],
-#    'SK_DPD_diff_over5':    ['max', 'mean', 'var', 'sum'],
-#    'SK_DPD_diff_over10':   ['max', 'mean', 'var', 'sum'],
-#    'SK_DPD_diff_over15':   ['max', 'mean', 'var', 'sum'],
-#    'SK_DPD_diff_over20':   ['max', 'mean', 'var', 'sum'],
-#    'SK_DPD_diff_over25':   ['max', 'mean', 'var', 'sum'],
+#    'SK_DPD_diff_over0':    ['max', 'mean', 'std', 'sum'],
+#    'SK_DPD_diff_over5':    ['max', 'mean', 'std', 'sum'],
+#    'SK_DPD_diff_over10':   ['max', 'mean', 'std', 'sum'],
+#    'SK_DPD_diff_over15':   ['max', 'mean', 'std', 'sum'],
+#    'SK_DPD_diff_over20':   ['max', 'mean', 'std', 'sum'],
+#    'SK_DPD_diff_over25':   ['max', 'mean', 'std', 'sum'],
 }
 
 # =============================================================================
@@ -751,7 +751,7 @@ bure_num_aggregations = {
 # =============================================================================
 
 bb_num_aggregations = {
-        'MONTHS_BALANCE': ['min', 'max', 'mean', 'sum', 'var', 'size'],
+        'MONTHS_BALANCE': ['min', 'max', 'mean', 'sum', 'std', 'size'],
          'STATUS_0': stats, 
          'STATUS_1': stats, 
          'STATUS_2': stats,

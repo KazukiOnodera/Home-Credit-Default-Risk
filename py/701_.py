@@ -4,6 +4,9 @@
 Created on Thu Jun 14 22:17:36 2018
 
 @author: kazuki.onodera
+
+prev + bureau
+
 """
 
 import numpy as np
