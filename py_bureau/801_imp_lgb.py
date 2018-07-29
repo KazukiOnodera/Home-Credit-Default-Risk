@@ -51,8 +51,8 @@ param = {
 use_files = []
 
 
-#os.system(f'rm -rf ../feature_prev_unused')
-#os.system(f'mkdir ../feature_prev_unused')
+#os.system(f'rm -rf ../feature_bureau_unused')
+#os.system(f'mkdir ../feature_bureau_unused')
 
 # =============================================================================
 # load
@@ -63,7 +63,7 @@ files = utils.get_use_files(use_files, True)
 X = pd.concat([
                 pd.read_feather(f) for f in tqdm(files, mininterval=60)
                ], axis=1)
-y = utils.read_pickles('../data/prev_label').TARGET
+y = utils.read_pickles('../data/bureau_label').TARGET
 
 
 if X.columns.duplicated().sum()>0:
@@ -73,7 +73,7 @@ print(f'X.shape {X.shape}')
 
 gc.collect()
 
-sub_train = utils.read_pickles('../data/prev_train', ['SK_ID_CURR']).set_index('SK_ID_CURR')
+sub_train = utils.read_pickles('../data/bureau_train', ['SK_ID_CURR']).set_index('SK_ID_CURR')
 sub_train['y'] = y.values
 sub_train['cnt'] = sub_train.index.value_counts()
 sub_train['w'] = 1 / sub_train.cnt.values
@@ -84,10 +84,26 @@ sub_train['g'] = sub_train.index % NFOLD
 CAT = list( set(X.columns)&set(utils_cat.ALL))
 
 # =============================================================================
+# cv
+# =============================================================================
+dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
+gc.collect()
+
+ret = lgb.cv(param, dtrain, 9999, folds=group_kfold.split(X, sub_train['y'], 
+                                                          sub_train['g']), 
+             early_stopping_rounds=100, verbose_eval=50,
+             seed=SEED)
+
+result = f"CV auc-mean: {ret['auc-mean'][-1]}"
+print(result)
+
+utils.send_line(result)
+
+# =============================================================================
 # imp
 # =============================================================================
 dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
-model = lgb.train(param, dtrain, 3000)
+model = lgb.train(param, dtrain, len(ret['auc-mean']))
 imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
 
 imp['split'] /= imp['split'].max()
@@ -96,11 +112,12 @@ imp['total'] = imp['split'] + imp['gain']
 imp.sort_values('total', ascending=False, inplace=True)
 imp.reset_index(drop=True, inplace=True)
 
+__file__ = '801_imp_lgb.py'
 imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
 
 
 def multi_touch(arg):
-    os.system(f'touch "../feature_prev_unused/{arg}.f"')
+    os.system(f'touch "../feature_bureau_unused/{arg}.f"')
 
 
 col = imp[imp['split']==0]['feature'].tolist()

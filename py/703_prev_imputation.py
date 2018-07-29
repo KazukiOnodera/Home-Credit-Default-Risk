@@ -26,32 +26,32 @@ train = utils.load_train([KEY]).set_index(KEY)
 test = utils.load_test([KEY]).set_index(KEY)
 
 
-prev_train = pd.read_feather('../data/prev_train_imputation_f703.f')
-prev_test  = pd.read_feather('../data/prev_test_imputation_f703.f')
+bureau_train = pd.read_feather('../data/bureau_train_imputation_f703.f')
+bureau_test  = pd.read_feather('../data/bureau_test_imputation_f703.f')
 
 
 # =============================================================================
 # feature
 # =============================================================================
 # train
-gr = prev_train.groupby(KEY)
-train['prev_y_min'] = gr.y_pred.min()
-train['prev_y_mean'] = gr.y_pred.mean()
-train['prev_y_max'] = gr.y_pred.max()
-train['prev_y_var'] = gr.y_pred.var()
-train['prev_y_median'] = gr.y_pred.median()
-train['prev_y_q25'] = gr.y_pred.quantile(.25)
-train['prev_y_q75'] = gr.y_pred.quantile(.75)
+gr = bureau_train.groupby(KEY)
+train['bureau_y_min'] = gr.y_pred.min()
+train['bureau_y_mean'] = gr.y_pred.mean()
+train['bureau_y_max'] = gr.y_pred.max()
+train['bureau_y_var'] = gr.y_pred.var()
+train['bureau_y_median'] = gr.y_pred.median()
+train['bureau_y_q25'] = gr.y_pred.quantile(.25)
+train['bureau_y_q75'] = gr.y_pred.quantile(.75)
 
 # test
-gr = prev_test.groupby(KEY)
-test['prev_y_min'] = gr.y_pred.min()
-test['prev_y_mean'] = gr.y_pred.mean()
-test['prev_y_max'] = gr.y_pred.max()
-test['prev_y_var'] = gr.y_pred.var()
-test['prev_y_median'] = gr.y_pred.median()
-test['prev_y_q25'] = gr.y_pred.quantile(.25)
-test['prev_y_q75'] = gr.y_pred.quantile(.75)
+gr = bureau_test.groupby(KEY)
+test['bureau_y_min'] = gr.y_pred.min()
+test['bureau_y_mean'] = gr.y_pred.mean()
+test['bureau_y_max'] = gr.y_pred.max()
+test['bureau_y_var'] = gr.y_pred.var()
+test['bureau_y_median'] = gr.y_pred.median()
+test['bureau_y_q25'] = gr.y_pred.quantile(.25)
+test['bureau_y_q75'] = gr.y_pred.quantile(.75)
 
 train.reset_index(drop=True, inplace=True)
 test.reset_index(drop=True, inplace=True)

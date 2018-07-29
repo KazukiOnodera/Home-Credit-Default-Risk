@@ -23,6 +23,8 @@ import utils, utils_cat, utils_best
 
 SEED = 71
 
+new_feature = 'f703'
+
 param = {
          'objective': 'binary',
          'metric': 'auc',
@@ -52,9 +54,9 @@ X = utils_best.load_train_lb804()
 y = utils.read_pickles('../data/label').TARGET
 
 
-col = [c for c in X.columns if 'f398' in c]
+col = [c for c in X.columns if new_feature in c]
 X.drop(col, axis=1, inplace=True)
-files = glob('../feature/train_f398*')
+files = glob(f'../feature/train_{new_feature}*')
 X_ = pd.concat([pd.read_feather(f) for f in tqdm(files, mininterval=60)
                 ], axis=1)
 
