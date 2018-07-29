@@ -54,8 +54,11 @@ def multi_agg(args):
         df = ins[ins['NAME_CONTRACT_TYPE']==cont_type]
     
     df_agg = df.groupby(KEY).agg({**utils_agg.ins_num_aggregations})
-    
     df_agg.columns = pd.Index([e[0] + "_" + e[1] for e in df_agg.columns.tolist()])
+    
+    col_std = [c for c in df_agg.columns if c.endswith('_std')]
+    for c in col_std:
+        df_agg[f'{c}-d-mean'] = df_agg[c]/df_agg[c.replace('_std', '_mean')]
     
     df_agg['INS_COUNT'] = df.groupby(KEY).size()
     df_agg = df_agg.add_prefix(pref+cont_type_pref).reset_index()
