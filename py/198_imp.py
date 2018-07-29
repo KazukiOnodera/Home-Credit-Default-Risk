@@ -21,6 +21,8 @@ import utils
 utils.start(__file__)
 #==============================================================================
 
+HEAD = 80000
+
 SEED = 71
 
 param = {
@@ -57,7 +59,7 @@ use_files = ['train_f0', 'train_f1']
 files = utils.get_use_files(use_files, True)
 
 X = pd.concat([
-                pd.read_feather(f) for f in tqdm(files, mininterval=60)
+                pd.read_feather(f).head(HEAD) for f in tqdm(files, mininterval=60)
                ], axis=1)
 y = utils.read_pickles('../data/label').TARGET
 
@@ -77,7 +79,7 @@ CAT = list( set(X.columns)&set(utils_cat.ALL))
 # =============================================================================
 dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
 #model = lgb.train(param, dtrain, len(ret['auc-mean']))
-model = lgb.train(param, dtrain, 1000)
+model = lgb.train(param, dtrain, 2000)
 imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
 
 
