@@ -16,7 +16,7 @@ import os
 from multiprocessing import Pool, cpu_count
 NTHREAD = cpu_count()
 import utils, utils_agg
-utils.start(__file__)
+#utils.start(__file__)
 #==============================================================================
 PREF = 'f201_'
 
@@ -25,7 +25,7 @@ KEY = 'SK_ID_BUREAU'
 month_start = -12*10 # -96
 month_end   = -12*0 # -96
 
-os.system(f'rm ../feature_bureau/t*_{PREF}*')
+#os.system(f'rm ../feature_bureau/t*_{PREF}*')
 # =============================================================================
 # 
 # =============================================================================
@@ -36,8 +36,8 @@ bb = bb[bb['MONTHS_BALANCE'].between(month_start, month_end)]
 bb = pd.merge(bb, bure, on='SK_ID_BUREAU', how='left')
 
 
-train = utils.load_train([KEY])
-test = utils.load_test([KEY])
+train = utils.read_pickles('../data/bureau_train', [KEY])
+test  = utils.read_pickles('../data/bureau_test', [KEY])
 
 # =============================================================================
 # 
@@ -54,13 +54,13 @@ def aggregate(args):
     
     df_agg[f'{prefix}_BURE_COUNT'] = df.groupby(KEY).size()
     
-    gr2size = df.groupby([KEY, 'SK_ID_BUREAU']).size()
-    gr2size.name = 'CURR-BUREAU_cnt'
-    gr1 = gr2size.groupby(KEY)
-    gr1size = gr1.agg({**{'CURR-BUREAU_cnt': ['min', 'max', 'mean', 'sum', 'var', 'size']}})
-    gr1size.columns = pd.Index([prefix + '_' + e[0] + "_" + e[1] for e in gr1size.columns.tolist()])
-    
-    df_agg = pd.concat([df_agg, gr1size], axis=1)
+#    gr2size = df.groupby([KEY, 'SK_ID_BUREAU']).size()
+#    gr2size.name = 'CURR-BUREAU_cnt'
+#    gr1 = gr2size.groupby(KEY)
+#    gr1size = gr1.agg({**{'CURR-BUREAU_cnt': ['min', 'max', 'mean', 'sum', 'var', 'size']}})
+#    gr1size.columns = pd.Index([prefix + '_' + e[0] + "_" + e[1] for e in gr1size.columns.tolist()])
+#    
+#    df_agg = pd.concat([df_agg, gr1size], axis=1)
     
     # merge
     df_agg.reset_index(inplace=True)

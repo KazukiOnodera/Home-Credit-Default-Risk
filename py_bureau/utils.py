@@ -372,11 +372,11 @@ def remove_feature(df, var_limit=0, corr_limit=1, sample_size=None, only_var=Tru
 
 def get_use_files(use_files, is_train=True):
     if is_train:
-        files = sorted(glob('../feature_prev/train*.f'))
+        files = sorted(glob('../feature_bureau/train*.f'))
     else:
-        files = sorted(glob('../feature_prev/test*.f'))
+        files = sorted(glob('../feature_bureau/test*.f'))
         
-    unused_files  = [f.split('/')[-1] for f in sorted(glob('../feature_prev_unused/*.f'))]
+    unused_files  = [f.split('/')[-1] for f in sorted(glob('../feature_bureau_unused/*.f'))]
 #    unused_files += [f.split('/')[-1] for f in sorted(glob('../feature_var0/*.f'))]
 #    unused_files += [f.split('/')[-1] for f in sorted(glob('../feature_corr1/*.f'))]
     files_ = []
