@@ -51,8 +51,8 @@ param = {
 # =============================================================================
 
 files = []
-for i in range(312, 322):
-    files = glob(f'../feature/train_f{i}*')
+for i in range(312, 323):
+    files += glob(f'../feature/train_f{i}*')
 
 X = pd.concat([
                 pd.read_feather(f) for f in tqdm(files, mininterval=60)
