@@ -46,29 +46,13 @@ param = {
          }
 
 
-categorical_feature = ['f001_NAME_CONTRACT_TYPE',
-                     'f001_CODE_GENDER',
-                     'f001_FLAG_OWN_CAR',
-                     'f001_FLAG_OWN_REALTY',
-                     'f001_NAME_TYPE_SUITE',
-                     'f001_NAME_INCOME_TYPE',
-                     'f001_NAME_EDUCATION_TYPE',
-                     'f001_NAME_FAMILY_STATUS',
-                     'f001_NAME_HOUSING_TYPE',
-                     'f001_OCCUPATION_TYPE',
-                     'f001_WEEKDAY_APPR_PROCESS_START',
-                     'f001_ORGANIZATION_TYPE',
-                     'f001_FONDKAPREMONT_MODE',
-                     'f001_HOUSETYPE_MODE',
-                     'f001_WALLSMATERIAL_MODE',
-                     'f001_EMERGENCYSTATE_MODE']
-
-
 # =============================================================================
-# cv bench
+# load
 # =============================================================================
 
-files = utils.get_use_files(['train_f0', 'train_f3', 'train_f2'], True)
+files = []
+for i in range(312, 322):
+    files = glob(f'../feature/train_f{i}*')
 
 X = pd.concat([
                 pd.read_feather(f) for f in tqdm(files, mininterval=60)
@@ -83,10 +67,10 @@ print(f'X.shape {X.shape}')
 
 gc.collect()
 
-
 # =============================================================================
-dtrain = lgb.Dataset(X, y, 
-                     categorical_feature=list( set(X.columns)&set(categorical_feature)) )
+# cv
+# =============================================================================
+dtrain = lgb.Dataset(X, y )
 gc.collect()
 
 ret = lgb.cv(param, dtrain, 9999, nfold=5,
@@ -103,7 +87,7 @@ utils.send_line(result)
 # =============================================================================
 # imp
 # =============================================================================
-dtrain = lgb.Dataset(X, y, categorical_feature=list( set(X.columns)&set(categorical_feature)) )
+dtrain = lgb.Dataset(X, y )
 #model = lgb.train(param, dtrain, len(ret['auc-mean']))
 model = lgb.train(param, dtrain, 1000)
 imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
