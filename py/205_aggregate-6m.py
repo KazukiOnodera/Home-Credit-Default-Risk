@@ -16,7 +16,7 @@ import utils_agg
 import utils
 utils.start(__file__)
 #==============================================================================
-PREF = 'f202_'
+PREF = 'f205_'
 
 KEY = 'SK_ID_CURR'
 
