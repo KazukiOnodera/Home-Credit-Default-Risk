@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Tue Jul 31 08:01:13 2018
+Created on Tue Jul 31 08:25:44 2018
 
 @author: Kazuki
 """
@@ -16,27 +16,22 @@ import utils_agg
 import utils
 utils.start(__file__)
 #==============================================================================
-PREF = 'f110_'
+PREF = 'f511_'
 
 KEY = 'SK_ID_CURR'
 
+day_start = -365*10 # -2922
+day_end   = -365*0 # -2922
 
 os.system(f'rm ../feature/t*_{PREF}*')
 # =============================================================================
 # 
 # =============================================================================
-prev = utils.read_pickles('../data/previous_application')
+bure = utils.read_pickles('../data/bureau')
+bure = bure[bure['DAYS_CREDIT'].between(day_start, day_end)]
 
 
-#prev['APP_CREDIT_PERC'] = prev['AMT_APPLICATION'] / prev['AMT_CREDIT']
-prev.sort_values(['SK_ID_CURR', 'DAYS_DECISION'], inplace=True, ascending=[True, False])
-
-
-col_cat = ['NAME_CONTRACT_TYPE', 'WEEKDAY_APPR_PROCESS_START', 'NAME_CASH_LOAN_PURPOSE',
-           'NAME_CONTRACT_STATUS', 'NAME_PAYMENT_TYPE', 'CODE_REJECT_REASON',
-           'NAME_TYPE_SUITE', 'NAME_CLIENT_TYPE', 'NAME_GOODS_CATEGORY', 'NAME_PORTFOLIO',
-           'NAME_PRODUCT_TYPE', 'CHANNEL_TYPE', 'NAME_SELLER_INDUSTRY', 'NAME_YIELD_GROUP',
-           'PRODUCT_COMBINATION']
+col_cat = ['CREDIT_ACTIVE', 'CREDIT_CURRENCY', 'CREDIT_TYPE']
 
 train = utils.load_train([KEY])
 test = utils.load_test([KEY])
@@ -44,11 +39,9 @@ test = utils.load_test([KEY])
 # =============================================================================
 # 
 # =============================================================================
-def aggregate(args):
-    print(args)
-    k, v, prefix = args
+def aggregate():
     
-    df = utils.get_dummies(prev[prev[k]==v])
+    df = utils.get_dummies(bure)
     
     li = []
     for c1 in df.columns:
@@ -62,7 +55,7 @@ def aggregate(args):
         cat_aggregations[cat] = ['mean', 'sum']
     
     df_agg = df.groupby('SK_ID_PREV').agg({**utils_agg.prev_num_aggregations, **cat_aggregations})
-    df_agg.columns = pd.Index([prefix + e[0] + "_" + e[1] for e in df_agg.columns.tolist()])
+    df_agg.columns = pd.Index([e[0] + "_" + e[1] for e in df_agg.columns.tolist()])
     
     num_agg = {}
     for s in ['min', 'mean', 'max', 'std']:
@@ -76,8 +69,7 @@ def aggregate(args):
                 num_agg[c] = ['min', 'mean', 'max', 'std']
     
     df_agg = df.groupby(KEY).agg({**num_agg})
-    df_agg.columns = pd.Index([prefix + e[0] + "_" + e[1] for e in df_agg.columns.tolist()])
-    
+    df_agg.columns = pd.Index([e[0] + "_" + e[1] for e in df_agg.columns.tolist()])
     
 #    # std / mean
 #    col_std = [c for c in df_agg.columns if c.endswith('_std')]
@@ -89,10 +81,8 @@ def aggregate(args):
 #    for c in col_max:
 #        df_agg[f'{c}-d-min'] = df_agg[c]/df_agg[c.replace('_max', '_min')]
     
-    df_agg[prefix+'PREV_COUNT'] = df.groupby('SK_ID_CURR').size()
+    df_agg['BURE_COUNT'] = df.groupby(KEY).size()
     df_agg.reset_index(inplace=True)
-    
-    utils.remove_feature(df_agg, var_limit=0, corr_limit=0.98, sample_size=19999)
     
     tmp = pd.merge(train, df_agg, on=KEY, how='left').drop(KEY, axis=1)
     utils.to_feature(tmp.add_prefix(PREF), '../feature/train')
@@ -107,21 +97,11 @@ def aggregate(args):
 # main
 # =============================================================================
 
-argss = [
-        ['NAME_CONTRACT_STATUS', 'Approved', 'approved_'],
-        ['NAME_CONTRACT_STATUS', 'Refused', 'refused_'],
-        ['NAME_YIELD_GROUP', 'high', 'nyg-high_'],
-        ['NAME_YIELD_GROUP', 'middle', 'nyg-middle_'],
-        ['NAME_YIELD_GROUP', 'low_normal', 'nyg-low_normal_'],
-        ['NAME_YIELD_GROUP', 'low_action', 'nyg-low_action_'],
-        ['active',    1, 'active_'],
-        ['completed', 1, 'completed_'],
-        ]
+aggregate()
 
-pool = Pool(NTHREAD)
-callback = pool.map(aggregate, argss)
-pool.close()
+
 
 #==============================================================================
 utils.end(__file__)
+
 
