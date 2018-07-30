@@ -23,7 +23,7 @@ import utils, utils_best
 
 SEED = 71
 
-new_feature = 'f703'
+new_feature = 'f110'
 
 param = {
          'objective': 'binary',
