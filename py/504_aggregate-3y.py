@@ -61,9 +61,15 @@ def aggregate():
     df_agg = df.groupby(KEY).agg({**utils_agg.bure_num_aggregations, **cat_aggregations})
     df_agg.columns = pd.Index([e[0] + "_" + e[1] for e in df_agg.columns.tolist()])
     
+    # std / mean
     col_std = [c for c in df_agg.columns if c.endswith('_std')]
     for c in col_std:
         df_agg[f'{c}-d-mean'] = df_agg[c]/df_agg[c.replace('_std', '_mean')]
+    
+    # max / min
+    col_max = [c for c in df_agg.columns if c.endswith('_max')]
+    for c in col_max:
+        df_agg[f'{c}-d-min'] = df_agg[c]/df_agg[c.replace('_max', '_min')]
     
     df_agg['BURE_COUNT'] = df.groupby(KEY).size()
     df_agg.reset_index(inplace=True)
