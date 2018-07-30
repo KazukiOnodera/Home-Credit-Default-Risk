@@ -61,7 +61,7 @@ files = utils.get_use_files(use_files, True)
 X = pd.concat([
                 pd.read_feather(f).head(HEAD) for f in tqdm(files, mininterval=60)
                ], axis=1)
-y = utils.read_pickles('../data/label').TARGET
+y = utils.read_pickles('../data/label').head(HEAD).TARGET
 
 
 if X.columns.duplicated().sum()>0:
