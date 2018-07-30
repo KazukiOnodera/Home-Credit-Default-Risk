@@ -63,6 +63,7 @@ def aggregate(args):
     
     df_agg = df.groupby('SK_ID_PREV').agg({**utils_agg.prev_num_aggregations, **cat_aggregations})
     df_agg.columns = pd.Index([prefix + e[0] + "_" + e[1] for e in df_agg.columns.tolist()])
+    df_agg[KEY] = df.groupby('SK_ID_PREV')[KEY].mean()
     
     num_agg = {}
     for s in ['min', 'mean', 'max', 'std']:
