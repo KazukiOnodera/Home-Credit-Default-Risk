@@ -103,6 +103,8 @@ for k in keys:
 for k,v in di.items():
     print(f'{k}: {v}')
 
+X_train.head().to_csv(SUBMIT_FILE_PATH.replace('.csv', '_X.csv'),
+       index=False, compression='gzip')
 
 # =============================================================================
 # training
