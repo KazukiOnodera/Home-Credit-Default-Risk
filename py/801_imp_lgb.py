@@ -26,7 +26,7 @@ SEED = 71
 HEAD = 1000 * 100
 #HEAD = None
 
-RESET = True
+RESET = False
 
 ONLY_ME = True
 
