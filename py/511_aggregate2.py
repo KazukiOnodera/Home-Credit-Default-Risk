@@ -68,7 +68,7 @@ def aggregate():
             else:
                 num_agg[c] = ['min', 'mean', 'max', 'std']
     
-    df_agg = df.groupby(KEY).agg({**num_agg})
+    df_agg = df_agg.groupby(KEY).agg({**num_agg})
     df_agg.columns = pd.Index([e[0] + "_" + e[1] for e in df_agg.columns.tolist()])
     
 #    # std / mean
