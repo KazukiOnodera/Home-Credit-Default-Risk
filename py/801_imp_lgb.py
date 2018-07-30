@@ -30,6 +30,8 @@ RESET = False
 
 ONLY_ME = True
 
+EXE_802 = True
+
 param = {
          'objective': 'binary',
          'metric': 'auc',
@@ -207,17 +209,6 @@ for k,v in di.items():
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 def multi_touch(arg):
     os.system(f'touch "../feature_unused/{arg}.f"')
 
@@ -226,7 +217,8 @@ pool = Pool(cpu_count())
 pool.map(multi_touch, col)
 pool.close()
 
-
+if EXE_802:
+    os.system(f'nohup python -u 802_cv_lgb.py > LOG/log_802_cv_lgb.py.txt &')
 
 #==============================================================================
 utils.end(__file__)
