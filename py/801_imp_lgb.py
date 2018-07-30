@@ -138,7 +138,7 @@ print(f'CAT: {CAT}')
 # imp
 # =============================================================================
 dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
-model = lgb.train(param, dtrain, 3000)
+model = lgb.train(param, dtrain, 4000)
 imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
 
 """
