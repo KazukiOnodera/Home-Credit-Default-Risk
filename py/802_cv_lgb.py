@@ -87,9 +87,9 @@ for HEAD in HEADS:
     dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
     gc.collect()
     
-    ret = lgb.cv(param, dtrain, 9999, nfold=7,
-                 early_stopping_rounds=100, verbose_eval=50,
-                 seed=SEED)
+    ret, models = lgb.cv(param, dtrain, 9999, nfold=7,
+                         early_stopping_rounds=100, verbose_eval=50,
+                         seed=SEED)
     
     result = f"CV auc-mean({SEED}:{HEAD}): {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
     print(result)
