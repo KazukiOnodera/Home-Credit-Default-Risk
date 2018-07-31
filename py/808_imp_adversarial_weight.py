@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Tue Jul 31 09:25:32 2018
+Created on Tue Jul 31 13:10:48 2018
 
-@author: Kazuki
+@author: kazuki.onodera
 """
-
 import gc, os
 from tqdm import tqdm
 import pandas as pd
@@ -24,14 +23,11 @@ utils.start(__file__)
 
 SEED = 71
 
-LOOP = 10
+LOOP = 3
 
 FEATURE_SIZE = 5000
 
-SAMPLE_SIZE = 80000
 
-
-EXE_802 = True
 
 param = {
          'objective': 'binary',
@@ -55,6 +51,9 @@ param = {
          'seed': SEED
          }
 
+np.random.seed(SEED)
+
+WEIGHT = pd.read_feather('../feature/train_f750_y_pred.f').f750_y_pred
 
 # =============================================================================
 # all data
@@ -84,25 +83,15 @@ gc.collect()
 CAT = list( set(X.columns)&set(utils_cat.ALL))
 print(f'CAT: {CAT}')
 
-# =============================================================================
-# def
-# =============================================================================
-WEIGHT = pd.read_feather('../feature/train_f750_y_pred.f').f750_y_pred
-WEIGHT /= WEIGHT.sum()
-
-def get_sample():
-    ind = np.random.choice(X.index, p=WEIGHT, replace=False, size=SAMPLE_SIZE)
-    
-    return X.iloc[ind], y.iloc[ind]
-
 
 # =============================================================================
 # imp
 # =============================================================================
 models = []
 for i in range(LOOP):
-    X_, y_ = get_sample()
-    dtrain = lgb.Dataset(X_, y_, categorical_feature=CAT )
+    param.update({'seed':np.random.randint(9999)})
+    dtrain = lgb.Dataset(X, y, categorical_feature=CAT,
+                         weight=WEIGHT)
     gc.collect()
     ret, models_ = lgb.cv(param, dtrain, 9999, nfold=7,
                          early_stopping_rounds=100, verbose_eval=50,
@@ -125,5 +114,7 @@ imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
 #==============================================================================
 utils.end(__file__)
 #utils.stop_instance()
+
+
 
 
