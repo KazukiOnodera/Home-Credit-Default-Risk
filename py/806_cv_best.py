@@ -78,16 +78,16 @@ CAT = list( set(X.columns)&set(utils_best.load_cat_lb804()) )
 dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
 gc.collect()
 
-ret = lgb.cv(param, dtrain, 9999, nfold=7,
-             early_stopping_rounds=100, verbose_eval=50,
-             seed=SEED)
+ret, models = lgb.cv(param, dtrain, 200, nfold=7,
+                     early_stopping_rounds=100, verbose_eval=50,
+                     seed=SEED)
 
 result = f"CV auc-mean({new_feature}): {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
 print(result)
 
 utils.send_line(result)
 
-
+imp = ex.getImp(models)
 
 #==============================================================================
 utils.end(__file__)
