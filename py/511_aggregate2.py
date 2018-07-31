@@ -54,7 +54,7 @@ def aggregate():
     for cat in li:
         cat_aggregations[cat] = ['mean', 'sum']
     
-    df_agg = df.groupby('SK_ID_BUREAU').agg({**utils_agg.prev_num_aggregations, **cat_aggregations})
+    df_agg = df.groupby('SK_ID_BUREAU').agg({**utils_agg.bure_num_aggregations, **cat_aggregations})
     df_agg.columns = pd.Index([e[0] + "_" + e[1] for e in df_agg.columns.tolist()])
     df_agg[KEY] = df.groupby('SK_ID_BUREAU')[KEY].mean()
     
