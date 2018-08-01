@@ -35,7 +35,7 @@ EXE_802 = True
 param = {
          'objective': 'binary',
          'metric': 'auc',
-         'learning_rate': 0.01,
+         'learning_rate': 0.1,
          'max_depth': 6,
          'num_leaves': 63,
          'max_bin': 255,

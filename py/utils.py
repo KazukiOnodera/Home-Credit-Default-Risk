@@ -370,35 +370,29 @@ def remove_feature(df, var_limit=0, corr_limit=1, sample_size=None, only_var=Tru
         df.drop(col_corr1, axis=1, inplace=True)
     return
 
+def __get_use_files__():
+    
+    return
+
 def get_use_files(use_files, is_train=True):
-    if is_train:
-        files = sorted(glob('../feature/train*.f'))
-    else:
-        files = sorted(glob('../feature/test*.f'))
-        
+    
     unused_files  = [f.split('/')[-1] for f in sorted(glob('../feature_unused/*.f'))]
     unused_files += [f.split('/')[-1] for f in sorted(glob('../feature_var0/*.f'))]
     unused_files += [f.split('/')[-1] for f in sorted(glob('../feature_corr1/*.f'))]
-    files_ = []
-    if len(unused_files):
-        for f1 in files:
-            for f2 in unused_files:
-                if f1.endswith(f2):
-                    files_.append(f1)
-                    break
     
-        files = sorted(set(files) - set(files_))
+    if is_train:
+        files = sorted(glob('../feature/train*.f'))
+        unused_files = ['../feature/train_'+f for f in unused_files]
+    else:
+        files = sorted(glob('../feature/test*.f'))
+        unused_files = ['../feature/test_'+f for f in unused_files]
     
-    if len(use_files)>0:
-        files_ = []
-        for f1 in files:
-            for f2 in use_files:
-                if f2 in f1:
-#                if f1.split('/')[-1].startswith(f2):
-                    files_.append(f1)
-                    break
+    for f in unused_files:
+        if f in files:
+            files.remove(f)
+            
+#    files = [f for f in files if f not in unused_files]
     
-        files = sorted(files_[:])
     print(f'got {len(files)}')
     return files
 
