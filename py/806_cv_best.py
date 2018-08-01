@@ -50,7 +50,7 @@ param = {
 # =============================================================================
 # load
 # =============================================================================
-X = utils_best.load_train_lb804()
+X = utils_best.load_train_CV805_LB803()
 y = utils.read_pickles('../data/label').TARGET
 
 
@@ -70,7 +70,7 @@ print(f'X.shape {X.shape}')
 
 gc.collect()
 
-CAT = list( set(X.columns)&set(utils_best.load_cat_lb804()) )
+CAT = list( set(X.columns)&set(utils_best.load_cat_CV805_LB803()) )
 
 # =============================================================================
 # cv
@@ -80,7 +80,7 @@ gc.collect()
 
 ret, models = lgb.cv(param, dtrain, 9999, nfold=7,
                      early_stopping_rounds=100, verbose_eval=50,
-                     seed=SEED)
+                     seed=111)
 
 result = f"CV auc-mean({new_feature}): {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
 print(result)

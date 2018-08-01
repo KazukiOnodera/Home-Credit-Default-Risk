@@ -7,22 +7,6 @@ Created on Sun Jul 22 21:41:21 2018
 """
 
 import pandas as pd
-#import numpy as np
-
-
-#def load_best_train():
-#    files = ('../feature/train_' + pd.Series(feature_722) + '.f').tolist()
-#    X = pd.concat([
-#                    pd.read_feather(f) for f in tqdm(files, mininterval=60)
-#                   ], axis=1)
-#    return X
-#
-#def load_best_test():
-#    files = ('../feature/test_' + pd.Series(feature_722) + '.f').tolist()
-#    X = pd.concat([
-#                    pd.read_feather(f) for f in tqdm(files, mininterval=60)
-#                   ], axis=1)
-#    return X
 
 # =============================================================================
 # LB804
@@ -71,5 +55,54 @@ def load_cat_CV805_LB803():
             'f002_NAME_INCOME_TYPE', 'f002_NAME_FAMILY_STATUS', 'f002_WEEKDAY_APPR_PROCESS_START', 
             'f002_OCCUPATION_TYPE', 'f109_PRODUCT_COMBINATION', 'f108_NAME_TYPE_SUITE']
 
-
+class Loader:
+    def __init__(self, name):
+        """
+        LB804
+        LB806
+        CV805_LB803
+        """
+        if name not in ['LB804', 'LB806', 'CV805_LB803']:
+            raise Exception(name)
+        self.name = name
+    
+    def train(self):
+        if self.name == 'LB804':
+            return load_train_LB804()
+        
+        elif self.name == 'LB806':
+            return load_train_LB806()
+        
+        elif self.name == 'CV805_LB803':
+            return load_train_CV805_LB803()
+        
+        else:
+            raise Exception(self.name)
+        
+    
+    def test(self):
+        if self.name == 'LB804':
+            return load_test_LB804()
+        
+        elif self.name == 'LB806':
+            return load_test_LB806()
+        
+        elif self.name == 'CV805_LB803':
+            return load_test_CV805_LB803()
+        
+        else:
+            raise Exception(self.name)
+    
+    def category(self):
+        if self.name == 'LB804':
+            return load_cat_LB804()
+        
+        elif self.name == 'LB806':
+            return load_cat_LB806()
+        
+        elif self.name == 'CV805_LB803':
+            return load_cat_CV805_LB803()
+    
+        else:
+            raise Exception(self.name)
 
