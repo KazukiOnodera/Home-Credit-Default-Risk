@@ -11,8 +11,8 @@ import numpy as np
 import pandas as pd
 from tqdm import tqdm
 import gc, os
-import sys
-sys.path.append(f'/home/{os.environ.get("USER")}/PythonLibrary')
+#import sys
+#sys.path.append(f'/home/{os.environ.get("USER")}/PythonLibrary')
 #import lgbextension as ex
 #import lightgbm as lgb
 #from multiprocessing import cpu_count
@@ -20,10 +20,18 @@ sys.path.append(f'/home/{os.environ.get("USER")}/PythonLibrary')
 import utils, utils_cat
 
 # =============================================================================
+# setting
+# =============================================================================
+
+filename_in = '../output/730-1_X.csv.gz'
+
+filename_out = 'CV805_LB803'
+
+# =============================================================================
 # load df
 # =============================================================================
 
-df = pd.read_csv('../output/730-1_X.csv.gz')
+df = pd.read_csv(filename_in)
 
 
 
@@ -54,7 +62,7 @@ COL = X.columns.tolist()
 # =============================================================================
 # test
 # =============================================================================
-files = ('../feature/test_' + imp.head(FEATURE_SIZE).feature + '.f').tolist()
+files = ('../feature/test_' + df.columns + '.f').tolist()
 
 dtest = pd.concat([
                 pd.read_feather(f) for f in tqdm(files, mininterval=60)
@@ -71,16 +79,8 @@ X_train, X_test = X.align(dtest, join='inner', axis=1)
 
 print(f'train.shape: {X_train.shape}, test.shape: {X_test.shape}')
 
-X_train.to_feather('../data/X_train_LB0.804.f')
-X_test.to_feather('../data/X_test_LB0.804.f')
+X_train.to_feather(f'../data/X_train_{filename_out}.f')
+X_test.to_feather(f'../data/X_test_{filename_out}.f')
 
 
-# =============================================================================
-# 
-# =============================================================================
-tmp = pd.read_csv('../output/725-2_X.csv.gz')
-
-print(tmp.columns.difference(X_train.columns))
-print(X_train.columns.difference(tmp.columns))
-print(tmp.columns.difference(X_test.columns))
 
