@@ -44,10 +44,10 @@ def load_cat_LB806():
 # LB806
 # =============================================================================
 def load_train_CV805_LB803():
-    return pd.read_feather('../data/X_train_CV805_LB803.f')
+    return pd.read_pickle('../data/X_train_CV805_LB803.pkl.gz')
 
 def load_test_CV805_LB803():
-    return pd.read_feather('../data/X_train_CV805_LB803.f')
+    return pd.read_pickle('../data/X_test_CV805_LB803.pkl.gz')
 
 def load_cat_CV805_LB803():
     return ['f108_PRODUCT_COMBINATION', 'f002_WALLSMATERIAL_MODE', 'f002_NAME_EDUCATION_TYPE', 
