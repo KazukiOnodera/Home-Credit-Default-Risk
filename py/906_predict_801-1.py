@@ -87,8 +87,8 @@ X_test = pd.concat([
 
 y = utils.read_pickles('../data/label').TARGET
 
-X_train['nejumi'] = np.load('../feature_someone/train_nejumi.npy')
-X_test['nejumi'] = np.load('../feature_someone/test_nejumi.npy')
+#X_train['nejumi'] = np.load('../feature_someone/train_nejumi.npy')
+#X_test['nejumi'] = np.load('../feature_someone/test_nejumi.npy')
 
 if X_train.columns.duplicated().sum()>0:
     raise Exception(f'duplicated!: { X_train.columns[ X_train.columns.duplicated() ] }')
