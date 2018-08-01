@@ -136,12 +136,29 @@ gc.collect()
 CAT = list( set(X.columns)&set(utils_cat.ALL))
 print(f'CAT: {CAT}')
 
+## =============================================================================
+## train
+## =============================================================================
+#dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
+#model = lgb.train(param, dtrain, 3000)
+#imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
+
 # =============================================================================
-# imp
+# cv
 # =============================================================================
 dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
-model = lgb.train(param, dtrain, 3000)
-imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
+gc.collect()
+
+ret, models = lgb.cv(param, dtrain, 9999, nfold=6,
+                     early_stopping_rounds=100, verbose_eval=50,
+                     seed=111)
+
+result = f"CV auc-mean: {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
+print(result)
+
+utils.send_line(result)
+imp = ex.getImp(models)
+
 
 """
 imp[imp.feature.str.startswith('f312_')]
