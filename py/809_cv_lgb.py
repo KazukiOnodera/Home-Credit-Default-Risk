@@ -5,6 +5,10 @@ Created on Wed Aug  1 08:36:25 2018
 
 @author: Kazuki
 
+CV with args
+
+
+
 cd Home-Credit-Default-Risk/py
 nohup python -u 809_cv_lgb.py 1200 > LOG/log_809_cv_lgb.py.txt &
 

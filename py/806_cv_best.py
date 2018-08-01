@@ -47,10 +47,13 @@ param = {
          'seed': SEED
          }
 
+
+loader = utils_best.Loader('CV805_LB803')
+
 # =============================================================================
 # load
 # =============================================================================
-X = utils_best.load_train_CV805_LB803()
+X = loader.train()
 y = utils.read_pickles('../data/label').TARGET
 
 
@@ -70,7 +73,7 @@ print(f'X.shape {X.shape}')
 
 gc.collect()
 
-CAT = list( set(X.columns)&set(utils_best.load_cat_CV805_LB803()) )
+CAT = list( set(X.columns) & set(loader.category()) )
 
 # =============================================================================
 # cv
