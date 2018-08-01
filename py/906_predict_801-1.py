@@ -31,7 +31,7 @@ NROUND = 5040
 
 SUBMIT_FILE_PATH = '../output/801-1.csv.gz'
 
-COMMENT = f'CV auc-mean(7-fold):  0.80510 + 0.00325 all(804+CV805=1144)'
+COMMENT = f'CV auc-mean(7-fold): 0.80510 + 0.00325 all(804+CV805=1144)'
 
 EXE_SUBMIT = True
 
@@ -65,30 +65,25 @@ np.random.seed(SEED)
 loader805 = utils_best.Loader('CV805_LB803')
 loader804 = utils_best.Loader('LB804')
 
-X_805 = loader805.train().head()
-X_804 = loader804.train().head()
-
-col = X_804.columns.difference(X_805.columns)
-feature = pd.concat([X_805, X_804[col]], axis=1).columns
-
-file_tr = ('../feature/train_' + feature + '.f').tolist()
-file_te = ('../feature/test_'  + feature + '.f').tolist()
 
 # =============================================================================
 # load data
 # =============================================================================
-X_train = pd.concat([
-                    pd.read_feather(f) for f in tqdm(file_tr, mininterval=60)
-                   ], axis=1)
+X_805 = loader805.train()
+X_804 = loader804.train()
 
-X_test = pd.concat([
-                    pd.read_feather(f) for f in tqdm(file_te, mininterval=60)
-                   ], axis=1)[X_train.columns]
+col = X_804.columns.difference(X_805.columns)
+X_train = pd.concat([X_805, X_804[col]], axis=1)
+
+
+X_805 = loader805.test()
+X_804 = loader804.test()
+
+col = X_804.columns.difference(X_805.columns)
+X_test = pd.concat([X_805, X_804[col]], axis=1)
 
 y = utils.read_pickles('../data/label').TARGET
 
-#X_train['nejumi'] = np.load('../feature_someone/train_nejumi.npy')
-#X_test['nejumi'] = np.load('../feature_someone/test_nejumi.npy')
 
 if X_train.columns.duplicated().sum()>0:
     raise Exception(f'duplicated!: { X_train.columns[ X_train.columns.duplicated() ] }')
