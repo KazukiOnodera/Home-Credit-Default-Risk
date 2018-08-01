@@ -5,10 +5,16 @@ Created on Wed Aug  1 08:36:25 2018
 
 @author: Kazuki
 
+cd Home-Credit-Default-Risk/py
+nohup python -u 809_cv_lgb.py 1200 > LOG/log_809_cv_lgb.py.txt &
 
-nohup python -u 809_cv_lgb.py 500 > LOG/log_809_cv_lgb.py.txt &
+cd Home-Credit-Default-Risk/py
+nohup python -u 809_cv_lgb.py 1800 > LOG/log_809_cv_lgb.py.txt &
 
+cd Home-Credit-Default-Risk/py
+nohup python -u 809_cv_lgb.py 2000 > LOG/log_809_cv_lgb.py.txt &
 
+killall python
 
 """
 
