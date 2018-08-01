@@ -23,7 +23,7 @@ import utils, utils_best
 
 SEED = 71
 
-new_feature = 'f110'
+#new_feature = 'f110'
 
 param = {
          'objective': 'binary',
@@ -63,14 +63,14 @@ X = pd.concat([X_805, X_804[col]], axis=1)
 y = utils.read_pickles('../data/label').TARGET
 
 
-col = [c for c in X.columns if new_feature in c]
-X.drop(col, axis=1, inplace=True)
-files = glob(f'../feature/train_{new_feature}*')
-X_ = pd.concat([pd.read_feather(f) for f in tqdm(files, mininterval=60)
-                ], axis=1)
-
-X = pd.concat([X, X_], axis=1)
-del X_
+#col = [c for c in X.columns if new_feature in c]
+#X.drop(col, axis=1, inplace=True)
+#files = glob(f'../feature/train_{new_feature}*')
+#X_ = pd.concat([pd.read_feather(f) for f in tqdm(files, mininterval=60)
+#                ], axis=1)
+#
+#X = pd.concat([X, X_], axis=1)
+#del X_
 
 if X.columns.duplicated().sum()>0:
     raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
@@ -91,7 +91,7 @@ ret, models = lgb.cv(param, dtrain, 9999, nfold=7,
                      early_stopping_rounds=100, verbose_eval=50,
                      seed=111)
 
-result = f"CV auc-mean({new_feature}): {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
+result = f"CV auc-mean: {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
 print(result)
 
 utils.send_line(result)
