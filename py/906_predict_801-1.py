@@ -80,7 +80,7 @@ X_805 = loader805.test()
 X_804 = loader804.test()
 
 col = X_804.columns.difference(X_805.columns)
-X_test = pd.concat([X_805, X_804[col]], axis=1)
+X_test = pd.concat([X_805, X_804[col]], axis=1)[X_train.columns]
 
 y = utils.read_pickles('../data/label').TARGET
 
