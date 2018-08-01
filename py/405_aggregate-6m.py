@@ -64,7 +64,11 @@ def aggregate():
     # max / min
     col_max = [c for c in df_agg.columns if c.endswith('_max')]
     for c in col_max:
-        df_agg[f'{c}-d-min'] = df_agg[c]/df_agg[c.replace('_max', '_min')]
+        try:
+            df_agg[f'{c}-d-min'] = df_agg[c]/df_agg[c.replace('_max', '_min')]
+            df_agg[f'{c}-m-min'] = df_agg[c]-df_agg[c.replace('_max', '_min')]
+        except:
+            pass
     
     df_agg['CRE_COUNT'] = df.groupby(KEY).size()
     df_agg.reset_index(inplace=True)
