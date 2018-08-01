@@ -16,7 +16,7 @@ import lgbextension as ex
 import lightgbm as lgb
 from multiprocessing import cpu_count, Pool
 from glob import glob
-import count
+#import count
 import utils, utils_best
 #utils.start(__file__)
 #==============================================================================
@@ -78,7 +78,7 @@ CAT = list( set(X.columns)&set(utils_best.load_cat_lb804()) )
 dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
 gc.collect()
 
-ret, models = lgb.cv(param, dtrain, 200, nfold=7,
+ret, models = lgb.cv(param, dtrain, 9999, nfold=7,
                      early_stopping_rounds=100, verbose_eval=50,
                      seed=SEED)
 

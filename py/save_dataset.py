@@ -14,34 +14,29 @@ import gc, os
 import sys
 sys.path.append(f'/home/{os.environ.get("USER")}/PythonLibrary')
 #import lgbextension as ex
-import lightgbm as lgb
-from multiprocessing import cpu_count
-from glob import glob
+#import lightgbm as lgb
+#from multiprocessing import cpu_count
+#from glob import glob
 import utils, utils_cat
 
 # =============================================================================
-# 
+# load df
 # =============================================================================
 
-FEATURE_SIZE = 600
+df = pd.read_csv('../output/730-1_X.csv.gz')
+
 
 
 # =============================================================================
 # load train
 # =============================================================================
-imp = pd.read_csv('LOG/imp_801_imp_lgb.py-2.csv')
-imp['split'] /= imp['split'].max()
-imp['gain'] /= imp['gain'].max()
-imp['total'] = imp['split'] + imp['gain']
-imp.sort_values('total', ascending=False, inplace=True)
 
-files = ('../feature/train_' + imp.head(FEATURE_SIZE).feature + '.f').tolist()
+files = ('../feature/train_' + df.columns + '.f').tolist()
 #files = utils.get_use_files(files, True)
 
 X = pd.concat([
                 pd.read_feather(f) for f in tqdm(files, mininterval=60)
                ], axis=1)
-y = utils.read_pickles('../data/label').TARGET
 
 X['nejumi'] = np.load('../feature_someone/train_nejumi.npy')
 
