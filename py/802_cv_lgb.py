@@ -53,12 +53,8 @@ param = {
 # =============================================================================
 # load
 # =============================================================================
-imp = pd.read_csv('LOG/imp_801_imp_lgb.py-2.csv')
-#imp['split'] /= imp['split'].max()
-#imp['gain'] /= imp['gain'].max()
-#imp['total'] = imp['split'] + imp['gain']
+imp = pd.read_csv('LOG/imp_801_imp_xgb.py-2.csv')
 
-imp['total'] = imp['gain'] / imp['split']
 imp.sort_values('total', ascending=False, inplace=True)
 
 

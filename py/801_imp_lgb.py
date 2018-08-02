@@ -158,72 +158,15 @@ print(result)
 
 utils.send_line(result)
 imp = ex.getImp(models)
+imp['split'] /= imp['split'].max()
+imp['gain'] /= imp['gain'].max()
+imp['total'] = imp['split'] + imp['gain']
+
+imp.sort_values('total', ascending=False, inplace=True)
+imp.reset_index(drop=True, inplace=True)
 
 
-"""
-imp[imp.feature.str.startswith('f312_')]
-
-__file__ = '801_imp_lgb.py'
-"""
 imp.to_csv(f'LOG/imp_{__file__}-2.csv', index=False)
-
-
-print('top100')
-keys = sorted([c.split('_')[0] for c in imp.feature[:100]])
-di = defaultdict(int)
-for k in keys:
-    di[k] += 1
-for k,v in di.items():
-    print(f'{k}: {v}')
-    
-print('top100 - 200')
-keys = sorted([c.split('_')[0] for c in imp.feature[100:200]])
-di = defaultdict(int)
-for k in keys:
-    di[k] += 1
-for k,v in di.items():
-    print(f'{k}: {v}')
-    
-print('top200 - 300')
-keys = sorted([c.split('_')[0] for c in imp.feature[200:300]])
-di = defaultdict(int)
-for k in keys:
-    di[k] += 1
-for k,v in di.items():
-    print(f'{k}: {v}')
-    
-print('top300 - 400')
-keys = sorted([c.split('_')[0] for c in imp.feature[300:400]])
-di = defaultdict(int)
-for k in keys:
-    di[k] += 1
-for k,v in di.items():
-    print(f'{k}: {v}')
-    
-print('top400 - 500')
-keys = sorted([c.split('_')[0] for c in imp.feature[400:500]])
-di = defaultdict(int)
-for k in keys:
-    di[k] += 1
-for k,v in di.items():
-    print(f'{k}: {v}')
-    
-print('top500 - 600')
-keys = sorted([c.split('_')[0] for c in imp.feature[500:600]])
-di = defaultdict(int)
-for k in keys:
-    di[k] += 1
-for k,v in di.items():
-    print(f'{k}: {v}')
-    
-print('top600 - 700')
-keys = sorted([c.split('_')[0] for c in imp.feature[600:700]])
-di = defaultdict(int)
-for k in keys:
-    di[k] += 1
-for k,v in di.items():
-    print(f'{k}: {v}')
-
 
 
 def multi_touch(arg):
