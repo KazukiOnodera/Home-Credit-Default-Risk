@@ -77,7 +77,7 @@ def save_df(df):
 
 ex.stepwise(param, X, y, X.columns[:-1][::-1].tolist(), X.columns.tolist(), 
             best_score=0, send_line=None,
-             eval_key='auc-mean', maximize=True, save_df=None, cv_loop=2,
+             eval_key='auc-mean', maximize=True, save_df=save_df, cv_loop=2,
              num_boost_round=100, 
              folds=None, nfold=5, stratified=True, shuffle=True, metrics=None, fobj=None, 
              feval=None, init_model=None, feature_name='auto', categorical_feature=CAT, 
