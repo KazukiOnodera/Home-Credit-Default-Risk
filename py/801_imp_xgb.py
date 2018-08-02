@@ -126,7 +126,7 @@ else:
 # =============================================================================
 # all data
 # =============================================================================
-files = utils.get_use_files(use_files, True)[:1000]
+files = utils.get_use_files(use_files, True)
 
 X = pd.concat([
                 pd.read_feather(f) for f in tqdm(files, mininterval=60)
