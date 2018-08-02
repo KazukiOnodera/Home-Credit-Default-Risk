@@ -151,7 +151,7 @@ gc.collect()
 col_before = X.columns.tolist()
 
 #X.columns = [c.replace(',', '') for c in X.columns]
-X.columns = [i for i,e in enumerate(X.columns)]
+X.columns = [f'f{i}' for i,e in enumerate(X.columns)]
 
 col_after = X.columns.tolist()
 
