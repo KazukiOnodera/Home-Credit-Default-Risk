@@ -26,7 +26,7 @@ utils.start(__file__)
 
 SEED = 71
 
-HEADS = list(range(400, 1300, 100))
+HEADS = list(range(400, 2300, 100))
 
 param = {
          'objective': 'binary',
@@ -54,9 +54,11 @@ param = {
 # load
 # =============================================================================
 imp = pd.read_csv('LOG/imp_801_imp_lgb.py-2.csv')
-imp['split'] /= imp['split'].max()
-imp['gain'] /= imp['gain'].max()
-imp['total'] = imp['split'] + imp['gain']
+#imp['split'] /= imp['split'].max()
+#imp['gain'] /= imp['gain'].max()
+#imp['total'] = imp['split'] + imp['gain']
+
+imp['total'] = imp['gain'] / imp['split']
 imp.sort_values('total', ascending=False, inplace=True)
 
 
