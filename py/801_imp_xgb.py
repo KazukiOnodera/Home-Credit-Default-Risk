@@ -148,6 +148,13 @@ print(f'CAT: {CAT}')
 X = pd.get_dummies(X, columns=CAT, drop_first=True)
 gc.collect()
 
+col_before = X.columns.tolist()
+
+X.columns = [c.replace(',', '') for c in X.columns]
+
+col_after = X.columns.tolist()
+
+col_di = dict(zip(col_after, col_before))
 ## =============================================================================
 ## train
 ## =============================================================================
@@ -164,7 +171,7 @@ gc.collect()
 model = xgb.train(params, dtrain, 3000)
 
 imp = ex.getImp(model)
-
+imp = imp.replace(col_di)
 for c in CAT:
     imp.loc[imp.feature.str.startswith(c), 'feature'] = c
 
