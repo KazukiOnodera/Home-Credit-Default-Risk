@@ -126,7 +126,7 @@ else:
 # =============================================================================
 # all data
 # =============================================================================
-files = utils.get_use_files(use_files, True)#[:100]
+files = utils.get_use_files(use_files, True)[:1000]
 
 X = pd.concat([
                 pd.read_feather(f) for f in tqdm(files, mininterval=60)
@@ -164,6 +164,12 @@ gc.collect()
 model = xgb.train(params, dtrain, 3000)
 
 imp = ex.getImp(model)
+
+for c in CAT:
+    imp.loc[imp.feature.str.startswith(c), 'feature'] = c
+
+imp = imp.groupby('feature').sum().reset_index()
+
 for c in ['weight', 'gain', 'cover']:
     imp[c] /= imp[c].max()
 
