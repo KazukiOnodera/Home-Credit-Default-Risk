@@ -42,9 +42,9 @@ params = {
           'max_depth': 6,
           'min_child_weight': 100,
           # 'max_delta_step': 0,
-          'subsample': 0.9,
+          'subsample': 0.6,
           'colsample_bytree': 0.8,
-          'colsample_bylevel': 0.8,
+          'colsample_bylevel': 0.5,
           'lambda': 0.1,  # L2 regularization term on weights.
           'alpha': 0.1,  # L1 regularization term on weights.
           'tree_method': 'auto',
@@ -58,6 +58,7 @@ params = {
           'max_bin': 256,
           # 'predictor': 'cpu_predictor',
           'objective': 'binary:logistic',
+          'tree_method':'hist',
           'eval_metric': 'auc',
           'seed': SEED
           }
