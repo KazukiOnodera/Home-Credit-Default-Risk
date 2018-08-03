@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Sun Jul 22 13:33:43 2018
+Created on Sat Aug  4 02:00:02 2018
 
 @author: Kazuki
 """
@@ -17,15 +17,11 @@ import lightgbm as lgb
 from multiprocessing import cpu_count, Pool
 from glob import glob
 #import count
-import utils, utils_best
+import utils, utils_cat
 #utils.start(__file__)
 #==============================================================================
 
 SEED = 71
-
-new_features = ['f412']
-
-COMMENT = new_features
 
 
 param = {
@@ -52,27 +48,21 @@ param = {
          }
 
 
-loader = utils_best.Loader('LB804')
+Categorical = ['FLAG_DOCUMENT_PATTERN', 'FLAG_OWN_CAR', 'FLAG_OWN_REALTY',
+               'HOUSETYPE_MODE', 'NAME_CONTRACT_TYPE', 'NAME_EDUCATION_TYPE',
+               'NAME_FAMILY_STATUS', 'NAME_HOUSING_TYPE', 'NAME_INCOME_TYPE',
+               'OCCUPATION_TYPE', 'WALLSMATERIAL_MODE', 'WEEKDAY_APPR_PROCESS_START']
 
 # =============================================================================
 # load
 # =============================================================================
-X = loader.train()
+X = pd.read_pickle('../feature_someone/0803_LB----_CV0805/20180803_train_rk.pkl').drop('TARGET', axis=1)
 y = utils.read_pickles('../data/label').TARGET
 
-col = []
-files = []
-for new_feature in new_features:
-    col += [c for c in X.columns if new_feature in c]
-    files += glob(f'../feature/train_{new_feature}*')
+col_var = [c for c in X.columns if c.endswith('_var')]
+col_drop = [c for c in col_var if c.replace('_var', '_std') in X.columns]
+X.drop(col_drop, axis=1, inplace=True)
 
-print('files:', len(files))
-
-X.drop(col, axis=1, inplace=True)
-X_ = pd.concat([pd.read_feather(f) for f in tqdm(files, mininterval=60)
-                ], axis=1)
-X = pd.concat([X, X_], axis=1)
-del X_
 
 if X.columns.duplicated().sum()>0:
     raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
@@ -81,7 +71,7 @@ print(f'X.shape {X.shape}')
 
 gc.collect()
 
-CAT = list( set(X.columns) & set(loader.category()) )
+CAT = list( set(X.columns) & set(Categorical) )
 
 # =============================================================================
 # cv
@@ -93,7 +83,7 @@ ret, models = lgb.cv(param, dtrain, 99999, nfold=7,
                      early_stopping_rounds=100, verbose_eval=50,
                      seed=111)
 
-result = f"CV auc-mean({COMMENT}): {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
+result = f"CV auc-mean: {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
 print(result)
 
 utils.send_line(result)
@@ -104,6 +94,7 @@ imp = ex.getImp(models)
 #==============================================================================
 utils.end(__file__)
 #utils.stop_instance()
+
 
 
 
