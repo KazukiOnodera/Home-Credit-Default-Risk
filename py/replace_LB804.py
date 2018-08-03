@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Sun Jul 22 13:33:43 2018
+Created on Fri Aug  3 11:56:51 2018
 
-@author: Kazuki
+@author: kazuki.onodera
 """
 
 import gc, os
@@ -23,10 +23,7 @@ import utils, utils_best
 
 SEED = 71
 
-new_feature = 'f705'
-
-COMMENT = new_feature
-
+#new_feature = 'f110'
 
 param = {
          'objective': 'binary',
@@ -60,21 +57,24 @@ loader = utils_best.Loader('LB804')
 X = loader.train()
 y = utils.read_pickles('../data/label').TARGET
 
+col_var = [c for c in X.columns if c.endswith('_var')]
 
-col = [c for c in X.columns if new_feature in c]
-X.drop(col, axis=1, inplace=True)
-files = glob(f'../feature/train_{new_feature}*')
-X_ = pd.concat([pd.read_feather(f) for f in tqdm(files, mininterval=60)
-                ], axis=1)
-X = pd.concat([X, X_], axis=1)
-del X_
+files = ('../feature/train_' + X.columns + '.f').tolist()
 
-if X.columns.duplicated().sum()>0:
-    raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
-print('no dup :) ')
-print(f'X.shape {X.shape}')
+files_read = []
+for file in files:
+    if not os.path.isfile(file):
+        file = file.replace('_var.f', '_std.f')
+        if not os.path.isfile(file):
+            print(file)
+        else:
+            files_read.append(file)
+    else:
+        files_read.append(file)
 
-gc.collect()
+
+X_ = pd.concat([pd.read_feather(f) for f in files_read], axis=1)
+
 
 CAT = list( set(X.columns) & set(loader.category()) )
 
@@ -88,7 +88,7 @@ ret, models = lgb.cv(param, dtrain, 99999, nfold=7,
                      early_stopping_rounds=100, verbose_eval=50,
                      seed=111)
 
-result = f"CV auc-mean({COMMENT}): {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
+result = f"CV auc-mean(X): {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
 print(result)
 
 utils.send_line(result)
@@ -96,9 +96,27 @@ utils.send_line(result)
 imp = ex.getImp(models)
 
 
+# =============================================================================
+# cv
+# =============================================================================
+dtrain = lgb.Dataset(X_, y, categorical_feature=CAT )
+gc.collect()
+
+ret, models = lgb.cv(param, dtrain, 99999, nfold=7,
+                     early_stopping_rounds=100, verbose_eval=50,
+                     seed=111)
+
+result = f"CV auc-mean(X_): {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
+print(result)
+
+utils.send_line(result)
+
+imp = ex.getImp(models)
+
+
+
+
 #==============================================================================
 utils.end(__file__)
-#utils.stop_instance()
-
 
 
