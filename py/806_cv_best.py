@@ -23,9 +23,9 @@ import utils, utils_best
 
 SEED = 71
 
-new_feature = 'f705'
+new_features = ['f705', 'f706', 'f707', 'f708']
 
-COMMENT = new_feature
+COMMENT = new_features
 
 
 param = {
@@ -60,10 +60,13 @@ loader = utils_best.Loader('LB804')
 X = loader.train()
 y = utils.read_pickles('../data/label').TARGET
 
+col = []
+files = []
+for new_feature in new_features:
+    col += [c for c in X.columns if new_feature in c]
+    files += glob(f'../feature/train_{new_feature}*')
 
-col = [c for c in X.columns if new_feature in c]
 X.drop(col, axis=1, inplace=True)
-files = glob(f'../feature/train_{new_feature}*')
 X_ = pd.concat([pd.read_feather(f) for f in tqdm(files, mininterval=60)
                 ], axis=1)
 X = pd.concat([X, X_], axis=1)
