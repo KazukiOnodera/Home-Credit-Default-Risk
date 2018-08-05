@@ -53,7 +53,7 @@ param = {
 # =============================================================================
 # load
 # =============================================================================
-imp = pd.read_csv('LOG/imp_801_imp_xgb.py-2.csv')
+imp = pd.read_csv('LOG/imp_801_imp_lgb.py-2.csv')
 
 imp.sort_values('total', ascending=False, inplace=True)
 
