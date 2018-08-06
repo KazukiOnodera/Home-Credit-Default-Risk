@@ -133,6 +133,6 @@ if EXE_SUBMIT:
 #==============================================================================
 utils.end(__file__)
 
-
+os.system(f'nohup python -u 913_predict_807-2.py > LOG/log_913_predict_807-2.py.txt &')
 
 
