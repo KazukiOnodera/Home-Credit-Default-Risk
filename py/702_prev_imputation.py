@@ -26,8 +26,8 @@ train = utils.load_train([KEY]).set_index(KEY)
 test = utils.load_test([KEY]).set_index(KEY)
 
 
-prev_train = pd.read_feather('../data/prev_train_imputation_f702.f')
-prev_test  = pd.read_feather('../data/prev_test_imputation_f702.f')
+prev_train = pd.read_feather('../data/prev_train_imputation_f702_v3.f')
+prev_test  = pd.read_feather('../data/prev_test_imputation_f702_v3.f')
 
 
 # =============================================================================

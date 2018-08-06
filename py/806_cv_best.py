@@ -23,7 +23,7 @@ import utils, utils_best
 
 SEED = 71
 
-new_features = ['f412']
+new_features = ['f702']
 
 COMMENT = new_features
 
