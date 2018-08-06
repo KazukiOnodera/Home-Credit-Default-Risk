@@ -54,6 +54,7 @@ param = {
 # load
 # =============================================================================
 imp = pd.read_csv('LOG/imp_801_imp_lgb.py.csv').sort_values('total', ascending=False)
+#imp = pd.read_csv('LOG/imp_0728.py.csv').sort_values('total', ascending=False)
 
 files = ('../feature_prev/train_' + imp.head(max(HEADS)).feature + '.f').tolist()
 
@@ -92,10 +93,10 @@ for HEAD in HEADS:
     dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
     gc.collect()
     
-    ret = lgb.cv(param, dtrain, 9999, folds=group_kfold.split(X, sub_train['y'], 
-                                                              sub_train['g']), 
-                 early_stopping_rounds=100, verbose_eval=50,
-                 seed=SEED)
+    ret, models = lgb.cv(param, dtrain, 9999, folds=group_kfold.split(X, sub_train['y'], 
+                                                                      sub_train['g']), 
+                         early_stopping_rounds=100, verbose_eval=50,
+                         seed=SEED)
     
     result = f"CV auc-mean({HEAD}): {ret['auc-mean'][-1]}"
     print(result)
