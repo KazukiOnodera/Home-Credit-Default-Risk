@@ -32,7 +32,7 @@ from glob import glob
 import utils, utils_cat, utils_best
 utils.start(__file__)
 #==============================================================================
-
+print(sys.argv)
 SEED = int(sys.argv[1])
 
 LOOP = 10
