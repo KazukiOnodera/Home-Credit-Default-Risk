@@ -4,6 +4,19 @@
 Created on Mon Aug  6 20:58:07 2018
 
 @author: kazuki.onodera
+
+nohup python -u 912_predict_807-1.py 0 > LOG/log_912_predict_807-1_s0.py.txt &
+nohup python -u 912_predict_807-1.py 1 > LOG/log_912_predict_807-1_s1.py.txt &
+nohup python -u 912_predict_807-1.py 2 > LOG/log_912_predict_807-1_s2.py.txt &
+nohup python -u 912_predict_807-1.py 3 > LOG/log_912_predict_807-1_s3.py.txt &
+nohup python -u 912_predict_807-1.py 4 > LOG/log_912_predict_807-1_s4.py.txt &
+nohup python -u 912_predict_807-1.py 5 > LOG/log_912_predict_807-1_s5.py.txt &
+nohup python -u 912_predict_807-1.py 6 > LOG/log_912_predict_807-1_s6.py.txt &
+nohup python -u 912_predict_807-1.py 7 > LOG/log_912_predict_807-1_s7.py.txt &
+nohup python -u 912_predict_807-1.py 8 > LOG/log_912_predict_807-1_s8.py.txt &
+nohup python -u 912_predict_807-1.py 9 > LOG/log_912_predict_807-1_s9.py.txt &
+
+
 """
 
 import numpy as np
@@ -21,13 +34,13 @@ import utils, utils_cat, utils_best
 utils.start(__file__)
 #==============================================================================
 
-SEED = 87
+SEED = int(sys.argv[1])
 
-LOOP = 100
+LOOP = 10
 
 NROUND = 4500
 
-SUBMIT_FILE_PATH = '../output/807-1.csv.gz'
+SUBMIT_FILE_PATH = f'../output/807-1_s{SEED}.csv.gz'
 
 COMMENT = f'LB804 (seed87 loop100)'
 
@@ -133,6 +146,6 @@ if EXE_SUBMIT:
 #==============================================================================
 utils.end(__file__)
 
-os.system(f'nohup python -u 913_predict_807-2.py > LOG/log_913_predict_807-2.py.txt &')
+#os.system(f'nohup python -u 913_predict_807-2.py > LOG/log_913_predict_807-2.py.txt &')
 
 
