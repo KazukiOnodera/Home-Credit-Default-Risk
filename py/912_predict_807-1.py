@@ -36,7 +36,7 @@ utils.start(__file__)
 print(sys.argv)
 SEED = int(sys.argv[1])
 
-LOOP = 10
+LOOP = 20
 
 NROUND = 4500
 
