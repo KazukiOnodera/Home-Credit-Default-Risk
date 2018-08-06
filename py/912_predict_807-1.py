@@ -34,7 +34,7 @@ import utils, utils_cat, utils_best
 utils.start(__file__)
 #==============================================================================
 
-SEED = int(sys.argv[1])
+SEED = int(sys.argv[2])
 
 LOOP = 10
 
