@@ -31,7 +31,7 @@ SUBMIT_FILE_PATH = '../output/807-1.csv.gz'
 
 COMMENT = f'LB804 (seed87 loop100)'
 
-EXE_SUBMIT = True
+EXE_SUBMIT = False
 
 param = {
          'objective': 'binary',

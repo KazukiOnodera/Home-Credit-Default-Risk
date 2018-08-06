@@ -29,9 +29,9 @@ NROUND = 5040
 
 SUBMIT_FILE_PATH = '../output/807-2.csv.gz'
 
-COMMENT = f'LB804 (seed87 loop100)'
+COMMENT = f'CV805_LB803 (seed87 loop100)'
 
-EXE_SUBMIT = True
+EXE_SUBMIT = False
 
 param = {
          'objective': 'binary',
