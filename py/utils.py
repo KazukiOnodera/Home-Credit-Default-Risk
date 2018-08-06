@@ -374,27 +374,34 @@ def __get_use_files__():
     
     return
 
-def get_use_files(use_files, is_train=True):
+def get_use_files(prefixes=[], is_train=True):
     
     unused_files  = [f.split('/')[-1] for f in sorted(glob('../feature_unused/*.f'))]
     unused_files += [f.split('/')[-1] for f in sorted(glob('../feature_var0/*.f'))]
     unused_files += [f.split('/')[-1] for f in sorted(glob('../feature_corr1/*.f'))]
     
     if is_train:
-        files = sorted(glob('../feature/train*.f'))
+        all_files = sorted(glob('../feature/train*.f'))
         unused_files = ['../feature/train_'+f for f in unused_files]
     else:
-        files = sorted(glob('../feature/test*.f'))
+        all_files = sorted(glob('../feature/test*.f'))
         unused_files = ['../feature/test_'+f for f in unused_files]
     
-    for f in unused_files:
-        if f in files:
-            files.remove(f)
-            
-#    files = [f for f in files if f not in unused_files]
+    if len(prefixes)>0:
+        use_files = []
+        for prefix in prefixes:
+            use_files += glob(f'../feature/*{prefix}*')
+        all_files = (set(all_files) & set(use_files)) - set(unused_files)
+        
+    else:
+        for f in unused_files:
+            if f in all_files:
+                all_files.remove(f)
     
-    print(f'got {len(files)}')
-    return files
+    all_files = sorted(all_files)
+    
+    print(f'got {len(all_files)}')
+    return all_files
 
 
 # =============================================================================

@@ -60,12 +60,12 @@ np.random.seed(SEED)
 # load
 # =============================================================================
 
-use_files = [
+prefixes = [
         'f001', 
         'f002', 
              ]
 
-files = utils.get_use_files(use_files, True)
+files = utils.get_use_files(prefixes, True)
 
 X_train = pd.concat([
                 pd.read_feather(f) for f in tqdm(files, mininterval=60)
