@@ -85,7 +85,7 @@ gc.collect()
 
 
 
-files = utils.get_use_files(use_files, False)
+files = utils.get_use_files(prefixes, False)
 
 X_test = pd.concat([
                 pd.read_feather(f) for f in tqdm(files, mininterval=60)
