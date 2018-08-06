@@ -1,0 +1,13 @@
+gcloud compute --project "dena-ai-training-14-gcp" ssh --zone "us-east1-b" "Kazuki@instance-3-clone0"
+gcloud compute --project "dena-ai-training-14-gcp" ssh --zone "us-east1-b" "Kazuki@instance-3-clone1"
+gcloud compute --project "dena-ai-training-14-gcp" ssh --zone "us-east1-b" "Kazuki@instance-3-clone2"
+gcloud compute --project "dena-ai-training-14-gcp" ssh --zone "us-east1-b" "Kazuki@instance-3-clone3"
+gcloud compute --project "dena-ai-training-14-gcp" ssh --zone "us-east1-b" "Kazuki@instance-3-clone4"
+gcloud compute --project "dena-ai-training-14-gcp" ssh --zone "us-east1-b" "Kazuki@instance-3-clone5"
+gcloud compute --project "dena-ai-training-14-gcp" ssh --zone "us-east1-b" "Kazuki@instance-3-clone6"
+gcloud compute --project "dena-ai-training-14-gcp" ssh --zone "us-east1-b" "Kazuki@instance-3-clone7"
+gcloud compute --project "dena-ai-training-14-gcp" ssh --zone "us-east1-b" "Kazuki@instance-3-clone8"
+gcloud compute --project "dena-ai-training-14-gcp" ssh --zone "us-east1-b" "Kazuki@instance-3-clone9"
+
+
+
