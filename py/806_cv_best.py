@@ -23,9 +23,9 @@ import utils, utils_best
 
 SEED = 71
 
-new_features = ['f702']
-
-COMMENT = new_features
+#new_features = ['f702']
+#
+#COMMENT = new_features
 
 
 param = {
@@ -60,19 +60,19 @@ loader = utils_best.Loader('LB804')
 X = loader.train()
 y = utils.read_pickles('../data/label').TARGET
 
-col = []
-files = []
-for new_feature in new_features:
-    col += [c for c in X.columns if new_feature in c]
-    files += glob(f'../feature/train_{new_feature}*')
-
-print('files:', len(files))
-
-X.drop(col, axis=1, inplace=True)
-X_ = pd.concat([pd.read_feather(f) for f in tqdm(files, mininterval=60)
-                ], axis=1)
-X = pd.concat([X, X_], axis=1)
-del X_
+#col = []
+#files = []
+#for new_feature in new_features:
+#    col += [c for c in X.columns if new_feature in c]
+#    files += glob(f'../feature/train_{new_feature}*')
+#
+#print('files:', len(files))
+#
+#X.drop(col, axis=1, inplace=True)
+#X_ = pd.concat([pd.read_feather(f) for f in tqdm(files, mininterval=60)
+#                ], axis=1)
+#X = pd.concat([X, X_], axis=1)
+#del X_
 
 if X.columns.duplicated().sum()>0:
     raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
@@ -93,12 +93,35 @@ ret, models = lgb.cv(param, dtrain, 99999, nfold=7,
                      early_stopping_rounds=100, verbose_eval=50,
                      seed=111)
 
-result = f"CV auc-mean({COMMENT}): {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
-print(result)
+y_pred = ex.eval_oob(X, y, models, 111)
 
-utils.send_line(result)
+#result = f"CV auc-mean({COMMENT}): {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
+#print(result)
+#utils.send_line(result)
 
 imp = ex.getImp(models)
+
+
+# =============================================================================
+# cv loop
+# =============================================================================
+from sklearn.metrics import roc_auc_score
+
+dtrain = lgb.Dataset(X, y, categorical_feature=CAT, free_raw_data=False)
+gc.collect()
+
+y_pred = pd.Series(0, index=y.index)
+
+for i in range(5):
+    ret, models = lgb.cv(param, dtrain, 99999, nfold=7,
+                         early_stopping_rounds=100, verbose_eval=50,
+                         seed=i)
+    
+    y_pred += ex.eval_oob(X, y, models, i).rank()
+
+y_pred /= y_pred.max()
+
+roc_auc_score(y, y_pred)
 
 
 #==============================================================================
