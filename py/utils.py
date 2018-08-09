@@ -294,35 +294,62 @@ def get_dummies(df):
     return df
 
 
-def reduce_memory(df, ix_start=0):
-    if df.shape[0]>9999:
-        df_ = df.sample(9999, random_state=71)
-    else:
-        df_ = df
-    ## int
+def reduce_mem_usage(df):
     col_int8 = []
     col_int16 = []
     col_int32 = []
-#    for c in tqdm(df.columns[ix_start:], miniters=20):
-    for c in df.columns[ix_start:]:
-        if df[c].dtype=='O':
-            continue
-        if (df_[c] == df_[c].astype(np.int8)).all():
-            col_int8.append(c)
-        elif (df_[c] == df_[c].astype(np.int16)).all():
-            col_int16.append(c)
-        elif (df_[c] == df_[c].astype(np.int32)).all():
-            col_int32.append(c)
+    col_int64 = []
+    col_float16 = []
+    col_float32 = []
+    col_float64 = []
+    col_cat = []
+    for c in tqdm(df.columns, mininterval=20):
+        col_type = df[c].dtype
+
+        if col_type != object:
+            c_min = df[c].min()
+            c_max = df[c].max()
+            if str(col_type)[:3] == 'int':
+                if c_min > np.iinfo(np.int8).min and c_max < np.iinfo(np.int8).max:
+                    col_int8.append(c)
+                    
+                elif c_min > np.iinfo(np.int16).min and c_max < np.iinfo(np.int16).max:
+                    col_int16.append(c)
+                elif c_min > np.iinfo(np.int32).min and c_max < np.iinfo(np.int32).max:
+                    col_int32.append(c)
+                elif c_min > np.iinfo(np.int64).min and c_max < np.iinfo(np.int64).max:
+                    col_int64.append(c)
+            else:
+                if c_min > np.finfo(np.float16).min and c_max < np.finfo(np.float16).max:
+                    col_float16.append(c)
+                elif c_min > np.finfo(np.float32).min and c_max < np.finfo(np.float32).max:
+                    col_float32.append(c)
+                else:
+                    col_float64.append(c)
+        else:
+            col_cat.append(c)
     
-    df[col_int8]  = df[col_int8].astype(np.int8)
-    df[col_int16] = df[col_int16].astype(np.int16)
-    df[col_int32] = df[col_int32].astype(np.int32)
-    
-    ## float
-    col = [c for c in df.dtypes[df.dtypes==np.float64].index if '_id' not in c]
-    df[col] = df[col].astype(np.float32)
-    
-    gc.collect()
+    if len(col_int8)>0:
+        df[col_int8] = df[col_int8].astype(np.int8)
+    if len(col_int16)>0:
+        df[col_int16] = df[col_int16].astype(np.int16)
+    if len(col_int32)>0:
+        df[col_int32] = df[col_int32].astype(np.int32)
+    if len(col_int64)>0:
+        df[col_int64] = df[col_int64].astype(np.int64)
+    if len(col_float16)>0:
+        df[col_float16] = df[col_float16].astype(np.float16)
+    if len(col_float32)>0:
+        df[col_float32] = df[col_float32].astype(np.float32)
+    if len(col_float64)>0:
+        df[col_float64] = df[col_float64].astype(np.float64)
+    if len(col_cat)>0:
+        df[col_cat] = df[col_cat].astype('category')
+
+
+def to_pkl_gzip(df, path):
+    df.to_pickle(path)
+    os.system('gzip ' + path)
     return
 
 def check_var(df, var_limit=0, sample_size=None):
