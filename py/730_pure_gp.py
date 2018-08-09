@@ -1652,6 +1652,7 @@ def bureau_and_balance(num_rows = None, nan_as_category = True):
         bb_aggregations[col] = ['mean']
     bb_agg = bb.groupby('SK_ID_BUREAU').agg(bb_aggregations)
     bb_agg.columns = pd.Index([e[0] + "_" + e[1].upper() for e in bb_agg.columns.tolist()])
+    bb_agg.reset_index(inplace=True)
     bureau = pd.merge(bureau, bb_agg, how='left', on='SK_ID_BUREAU')
     bureau.drop(['SK_ID_BUREAU'], axis=1, inplace= True)
     del bb, bb_agg
