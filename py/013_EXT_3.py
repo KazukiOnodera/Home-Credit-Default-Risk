@@ -110,27 +110,38 @@ y = pd.concat([y_train_train, y_test_train])
 dtrain = lgb.Dataset(X, y, categorical_feature=CAT)
 gc.collect()
 
-ret = lgb.cv(params, dtrain, 99999, nfold=FOLD, stratified=False,
-             early_stopping_rounds=100, verbose_eval=50,
-             seed=SEED)
+ret, models = lgb.cv(params, dtrain, 99999, nfold=FOLD, stratified=False,
+                     early_stopping_rounds=100, verbose_eval=50,
+                     seed=SEED)
 
 
 # =============================================================================
 # 
 # =============================================================================
-NROUND = int(len(ret['rmse-mean'])*1.3) # 12234
-print(f'NROUND: {NROUND}')
+#NROUND = int(len(ret['rmse-mean'])*1.3) # 12234
+#print(f'NROUND: {NROUND}')
+#
+#dtrain = lgb.Dataset(X, y, categorical_feature=CAT)
+#
+#model = lgb.train(params, dtrain, NROUND)
 
-dtrain = lgb.Dataset(X, y, categorical_feature=CAT)
+train_ind = y_train.isnull()
+test_ind  = y_test.isnull()
 
-model = lgb.train(params, dtrain, NROUND)
+y_train.loc[train_ind] = 0
+y_test.loc[test_ind] = 0
 
-y_train.loc[y_train.isnull()] = model.predict(X_train_test)
+for model in models:
+    y_train.loc[train_ind] += pd.Series(model.predict(X_train_test)).values
+    y_test.loc[test_ind]   += pd.Series(model.predict(X_test_test)).values
+    
+
+y_train.loc[train_ind] /= len(models)
+y_test.loc[test_ind]   /= len(models)
+
 y_train = y_train.to_frame()
-y_train.columns = [label_name.replace('f001_', '')]
-
-y_test.loc[y_test.isnull()] = model.predict(X_test_test)
 y_test = y_test.to_frame()
+y_train.columns = [label_name.replace('f001_', '')]
 y_test.columns = [label_name.replace('f001_', '')]
 
 # =============================================================================
