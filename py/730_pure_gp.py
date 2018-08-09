@@ -1594,7 +1594,7 @@ def application_train_test(num_rows = None, nan_as_category = False):
     print("Train samples: {}, test samples: {}".format(len(df), len(test_df)))
     df = df.append(test_df).reset_index()
     # Optional: Remove 4 applications with XNA CODE_GENDER (train set)
-    df = df[df['CODE_GENDER'] != 'XNA']
+#    df = df[df['CODE_GENDER'] != 'XNA']
     
     docs = [_f for _f in df.columns if 'FLAG_DOC' in _f]
     live = [_f for _f in df.columns if ('FLAG_' in _f) & ('FLAG_DOC' not in _f) & ('_FLAG_' not in _f)]
@@ -1880,8 +1880,8 @@ feats = [f for f in train_df.columns if f not in ['TARGET','SK_ID_CURR','SK_ID_B
 train_gp = pd.concat([GP1(train_df.round(6)), GP2(train_df.round(6)), GP3(train_df.round(6))], axis=1)
 test_gp  = pd.concat([GP1(test_df.round(6)),  GP2(test_df.round(6)),  GP3(test_df.round(6))], axis=1)
 
-utils.reduce_mem_usage(train_gp)
-utils.reduce_mem_usage(test_gp)
+#utils.reduce_mem_usage(train_gp)
+#utils.reduce_mem_usage(test_gp)
 
 utils.to_pkl_gzip(train_gp, '../data/X_train_pure_gp.pkl')
 utils.to_pkl_gzip(test_gp,  '../data/X_test_pure_gp.pkl')
