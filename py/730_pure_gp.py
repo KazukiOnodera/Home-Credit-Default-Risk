@@ -537,7 +537,7 @@ def GP1(data):
     v["i509"] = 0.056190*np.tanh((((((((data["HOUSETYPE_MODE_block_of_flats"]) > (np.where(np.where(data["LIVINGAREA_AVG"] < -99998, 3.0, data["HOUSETYPE_MODE_block_of_flats"] )<0, ((data["LIVINGAREA_MODE"]) * 2.0), 3.0 )))*1.)) - (data["NAME_INCOME_TYPE_Student"]))) * 2.0)) 
     v["i510"] = 0.095000*np.tanh((((((((data["FLOORSMIN_AVG"]) > (((data["HOUSETYPE_MODE_block_of_flats"]) + ((((data["FLOORSMIN_MEDI"]) + (np.where(data["LIVINGAREA_MODE"] < -99998, data["HOUSETYPE_MODE_block_of_flats"], np.tanh((np.tanh((-1.0)))) )))/2.0)))))*1.)) * 2.0)) * 2.0)) 
     v["i511"] = 0.056400*np.tanh(((data["HOUSETYPE_MODE_specific_housing"]) * (((((np.where(data["WALLSMATERIAL_MODE_Panel"]<0, (-1.0*((np.where(data["HOUSETYPE_MODE_specific_housing"]<0, data["FONDKAPREMONT_MODE_reg_oper_account"], data["HOUSETYPE_MODE_specific_housing"] )))), data["FONDKAPREMONT_MODE_reg_oper_account"] )) + (data["ORGANIZATION_TYPE_Trade__type_4"]))) + (data["NAME_INCOME_TYPE_Student"])))))
-    return v
+    return v.add_prefix('gp1_')
 
 def GP2(data):
     v = pd.DataFrame()
@@ -1053,7 +1053,7 @@ def GP2(data):
     v["i509"] = 0.099609*np.tanh((-1.0*(((((data["NEW_SOURCES_PROD"]) > (np.where(data["NEW_ANNUITY_TO_INCOME_RATIO"]<0, (((data["EXT_SOURCE_1"]) > (np.tanh((0.636620))))*1.), np.where(np.tanh((data["EXT_SOURCE_1"]))<0, 0.318310, data["AMT_ANNUITY"] ) )))*1.))))) 
     v["i510"] = 0.041999*np.tanh((((-1.0*(((((np.maximum((((((2.0) + (data["BURO_DAYS_CREDIT_ENDDATE_MEAN"]))/2.0))), ((((data["NEW_CREDIT_TO_ANNUITY_RATIO"]) + ((((data["NEW_CREDIT_TO_ANNUITY_RATIO"]) + (data["ORGANIZATION_TYPE_Emergency"]))/2.0))))))) > (3.141593))*1.))))) * 2.0)) 
     v["i511"] = 0.092000*np.tanh(((((data["OCCUPATION_TYPE_Laborers"]) * 2.0)) * (((((-1.0*((data["BURO_AMT_CREDIT_SUM_DEBT_MEAN"])))) < (np.minimum(((((((((data["OCCUPATION_TYPE_Laborers"]) > (data["AMT_ANNUITY"]))*1.)) + (data["NEW_CREDIT_TO_ANNUITY_RATIO"]))/2.0))), ((data["AMT_ANNUITY"])))))*1.))))
-    return v
+    return v.add_prefix('gp2_')
 
 def GP3(data):
     v = pd.DataFrame()
@@ -1569,7 +1569,7 @@ def GP3(data):
     v["i509"] = 0.092789*np.tanh(((((np.where(data["AMT_ANNUITY"] < -99998, data["NEW_ANNUITY_TO_INCOME_RATIO"], ((data["CODE_GENDER"]) * (np.maximum((((((data["NEW_ANNUITY_TO_INCOME_RATIO"]) < ((-1.0*((1.570796)))))*1.))), ((data["CLOSED_AMT_CREDIT_MAX_OVERDUE_MEAN"]))))) )) * 2.0)) * 2.0)) 
     v["i510"] = 0.069406*np.tanh((((((((np.where(((np.where(data["NEW_EXT_SOURCES_MEAN"]>0, data["NEW_ANNUITY_TO_INCOME_RATIO"], 0.636620 )) + (data["NEW_ANNUITY_TO_INCOME_RATIO"]))>0, data["NEW_ANNUITY_TO_INCOME_RATIO"], data["NEW_CREDIT_TO_ANNUITY_RATIO"] )) - (data["NEW_EXT_SOURCES_MEAN"]))) > (3.0))*1.)) * 2.0)) 
     v["i511"] = 0.093680*np.tanh((((((np.where(data["BURO_AMT_CREDIT_SUM_LIMIT_MEAN"] < -99998, data["EXT_SOURCE_3"], np.where(data["EXT_SOURCE_3"] < -99998, data["AMT_ANNUITY"], (((data["NAME_INCOME_TYPE_Maternity_leave"]) < (data["CLOSED_AMT_CREDIT_MAX_OVERDUE_MEAN"]))*1.) ) )) > ((((data["AMT_ANNUITY"]) > (data["EXT_SOURCE_3"]))*1.)))*1.)) * 2.0))
-    return v
+    return v.add_prefix('gp3_')
 
 
 @contextmanager
