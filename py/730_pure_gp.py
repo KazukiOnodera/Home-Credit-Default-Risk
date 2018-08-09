@@ -1652,7 +1652,7 @@ def bureau_and_balance(num_rows = None, nan_as_category = True):
         bb_aggregations[col] = ['mean']
     bb_agg = bb.groupby('SK_ID_BUREAU').agg(bb_aggregations)
     bb_agg.columns = pd.Index([e[0] + "_" + e[1].upper() for e in bb_agg.columns.tolist()])
-    bureau = bureau.join(bb_agg, how='left', on='SK_ID_BUREAU')
+    bureau = pd.merge(bureau, bb_agg, how='left', on='SK_ID_BUREAU')
     bureau.drop(['SK_ID_BUREAU'], axis=1, inplace= True)
     del bb, bb_agg
     gc.collect()
@@ -1687,7 +1687,7 @@ def bureau_and_balance(num_rows = None, nan_as_category = True):
     active_agg = active.groupby('SK_ID_CURR').agg(num_aggregations)
     active_agg.columns = pd.Index(['ACTIVE_' + e[0] + "_" + e[1].upper() for e in active_agg.columns.tolist()])
     active_agg.reset_index(inplace=True)
-    bureau_agg = bureau_agg.join(active_agg, how='left', on='SK_ID_CURR')
+    bureau_agg = pd.merge(bureau_agg, active_agg, how='left', on='SK_ID_CURR')
     del active, active_agg
     gc.collect()
     # Bureau: Closed credits - using only numerical aggregations
@@ -1695,7 +1695,7 @@ def bureau_and_balance(num_rows = None, nan_as_category = True):
     closed_agg = closed.groupby('SK_ID_CURR').agg(num_aggregations)
     closed_agg.columns = pd.Index(['CLOSED_' + e[0] + "_" + e[1].upper() for e in closed_agg.columns.tolist()])
     closed_agg.reset_index(inplace=True)
-    bureau_agg = bureau_agg.join(closed_agg, how='left', on='SK_ID_CURR')
+    bureau_agg = pd.merge(bureau_agg, closed_agg, how='left', on='SK_ID_CURR')
     del closed, closed_agg, bureau
     gc.collect()
     return bureau_agg
@@ -1738,13 +1738,13 @@ def previous_applications(num_rows = None, nan_as_category = True):
     approved_agg = approved.groupby('SK_ID_CURR').agg(num_aggregations)
     approved_agg.columns = pd.Index(['APPROVED_' + e[0] + "_" + e[1].upper() for e in approved_agg.columns.tolist()])
     approved_agg.reset_index(inplace=True)
-    prev_agg = prev_agg.join(approved_agg, how='left', on='SK_ID_CURR')
+    prev_agg = pd.merge(prev_agg, approved_agg, how='left', on='SK_ID_CURR')
     # Previous Applications: Refused Applications - only numerical features
     refused = prev[prev['NAME_CONTRACT_STATUS_Refused'] == 1]
     refused_agg = refused.groupby('SK_ID_CURR').agg(num_aggregations)
     refused_agg.columns = pd.Index(['REFUSED_' + e[0] + "_" + e[1].upper() for e in refused_agg.columns.tolist()])
     refused_agg.reset_index(inplace=True)
-    prev_agg = prev_agg.join(refused_agg, how='left', on='SK_ID_CURR')
+    prev_agg = pd.merge(prev_agg, refused_agg, how='left', on='SK_ID_CURR')
     del refused, refused_agg, approved, approved_agg, prev
     gc.collect()
     return prev_agg
@@ -1823,31 +1823,31 @@ df = application_train_test(num_rows)
 with timer("Process bureau and bureau_balance"):
     bureau = bureau_and_balance(num_rows)
     print("Bureau df shape:", bureau.shape)
-    df = df.join(bureau, how='left', on='SK_ID_CURR')
+    df = pd.merge(df, bureau, how='left', on='SK_ID_CURR')
     del bureau
     gc.collect()
 with timer("Process previous_applications"):
     prev = previous_applications(num_rows)
     print("Previous applications df shape:", prev.shape)
-    df = df.join(prev, how='left', on='SK_ID_CURR')
+    df = pd.merge(df, prev, how='left', on='SK_ID_CURR')
     del prev
     gc.collect()
 with timer("Process POS-CASH balance"):
     pos = pos_cash(num_rows).reset_index()
     print("Pos-cash balance df shape:", pos.shape)
-    df = df.join(pos, how='left', on='SK_ID_CURR')
+    df = pd.merge(df, pos, how='left', on='SK_ID_CURR')
     del pos
     gc.collect()
 with timer("Process installments payments"):
     ins = installments_payments(num_rows).reset_index()
     print("Installments payments df shape:", ins.shape)
-    df = df.join(ins, how='left', on='SK_ID_CURR')
+    df = pd.merge(df, ins, how='left', on='SK_ID_CURR')
     del ins
     gc.collect()
 with timer("Process credit card balance"):
     cc = credit_card_balance(num_rows).reset_index()
     print("Credit card balance df shape:", cc.shape)
-    df = df.join(cc, how='left', on='SK_ID_CURR')
+    df = pd.merge(df, cc, how='left', on='SK_ID_CURR')
     del cc
     gc.collect()
 
