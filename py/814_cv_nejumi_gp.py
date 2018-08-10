@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Fri Aug 10 08:12:51 2018
+Created on Fri Aug 10 14:01:34 2018
 
-@author: Kazuki
+@author: kazuki.onodera
 """
 
 import gc, os
@@ -51,7 +51,7 @@ param = {
 # =============================================================================
 # load
 # =============================================================================
-X = pd.read_pickle('../data/X_train_pure_gp.pkl.gz')
+X = pd.read_pickle('../data/X_train_nejumi_gp.pkl.gz')
 y = utils.read_pickles('../data/label').TARGET
 
 
@@ -101,11 +101,15 @@ for i in range(5):
 
 y_pred /= y_pred.max()
 
-roc_auc_score(y, y_pred)
+auc_mean = roc_auc_score(y, y_pred)
+result = f"CV auc-mean(nejumi gp): {auc_mean}"
+print(result)
+utils.send_line(result)
 
 
 #==============================================================================
 utils.end(__file__)
 #utils.stop_instance()
+
 
 
