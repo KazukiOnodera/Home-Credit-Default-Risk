@@ -51,7 +51,7 @@ param = {
 # =============================================================================
 # load
 # =============================================================================
-X = pd.read_pickle('../data/X_train_pure_gp.pkl.gz')
+X = pd.read_pickle('../data/X_train_pure_gp.pkl')
 y = utils.read_pickles('../data/label').TARGET
 
 
@@ -75,7 +75,7 @@ ret, models = lgb.cv(param, dtrain, 99999, nfold=7,
 
 y_pred = ex.eval_oob(X, y, models, 111)
 
-result = f"CV auc-mean({COMMENT}): {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
+result = f"CV auc-mean: {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
 print(result)
 utils.send_line(result)
 
