@@ -350,6 +350,7 @@ def reduce_mem_usage(df):
 def to_pkl_gzip(df, path):
     df.to_pickle(path)
     os.system('gzip ' + path)
+    os.system('rm ' + path)
     return
 
 def check_var(df, var_limit=0, sample_size=None):
