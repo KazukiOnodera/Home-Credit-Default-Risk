@@ -477,6 +477,10 @@ cre_num_aggregations = {
  'AMT_BALANCE-d-AMT_DRAWINGS_CURRENT_pctchange': stats,
  'AMT_DRAWINGS_CURRENT-d-AMT_CREDIT_LIMIT_ACTUAL_diff': stats,
  'AMT_DRAWINGS_CURRENT-d-AMT_CREDIT_LIMIT_ACTUAL_pctchange': stats, 
+ 'AMT_TOTAL_RECEIVABLE-m-AMT_RECEIVABLE_PRINCIPAL_diff': stats,
+ 'AMT_TOTAL_RECEIVABLE-m-AMT_RECEIVABLE_PRINCIPAL_pctchange': stats,
+ 'AMT_RECEIVABLE_PRINCIPAL-d-AMT_TOTAL_RECEIVABLE_diff': stats,
+ 'AMT_RECEIVABLE_PRINCIPAL-d-AMT_TOTAL_RECEIVABLE_pctchange': stats,
  
  # diff diff
 'AMT_BALANCE_diff_diff': stats,
@@ -599,6 +603,14 @@ cre_num_aggregations = {
  'AMT_DRAWINGS_CURRENT-d-AMT_CREDIT_LIMIT_ACTUAL_diff_pctchange': stats,
  'AMT_DRAWINGS_CURRENT-d-AMT_CREDIT_LIMIT_ACTUAL_pctchange_diff': stats,
  'AMT_DRAWINGS_CURRENT-d-AMT_CREDIT_LIMIT_ACTUAL_pctchange_pctchange': stats,
+ 'AMT_TOTAL_RECEIVABLE-m-AMT_RECEIVABLE_PRINCIPAL_diff_diff': stats,
+ 'AMT_TOTAL_RECEIVABLE-m-AMT_RECEIVABLE_PRINCIPAL_diff_pctchange': stats,
+ 'AMT_TOTAL_RECEIVABLE-m-AMT_RECEIVABLE_PRINCIPAL_pctchange_diff': stats,
+ 'AMT_TOTAL_RECEIVABLE-m-AMT_RECEIVABLE_PRINCIPAL_pctchange_pctchange': stats,
+ 'AMT_RECEIVABLE_PRINCIPAL-d-AMT_TOTAL_RECEIVABLE_diff_diff': stats,
+ 'AMT_RECEIVABLE_PRINCIPAL-d-AMT_TOTAL_RECEIVABLE_diff_pctchange': stats,
+ 'AMT_RECEIVABLE_PRINCIPAL-d-AMT_TOTAL_RECEIVABLE_pctchange_diff': stats,
+ 'AMT_RECEIVABLE_PRINCIPAL-d-AMT_TOTAL_RECEIVABLE_pctchange_pctchange': stats,
  }
 
 # =============================================================================
