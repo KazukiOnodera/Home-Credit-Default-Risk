@@ -60,6 +60,10 @@ if ONLY_ME:
 else:
     use_files = ['train_']
 
+imp = pd.read_csv('LOG/imp_801_imp_lgb.py-2.csv')
+imp.sort_values('total', ascending=False, inplace=True)
+
+files = ('../feature/train_' + imp.head(3000).feature + '.f').tolist()
 
 # =============================================================================
 # reset load
