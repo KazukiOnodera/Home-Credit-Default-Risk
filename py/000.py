@@ -256,10 +256,8 @@ if True:
         """
         df = utils.read_pickles('../data/previous_application')
         """
-        trte = get_trte()
-        
         df = pd.merge(pd.read_csv('../input/previous_application.csv.zip'),
-                     trte, on='SK_ID_CURR', how='left')
+                      get_trte(), on='SK_ID_CURR', how='left')
         prep_prev(df)
         df['FLAG_LAST_APPL_PER_CONTRACT'] = (df['FLAG_LAST_APPL_PER_CONTRACT']=='Y')*1
         
@@ -344,6 +342,13 @@ if True:
         df['AMT_CREDIT-m-app_AMT_GOODS_PRICE-d-app_AMT_INCOME_TOTAL']      = (df['AMT_CREDIT']      - df['app_AMT_GOODS_PRICE']) / df['app_AMT_INCOME_TOTAL']
         df['AMT_GOODS_PRICE-m-app_AMT_GOODS_PRICE-d-app_AMT_INCOME_TOTAL'] = (df['AMT_GOODS_PRICE'] - df['app_AMT_GOODS_PRICE']) / df['app_AMT_INCOME_TOTAL']
         
+        # nejumi
+        f_name='nejumi'; init_rate=0.9; n_iter=500
+        df['AMT_ANNUITY_d_AMT_CREDIT_temp'] = df.AMT_ANNUITY / df.AMT_CREDIT   
+        df[f_name] = df['AMT_ANNUITY_d_AMT_CREDIT_temp']*((1 + init_rate)**df.CNT_PAYMENT - 1)/((1 + init_rate)**df.CNT_PAYMENT)
+        for i in range(n_iter):
+            df[f_name] = df['AMT_ANNUITY_d_AMT_CREDIT_temp']*((1 + df[f_name])**df.CNT_PAYMENT - 1)/((1 + df[f_name])**df.CNT_PAYMENT) 
+        df.drop(['AMT_ANNUITY_d_AMT_CREDIT_temp'], axis=1, inplace=True)
         
         df.sort_values(['SK_ID_CURR', 'DAYS_DECISION'], inplace=True)
         df.reset_index(drop=True, inplace=True)
@@ -401,6 +406,7 @@ if True:
                 'AMT_APPLICATION-m-app_AMT_GOODS_PRICE-d-app_AMT_INCOME_TOTAL',
                 'AMT_CREDIT-m-app_AMT_GOODS_PRICE-d-app_AMT_INCOME_TOTAL',
                 'AMT_GOODS_PRICE-m-app_AMT_GOODS_PRICE-d-app_AMT_INCOME_TOTAL',    
+                'nejumi'
                ]
         
         def multi_prev(c):
@@ -708,6 +714,10 @@ if True:
         
         df['AMT_DRAWINGS_CURRENT-d-AMT_CREDIT_LIMIT_ACTUAL'] = df['AMT_DRAWINGS_CURRENT'] / df['AMT_CREDIT_LIMIT_ACTUAL']
         
+        df['AMT_TOTAL_RECEIVABLE-m-AMT_RECEIVABLE_PRINCIPAL'] = df['AMT_TOTAL_RECEIVABLE'] - df['AMT_RECEIVABLE_PRINCIPAL']
+        df['AMT_RECEIVABLE_PRINCIPAL-d-AMT_TOTAL_RECEIVABLE'] = df['AMT_RECEIVABLE_PRINCIPAL'] / df['AMT_TOTAL_RECEIVABLE']
+        
+        
         df['SK_DPD-m-SK_DPD_DEF'] = df['SK_DPD'] - df['SK_DPD_DEF']
         df['SK_DPD-m-SK_DPD_DEF_over0'] = (df['SK_DPD-m-SK_DPD_DEF']>0)*1
         df['SK_DPD-m-SK_DPD_DEF_over5']  = (df['SK_DPD-m-SK_DPD_DEF']>5)*1
@@ -729,7 +739,9 @@ if True:
                'AMT_BALANCE-d-app_AMT_GOODS_PRICE', 'AMT_DRAWINGS_CURRENT-d-app_AMT_INCOME_TOTAL',
                'AMT_DRAWINGS_CURRENT-d-app_AMT_CREDIT', 'AMT_DRAWINGS_CURRENT-d-app_AMT_ANNUITY',
                'AMT_DRAWINGS_CURRENT-d-app_AMT_GOODS_PRICE', 'AMT_BALANCE-d-AMT_CREDIT_LIMIT_ACTUAL',
-               'AMT_BALANCE-d-AMT_DRAWINGS_CURRENT', 'AMT_DRAWINGS_CURRENT-d-AMT_CREDIT_LIMIT_ACTUAL'
+               'AMT_BALANCE-d-AMT_DRAWINGS_CURRENT', 'AMT_DRAWINGS_CURRENT-d-AMT_CREDIT_LIMIT_ACTUAL',
+               'AMT_TOTAL_RECEIVABLE-m-AMT_RECEIVABLE_PRINCIPAL',
+               'AMT_RECEIVABLE_PRINCIPAL-d-AMT_TOTAL_RECEIVABLE'
                ]
         
         df.sort_values(['SK_ID_PREV', 'MONTHS_BALANCE'], inplace=True)

@@ -79,7 +79,8 @@ prev_num_aggregations = {
     'AMT_ANNUITY-m-app_AMT_GOODS_PRICE-d-app_AMT_INCOME_TOTAL':      stats,
     'AMT_APPLICATION-m-app_AMT_GOODS_PRICE-d-app_AMT_INCOME_TOTAL':      stats,
     'AMT_CREDIT-m-app_AMT_GOODS_PRICE-d-app_AMT_INCOME_TOTAL':      stats,
-    'AMT_GOODS_PRICE-m-app_AMT_GOODS_PRICE-d-app_AMT_INCOME_TOTAL':      stats,    
+    'AMT_GOODS_PRICE-m-app_AMT_GOODS_PRICE-d-app_AMT_INCOME_TOTAL':      stats,
+    'nejumi':      stats,
     
     'DAYS_FIRST_DRAWING-m-app_DAYS_BIRTH': stats,
     'DAYS_FIRST_DRAWING-m-app_DAYS_EMPLOYED': stats,
@@ -404,6 +405,8 @@ cre_num_aggregations = {
  'AMT_DRAWINGS_CURRENT-d-app_AMT_CREDIT': stats_sum,
  'AMT_DRAWINGS_CURRENT-d-app_AMT_ANNUITY': stats_sum,
  'AMT_DRAWINGS_CURRENT-d-app_AMT_GOODS_PRICE': stats_sum,
+ 'AMT_TOTAL_RECEIVABLE-m-AMT_RECEIVABLE_PRINCIPAL': stats_sum,
+ 'AMT_RECEIVABLE_PRINCIPAL-d-AMT_TOTAL_RECEIVABLE': stats_sum,
  
  'SK_DPD-m-SK_DPD_DEF': stats_sum,
  'SK_DPD-m-SK_DPD_DEF_over0': stats_sum,
