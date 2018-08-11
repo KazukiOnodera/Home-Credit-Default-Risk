@@ -25,13 +25,13 @@ SEED = 71
 
 LOOP = 20
 
-NROUND = 4500
+NROUND = 4600
 
-SUBMIT_FILE_PATH = f'../output/810-1.csv.gz'
+SUBMIT_FILE_PATH = f'../output/811-1.csv.gz'
 
-COMMENT = f'LB804 + EXT_imp'
+COMMENT = f'LB804 + EXT_v2'
 
-new_features = ['f011', 'f012', 'f013']
+new_features = ['f014', 'f015', 'f016']
 
 
 EXE_SUBMIT = True

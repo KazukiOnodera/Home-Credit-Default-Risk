@@ -23,7 +23,7 @@ import utils, utils_best
 
 SEED = 71
 
-new_features = ['f011', 'f012', 'f013']
+new_features = ['f014', 'f015', 'f016']
 
 COMMENT = new_features
 
@@ -65,7 +65,7 @@ files_tr = utils.get_use_files(new_features, True)
 
 X_ = pd.concat([pd.read_feather(f) for f in tqdm(files_tr, mininterval=60)
                 ], axis=1)
-X_new = pd.concat([X_old, X_], axis=1)
+X_new = pd.concat([X_old, X_], axis=1).drop(['f001_EXT_SOURCE_1', 'f001_EXT_SOURCE_2','f001_EXT_SOURCE_3'], axis=1)
 del X_
 
 if X_new.columns.duplicated().sum()>0:
