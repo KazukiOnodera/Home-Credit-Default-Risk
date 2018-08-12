@@ -21,7 +21,7 @@ import utils, utils_cat
 utils.start(__file__)
 #==============================================================================
 
-SEED = 72
+SEED = 71
 
 HEAD = 1000 * 100
 #HEAD = None
