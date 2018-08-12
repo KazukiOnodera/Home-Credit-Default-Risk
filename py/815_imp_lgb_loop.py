@@ -84,6 +84,7 @@ dtrain = lgb.Dataset(X, y, categorical_feature=CAT, free_raw_data=False)
 gc.collect()
 
 for i in range(10):
+    gc.collect()
     seed = np.random.randint(99999)
     print('seed:', seed)
     param['seed'] = seed
@@ -91,7 +92,7 @@ for i in range(10):
                          early_stopping_rounds=100, verbose_eval=50,
                          seed=seed)
     
-    result = f"CV auc-mean: {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
+    result = f"CV auc-mean({seed}): {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
     print(result)
     
     utils.send_line(result)
