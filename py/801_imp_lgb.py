@@ -21,7 +21,7 @@ import utils, utils_cat
 utils.start(__file__)
 #==============================================================================
 
-SEED = 71
+SEED = 72
 
 HEAD = 1000 * 100
 #HEAD = None
@@ -155,7 +155,7 @@ gc.collect()
 
 ret, models = lgb.cv(param, dtrain, 9999, nfold=6,
                      early_stopping_rounds=100, verbose_eval=50,
-                     seed=111)
+                     seed=SEED)
 
 result = f"CV auc-mean: {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
 print(result)
