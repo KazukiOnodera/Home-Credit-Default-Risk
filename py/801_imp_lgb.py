@@ -35,7 +35,7 @@ EXE_802 = True
 param = {
          'objective': 'binary',
          'metric': 'auc',
-         'learning_rate': 0.005,
+         'learning_rate': 0.01,
          'max_depth': 6,
          'num_leaves': 63,
          'max_bin': 255,
@@ -60,10 +60,10 @@ if ONLY_ME:
 else:
     use_files = ['train_']
 
-imp = pd.read_csv('LOG/imp_801_imp_lgb.py-2.csv')
-imp.sort_values('total', ascending=False, inplace=True)
-
-files = ('../feature/train_' + imp.head(3000).feature + '.f').tolist()
+#imp = pd.read_csv('LOG/imp_801_imp_lgb.py-2.csv')
+#imp.sort_values('total', ascending=False, inplace=True)
+#
+#files = ('../feature/train_' + imp.head(3000).feature + '.f').tolist()
 
 # =============================================================================
 # reset load
