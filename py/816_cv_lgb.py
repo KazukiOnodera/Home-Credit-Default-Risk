@@ -23,7 +23,9 @@ utils.start(__file__)
 
 SEED = 71
 
-HEADS = list(range(400, 2300, 100))
+LOOP = 3
+
+HEADS = list(range(500, 2300, 100))
 
 param = {
          'objective': 'binary',
@@ -75,16 +77,22 @@ for HEAD in HEADS:
     # =============================================================================
     # cv
     # =============================================================================
-    dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
+    dtrain = lgb.Dataset(X, y, categorical_feature=CAT, free_raw_data=False)
     gc.collect()
     
-    ret, models = lgb.cv(param, dtrain, 9999, nfold=7,
-                         early_stopping_rounds=100, verbose_eval=50,
-                         seed=SEED)
+    auc_mean = 0
+    for i in range(LOOP):
+        ret, models = lgb.cv(param, dtrain, 9999, nfold=7,
+                             early_stopping_rounds=100, verbose_eval=50,
+                             seed=i)
     
-    result = f"CV auc-mean({SEED}:{HEAD}): {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
-    print(result)
+        result = f"CV auc-mean(seed {SEED}, features {HEAD}): {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
+        print(result)
+        utils.send_line(result)
+        auc_mean += ret['auc-mean'][-1]
     
+    auc_mean /= LOOP
+    result = f"CV auc-mean({HEAD}): {auc_mean}"
     utils.send_line(result)
 
 
