@@ -15,6 +15,8 @@ nohup python -u 915_predict_813-1.py 700 > LOG/log_915_predict_813-1.py_700.txt 
 cd Home-Credit-Default-Risk/py
 nohup python -u 915_predict_813-1.py 800 > LOG/log_915_predict_813-1.py_800.txt &
 
+cd Home-Credit-Default-Risk/py
+nohup python -u 915_predict_813-1.py 900 > LOG/log_915_predict_813-1.py_900.txt &
 
 """
 
