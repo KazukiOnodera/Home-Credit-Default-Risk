@@ -1,12 +1,12 @@
 
 #==============================================================================
-# START!!! 101_aggregate.py    PID: 8897    time: 2018-07-20 09:50:49.693229
+# START!!! 101_aggregate.py    PID: 8901    time: 2018-08-11 15:44:32.334296
 #==============================================================================
 
-rm: cannot remove '../feature/t*_f101_*': No such file or directory
-  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:02<00:56,  2.99s/it] 10%|█         | 2/20 [00:05<00:52,  2.94s/it] 15%|█▌        | 3/20 [00:08<00:48,  2.86s/it] 20%|██        | 4/20 [00:11<00:45,  2.87s/it] 25%|██▌       | 5/20 [00:14<00:42,  2.83s/it] 30%|███       | 6/20 [00:16<00:39,  2.80s/it] 35%|███▌      | 7/20 [00:19<00:36,  2.77s/it] 40%|████      | 8/20 [00:22<00:33,  2.76s/it] 45%|████▌     | 9/20 [00:24<00:30,  2.73s/it] 50%|█████     | 10/20 [00:27<00:27,  2.80s/it] 55%|█████▌    | 11/20 [00:32<00:26,  2.97s/it] 60%|██████    | 12/20 [00:37<00:24,  3.10s/it] 65%|██████▌   | 13/20 [00:42<00:22,  3.25s/it] 70%|███████   | 14/20 [00:47<00:20,  3.37s/it] 75%|███████▌  | 15/20 [00:52<00:17,  3.48s/it] 80%|████████  | 16/20 [00:57<00:14,  3.57s/it] 85%|████████▌ | 17/20 [01:02<00:10,  3.66s/it] 90%|█████████ | 18/20 [01:07<00:07,  3.73s/it] 95%|█████████▌| 19/20 [01:09<00:03,  3.66s/it]100%|██████████| 20/20 [01:14<00:00,  3.72s/it]
-  0%|          | 0/20 [00:00<?, ?it/s] 10%|█         | 2/20 [00:00<00:00, 18.68it/s] 20%|██        | 4/20 [00:00<00:00, 17.68it/s] 30%|███       | 6/20 [00:00<00:00, 17.50it/s] 40%|████      | 8/20 [00:00<00:00, 17.72it/s] 50%|█████     | 10/20 [00:00<00:00, 17.48it/s] 60%|██████    | 12/20 [00:00<00:00, 17.63it/s] 70%|███████   | 14/20 [00:00<00:00, 17.56it/s] 90%|█████████ | 18/20 [00:00<00:00, 19.42it/s]100%|██████████| 20/20 [00:00<00:00, 20.15it/s]
-  0%|          | 0/20 [00:00<?, ?it/s] 70%|███████   | 14/20 [00:00<00:00, 128.95it/s]100%|██████████| 20/20 [00:00<00:00, 133.62it/s]
+sh: 1: rm: Argument list too long
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:02<00:51,  2.70s/it] 10%|█         | 2/20 [00:05<00:46,  2.57s/it] 15%|█▌        | 3/20 [00:07<00:43,  2.53s/it] 20%|██        | 4/20 [00:10<00:40,  2.52s/it] 25%|██▌       | 5/20 [00:12<00:37,  2.50s/it] 30%|███       | 6/20 [00:14<00:34,  2.49s/it] 35%|███▌      | 7/20 [00:17<00:32,  2.50s/it] 40%|████      | 8/20 [00:19<00:29,  2.49s/it] 45%|████▌     | 9/20 [00:22<00:27,  2.49s/it] 50%|█████     | 10/20 [00:24<00:24,  2.48s/it] 55%|█████▌    | 11/20 [00:27<00:22,  2.48s/it] 60%|██████    | 12/20 [00:29<00:19,  2.48s/it] 65%|██████▌   | 13/20 [00:32<00:17,  2.47s/it] 70%|███████   | 14/20 [00:34<00:14,  2.47s/it] 75%|███████▌  | 15/20 [00:37<00:12,  2.48s/it] 80%|████████  | 16/20 [00:39<00:09,  2.47s/it] 85%|████████▌ | 17/20 [00:42<00:07,  2.48s/it] 90%|█████████ | 18/20 [00:44<00:04,  2.48s/it] 95%|█████████▌| 19/20 [00:47<00:02,  2.48s/it]100%|██████████| 20/20 [00:49<00:00,  2.48s/it]
+  0%|          | 0/20 [00:00<?, ?it/s] 15%|█▌        | 3/20 [00:00<00:00, 21.26it/s] 30%|███       | 6/20 [00:00<00:00, 20.91it/s] 45%|████▌     | 9/20 [00:00<00:00, 21.94it/s] 55%|█████▌    | 11/20 [00:00<00:00, 18.49it/s] 65%|██████▌   | 13/20 [00:01<00:00, 12.21it/s] 75%|███████▌  | 15/20 [00:01<00:00, 10.25it/s] 80%|████████  | 16/20 [00:01<00:00,  9.51it/s] 85%|████████▌ | 17/20 [00:01<00:00,  8.75it/s] 90%|█████████ | 18/20 [00:02<00:00,  8.16it/s] 95%|█████████▌| 19/20 [00:02<00:00,  7.85it/s]100%|██████████| 20/20 [00:02<00:00,  7.52it/s]
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:00<00:02,  6.76it/s] 20%|██        | 4/20 [00:00<00:01, 14.54it/s] 30%|███       | 6/20 [00:00<00:00, 15.08it/s] 45%|████▌     | 9/20 [00:00<00:00, 15.15it/s] 55%|█████▌    | 11/20 [00:00<00:00, 15.66it/s] 65%|██████▌   | 13/20 [00:00<00:00, 15.38it/s] 75%|███████▌  | 15/20 [00:01<00:00, 14.81it/s] 85%|████████▌ | 17/20 [00:01<00:00, 14.94it/s] 95%|█████████▌| 19/20 [00:01<00:00, 15.17it/s]100%|██████████| 20/20 [00:01<00:00, 15.41it/s]
 ['NAME_CONTRACT_STATUS', 'Approved', 'approved_']
 ['NAME_CONTRACT_STATUS', 'Refused', 'refused_']
 ['NAME_YIELD_GROUP', 'high', 'nyg-high_']
@@ -19,9 +19,24 @@ remove var<=0: Index(['nyg-low_action_NAME_GOODS_CATEGORY_Insurance_mean',
        'nyg-low_action_NAME_GOODS_CATEGORY_Insurance_sum',
        'nyg-low_action_NAME_YIELD_GROUP_low_action_mean'],
       dtype='object')
+remove var<=0: Index(['refused_cnt_paid_sum', 'refused_cnt_unpaid_sum',
+       'refused_amt_paid_sum', 'refused_amt_unpaid_sum', 'refused_active_min',
+       'refused_active_mean', 'refused_active_max', 'refused_active_std',
+       'refused_active_sum', 'refused_completed_min', 'refused_completed_mean',
+       'refused_completed_max', 'refused_completed_std',
+       'refused_completed_sum', 'refused_NAME_CONTRACT_STATUS_Refused_mean',
+       'refused_CODE_REJECT_REASON_XAP_mean',
+       'refused_CODE_REJECT_REASON_XAP_sum',
+       'refused_NAME_GOODS_CATEGORY_House-Construction_mean',
+       'refused_NAME_GOODS_CATEGORY_House-Construction_sum',
+       'refused_NAME_GOODS_CATEGORY_Insurance_mean',
+       'refused_NAME_GOODS_CATEGORY_Insurance_sum',
+       'refused_NAME_GOODS_CATEGORY_Weapon_mean',
+       'refused_NAME_GOODS_CATEGORY_Weapon_sum'],
+      dtype='object')
 remove var<=0: Index(['active_active_min', 'active_active_mean', 'active_active_max',
-       'active_active_var', 'active_completed_min', 'active_completed_mean',
-       'active_completed_max', 'active_completed_var', 'active_completed_sum',
+       'active_active_std', 'active_completed_min', 'active_completed_mean',
+       'active_completed_max', 'active_completed_std', 'active_completed_sum',
        'active_NAME_CASH_LOAN_PURPOSE_Hobby_mean',
        'active_NAME_CASH_LOAN_PURPOSE_Hobby_sum',
        'active_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_mean',
@@ -32,22 +47,18 @@ remove var<=0: Index(['active_active_min', 'active_active_mean', 'active_active_
        'active_NAME_GOODS_CATEGORY_Additional-Service_mean',
        'active_NAME_GOODS_CATEGORY_Additional-Service_sum',
        'active_CODE_REJECT_REASON_XNA_mean',
-       'active_CODE_REJECT_REASON_XNA_sum'],
+       'active_CODE_REJECT_REASON_XNA_sum', 'active_active_std-d-mean',
+       'active_active_max-d-min'],
       dtype='object')
-remove var<=0: Index(['refused_cnt_paid_sum', 'refused_cnt_unpaid_sum',
-       'refused_amt_paid_sum', 'refused_amt_unpaid_sum', 'refused_active_min',
-       'refused_active_mean', 'refused_active_max', 'refused_active_var',
-       'refused_active_sum', 'refused_completed_min', 'refused_completed_mean',
-       'refused_completed_max', 'refused_completed_var',
-       'refused_completed_sum', 'refused_NAME_CONTRACT_STATUS_Refused_mean',
-       'refused_CODE_REJECT_REASON_XAP_mean',
-       'refused_CODE_REJECT_REASON_XAP_sum',
-       'refused_NAME_GOODS_CATEGORY_House-Construction_mean',
-       'refused_NAME_GOODS_CATEGORY_House-Construction_sum',
-       'refused_NAME_GOODS_CATEGORY_Insurance_mean',
-       'refused_NAME_GOODS_CATEGORY_Insurance_sum',
-       'refused_NAME_GOODS_CATEGORY_Weapon_mean',
-       'refused_NAME_GOODS_CATEGORY_Weapon_sum'],
+remove var<=0: Index(['nyg-low_normal_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_mean',
+       'nyg-low_normal_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_sum',
+       'nyg-low_normal_CODE_REJECT_REASON_SYSTEM_mean',
+       'nyg-low_normal_CODE_REJECT_REASON_SYSTEM_sum',
+       'nyg-low_normal_NAME_GOODS_CATEGORY_Animals_mean',
+       'nyg-low_normal_NAME_GOODS_CATEGORY_Animals_sum',
+       'nyg-low_normal_NAME_GOODS_CATEGORY_House-Construction_mean',
+       'nyg-low_normal_NAME_GOODS_CATEGORY_House-Construction_sum',
+       'nyg-low_normal_NAME_YIELD_GROUP_low_normal_mean'],
       dtype='object')
 remove var<=0: Index(['nyg-high_CODE_REJECT_REASON_SYSTEM_mean',
        'nyg-high_CODE_REJECT_REASON_SYSTEM_sum',
@@ -63,16 +74,6 @@ remove var<=0: Index(['nyg-high_CODE_REJECT_REASON_SYSTEM_mean',
        'nyg-high_NAME_SELLER_INDUSTRY_Tourism_sum',
        'nyg-high_NAME_YIELD_GROUP_high_mean'],
       dtype='object')
-remove var<=0: Index(['nyg-low_normal_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_mean',
-       'nyg-low_normal_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_sum',
-       'nyg-low_normal_CODE_REJECT_REASON_SYSTEM_mean',
-       'nyg-low_normal_CODE_REJECT_REASON_SYSTEM_sum',
-       'nyg-low_normal_NAME_GOODS_CATEGORY_Animals_mean',
-       'nyg-low_normal_NAME_GOODS_CATEGORY_Animals_sum',
-       'nyg-low_normal_NAME_GOODS_CATEGORY_House-Construction_mean',
-       'nyg-low_normal_NAME_GOODS_CATEGORY_House-Construction_sum',
-       'nyg-low_normal_NAME_YIELD_GROUP_low_normal_mean'],
-      dtype='object')
 remove var<=0: Index(['nyg-middle_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_mean',
        'nyg-middle_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_sum',
        'nyg-middle_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_mean',
@@ -84,23 +85,25 @@ remove var<=0: Index(['nyg-middle_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-perso
        'nyg-middle_NAME_YIELD_GROUP_middle_mean'],
       dtype='object')
 remove var<=0: Index(['completed_cnt_paid_ratio_min', 'completed_cnt_paid_ratio_mean',
-       'completed_cnt_paid_ratio_max', 'completed_cnt_paid_ratio_var',
+       'completed_cnt_paid_ratio_max', 'completed_cnt_paid_ratio_std',
        'completed_cnt_unpaid_min', 'completed_cnt_unpaid_mean',
-       'completed_cnt_unpaid_max', 'completed_cnt_unpaid_var',
+       'completed_cnt_unpaid_max', 'completed_cnt_unpaid_std',
        'completed_cnt_unpaid_sum', 'completed_amt_unpaid_min',
        'completed_amt_unpaid_mean', 'completed_amt_unpaid_max',
-       'completed_amt_unpaid_var', 'completed_amt_unpaid_sum',
+       'completed_amt_unpaid_std', 'completed_amt_unpaid_sum',
        'completed_active_min', 'completed_active_mean', 'completed_active_max',
-       'completed_active_var', 'completed_active_sum',
+       'completed_active_std', 'completed_active_sum',
        'completed_completed_min', 'completed_completed_mean',
-       'completed_completed_max', 'completed_completed_var',
+       'completed_completed_max', 'completed_completed_std',
        'completed_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_mean',
        'completed_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_sum',
        'completed_NAME_CONTRACT_STATUS_Approved_mean',
        'completed_NAME_GOODS_CATEGORY_Animals_mean',
        'completed_NAME_GOODS_CATEGORY_Animals_sum',
        'completed_CODE_REJECT_REASON_XNA_mean',
-       'completed_CODE_REJECT_REASON_XNA_sum'],
+       'completed_CODE_REJECT_REASON_XNA_sum',
+       'completed_cnt_paid_ratio_std-d-mean', 'completed_completed_std-d-mean',
+       'completed_cnt_paid_ratio_max-d-min', 'completed_completed_max-d-min'],
       dtype='object')
 remove var<=0: Index(['approved_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_mean',
        'approved_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_sum',
@@ -118,4 +121,4 @@ remove var<=0: Index(['approved_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_
 # SUCCESS !!! 101_aggregate.py
 #==============================================================================
 
-time: 22.78min
+time: 33.72min

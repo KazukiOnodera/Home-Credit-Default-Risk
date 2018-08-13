@@ -1,0 +1,27 @@
+num_class: 8
+[50]	cv_agg's multi_logloss: 0.707498 + 0.00380392
+[100]	cv_agg's multi_logloss: 0.694209 + 0.00395108
+[150]	cv_agg's multi_logloss: 0.688361 + 0.00386436
+[200]	cv_agg's multi_logloss: 0.68519 + 0.00395921
+[250]	cv_agg's multi_logloss: 0.683154 + 0.00386749
+[300]	cv_agg's multi_logloss: 0.681951 + 0.00392354
+[350]	cv_agg's multi_logloss: 0.681082 + 0.00390062
+[400]	cv_agg's multi_logloss: 0.680556 + 0.00383708
+[450]	cv_agg's multi_logloss: 0.680283 + 0.00379855
+[500]	cv_agg's multi_logloss: 0.680151 + 0.00378452
+[550]	cv_agg's multi_logloss: 0.680084 + 0.00379855
+[600]	cv_agg's multi_logloss: 0.680106 + 0.00383189
+[650]	cv_agg's multi_logloss: 0.680148 + 0.00381056
+
+#==============================================================================
+# SUCCESS !!! 705_CHANNEL_TYPE.py
+#==============================================================================
+
+Traceback (most recent call last):
+  File "705_CHANNEL_TYPE.py", line 162, in <module>
+    utils.end(__file__)
+  File "/home/Kazuki/Home-Credit-Default-Risk/py/utils.py", line 154, in end
+    print('time: {:.2f}min'.format( elapsed_minute() ))
+  File "/home/Kazuki/Home-Credit-Default-Risk/py/utils.py", line 159, in elapsed_minute
+    return (time() - st_time)/60
+NameError: name 'st_time' is not defined

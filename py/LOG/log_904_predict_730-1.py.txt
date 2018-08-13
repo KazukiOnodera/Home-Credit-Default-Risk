@@ -1,0 +1,31 @@
+
+#==============================================================================
+# START!!! 904_predict_730-1.py    PID: 5106    time: 2018-07-30 11:35:58.544391
+#==============================================================================
+
+  0%|          | 0/1000 [00:00<?, ?it/s] 71%|███████   | 711/1000 [01:00<00:24, 11.84it/s] 71%|███████   | 711/1000 [01:19<00:32,  8.89it/s]100%|██████████| 1000/1000 [01:24<00:00, 11.83it/s]
+  0%|          | 0/1000 [00:00<?, ?it/s]100%|██████████| 1000/1000 [00:45<00:00, 21.79it/s]
+  0%|          | 0/20 [00:00<?, ?it/s] 30%|███       | 6/20 [00:00<00:00, 51.80it/s]100%|██████████| 20/20 [00:00<00:00, 97.34it/s]
+no dup :) 
+X_train.shape (307511, 1001)
+category: ['f002_OCCUPATION_TYPE', 'f108_PRODUCT_COMBINATION', 'f002_WALLSMATERIAL_MODE', 'f002_ORGANIZATION_TYPE', 'f002_WEEKDAY_APPR_PROCESS_START', 'f002_NAME_EDUCATION_TYPE', 'f109_PRODUCT_COMBINATION', 'f002_NAME_INCOME_TYPE', 'f108_NAME_TYPE_SUITE', 'f108_NAME_GOODS_CATEGORY', 'f002_NAME_FAMILY_STATUS', 'f109_NAME_GOODS_CATEGORY']
+f0: 92
+f1: 249
+f2: 25
+f3: 267
+f4: 21
+f5: 325
+f6: 2
+f7: 19
+ne: 1
+LOOP: 0
+LOOP: 1
+LOOP: 2
+submit
+Warning: Looks like you're using an outdated API Version, please consider updating (server 1.4.3 / client 1.4.2)
+Successfully submitted to Home Credit Default Risk
+#==============================================================================
+# SUCCESS !!! 904_predict_730-1.py
+#==============================================================================
+
+time: 26.54min

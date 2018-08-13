@@ -1,0 +1,25 @@
+
+#==============================================================================
+# START!!! 905_predict_731-1.py    PID: 3967    time: 2018-07-31 07:02:46.800723
+#==============================================================================
+
+  0%|          | 0/600 [00:00<?, ?it/s]100%|██████████| 600/600 [00:53<00:00, 11.18it/s]
+  0%|          | 0/600 [00:00<?, ?it/s]100%|██████████| 600/600 [00:25<00:00, 23.31it/s]
+  0%|          | 0/20 [00:00<?, ?it/s] 25%|██▌       | 5/20 [00:00<00:00, 40.98it/s] 70%|███████   | 14/20 [00:00<00:00, 59.99it/s]100%|██████████| 20/20 [00:00<00:00, 69.38it/s]
+no dup :) 
+X_train.shape (307511, 601)
+category: ['f002_NAME_EDUCATION_TYPE', 'f002_OCCUPATION_TYPE', 'f002_NAME_FAMILY_STATUS', 'f109_NAME_GOODS_CATEGORY', 'f002_ORGANIZATION_TYPE', 'f002_WEEKDAY_APPR_PROCESS_START', 'f108_NAME_GOODS_CATEGORY', 'f108_PRODUCT_COMBINATION', 'f002_NAME_INCOME_TYPE', 'f109_PRODUCT_COMBINATION']
+f0: 87
+f1: 219
+f3: 123
+f4: 16
+f5: 126
+f6: 11
+f7: 18
+ne: 1
+LOOP: 0
+LOOP: 1
+LOOP: 2
+submit
+Warning: Looks like you're using an outdated API Version, please consider updating (server 1.4.4 / client 1.4.3)
+Successfully submitted to Home Credit Default Risk

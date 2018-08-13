@@ -1,0 +1,103 @@
+  0%|          | 0/20 [00:00<?, ?it/s] 40%|████      | 8/20 [00:00<00:00, 35.47it/s]100%|██████████| 20/20 [00:00<00:00, 77.71it/s]
+no dup :) 
+X.shape (307511, 1001)
+start from auc-mean: 0.7920509103834428
+
+drop f105_prevapp_future_payment_27m
+auc-mean: 0.792026091137053
+
+drop f504_DAYS_CREDIT_UPDATE_diff_min
+auc-mean: 0.7920720535396928
+UPDATE!    auc-mean:+0.79207    DIFF:+0.00002
+
+drop f503_DAYS_CREDIT_ENDDATE-m-DAYS_CREDIT_std-d-mean
+auc-mean: 0.79184671614119
+
+drop f310_delay_NUM_INSTALMENT_ratio_min
+auc-mean: 0.7917155008945882
+
+drop f301_delay_amt_delta_std-d-mean
+auc-mean: 0.792023957979636
+
+drop f305_notdelay_con_AMT_PAYMENT-d-app_AMT_INCOME_TOTAL_mean
+auc-mean: 0.7918927782201713
+
+drop f505_Active_DAYS_CREDIT-m-app_DAYS_ID_PUBLISH_min
+auc-mean: 0.7919383726643918
+
+drop f308_cons_AMT_INSTALMENT_diff_var
+auc-mean: 0.7917423759336312
+
+drop f301_delay_AMT_PAYMENT-d-AMT_ANNUITY_min
+auc-mean: 0.7917245308938015
+
+drop f406_AMT_BALANCE-d-app_AMT_INCOME_TOTAL_diff_diff_mean
+auc-mean: 0.7917693750115473
+
+drop f308_cas_DAYS_INSTALMENT_pctchange_mean
+auc-mean: 0.7918253728909475
+
+drop f501_AMT_CREDIT_SUM-m-AMT_CREDIT_SUM_DEBT_std
+auc-mean: 0.7918305971419093
+
+drop f101_completed_AMT_ANNUITY_max
+auc-mean: 0.7917450137092821
+
+drop f101_nyg-middle_AMT_APPLICATION-m-app_AMT_INCOME_TOTAL_min
+auc-mean: 0.7917911830636527
+
+drop f101_completed_AMT_ANNUITY-m-app_AMT_ANNUITY-d-app_AMT_INCOME_TOTAL_mean
+auc-mean: 0.79183771464942
+
+drop f505_Active_AMT_CREDIT_SUM-d-app_AMT_INCOME_TOTAL_min
+auc-mean: 0.7919070920606543
+
+drop f509_AMT_CREDIT_SUM_DEBT-p-AMT_CREDIT_SUM_LIMIT_diff
+auc-mean: 0.7918194489696835
+
+drop f501_DAYS_ENDDATE_FACT-m-DAYS_CREDIT_ENDDATE_max
+auc-mean: 0.7917710981554325
+
+drop f102_nyg-high_DAYS_LAST_DUE-d-app_DAYS_LAST_PHONE_CHANGE_max
+auc-mean: 0.7916636422706016
+
+drop f505_Closed_AMT_CREDIT_SUM-m-AMT_CREDIT_SUM_DEBT_pctchange_mean
+auc-mean: 0.7917784150359976
+
+drop f101_approved_AMT_ANNUITY-m-app_AMT_ANNUITY_max
+auc-mean: 0.7918239702658609
+
+drop f308_cons_days_weighted_delay_diff_var
+auc-mean: 0.7917022861099954
+
+drop f302_delay_NUM_INSTALMENT_ratio_std-d-mean
+auc-mean: 0.7916653397890324
+
+drop f505_Active_AMT_CREDIT_SUM_DEBT-d-app_AMT_INCOME_TOTAL_mean
+auc-mean: 0.7916768723154051
+
+drop f501_AMT_CREDIT_SUM-d-debt-p-AMT_CREDIT_SUM_DEBT-p-AMT_CREDIT_SUM_LIMIT_max
+auc-mean: 0.7917398248813825
+
+drop f303_AMT_INSTALMENT_sum
+auc-mean: 0.7917804515235123
+
+drop f501_DAYS_ENDDATE_FACT-m-DAYS_CREDIT_ENDDATE_sum
+auc-mean: 0.7917334302801546
+
+drop f109_AMT_APPLICATION-d-app_AMT_ANNUITY
+auc-mean: 0.791823637755563
+
+drop f303_days_weighted_delay_mean
+auc-mean: 0.791809383801855
+
+drop f310_DAYS_ENTRY_PAYMENT_mean
+auc-mean: 0.7918097418305913
+
+drop f309_notdelay_AMT_PAYMENT-d-app_AMT_INCOME_TOTAL_min
+auc-mean: 0.7918787924310151
+
+drop f301_delay_DAYS_ENTRY_PAYMENT-m-app_DAYS_ID_PUBLISH_mean
+auc-mean: 0.7918816350188453
+
+drop f308_delay_cons_days_weighted_delay_tsw3_diff_mean

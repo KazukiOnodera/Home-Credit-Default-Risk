@@ -1,8 +1,9 @@
 
 #==============================================================================
-# START!!! 317_shift-3m_aggregate-1y_curr.py    PID: 4679    time: 2018-07-24 03:25:25.345295
+# START!!! 317_shift-3m_aggregate-1y_curr.py    PID: 53763    time: 2018-07-29 16:32:54.202592
 #==============================================================================
 
+rm: cannot remove '../feature/t*_f317_*': No such file or directory
 Traceback (most recent call last):
   File "/home/Kazuki/anaconda3/lib/python3.6/site-packages/pandas/core/indexes/base.py", line 2525, in get_loc
     return self._engine.get_loc(key)

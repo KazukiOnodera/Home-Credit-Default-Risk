@@ -1,0 +1,19 @@
+
+#==============================================================================
+# START!!! 907_predict_804-1.py    PID: 5857    time: 2018-08-03 20:01:39.025677
+#==============================================================================
+
+  0%|          | 0/20 [00:00<?, ?it/s] 25%|██▌       | 5/20 [00:00<00:00, 41.55it/s]100%|██████████| 20/20 [00:00<00:00, 93.53it/s]
+no dup :) 
+X_train.shape (307511, 1249)
+category: ['NAME_EDUCATION_TYPE', 'NAME_CONTRACT_TYPE', 'OCCUPATION_TYPE', 'FLAG_DOCUMENT_PATTERN', 'NAME_HOUSING_TYPE', 'WALLSMATERIAL_MODE', 'WEEKDAY_APPR_PROCESS_START', 'FLAG_OWN_REALTY', 'NAME_FAMILY_STATUS', 'NAME_INCOME_TYPE', 'FLAG_OWN_CAR', 'HOUSETYPE_MODE']
+LOOP: 0
+LOOP: 1
+LOOP: 2
+submit
+Successfully submitted to Home Credit Default Risk
+#==============================================================================
+# SUCCESS !!! 907_predict_804-1.py
+#==============================================================================
+
+time: 26.72min

@@ -1,12 +1,12 @@
 
 #==============================================================================
-# START!!! 104_aggregate-3y.py    PID: 8906    time: 2018-07-20 09:50:49.692775
+# START!!! 104_aggregate-3y.py    PID: 16980    time: 2018-08-11 16:19:28.493150
 #==============================================================================
 
 rm: cannot remove '../feature/t*_f104_*': No such file or directory
-  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:02<00:56,  2.99s/it] 10%|█         | 2/20 [00:05<00:52,  2.93s/it] 15%|█▌        | 3/20 [00:08<00:48,  2.86s/it] 20%|██        | 4/20 [00:11<00:45,  2.87s/it] 25%|██▌       | 5/20 [00:14<00:42,  2.83s/it] 30%|███       | 6/20 [00:16<00:39,  2.80s/it] 35%|███▌      | 7/20 [00:19<00:36,  2.77s/it] 40%|████      | 8/20 [00:22<00:33,  2.76s/it] 45%|████▌     | 9/20 [00:24<00:30,  2.73s/it] 50%|█████     | 10/20 [00:27<00:27,  2.80s/it] 55%|█████▌    | 11/20 [00:32<00:26,  2.97s/it] 60%|██████    | 12/20 [00:37<00:24,  3.10s/it] 65%|██████▌   | 13/20 [00:42<00:22,  3.25s/it] 70%|███████   | 14/20 [00:47<00:20,  3.37s/it] 75%|███████▌  | 15/20 [00:52<00:17,  3.48s/it] 80%|████████  | 16/20 [00:57<00:14,  3.57s/it] 85%|████████▌ | 17/20 [01:02<00:10,  3.66s/it] 90%|█████████ | 18/20 [01:07<00:07,  3.73s/it] 95%|█████████▌| 19/20 [01:09<00:03,  3.66s/it]100%|██████████| 20/20 [01:14<00:00,  3.72s/it]
-  0%|          | 0/20 [00:00<?, ?it/s] 10%|█         | 2/20 [00:00<00:01, 10.53it/s] 15%|█▌        | 3/20 [00:00<00:01, 10.28it/s] 25%|██▌       | 5/20 [00:00<00:01, 11.60it/s] 35%|███▌      | 7/20 [00:00<00:01, 11.30it/s] 45%|████▌     | 9/20 [00:00<00:00, 11.38it/s] 55%|█████▌    | 11/20 [00:01<00:00, 10.90it/s] 70%|███████   | 14/20 [00:01<00:00, 12.41it/s] 80%|████████  | 16/20 [00:01<00:00, 12.86it/s] 95%|█████████▌| 19/20 [00:01<00:00, 13.63it/s]100%|██████████| 20/20 [00:01<00:00, 13.91it/s]
-  0%|          | 0/20 [00:00<?, ?it/s] 40%|████      | 8/20 [00:00<00:00, 79.57it/s] 65%|██████▌   | 13/20 [00:00<00:00, 59.85it/s]100%|██████████| 20/20 [00:00<00:00, 68.01it/s]
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:02<00:54,  2.84s/it] 10%|█         | 2/20 [00:05<00:48,  2.69s/it] 15%|█▌        | 3/20 [00:08<00:50,  2.97s/it] 20%|██        | 4/20 [00:13<00:52,  3.28s/it] 25%|██▌       | 5/20 [00:17<00:51,  3.41s/it] 30%|███       | 6/20 [00:20<00:48,  3.49s/it] 35%|███▌      | 7/20 [00:30<00:56,  4.37s/it] 40%|████      | 8/20 [00:37<00:56,  4.71s/it] 45%|████▌     | 9/20 [00:45<00:55,  5.03s/it] 50%|█████     | 10/20 [00:52<00:52,  5.24s/it] 55%|█████▌    | 11/20 [00:59<00:48,  5.39s/it] 60%|██████    | 12/20 [01:06<00:44,  5.52s/it] 65%|██████▌   | 13/20 [01:13<00:39,  5.66s/it] 70%|███████   | 14/20 [01:20<00:34,  5.73s/it] 75%|███████▌  | 15/20 [01:30<00:30,  6.02s/it] 80%|████████  | 16/20 [01:37<00:24,  6.09s/it] 85%|████████▌ | 17/20 [01:44<00:18,  6.14s/it] 90%|█████████ | 18/20 [01:51<00:12,  6.20s/it] 95%|█████████▌| 19/20 [01:58<00:06,  6.24s/it]100%|██████████| 20/20 [02:03<00:00,  6.20s/it]
+  0%|          | 0/20 [00:00<?, ?it/s] 15%|█▌        | 3/20 [00:00<00:00, 21.47it/s] 25%|██▌       | 5/20 [00:00<00:00, 20.20it/s] 40%|████      | 8/20 [00:00<00:00, 19.83it/s] 55%|█████▌    | 11/20 [00:00<00:00, 19.34it/s] 75%|███████▌  | 15/20 [00:00<00:00, 21.86it/s] 95%|█████████▌| 19/20 [00:00<00:00, 23.63it/s]100%|██████████| 20/20 [00:00<00:00, 23.92it/s]
+  0%|          | 0/20 [00:00<?, ?it/s] 90%|█████████ | 18/20 [00:00<00:00, 177.74it/s]100%|██████████| 20/20 [00:00<00:00, 179.74it/s]
 ['NAME_CONTRACT_STATUS', 'Approved', 'approved_']
 ['NAME_CONTRACT_STATUS', 'Refused', 'refused_']
 ['NAME_YIELD_GROUP', 'high', 'nyg-high_']
@@ -16,18 +16,19 @@ rm: cannot remove '../feature/t*_f104_*': No such file or directory
 ['active', 1, 'active_']
 ['completed', 1, 'completed_']
 remove var<=0: Index(['nyg-low_action_NAME_YIELD_GROUP_low_action_mean'], dtype='object')
-remove var<=0: Index(['active_active_min', 'active_active_mean', 'active_active_max',
-       'active_active_var', 'active_completed_min', 'active_completed_mean',
-       'active_completed_max', 'active_completed_var', 'active_completed_sum',
-       'active_NAME_CONTRACT_STATUS_Approved_mean',
-       'active_CODE_REJECT_REASON_XAP_mean'],
-      dtype='object')
 remove var<=0: Index(['refused_cnt_paid_sum', 'refused_cnt_unpaid_sum',
        'refused_amt_paid_sum', 'refused_amt_unpaid_sum', 'refused_active_min',
-       'refused_active_mean', 'refused_active_max', 'refused_active_var',
+       'refused_active_mean', 'refused_active_max', 'refused_active_std',
        'refused_active_sum', 'refused_completed_min', 'refused_completed_mean',
-       'refused_completed_max', 'refused_completed_var',
+       'refused_completed_max', 'refused_completed_std',
        'refused_completed_sum', 'refused_NAME_CONTRACT_STATUS_Refused_mean'],
+      dtype='object')
+remove var<=0: Index(['active_active_min', 'active_active_mean', 'active_active_max',
+       'active_active_std', 'active_completed_min', 'active_completed_mean',
+       'active_completed_max', 'active_completed_std', 'active_completed_sum',
+       'active_NAME_CONTRACT_STATUS_Approved_mean',
+       'active_CODE_REJECT_REASON_XAP_mean', 'active_active_std-d-mean',
+       'active_active_max-d-min'],
       dtype='object')
 remove var<=0: Index(['nyg-high_NAME_CASH_LOAN_PURPOSE_Buying-a-new-car_mean',
        'nyg-high_NAME_CASH_LOAN_PURPOSE_Buying-a-new-car_sum',
@@ -50,16 +51,16 @@ remove var<=0: Index(['nyg-middle_NAME_CASH_LOAN_PURPOSE_Buying-a-garage_mean',
        'nyg-middle_NAME_YIELD_GROUP_middle_mean'],
       dtype='object')
 remove var<=0: Index(['completed_cnt_paid_ratio_min', 'completed_cnt_paid_ratio_mean',
-       'completed_cnt_paid_ratio_max', 'completed_cnt_paid_ratio_var',
+       'completed_cnt_paid_ratio_max', 'completed_cnt_paid_ratio_std',
        'completed_cnt_unpaid_min', 'completed_cnt_unpaid_mean',
-       'completed_cnt_unpaid_max', 'completed_cnt_unpaid_var',
+       'completed_cnt_unpaid_max', 'completed_cnt_unpaid_std',
        'completed_cnt_unpaid_sum', 'completed_amt_unpaid_min',
        'completed_amt_unpaid_mean', 'completed_amt_unpaid_max',
-       'completed_amt_unpaid_var', 'completed_amt_unpaid_sum',
+       'completed_amt_unpaid_std', 'completed_amt_unpaid_sum',
        'completed_active_min', 'completed_active_mean', 'completed_active_max',
-       'completed_active_var', 'completed_active_sum',
+       'completed_active_std', 'completed_active_sum',
        'completed_completed_min', 'completed_completed_mean',
-       'completed_completed_max', 'completed_completed_var',
+       'completed_completed_max', 'completed_completed_std',
        'completed_NAME_CASH_LOAN_PURPOSE_Buying-a-garage_mean',
        'completed_NAME_CASH_LOAN_PURPOSE_Buying-a-garage_sum',
        'completed_NAME_CASH_LOAN_PURPOSE_Hobby_mean',
@@ -67,18 +68,30 @@ remove var<=0: Index(['completed_cnt_paid_ratio_min', 'completed_cnt_paid_ratio_
        'completed_NAME_CONTRACT_STATUS_Approved_mean',
        'completed_CODE_REJECT_REASON_XAP_mean',
        'completed_NAME_PORTFOLIO_Cars_mean',
-       'completed_NAME_PORTFOLIO_Cars_sum'],
+       'completed_NAME_PORTFOLIO_Cars_sum',
+       'completed_cnt_paid_ratio_std-d-mean', 'completed_completed_std-d-mean',
+       'completed_cnt_paid_ratio_max-d-min', 'completed_completed_max-d-min'],
       dtype='object')
 remove var<=0: Index(['approved_NAME_CASH_LOAN_PURPOSE_Buying-a-garage_mean',
        'approved_NAME_CASH_LOAN_PURPOSE_Buying-a-garage_sum',
        'approved_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_mean',
        'approved_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_sum',
        'approved_NAME_CONTRACT_STATUS_Approved_mean',
-       'approved_CODE_REJECT_REASON_XAP_mean'],
+       'approved_CODE_REJECT_REASON_XAP_mean',
+       'approved_DAYS_FIRST_DRAWING-m-app_DAYS_BIRTH_max-d-min',
+       'approved_DAYS_FIRST_DRAWING-m-app_DAYS_EMPLOYED_max-d-min',
+       'approved_DAYS_FIRST_DRAWING-m-app_DAYS_REGISTRATION_max-d-min',
+       'approved_DAYS_FIRST_DRAWING-m-app_DAYS_ID_PUBLISH_max-d-min',
+       'approved_DAYS_FIRST_DRAWING-m-app_DAYS_LAST_PHONE_CHANGE_max-d-min',
+       'approved_DAYS_FIRST_DRAWING-d-app_DAYS_BIRTH_max-d-min',
+       'approved_DAYS_FIRST_DRAWING-d-app_DAYS_EMPLOYED_max-d-min',
+       'approved_DAYS_FIRST_DRAWING-d-app_DAYS_REGISTRATION_max-d-min',
+       'approved_DAYS_FIRST_DRAWING-d-app_DAYS_ID_PUBLISH_max-d-min',
+       'approved_DAYS_FIRST_DRAWING-d-app_DAYS_LAST_PHONE_CHANGE_max-d-min'],
       dtype='object')
 
 #==============================================================================
 # SUCCESS !!! 104_aggregate-3y.py
 #==============================================================================
 
-time: 20.54min
+time: 19.46min

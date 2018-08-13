@@ -1,0 +1,217 @@
+train files
+f101: 433
+f201: 57
+f202: 168
+f301: 223
+f401: 920
+f402: 2676
+
+test files
+f101: 433
+f201: 57
+f202: 168
+f301: 223
+f401: 920
+f402: 2676
+
+#==============================================================================
+# START!!! 905_for_f706.py    PID: 2889    time: 2018-07-28 17:39:19.591431
+#==============================================================================
+
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:02<00:45,  2.39s/it] 10%|█         | 2/20 [00:04<00:42,  2.34s/it] 15%|█▌        | 3/20 [00:07<00:40,  2.36s/it] 20%|██        | 4/20 [00:09<00:36,  2.29s/it] 25%|██▌       | 5/20 [00:11<00:34,  2.30s/it] 30%|███       | 6/20 [00:13<00:32,  2.31s/it] 35%|███▌      | 7/20 [00:16<00:29,  2.31s/it] 40%|████      | 8/20 [00:18<00:27,  2.30s/it] 45%|████▌     | 9/20 [00:20<00:25,  2.30s/it] 50%|█████     | 10/20 [00:23<00:23,  2.30s/it] 55%|█████▌    | 11/20 [00:25<00:20,  2.30s/it] 60%|██████    | 12/20 [00:27<00:18,  2.31s/it] 65%|██████▌   | 13/20 [00:30<00:16,  2.31s/it] 70%|███████   | 14/20 [00:32<00:13,  2.31s/it] 75%|███████▌  | 15/20 [00:34<00:11,  2.31s/it] 80%|████████  | 16/20 [00:36<00:09,  2.30s/it] 85%|████████▌ | 17/20 [00:39<00:06,  2.30s/it] 90%|█████████ | 18/20 [00:41<00:04,  2.29s/it] 95%|█████████▌| 19/20 [00:43<00:02,  2.27s/it]100%|██████████| 20/20 [00:45<00:00,  2.26s/it]
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:00<00:04,  4.22it/s] 10%|█         | 2/20 [00:00<00:04,  3.61it/s] 15%|█▌        | 3/20 [00:00<00:05,  3.33it/s] 20%|██        | 4/20 [00:01<00:04,  3.26it/s] 25%|██▌       | 5/20 [00:01<00:04,  3.04it/s] 30%|███       | 6/20 [00:01<00:04,  3.04it/s] 35%|███▌      | 7/20 [00:02<00:04,  3.01it/s] 40%|████      | 8/20 [00:02<00:04,  2.99it/s] 45%|████▌     | 9/20 [00:03<00:03,  2.97it/s] 50%|█████     | 10/20 [00:03<00:03,  2.94it/s] 55%|█████▌    | 11/20 [00:03<00:03,  2.91it/s] 60%|██████    | 12/20 [00:04<00:02,  2.89it/s] 65%|██████▌   | 13/20 [00:04<00:02,  2.90it/s] 70%|███████   | 14/20 [00:04<00:02,  2.84it/s] 75%|███████▌  | 15/20 [00:05<00:01,  2.85it/s] 80%|████████  | 16/20 [00:05<00:01,  2.80it/s] 85%|████████▌ | 17/20 [00:06<00:01,  2.79it/s] 90%|█████████ | 18/20 [00:06<00:00,  2.81it/s] 95%|█████████▌| 19/20 [00:06<00:00,  2.80it/s]100%|██████████| 20/20 [00:07<00:00,  2.80it/s]
+  0%|          | 0/300 [00:00<?, ?it/s]100%|██████████| 300/300 [00:43<00:00,  6.94it/s]
+  0%|          | 0/20 [00:00<?, ?it/s]100%|██████████| 20/20 [00:00<00:00, 745.36it/s]
+no dup :) 
+X_train.shape (886099, 300)
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:00<00:08,  2.31it/s] 10%|█         | 2/20 [00:00<00:07,  2.32it/s] 15%|█▌        | 3/20 [00:01<00:07,  2.32it/s] 20%|██        | 4/20 [00:01<00:06,  2.32it/s] 25%|██▌       | 5/20 [00:02<00:06,  2.32it/s] 30%|███       | 6/20 [00:02<00:06,  2.32it/s] 35%|███▌      | 7/20 [00:03<00:05,  2.32it/s] 40%|████      | 8/20 [00:03<00:05,  2.31it/s] 45%|████▌     | 9/20 [00:03<00:04,  2.31it/s] 50%|█████     | 10/20 [00:04<00:04,  2.31it/s] 55%|█████▌    | 11/20 [00:04<00:04,  2.24it/s] 60%|██████    | 12/20 [00:05<00:03,  2.24it/s] 65%|██████▌   | 13/20 [00:05<00:03,  2.24it/s] 70%|███████   | 14/20 [00:06<00:02,  2.25it/s] 75%|███████▌  | 15/20 [00:06<00:02,  2.26it/s] 80%|████████  | 16/20 [00:07<00:01,  2.27it/s] 85%|████████▌ | 17/20 [00:07<00:01,  2.27it/s] 90%|█████████ | 18/20 [00:07<00:00,  2.28it/s] 95%|█████████▌| 19/20 [00:08<00:00,  2.29it/s]100%|██████████| 20/20 [00:08<00:00,  2.29it/s]
+  0%|          | 0/300 [00:00<?, ?it/s]100%|██████████| 300/300 [00:17<00:00, 17.63it/s]
+  0%|          | 0/20 [00:00<?, ?it/s] 10%|█         | 2/20 [00:00<00:01, 16.22it/s] 20%|██        | 4/20 [00:00<00:00, 16.34it/s] 30%|███       | 6/20 [00:00<00:00, 16.38it/s] 40%|████      | 8/20 [00:00<00:00, 16.43it/s] 50%|█████     | 10/20 [00:00<00:00, 16.44it/s] 60%|██████    | 12/20 [00:00<00:00, 16.48it/s] 70%|███████   | 14/20 [00:00<00:00, 16.44it/s] 80%|████████  | 16/20 [00:01<00:00, 15.31it/s] 90%|█████████ | 18/20 [00:01<00:00, 15.41it/s]100%|██████████| 20/20 [00:01<00:00, 15.50it/s]
+Training until validation scores don't improve for 100 rounds.
+[50]	train's auc: 0.675871	valid's auc: 0.665894
+[100]	train's auc: 0.692308	valid's auc: 0.675206
+[150]	train's auc: 0.702088	valid's auc: 0.679628
+[200]	train's auc: 0.709245	valid's auc: 0.68182
+[250]	train's auc: 0.715136	valid's auc: 0.683445
+[300]	train's auc: 0.719783	valid's auc: 0.684808
+[350]	train's auc: 0.724054	valid's auc: 0.685863
+[400]	train's auc: 0.727735	valid's auc: 0.686479
+[450]	train's auc: 0.731269	valid's auc: 0.686978
+[500]	train's auc: 0.734495	valid's auc: 0.687391
+[550]	train's auc: 0.73773	valid's auc: 0.687932
+[600]	train's auc: 0.741108	valid's auc: 0.688383
+[650]	train's auc: 0.7442	valid's auc: 0.688682
+[700]	train's auc: 0.747066	valid's auc: 0.688906
+[750]	train's auc: 0.749666	valid's auc: 0.689051
+[800]	train's auc: 0.752195	valid's auc: 0.68931
+[850]	train's auc: 0.754737	valid's auc: 0.689368
+[900]	train's auc: 0.757291	valid's auc: 0.689529
+[950]	train's auc: 0.75968	valid's auc: 0.689601
+[1000]	train's auc: 0.762251	valid's auc: 0.689632
+[1050]	train's auc: 0.76464	valid's auc: 0.689647
+[1100]	train's auc: 0.767036	valid's auc: 0.689807
+[1150]	train's auc: 0.769487	valid's auc: 0.68992
+[1200]	train's auc: 0.771704	valid's auc: 0.689965
+[1250]	train's auc: 0.773882	valid's auc: 0.690067
+[1300]	train's auc: 0.775869	valid's auc: 0.690048
+[1350]	train's auc: 0.77803	valid's auc: 0.690079
+Early stopping, best iteration is:
+[1259]	train's auc: 0.774269	valid's auc: 0.690117
+Training until validation scores don't improve for 100 rounds.
+[50]	train's auc: 0.676435	valid's auc: 0.656118
+[100]	train's auc: 0.692101	valid's auc: 0.665769
+[150]	train's auc: 0.701951	valid's auc: 0.671079
+[200]	train's auc: 0.709124	valid's auc: 0.674367
+[250]	train's auc: 0.714857	valid's auc: 0.676464
+[300]	train's auc: 0.719487	valid's auc: 0.678108
+[350]	train's auc: 0.723809	valid's auc: 0.679396
+[400]	train's auc: 0.727747	valid's auc: 0.680483
+[450]	train's auc: 0.731578	valid's auc: 0.681458
+[500]	train's auc: 0.73513	valid's auc: 0.682301
+[550]	train's auc: 0.738376	valid's auc: 0.682968
+[600]	train's auc: 0.741326	valid's auc: 0.683509
+[650]	train's auc: 0.744123	valid's auc: 0.683967
+[700]	train's auc: 0.747061	valid's auc: 0.684498
+[750]	train's auc: 0.749673	valid's auc: 0.684891
+[800]	train's auc: 0.752053	valid's auc: 0.685282
+[850]	train's auc: 0.754703	valid's auc: 0.685654
+[900]	train's auc: 0.757431	valid's auc: 0.686018
+[950]	train's auc: 0.759625	valid's auc: 0.686296
+[1000]	train's auc: 0.762313	valid's auc: 0.686644
+[1050]	train's auc: 0.764528	valid's auc: 0.686812
+[1100]	train's auc: 0.767161	valid's auc: 0.68706
+[1150]	train's auc: 0.769218	valid's auc: 0.687061
+[1200]	train's auc: 0.77139	valid's auc: 0.687269
+[1250]	train's auc: 0.773678	valid's auc: 0.687355
+[1300]	train's auc: 0.77578	valid's auc: 0.687511
+[1350]	train's auc: 0.778041	valid's auc: 0.687634
+[1400]	train's auc: 0.780276	valid's auc: 0.68769
+[1450]	train's auc: 0.782457	valid's auc: 0.687741
+[1500]	train's auc: 0.784495	valid's auc: 0.687741
+[1550]	train's auc: 0.786636	valid's auc: 0.687824
+[1600]	train's auc: 0.788486	valid's auc: 0.687855
+[1650]	train's auc: 0.790459	valid's auc: 0.687819
+[1700]	train's auc: 0.7924	valid's auc: 0.68785
+[1750]	train's auc: 0.794163	valid's auc: 0.687816
+[1800]	train's auc: 0.796125	valid's auc: 0.687694
+Early stopping, best iteration is:
+[1718]	train's auc: 0.792982	valid's auc: 0.687886
+Training until validation scores don't improve for 100 rounds.
+[50]	train's auc: 0.675454	valid's auc: 0.660217
+[100]	train's auc: 0.691597	valid's auc: 0.67121
+[150]	train's auc: 0.701454	valid's auc: 0.676299
+[200]	train's auc: 0.708483	valid's auc: 0.679089
+[250]	train's auc: 0.714398	valid's auc: 0.681165
+[300]	train's auc: 0.719526	valid's auc: 0.682688
+[350]	train's auc: 0.723952	valid's auc: 0.683865
+[400]	train's auc: 0.727869	valid's auc: 0.684574
+[450]	train's auc: 0.731294	valid's auc: 0.685383
+[500]	train's auc: 0.734861	valid's auc: 0.686065
+[550]	train's auc: 0.738186	valid's auc: 0.686629
+[600]	train's auc: 0.741221	valid's auc: 0.68708
+[650]	train's auc: 0.744366	valid's auc: 0.687373
+[700]	train's auc: 0.747273	valid's auc: 0.687827
+[750]	train's auc: 0.749945	valid's auc: 0.688018
+[800]	train's auc: 0.752611	valid's auc: 0.688387
+[850]	train's auc: 0.755045	valid's auc: 0.688505
+[900]	train's auc: 0.757296	valid's auc: 0.688672
+[950]	train's auc: 0.759901	valid's auc: 0.688905
+[1000]	train's auc: 0.762565	valid's auc: 0.688963
+[1050]	train's auc: 0.76494	valid's auc: 0.689057
+[1100]	train's auc: 0.767126	valid's auc: 0.689226
+[1150]	train's auc: 0.769347	valid's auc: 0.689387
+[1200]	train's auc: 0.771862	valid's auc: 0.689463
+[1250]	train's auc: 0.774206	valid's auc: 0.689549
+[1300]	train's auc: 0.776398	valid's auc: 0.689582
+[1350]	train's auc: 0.778716	valid's auc: 0.689637
+[1400]	train's auc: 0.780724	valid's auc: 0.689649
+[1450]	train's auc: 0.782587	valid's auc: 0.689517
+Early stopping, best iteration is:
+[1370]	train's auc: 0.779583	valid's auc: 0.689684
+Training until validation scores don't improve for 100 rounds.
+[50]	train's auc: 0.676897	valid's auc: 0.661545
+[100]	train's auc: 0.693544	valid's auc: 0.670353
+[150]	train's auc: 0.702814	valid's auc: 0.674248
+[200]	train's auc: 0.709811	valid's auc: 0.676932
+[250]	train's auc: 0.715973	valid's auc: 0.678716
+[300]	train's auc: 0.720755	valid's auc: 0.680126
+[350]	train's auc: 0.725058	valid's auc: 0.681267
+[400]	train's auc: 0.729021	valid's auc: 0.68221
+[450]	train's auc: 0.732862	valid's auc: 0.683007
+[500]	train's auc: 0.736644	valid's auc: 0.683691
+[550]	train's auc: 0.73974	valid's auc: 0.684158
+[600]	train's auc: 0.742954	valid's auc: 0.684678
+[650]	train's auc: 0.74594	valid's auc: 0.685011
+[700]	train's auc: 0.748851	valid's auc: 0.68544
+[750]	train's auc: 0.751688	valid's auc: 0.685894
+[800]	train's auc: 0.754335	valid's auc: 0.686106
+[850]	train's auc: 0.756742	valid's auc: 0.686305
+[900]	train's auc: 0.759056	valid's auc: 0.686459
+[950]	train's auc: 0.761727	valid's auc: 0.686598
+[1000]	train's auc: 0.764175	valid's auc: 0.686715
+[1050]	train's auc: 0.766675	valid's auc: 0.686789
+[1100]	train's auc: 0.768934	valid's auc: 0.686866
+[1150]	train's auc: 0.771308	valid's auc: 0.687003
+[1200]	train's auc: 0.773675	valid's auc: 0.687102
+[1250]	train's auc: 0.775943	valid's auc: 0.687185
+[1300]	train's auc: 0.777936	valid's auc: 0.687222
+[1350]	train's auc: 0.780184	valid's auc: 0.687248
+[1400]	train's auc: 0.782308	valid's auc: 0.687312
+[1450]	train's auc: 0.784451	valid's auc: 0.687317
+[1500]	train's auc: 0.786598	valid's auc: 0.687341
+[1550]	train's auc: 0.788481	valid's auc: 0.68732
+[1600]	train's auc: 0.790482	valid's auc: 0.687355
+[1650]	train's auc: 0.792527	valid's auc: 0.687246
+[1700]	train's auc: 0.794304	valid's auc: 0.687237
+Early stopping, best iteration is:
+[1608]	train's auc: 0.790861	valid's auc: 0.687374
+Training until validation scores don't improve for 100 rounds.
+[50]	train's auc: 0.675759	valid's auc: 0.65638
+[100]	train's auc: 0.69242	valid's auc: 0.668809
+[150]	train's auc: 0.702093	valid's auc: 0.674783
+[200]	train's auc: 0.709401	valid's auc: 0.678331
+[250]	train's auc: 0.715443	valid's auc: 0.680701
+[300]	train's auc: 0.720252	valid's auc: 0.682106
+[350]	train's auc: 0.724601	valid's auc: 0.683252
+[400]	train's auc: 0.728463	valid's auc: 0.68405
+[450]	train's auc: 0.732209	valid's auc: 0.684783
+[500]	train's auc: 0.735615	valid's auc: 0.685439
+[550]	train's auc: 0.739123	valid's auc: 0.685924
+[600]	train's auc: 0.742437	valid's auc: 0.68638
+[650]	train's auc: 0.745461	valid's auc: 0.686648
+[700]	train's auc: 0.748429	valid's auc: 0.686996
+[750]	train's auc: 0.751308	valid's auc: 0.687206
+[800]	train's auc: 0.754086	valid's auc: 0.687395
+[850]	train's auc: 0.756785	valid's auc: 0.687618
+[900]	train's auc: 0.758944	valid's auc: 0.687702
+[950]	train's auc: 0.76144	valid's auc: 0.687811
+[1000]	train's auc: 0.763885	valid's auc: 0.6879
+[1050]	train's auc: 0.766122	valid's auc: 0.687886
+[1100]	train's auc: 0.768565	valid's auc: 0.688063
+[1150]	train's auc: 0.770667	valid's auc: 0.687999
+Early stopping, best iteration is:
+[1085]	train's auc: 0.767883	valid's auc: 0.688078
+train: count    886099.000000
+mean          0.075549
+std           0.053869
+min           0.001953
+25%           0.040616
+50%           0.061465
+75%           0.093607
+max           0.874442
+Name: y_pred, dtype: float64
+test: count    150682.000000
+mean          0.072984
+std           0.048937
+min           0.002938
+25%           0.039542
+50%           0.060485
+75%           0.092450
+max           0.611343
+Name: y_pred, dtype: float64
+
+#==============================================================================
+# SUCCESS !!! 905_for_f706.py
+#==============================================================================
+
+time: 15.43min

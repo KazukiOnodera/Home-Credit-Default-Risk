@@ -1,0 +1,29 @@
+
+#==============================================================================
+# START!!! 906_predict_801-1.py    PID: 1356    time: 2018-08-01 11:42:21.461154
+#==============================================================================
+
+  0%|          | 0/20 [00:00<?, ?it/s] 30%|███       | 6/20 [00:00<00:00, 57.48it/s] 95%|█████████▌| 19/20 [00:00<00:00, 92.25it/s]100%|██████████| 20/20 [00:00<00:00, 96.52it/s]
+no dup :) 
+X_train.shape (307511, 1144)
+category: ['f108_NAME_TYPE_SUITE', 'f108_PRODUCT_COMBINATION', 'f109_PRODUCT_COMBINATION', 'f510_CREDIT_TYPE', 'f108_NAME_GOODS_CATEGORY', 'f002_WALLSMATERIAL_MODE', 'f002_NAME_INCOME_TYPE', 'f002_WEEKDAY_APPR_PROCESS_START', 'f002_NAME_EDUCATION_TYPE', 'f002_NAME_FAMILY_STATUS', 'f109_NAME_GOODS_CATEGORY', 'f002_ORGANIZATION_TYPE', 'f002_OCCUPATION_TYPE', 'f509_CREDIT_TYPE']
+f0: 99
+f1: 303
+f2: 31
+f3: 300
+f4: 23
+f5: 363
+f6: 4
+f7: 20
+ne: 1
+LOOP: 0
+LOOP: 1
+LOOP: 2
+submit
+Warning: Looks like you're using an outdated API Version, please consider updating (server 1.4.4 / client 1.4.3)
+Successfully submitted to Home Credit Default Risk
+#==============================================================================
+# SUCCESS !!! 906_predict_801-1.py
+#==============================================================================
+
+time: 23.01min

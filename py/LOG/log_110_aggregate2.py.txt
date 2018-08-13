@@ -1,0 +1,332 @@
+
+#==============================================================================
+# START!!! 110_aggregate2.py    PID: 2880    time: 2018-08-11 19:43:22.520100
+#==============================================================================
+
+sh: 1: rm: Argument list too long
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:05<01:45,  5.54s/it] 10%|█         | 2/20 [00:08<01:19,  4.43s/it] 15%|█▌        | 3/20 [00:14<01:24,  4.97s/it] 20%|██        | 4/20 [00:20<01:21,  5.07s/it] 25%|██▌       | 5/20 [00:23<01:10,  4.69s/it] 30%|███       | 6/20 [00:29<01:09,  4.96s/it] 35%|███▌      | 7/20 [00:35<01:05,  5.04s/it] 40%|████      | 8/20 [00:38<00:58,  4.87s/it] 45%|████▌     | 9/20 [00:44<00:54,  4.92s/it] 50%|█████     | 10/20 [00:49<00:49,  4.96s/it] 55%|█████▌    | 11/20 [00:52<00:43,  4.81s/it] 60%|██████    | 12/20 [00:58<00:39,  4.88s/it] 65%|██████▌   | 13/20 [01:03<00:34,  4.91s/it] 70%|███████   | 14/20 [01:06<00:28,  4.78s/it] 75%|███████▌  | 15/20 [01:12<00:24,  4.87s/it] 80%|████████  | 16/20 [01:18<00:19,  4.89s/it] 85%|████████▌ | 17/20 [01:21<00:14,  4.80s/it] 90%|█████████ | 18/20 [01:27<00:09,  4.85s/it] 95%|█████████▌| 19/20 [01:32<00:04,  4.87s/it]100%|██████████| 20/20 [01:35<00:00,  4.79s/it]
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:00<00:09,  2.08it/s] 10%|█         | 2/20 [00:00<00:07,  2.36it/s] 15%|█▌        | 3/20 [00:01<00:06,  2.60it/s] 20%|██        | 4/20 [00:01<00:05,  2.75it/s] 25%|██▌       | 5/20 [00:01<00:05,  2.90it/s] 30%|███       | 6/20 [00:02<00:04,  3.00it/s] 35%|███▌      | 7/20 [00:02<00:04,  3.04it/s] 40%|████      | 8/20 [00:02<00:03,  3.08it/s] 45%|████▌     | 9/20 [00:02<00:03,  3.08it/s] 50%|█████     | 10/20 [00:03<00:03,  3.18it/s] 55%|█████▌    | 11/20 [00:03<00:02,  3.23it/s] 60%|██████    | 12/20 [00:03<00:02,  3.27it/s] 65%|██████▌   | 13/20 [00:03<00:02,  3.29it/s] 70%|███████   | 14/20 [00:04<00:01,  3.29it/s] 75%|███████▌  | 15/20 [00:04<00:01,  3.34it/s] 80%|████████  | 16/20 [00:04<00:01,  3.39it/s] 85%|████████▌ | 17/20 [00:05<00:00,  3.36it/s] 90%|█████████ | 18/20 [00:05<00:00,  3.37it/s] 95%|█████████▌| 19/20 [00:05<00:00,  3.40it/s]100%|██████████| 20/20 [00:05<00:00,  3.45it/s]
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:00<00:02,  8.52it/s] 25%|██▌       | 5/20 [00:00<00:00, 20.76it/s] 40%|████      | 8/20 [00:00<00:00, 22.46it/s] 50%|█████     | 10/20 [00:00<00:00, 17.35it/s] 60%|██████    | 12/20 [00:00<00:00, 17.63it/s] 70%|███████   | 14/20 [00:00<00:00, 15.62it/s] 80%|████████  | 16/20 [00:01<00:00, 15.30it/s] 90%|█████████ | 18/20 [00:01<00:00, 14.80it/s]100%|██████████| 20/20 [00:01<00:00, 15.21it/s]
+['NAME_CONTRACT_STATUS', 'Approved', 'approved_']
+['NAME_CONTRACT_STATUS', 'Refused', 'refused_']
+['NAME_YIELD_GROUP', 'high', 'nyg-high_']
+['NAME_YIELD_GROUP', 'middle', 'nyg-middle_']
+['NAME_YIELD_GROUP', 'low_normal', 'nyg-low_normal_']
+['NAME_YIELD_GROUP', 'low_action', 'nyg-low_action_']
+['active', 1, 'active_']
+['completed', 1, 'completed_']
+remove var<=0: Index(['nyg-low_action_nyg-low_action_NAME_CASH_LOAN_PURPOSE_Purchase-of-electronic-equipment_mean_std',
+       'nyg-low_action_nyg-low_action_NAME_GOODS_CATEGORY_Additional-Service_mean_std',
+       'nyg-low_action_nyg-low_action_NAME_GOODS_CATEGORY_Education_mean_std',
+       'nyg-low_action_nyg-low_action_NAME_GOODS_CATEGORY_Fitness_mean_std',
+       'nyg-low_action_nyg-low_action_NAME_GOODS_CATEGORY_Insurance_mean_min',
+       'nyg-low_action_nyg-low_action_NAME_GOODS_CATEGORY_Insurance_mean_mean',
+       'nyg-low_action_nyg-low_action_NAME_GOODS_CATEGORY_Insurance_mean_max',
+       'nyg-low_action_nyg-low_action_NAME_GOODS_CATEGORY_Insurance_mean_std',
+       'nyg-low_action_nyg-low_action_NAME_GOODS_CATEGORY_Tourism_mean_std',
+       'nyg-low_action_nyg-low_action_NAME_GOODS_CATEGORY_Weapon_mean_std',
+       'nyg-low_action_nyg-low_action_NAME_SELLER_INDUSTRY_Tourism_mean_std',
+       'nyg-low_action_nyg-low_action_NAME_YIELD_GROUP_low_action_mean_min',
+       'nyg-low_action_nyg-low_action_NAME_YIELD_GROUP_low_action_mean_mean',
+       'nyg-low_action_nyg-low_action_NAME_YIELD_GROUP_low_action_mean_max',
+       'nyg-low_action_nyg-low_action_NAME_YIELD_GROUP_low_action_mean_std',
+       'nyg-low_action_nyg-low_action_PRODUCT_COMBINATION_POS-mobile-with-interest_mean_std'],
+      dtype='object')
+remove var<=0: Index(['active_active_active_min_min', 'active_active_active_min_mean',
+       'active_active_active_min_max', 'active_active_active_min_std',
+       'active_active_completed_min_min', 'active_active_completed_min_mean',
+       'active_active_completed_min_max', 'active_active_completed_min_std',
+       'active_active_active_mean_min', 'active_active_active_mean_mean',
+       'active_active_active_mean_max', 'active_active_active_mean_std',
+       'active_active_completed_mean_min', 'active_active_completed_mean_mean',
+       'active_active_completed_mean_max', 'active_active_completed_mean_std',
+       'active_active_NAME_CASH_LOAN_PURPOSE_Hobby_mean_min',
+       'active_active_NAME_CASH_LOAN_PURPOSE_Hobby_mean_mean',
+       'active_active_NAME_CASH_LOAN_PURPOSE_Hobby_mean_max',
+       'active_active_NAME_CASH_LOAN_PURPOSE_Hobby_mean_std',
+       'active_active_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_mean_min',
+       'active_active_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_mean_mean',
+       'active_active_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_mean_max',
+       'active_active_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_mean_std',
+       'active_active_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_mean_min',
+       'active_active_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_mean_mean',
+       'active_active_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_mean_max',
+       'active_active_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_mean_std',
+       'active_active_NAME_CONTRACT_STATUS_Approved_mean_min',
+       'active_active_NAME_CONTRACT_STATUS_Approved_mean_mean',
+       'active_active_NAME_CONTRACT_STATUS_Approved_mean_max',
+       'active_active_NAME_CONTRACT_STATUS_Approved_mean_std',
+       'active_active_NAME_GOODS_CATEGORY_Additional-Service_mean_min',
+       'active_active_NAME_GOODS_CATEGORY_Additional-Service_mean_mean',
+       'active_active_NAME_GOODS_CATEGORY_Additional-Service_mean_max',
+       'active_active_NAME_GOODS_CATEGORY_Additional-Service_mean_std',
+       'active_active_CODE_REJECT_REASON_XNA_mean_min',
+       'active_active_CODE_REJECT_REASON_XNA_mean_mean',
+       'active_active_CODE_REJECT_REASON_XNA_mean_max',
+       'active_active_CODE_REJECT_REASON_XNA_mean_std',
+       'active_active_active_max_min', 'active_active_active_max_mean',
+       'active_active_active_max_max', 'active_active_active_max_std',
+       'active_active_completed_max_min', 'active_active_completed_max_mean',
+       'active_active_completed_max_max', 'active_active_completed_max_std'],
+      dtype='object')
+remove var<=0: Index(['refused_refused_active_min_min', 'refused_refused_active_min_mean',
+       'refused_refused_active_min_max', 'refused_refused_active_min_std',
+       'refused_refused_completed_min_min',
+       'refused_refused_completed_min_mean',
+       'refused_refused_completed_min_max',
+       'refused_refused_completed_min_std', 'refused_refused_active_mean_min',
+       'refused_refused_active_mean_mean', 'refused_refused_active_mean_max',
+       'refused_refused_active_mean_std', 'refused_refused_completed_mean_min',
+       'refused_refused_completed_mean_mean',
+       'refused_refused_completed_mean_max',
+       'refused_refused_completed_mean_std',
+       'refused_refused_NAME_CONTRACT_TYPE_XNA_mean_min',
+       'refused_refused_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_mean_min',
+       'refused_refused_NAME_CONTRACT_STATUS_Refused_mean_min',
+       'refused_refused_NAME_CONTRACT_STATUS_Refused_mean_mean',
+       'refused_refused_NAME_CONTRACT_STATUS_Refused_mean_max',
+       'refused_refused_NAME_CONTRACT_STATUS_Refused_mean_std',
+       'refused_refused_CODE_REJECT_REASON_XAP_mean_min',
+       'refused_refused_CODE_REJECT_REASON_XAP_mean_mean',
+       'refused_refused_CODE_REJECT_REASON_XAP_mean_max',
+       'refused_refused_CODE_REJECT_REASON_XAP_mean_std',
+       'refused_refused_NAME_GOODS_CATEGORY_Additional-Service_mean_min',
+       'refused_refused_NAME_GOODS_CATEGORY_Education_mean_std',
+       'refused_refused_NAME_GOODS_CATEGORY_Fitness_mean_std',
+       'refused_refused_NAME_GOODS_CATEGORY_House-Construction_mean_min',
+       'refused_refused_NAME_GOODS_CATEGORY_House-Construction_mean_mean',
+       'refused_refused_NAME_GOODS_CATEGORY_House-Construction_mean_max',
+       'refused_refused_NAME_GOODS_CATEGORY_House-Construction_mean_std',
+       'refused_refused_NAME_GOODS_CATEGORY_Insurance_mean_min',
+       'refused_refused_NAME_GOODS_CATEGORY_Insurance_mean_mean',
+       'refused_refused_NAME_GOODS_CATEGORY_Insurance_mean_max',
+       'refused_refused_NAME_GOODS_CATEGORY_Insurance_mean_std',
+       'refused_refused_NAME_GOODS_CATEGORY_Weapon_mean_min',
+       'refused_refused_NAME_GOODS_CATEGORY_Weapon_mean_mean',
+       'refused_refused_NAME_GOODS_CATEGORY_Weapon_mean_max',
+       'refused_refused_NAME_GOODS_CATEGORY_Weapon_mean_std',
+       'refused_refused_active_max_min', 'refused_refused_active_max_mean',
+       'refused_refused_active_max_max', 'refused_refused_active_max_std',
+       'refused_refused_completed_max_min',
+       'refused_refused_completed_max_mean',
+       'refused_refused_completed_max_max',
+       'refused_refused_completed_max_std'],
+      dtype='object')
+remove var<=0: Index(['nyg-low_normal_nyg-low_normal_NAME_CASH_LOAN_PURPOSE_Car-repairs_mean_min',
+       'nyg-low_normal_nyg-low_normal_NAME_CASH_LOAN_PURPOSE_Hobby_mean_min',
+       'nyg-low_normal_nyg-low_normal_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_mean_min',
+       'nyg-low_normal_nyg-low_normal_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_mean_min',
+       'nyg-low_normal_nyg-low_normal_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_mean_mean',
+       'nyg-low_normal_nyg-low_normal_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_mean_max',
+       'nyg-low_normal_nyg-low_normal_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_mean_std',
+       'nyg-low_normal_nyg-low_normal_CODE_REJECT_REASON_SYSTEM_mean_min',
+       'nyg-low_normal_nyg-low_normal_CODE_REJECT_REASON_SYSTEM_mean_mean',
+       'nyg-low_normal_nyg-low_normal_CODE_REJECT_REASON_SYSTEM_mean_max',
+       'nyg-low_normal_nyg-low_normal_CODE_REJECT_REASON_SYSTEM_mean_std',
+       'nyg-low_normal_nyg-low_normal_NAME_GOODS_CATEGORY_Additional-Service_mean_min',
+       'nyg-low_normal_nyg-low_normal_NAME_GOODS_CATEGORY_Animals_mean_min',
+       'nyg-low_normal_nyg-low_normal_NAME_GOODS_CATEGORY_Animals_mean_mean',
+       'nyg-low_normal_nyg-low_normal_NAME_GOODS_CATEGORY_Animals_mean_max',
+       'nyg-low_normal_nyg-low_normal_NAME_GOODS_CATEGORY_Animals_mean_std',
+       'nyg-low_normal_nyg-low_normal_NAME_GOODS_CATEGORY_House-Construction_mean_min',
+       'nyg-low_normal_nyg-low_normal_NAME_GOODS_CATEGORY_House-Construction_mean_mean',
+       'nyg-low_normal_nyg-low_normal_NAME_GOODS_CATEGORY_House-Construction_mean_max',
+       'nyg-low_normal_nyg-low_normal_NAME_GOODS_CATEGORY_House-Construction_mean_std',
+       'nyg-low_normal_nyg-low_normal_NAME_GOODS_CATEGORY_Insurance_mean_min',
+       'nyg-low_normal_nyg-low_normal_NAME_GOODS_CATEGORY_Weapon_mean_std',
+       'nyg-low_normal_nyg-low_normal_NAME_YIELD_GROUP_low_normal_mean_min',
+       'nyg-low_normal_nyg-low_normal_NAME_YIELD_GROUP_low_normal_mean_mean',
+       'nyg-low_normal_nyg-low_normal_NAME_YIELD_GROUP_low_normal_mean_max',
+       'nyg-low_normal_nyg-low_normal_NAME_YIELD_GROUP_low_normal_mean_std'],
+      dtype='object')
+remove var<=0: Index(['nyg-high_nyg-high_NAME_CASH_LOAN_PURPOSE_Buying-a-garage_mean_min',
+       'nyg-high_nyg-high_NAME_CASH_LOAN_PURPOSE_Gasification-/-water-supply_mean_min',
+       'nyg-high_nyg-high_NAME_CASH_LOAN_PURPOSE_Hobby_mean_min',
+       'nyg-high_nyg-high_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_mean_min',
+       'nyg-high_nyg-high_NAME_CONTRACT_STATUS_Unused-offer_mean_min',
+       'nyg-high_nyg-high_CODE_REJECT_REASON_CLIENT_mean_min',
+       'nyg-high_nyg-high_CODE_REJECT_REASON_SYSTEM_mean_min',
+       'nyg-high_nyg-high_CODE_REJECT_REASON_SYSTEM_mean_mean',
+       'nyg-high_nyg-high_CODE_REJECT_REASON_SYSTEM_mean_max',
+       'nyg-high_nyg-high_CODE_REJECT_REASON_SYSTEM_mean_std',
+       'nyg-high_nyg-high_NAME_GOODS_CATEGORY_Additional-Service_mean_min',
+       'nyg-high_nyg-high_NAME_GOODS_CATEGORY_Direct-Sales_mean_min',
+       'nyg-high_nyg-high_NAME_GOODS_CATEGORY_Education_mean_min',
+       'nyg-high_nyg-high_NAME_GOODS_CATEGORY_Education_mean_mean',
+       'nyg-high_nyg-high_NAME_GOODS_CATEGORY_Education_mean_max',
+       'nyg-high_nyg-high_NAME_GOODS_CATEGORY_Education_mean_std',
+       'nyg-high_nyg-high_NAME_GOODS_CATEGORY_Fitness_mean_min',
+       'nyg-high_nyg-high_NAME_GOODS_CATEGORY_Fitness_mean_mean',
+       'nyg-high_nyg-high_NAME_GOODS_CATEGORY_Fitness_mean_max',
+       'nyg-high_nyg-high_NAME_GOODS_CATEGORY_Fitness_mean_std',
+       'nyg-high_nyg-high_NAME_GOODS_CATEGORY_Insurance_mean_min',
+       'nyg-high_nyg-high_NAME_GOODS_CATEGORY_Insurance_mean_mean',
+       'nyg-high_nyg-high_NAME_GOODS_CATEGORY_Insurance_mean_max',
+       'nyg-high_nyg-high_NAME_GOODS_CATEGORY_Insurance_mean_std',
+       'nyg-high_nyg-high_NAME_GOODS_CATEGORY_Medical-Supplies_mean_min',
+       'nyg-high_nyg-high_NAME_GOODS_CATEGORY_Medicine_mean_min',
+       'nyg-high_nyg-high_NAME_GOODS_CATEGORY_Weapon_mean_min',
+       'nyg-high_nyg-high_CHANNEL_TYPE_Car-dealer_mean_min',
+       'nyg-high_nyg-high_CHANNEL_TYPE_Car-dealer_mean_mean',
+       'nyg-high_nyg-high_CHANNEL_TYPE_Car-dealer_mean_max',
+       'nyg-high_nyg-high_CHANNEL_TYPE_Car-dealer_mean_std',
+       'nyg-high_nyg-high_CHANNEL_TYPE_Channel-of-corporate-sales_mean_min',
+       'nyg-high_nyg-high_NAME_SELLER_INDUSTRY_MLM-partners_mean_min',
+       'nyg-high_nyg-high_NAME_SELLER_INDUSTRY_Tourism_mean_min',
+       'nyg-high_nyg-high_NAME_SELLER_INDUSTRY_Tourism_mean_mean',
+       'nyg-high_nyg-high_NAME_SELLER_INDUSTRY_Tourism_mean_max',
+       'nyg-high_nyg-high_NAME_SELLER_INDUSTRY_Tourism_mean_std',
+       'nyg-high_nyg-high_NAME_YIELD_GROUP_high_mean_min',
+       'nyg-high_nyg-high_NAME_YIELD_GROUP_high_mean_mean',
+       'nyg-high_nyg-high_NAME_YIELD_GROUP_high_mean_max',
+       'nyg-high_nyg-high_NAME_YIELD_GROUP_high_mean_std',
+       'nyg-high_nyg-high_PRODUCT_COMBINATION_POS-others-without-interest_mean_min'],
+      dtype='object')
+remove var<=0: Index(['nyg-middle_nyg-middle_NAME_CASH_LOAN_PURPOSE_Gasification-/-water-supply_mean_min',
+       'nyg-middle_nyg-middle_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_mean_min',
+       'nyg-middle_nyg-middle_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_mean_mean',
+       'nyg-middle_nyg-middle_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_mean_max',
+       'nyg-middle_nyg-middle_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_mean_std',
+       'nyg-middle_nyg-middle_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_mean_min',
+       'nyg-middle_nyg-middle_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_mean_mean',
+       'nyg-middle_nyg-middle_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_mean_max',
+       'nyg-middle_nyg-middle_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_mean_std',
+       'nyg-middle_nyg-middle_CODE_REJECT_REASON_SYSTEM_mean_min',
+       'nyg-middle_nyg-middle_NAME_GOODS_CATEGORY_Direct-Sales_mean_min',
+       'nyg-middle_nyg-middle_NAME_GOODS_CATEGORY_Education_mean_std',
+       'nyg-middle_nyg-middle_NAME_GOODS_CATEGORY_Insurance_mean_min',
+       'nyg-middle_nyg-middle_NAME_GOODS_CATEGORY_Insurance_mean_mean',
+       'nyg-middle_nyg-middle_NAME_GOODS_CATEGORY_Insurance_mean_max',
+       'nyg-middle_nyg-middle_NAME_GOODS_CATEGORY_Insurance_mean_std',
+       'nyg-middle_nyg-middle_NAME_PORTFOLIO_Cars_mean_min',
+       'nyg-middle_nyg-middle_NAME_PORTFOLIO_Cars_mean_mean',
+       'nyg-middle_nyg-middle_NAME_PORTFOLIO_Cars_mean_max',
+       'nyg-middle_nyg-middle_NAME_PORTFOLIO_Cars_mean_std',
+       'nyg-middle_nyg-middle_CHANNEL_TYPE_Car-dealer_mean_min',
+       'nyg-middle_nyg-middle_NAME_YIELD_GROUP_middle_mean_min',
+       'nyg-middle_nyg-middle_NAME_YIELD_GROUP_middle_mean_mean',
+       'nyg-middle_nyg-middle_NAME_YIELD_GROUP_middle_mean_max',
+       'nyg-middle_nyg-middle_NAME_YIELD_GROUP_middle_mean_std'],
+      dtype='object')
+remove var<=0: Index(['completed_completed_cnt_paid_ratio_min_min',
+       'completed_completed_cnt_paid_ratio_min_mean',
+       'completed_completed_cnt_paid_ratio_min_max',
+       'completed_completed_cnt_paid_ratio_min_std',
+       'completed_completed_cnt_unpaid_min_min',
+       'completed_completed_cnt_unpaid_min_mean',
+       'completed_completed_cnt_unpaid_min_max',
+       'completed_completed_cnt_unpaid_min_std',
+       'completed_completed_amt_unpaid_min_min',
+       'completed_completed_amt_unpaid_min_mean',
+       'completed_completed_amt_unpaid_min_max',
+       'completed_completed_amt_unpaid_min_std',
+       'completed_completed_active_min_min',
+       'completed_completed_active_min_mean',
+       'completed_completed_active_min_max',
+       'completed_completed_active_min_std',
+       'completed_completed_completed_min_min',
+       'completed_completed_completed_min_mean',
+       'completed_completed_completed_min_max',
+       'completed_completed_completed_min_std',
+       'completed_completed_cnt_paid_ratio_mean_min',
+       'completed_completed_cnt_paid_ratio_mean_mean',
+       'completed_completed_cnt_paid_ratio_mean_max',
+       'completed_completed_cnt_paid_ratio_mean_std',
+       'completed_completed_cnt_unpaid_mean_min',
+       'completed_completed_cnt_unpaid_mean_mean',
+       'completed_completed_cnt_unpaid_mean_max',
+       'completed_completed_cnt_unpaid_mean_std',
+       'completed_completed_amt_unpaid_mean_min',
+       'completed_completed_amt_unpaid_mean_mean',
+       'completed_completed_amt_unpaid_mean_max',
+       'completed_completed_amt_unpaid_mean_std',
+       'completed_completed_active_mean_min',
+       'completed_completed_active_mean_mean',
+       'completed_completed_active_mean_max',
+       'completed_completed_active_mean_std',
+       'completed_completed_completed_mean_min',
+       'completed_completed_completed_mean_mean',
+       'completed_completed_completed_mean_max',
+       'completed_completed_completed_mean_std',
+       'completed_completed_NAME_CASH_LOAN_PURPOSE_Business-development_mean_min',
+       'completed_completed_NAME_CASH_LOAN_PURPOSE_Buying-a-garage_mean_min',
+       'completed_completed_NAME_CASH_LOAN_PURPOSE_Buying-a-holiday-home-/-land_mean_std',
+       'completed_completed_NAME_CASH_LOAN_PURPOSE_Buying-a-home_mean_min',
+       'completed_completed_NAME_CASH_LOAN_PURPOSE_Gasification-/-water-supply_mean_min',
+       'completed_completed_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_mean_min',
+       'completed_completed_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_mean_mean',
+       'completed_completed_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_mean_max',
+       'completed_completed_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_mean_std',
+       'completed_completed_NAME_CASH_LOAN_PURPOSE_Payments-on-other-loans_mean_min',
+       'completed_completed_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_mean_std',
+       'completed_completed_NAME_CONTRACT_STATUS_Approved_mean_min',
+       'completed_completed_NAME_CONTRACT_STATUS_Approved_mean_mean',
+       'completed_completed_NAME_CONTRACT_STATUS_Approved_mean_max',
+       'completed_completed_NAME_CONTRACT_STATUS_Approved_mean_std',
+       'completed_completed_NAME_CLIENT_TYPE_XNA_mean_min',
+       'completed_completed_NAME_GOODS_CATEGORY_Additional-Service_mean_min',
+       'completed_completed_NAME_GOODS_CATEGORY_Animals_mean_min',
+       'completed_completed_NAME_GOODS_CATEGORY_Animals_mean_mean',
+       'completed_completed_NAME_GOODS_CATEGORY_Animals_mean_max',
+       'completed_completed_NAME_GOODS_CATEGORY_Animals_mean_std',
+       'completed_completed_CODE_REJECT_REASON_XNA_mean_min',
+       'completed_completed_CODE_REJECT_REASON_XNA_mean_mean',
+       'completed_completed_CODE_REJECT_REASON_XNA_mean_max',
+       'completed_completed_CODE_REJECT_REASON_XNA_mean_std',
+       'completed_completed_cnt_paid_ratio_max_min',
+       'completed_completed_cnt_paid_ratio_max_mean',
+       'completed_completed_cnt_paid_ratio_max_max',
+       'completed_completed_cnt_paid_ratio_max_std',
+       'completed_completed_cnt_unpaid_max_min',
+       'completed_completed_cnt_unpaid_max_mean',
+       'completed_completed_cnt_unpaid_max_max',
+       'completed_completed_cnt_unpaid_max_std',
+       'completed_completed_amt_unpaid_max_min',
+       'completed_completed_amt_unpaid_max_mean',
+       'completed_completed_amt_unpaid_max_max',
+       'completed_completed_amt_unpaid_max_std',
+       'completed_completed_active_max_min',
+       'completed_completed_active_max_mean',
+       'completed_completed_active_max_max',
+       'completed_completed_active_max_std',
+       'completed_completed_completed_max_min',
+       'completed_completed_completed_max_mean',
+       'completed_completed_completed_max_max',
+       'completed_completed_completed_max_std'],
+      dtype='object')
+remove var<=0: Index(['approved_approved_NAME_CASH_LOAN_PURPOSE_Buying-a-garage_mean_min',
+       'approved_approved_NAME_CASH_LOAN_PURPOSE_Hobby_mean_min',
+       'approved_approved_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_mean_min',
+       'approved_approved_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_mean_mean',
+       'approved_approved_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_mean_max',
+       'approved_approved_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_mean_std',
+       'approved_approved_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_mean_std',
+       'approved_approved_NAME_CONTRACT_STATUS_Approved_mean_min',
+       'approved_approved_NAME_CONTRACT_STATUS_Approved_mean_mean',
+       'approved_approved_NAME_CONTRACT_STATUS_Approved_mean_max',
+       'approved_approved_NAME_CONTRACT_STATUS_Approved_mean_std',
+       'approved_approved_NAME_GOODS_CATEGORY_Animals_mean_min',
+       'approved_approved_NAME_GOODS_CATEGORY_Animals_mean_mean',
+       'approved_approved_NAME_GOODS_CATEGORY_Animals_mean_max',
+       'approved_approved_NAME_GOODS_CATEGORY_Animals_mean_std',
+       'approved_approved_NAME_GOODS_CATEGORY_Insurance_mean_min',
+       'approved_approved_NAME_GOODS_CATEGORY_Weapon_mean_min',
+       'approved_approved_NAME_PORTFOLIO_XNA_mean_min',
+       'approved_approved_NAME_PORTFOLIO_XNA_mean_mean',
+       'approved_approved_NAME_PORTFOLIO_XNA_mean_max',
+       'approved_approved_NAME_PORTFOLIO_XNA_mean_std',
+       'approved_approved_PRODUCT_COMBINATION_Cash_mean_min',
+       'approved_approved_PRODUCT_COMBINATION_Cash_mean_mean',
+       'approved_approved_PRODUCT_COMBINATION_Cash_mean_max',
+       'approved_approved_PRODUCT_COMBINATION_Cash_mean_std',
+       'approved_approved_CODE_REJECT_REASON_XNA_mean_min',
+       'approved_approved_CODE_REJECT_REASON_XNA_mean_mean',
+       'approved_approved_CODE_REJECT_REASON_XNA_mean_max',
+       'approved_approved_CODE_REJECT_REASON_XNA_mean_std'],
+      dtype='object')
+
+#==============================================================================
+# SUCCESS !!! 110_aggregate2.py
+#==============================================================================
+
+time: 76.79min

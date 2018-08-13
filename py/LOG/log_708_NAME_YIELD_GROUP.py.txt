@@ -1,0 +1,47 @@
+
+#==============================================================================
+# START!!! 708_NAME_YIELD_GROUP.py    PID: 3631    time: 2018-08-03 07:34:42.210244
+#==============================================================================
+
+rm: cannot remove '../feature/t*_f708_*': No such file or directory
+num_class: 5
+[50]	cv_agg's multi_logloss: 0.180402 + 0.00131684
+[100]	cv_agg's multi_logloss: 0.138354 + 0.00114056
+[150]	cv_agg's multi_logloss: 0.120682 + 0.000760264
+[200]	cv_agg's multi_logloss: 0.111167 + 0.000462624
+[250]	cv_agg's multi_logloss: 0.105097 + 0.00070149
+[300]	cv_agg's multi_logloss: 0.101086 + 0.000608751
+[350]	cv_agg's multi_logloss: 0.0981453 + 0.000629725
+[400]	cv_agg's multi_logloss: 0.0959741 + 0.000684775
+[450]	cv_agg's multi_logloss: 0.0942429 + 0.000757022
+[500]	cv_agg's multi_logloss: 0.0928668 + 0.000758634
+[550]	cv_agg's multi_logloss: 0.0917189 + 0.000650135
+[600]	cv_agg's multi_logloss: 0.0908173 + 0.000646963
+[650]	cv_agg's multi_logloss: 0.0900158 + 0.000639233
+[700]	cv_agg's multi_logloss: 0.0893189 + 0.000626354
+[750]	cv_agg's multi_logloss: 0.0887636 + 0.000605026
+[800]	cv_agg's multi_logloss: 0.0883082 + 0.000586787
+[850]	cv_agg's multi_logloss: 0.0878728 + 0.000571325
+[900]	cv_agg's multi_logloss: 0.0874555 + 0.000554608
+[950]	cv_agg's multi_logloss: 0.0870868 + 0.000511098
+[1000]	cv_agg's multi_logloss: 0.0867913 + 0.000503334
+[1050]	cv_agg's multi_logloss: 0.0865658 + 0.000505293
+[1100]	cv_agg's multi_logloss: 0.0863669 + 0.000490268
+[1150]	cv_agg's multi_logloss: 0.0861689 + 0.00048823
+[1200]	cv_agg's multi_logloss: 0.0860113 + 0.000487393
+[1250]	cv_agg's multi_logloss: 0.0858607 + 0.000491058
+[1300]	cv_agg's multi_logloss: 0.0857862 + 0.000501304
+[1350]	cv_agg's multi_logloss: 0.0856971 + 0.00048282
+[1400]	cv_agg's multi_logloss: 0.0856475 + 0.000494183
+[1450]	cv_agg's multi_logloss: 0.0855778 + 0.000490134
+[1500]	cv_agg's multi_logloss: 0.0855552 + 0.000465647
+[1550]	cv_agg's multi_logloss: 0.0855265 + 0.000457349
+[1600]	cv_agg's multi_logloss: 0.085523 + 0.000465188
+[1650]	cv_agg's multi_logloss: 0.0855182 + 0.000440388
+[1700]	cv_agg's multi_logloss: 0.0855658 + 0.000428086
+
+#==============================================================================
+# SUCCESS !!! 708_NAME_YIELD_GROUP.py
+#==============================================================================
+
+time: 32.73min

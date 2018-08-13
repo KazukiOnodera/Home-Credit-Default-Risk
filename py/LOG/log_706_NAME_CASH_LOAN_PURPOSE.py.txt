@@ -1,0 +1,21 @@
+rm: cannot remove '../feature/t*_f706_*': No such file or directory
+num_class: 25
+[50]	cv_agg's multi_logloss: 0.162323 + 0.00198523
+[100]	cv_agg's multi_logloss: 0.15465 + 0.00211529
+[150]	cv_agg's multi_logloss: 0.15231 + 0.00202115
+[200]	cv_agg's multi_logloss: 0.151341 + 0.00193897
+[250]	cv_agg's multi_logloss: 0.151216 + 0.00202698
+[300]	cv_agg's multi_logloss: 0.151401 + 0.00200452
+
+#==============================================================================
+# SUCCESS !!! 706_NAME_CASH_LOAN_PURPOSE.py
+#==============================================================================
+
+Traceback (most recent call last):
+  File "706_NAME_CASH_LOAN_PURPOSE.py", line 161, in <module>
+    utils.end(__file__)
+  File "/home/Kazuki/Home-Credit-Default-Risk/py/utils.py", line 154, in end
+    print('time: {:.2f}min'.format( elapsed_minute() ))
+  File "/home/Kazuki/Home-Credit-Default-Risk/py/utils.py", line 159, in elapsed_minute
+    return (time() - st_time)/60
+NameError: name 'st_time' is not defined
