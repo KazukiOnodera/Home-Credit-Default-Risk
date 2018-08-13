@@ -4,6 +4,18 @@
 Created on Mon Aug 13 18:02:53 2018
 
 @author: kazuki.onodera
+
+
+cd Home-Credit-Default-Risk/py
+nohup python -u 915_predict_813-1.py 600 > LOG/log_915_predict_813-1.py_600.txt &
+
+cd Home-Credit-Default-Risk/py
+nohup python -u 915_predict_813-1.py 700 > LOG/log_915_predict_813-1.py_700.txt &
+
+cd Home-Credit-Default-Risk/py
+nohup python -u 915_predict_813-1.py 800 > LOG/log_915_predict_813-1.py_800.txt &
+
+
 """
 
 
@@ -13,6 +25,7 @@ from tqdm import tqdm
 import gc, os
 from collections import defaultdict
 import sys
+argv = sys.argv
 sys.path.append(f'/home/{os.environ.get("USER")}/PythonLibrary')
 import lgbextension as ex
 import lightgbm as lgb
@@ -30,7 +43,7 @@ NFOLD = 7
 
 SUBMIT_FILE_PATH = '../output/813-1_feature.csv.gz'
 
-
+HEAD = int(argv[1])
 
 param = {
          'objective': 'binary',
@@ -62,7 +75,7 @@ imp = pd.read_csv('LOG/imp_815_imp_lgb_loop.py.csv')
 
 def mk_submit(HEAD):
     
-    SUBMIT_FILE_PATH_ = SUBMIT_FILE_PATH.replace('feature', HEAD)
+    SUBMIT_FILE_PATH_ = SUBMIT_FILE_PATH.replace('feature', str(HEAD))
     files_tr = ('../feature/train_' + imp.head(HEAD).feature + '.f').tolist()
     files_te = ('../feature/test_'  + imp.head(HEAD).feature + '.f').tolist()
     
@@ -138,14 +151,10 @@ def mk_submit(HEAD):
 # main
 # =============================================================================
 
-mk_submit(600)
-mk_submit(700)
-mk_submit(800)
-mk_submit(900)
-mk_submit(1000)
+mk_submit(HEAD)
 
 #==============================================================================
 utils.end(__file__)
-
+utils.stop_instance()
 
 
