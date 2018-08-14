@@ -7,6 +7,8 @@ Created on Mon Aug 13 22:10:31 2018
 
 cd Home-Credit-Default-Risk/py
 nohup python -u 916_predict_813-2.py 600 > LOG/log_916_predict_813-2.py_600.txt &
+nohup python -u 916_predict_813-2.py 500 > LOG/log_916_predict_813-2.py_500.txt &
+nohup python -u 916_predict_813-2.py 700 > LOG/log_916_predict_813-2.py_700.txt &
 
 """
 
