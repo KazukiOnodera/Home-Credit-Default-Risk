@@ -22,4 +22,4 @@ for i,f in enumerate(files):
 imp.sort_values('total', inplace=True)
 #imp.reset_index(inplace=True)
 
-imp.to_csv('imp_815_imp_lgb_loop.py.csv')
+imp.to_csv('imp_815_imp_lgb_loop.py_without_nejumi.csv')

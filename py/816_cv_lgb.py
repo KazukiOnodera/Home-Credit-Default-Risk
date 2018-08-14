@@ -52,7 +52,8 @@ param = {
 # =============================================================================
 # load
 # =============================================================================
-imp = pd.read_csv('LOG/imp_815_imp_lgb_loop.py.csv')
+#imp = pd.read_csv('LOG/imp_815_imp_lgb_loop.py.csv')
+imp = pd.read_csv('LOG/imp_815_imp_lgb_loop.py_without_nejumi.csv')
 
 #imp.sort_values('total', ascending=False, inplace=True)
 
