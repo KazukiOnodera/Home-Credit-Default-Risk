@@ -4,6 +4,12 @@
 Created on Wed Aug 15 19:14:54 2018
 
 @author: kazuki.onodera
+
+cd Home-Credit-Default-Risk/py
+nohup python -u 918_predict_815-2.py 2000 > LOG/log_918_predict_815-2.py_2000.txt &
+nohup python -u 918_predict_815-2.py 3000 > LOG/log_918_predict_815-2.py_3000.txt &
+nohup python -u 918_predict_815-2.py 4000 > LOG/log_918_predict_815-2.py_4000.txt &
+
 """
 
 import numpy as np
@@ -26,7 +32,7 @@ utils.start(__file__)
 SEED = 71
 
 LOOP = 7
-NFOLD = 7
+NFOLD = 5
 
 SUBMIT_FILE_PATH = '../output/815-2_feature.csv.gz'
 
