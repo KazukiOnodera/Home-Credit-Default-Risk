@@ -6,9 +6,9 @@ Created on Wed Aug 15 03:30:41 2018
 @author: Kazuki
 
 cd Home-Credit-Default-Risk/py
-nohup python -u 917_predict_815-1.py 600 > LOG/log_917_predict_815-1.py_600.txt &
 nohup python -u 917_predict_815-1.py 500 > LOG/log_917_predict_815-1.py_500.txt &
-nohup python -u 917_predict_815-1.py 700 > LOG/log_917_predict_815-1.py.py_700.txt &
+nohup python -u 917_predict_815-1.py 600 > LOG/log_917_predict_815-1.py_600.txt &
+nohup python -u 917_predict_815-1.py 700 > LOG/log_917_predict_815-1.py_700.txt &
 
 
 """
