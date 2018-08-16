@@ -67,6 +67,33 @@ y = utils.read_pickles('../data/label').TARGET
 
 #X['nejumi'] = np.load('../feature_someone/train_nejumi.npy')
 
+col_drop = ['f750_y_pred',
+'f510_SK_ID_BUREAU',
+'f509_SK_ID_BUREAU',
+'f001_AMT_CREDIT-d-AMT_ANNUITY',
+'f001_PAYMENT_RATE',
+'nejumi',
+'f001_AMT_GOODS_PRICE-d-AMT_ANNUITY',
+'f601_Closed_STATUS_1_var',
+'f601_Closed_STATUS_X_var',
+'f001_AMT_GOODS_PRICE-d-AMT_CREDIT',
+'f105_prevapp_future_payment_19m',
+'f001_AMT_GOODS_PRICE-m-AMT_CREDIT',
+'f001_AMT_CREDIT-d-CNT_CHILDREN',
+'f602_Active_CURR-BUREAU_cnt_var',
+'f105_amt_unpaid_sum-p-app',
+'f105_prevapp_future_payment_13m',
+'f001_AMT_CREDIT-d-CNT_FAM_MEMBERS',
+'f001_AMT_REQ_CREDIT_BUREAU_QRT',
+'f001_AMT_ANNUITY-d-cnt_adults',
+'f701_all_credit-prevact_min',
+'f001_AMT_ANNUITY-d-CNT_CHILDREN',
+'f001_EXT_SOURCES_std']
+
+col_drop = list( set(col_drop) & set(X.columns) )
+
+X.drop(col_drop, axis=1, inplace=True)
+
 if X.columns.duplicated().sum()>0:
     raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
 print('no dup :) ')
