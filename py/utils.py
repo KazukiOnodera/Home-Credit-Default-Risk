@@ -104,6 +104,9 @@ import pandas as pd
 import numpy as np
 from glob import glob
 import os
+from socket import gethostname
+HOSTNAME = gethostname()
+
 from tqdm import tqdm
 #from itertools import combinations
 from sklearn.model_selection import KFold
@@ -137,7 +140,7 @@ def start(fname):
 # START!!! {}    PID: {}    time: {}
 #==============================================================================
 """.format( fname, os.getpid(), datetime.today() ))
-    send_line(f'START {fname}  time: {elapsed_minute():.2f}min')
+    send_line(f'{HOSTNAME}  START {fname}  time: {elapsed_minute():.2f}min')
     return
 
 def reset_time():
@@ -152,7 +155,7 @@ def end(fname):
 #==============================================================================
 """.format(fname))
     print('time: {:.2f}min'.format( elapsed_minute() ))
-    send_line(f'FINISH {fname}  time: {elapsed_minute():.2f}min')
+    send_line(f'{HOSTNAME}  FINISH {fname}  time: {elapsed_minute():.2f}min')
     return
 
 def elapsed_minute():
