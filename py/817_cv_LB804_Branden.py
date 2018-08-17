@@ -129,7 +129,7 @@ ret, models = lgb.cv(param, dtrain, 99999, nfold=NFOLD,
                      early_stopping_rounds=100, verbose_eval=50,
                      seed=SEED)
 
-result = f"CV auc-mean: {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
+result = f"CV auc-mean(seed:{SEED}): {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
 print(result)
 
 utils.send_line(result)
