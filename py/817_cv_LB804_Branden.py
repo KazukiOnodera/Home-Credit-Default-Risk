@@ -114,6 +114,7 @@ gc.collect()
 
 CAT = list( set(X.columns) & set(loader.category()) & set(category_branden) )
 
+print('category:', CAT)
 # =============================================================================
 # cv
 # =============================================================================
@@ -130,6 +131,7 @@ print(result)
 utils.send_line(result)
 
 imp = ex.getImp(models)
+imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
 
 # =============================================================================
 # predict
@@ -140,7 +142,7 @@ from sklearn.metrics import roc_auc_score
 X_test = pd.concat([
         loader.test(),
         pd.read_feather('../feature_someone/branden/X_test.f')
-        ], axis=1)
+        ], axis=1)[X.columns]
 
 sub_train = pd.DataFrame(index=X.index)
 sub_test  = pd.DataFrame(index=X_test.index)
@@ -163,8 +165,8 @@ sub_test['y_pred'] /= NFOLD
 # =============================================================================
 # save
 # =============================================================================
-sub_train.to_csv('../data/LB804_train_pred.csv', index=False)
-sub_test.to_csv('../data/LB804_test_pred.csv', index=False)
+sub_train.to_csv('../data/LB804_Branden_train_pred.csv', index=False)
+sub_test.to_csv('../data/LB804_Branden_test_pred.csv', index=False)
 
 
 #==============================================================================
