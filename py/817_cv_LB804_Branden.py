@@ -4,6 +4,10 @@
 Created on Fri Aug 17 12:25:20 2018
 
 @author: kazuki.onodera
+
+cd Home-Credit-Default-Risk/py
+python run.py 817_cv_LB804_Branden.py
+
 """
 
 

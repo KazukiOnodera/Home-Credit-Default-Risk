@@ -11,6 +11,8 @@ import pandas as pd
 
 files = glob('/Users/Kazuki/Downloads/imp_815_imp_lgb_loop.py-s*.csv')
 
+files = glob('/Users/kazuki.onodera/Downloads/imp_815_imp_lgb_loop.py-s*.csv')
+
 for i,f in enumerate(files):
     imp_ = pd.read_csv(f, index_col='feature')
     if i==0:
@@ -22,4 +24,7 @@ for i,f in enumerate(files):
 imp.sort_values('total', inplace=True)
 #imp.reset_index(inplace=True)
 
-imp.to_csv('imp_815_imp_lgb_loop.py_without_nejumi.csv')
+#imp.to_csv('imp_815_imp_lgb_loop.py_without_nejumi.csv')
+imp.to_csv('imp_815_imp_lgb_loop.py_Tam.csv')
+
+
