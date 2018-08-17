@@ -12,7 +12,7 @@ python run.py 817_cv_LB804_Branden.py
 
 
 import gc, os
-from tqdm import tqdm
+#from tqdm import tqdm
 import pandas as pd
 import numpy as np
 import sys
@@ -20,10 +20,10 @@ sys.path.append(f'/home/{os.environ.get("USER")}/PythonLibrary')
 import lgbextension as ex
 import lightgbm as lgb
 from multiprocessing import cpu_count
-from glob import glob
+#from glob import glob
 #import count
 import utils, utils_best
-#utils.start(__file__)
+utils.start(__file__)
 #==============================================================================
 
 SEED = np.random.randint(99999)
@@ -116,7 +116,7 @@ print(f'X.shape {X.shape}')
 
 gc.collect()
 
-CAT = list( set(X.columns) & set(loader.category()) & set(category_branden) )
+CAT = list( set(X.columns) & set(loader.category() + category_branden) )
 
 print('category:', CAT)
 # =============================================================================
