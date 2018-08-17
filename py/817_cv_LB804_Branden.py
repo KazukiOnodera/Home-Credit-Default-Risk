@@ -169,8 +169,8 @@ sub_test['y_pred'] /= NFOLD
 # =============================================================================
 # save
 # =============================================================================
-sub_train.to_csv('../data/LB804_Branden_train_pred.csv', index=False)
-sub_test.to_csv('../data/LB804_Branden_test_pred.csv', index=False)
+sub_train.to_csv(f'../data/LB804_Branden_train_pred_s{SEED}.csv', index=False)
+sub_test.to_csv(f'../data/LB804_Branden_test_pred_s{SEED}.csv', index=False)
 
 
 #==============================================================================
