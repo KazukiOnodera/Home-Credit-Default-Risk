@@ -116,7 +116,7 @@ print(f'X.shape {X.shape}')
 
 gc.collect()
 
-CAT = list( set(X.columns) & set(loader.category() + category_branden) )
+CAT = list( set(X.columns) & set(loader.category()) ) + category_branden
 
 print('category:', CAT)
 # =============================================================================
