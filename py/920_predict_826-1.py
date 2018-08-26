@@ -137,7 +137,7 @@ def mk_submit(HEAD=HEAD):
         
         gc.collect()
         param['seed'] = i
-        ret, models = lgb.cv(param, dtrain, 20, folds=folds, 
+        ret, models = lgb.cv(param, dtrain, 9999, folds=folds, 
                              early_stopping_rounds=100, verbose_eval=50,
                              seed=i)
         model_all += models
