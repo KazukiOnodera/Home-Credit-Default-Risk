@@ -32,7 +32,7 @@ SUBMIT_FILE_PATH = '../output/826-1.csv.gz'
 
 HEAD = 30
 
-EXE_SUBMIT = True
+EXE_SUBMIT = False
 COMMENT = 'CV(single): 0.80597 631features'
 
 param = {
@@ -109,12 +109,11 @@ def mk_submit(HEAD=HEAD):
     # =============================================================================
     # groupKfold
     # =============================================================================
-    sk_tbl = pd.read_csv('../data/user_id_v3.csv.gz')#.set_index('SK_ID_CURR')
+    sk_tbl = pd.read_csv('../data/user_id_v3.csv.gz') # TODO: check
     user_tbl = sk_tbl.user_id.drop_duplicates().reset_index(drop=True).to_frame()
     
     sub_train = pd.read_csv('../input/application_train.csv.zip', usecols=['SK_ID_CURR']).set_index('SK_ID_CURR')
     sub_train['y'] = y_train.values
-#    sub_train['user_id'] = user_id.user_id
     
     group_kfold = GroupKFold(n_splits=NFOLD)
     
