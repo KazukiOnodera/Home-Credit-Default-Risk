@@ -32,7 +32,7 @@ SUBMIT_FILE_PATH = '../output/826-1.csv.gz'
 
 HEAD = 30
 
-EXE_SUBMIT = True
+EXE_SUBMIT = False
 COMMENT = 'CV(single): 0.80597 631features'
 
 param = {
@@ -118,8 +118,6 @@ def mk_submit(HEAD=HEAD):
     
     group_kfold = GroupKFold(n_splits=NFOLD)
     
-    
-    
     # =============================================================================
     # training with cv
     # =============================================================================
@@ -128,13 +126,9 @@ def mk_submit(HEAD=HEAD):
     model_all = []
     y_pred = pd.Series(0, index=y_train.index)
     for i in range(LOOP):
-        dtrain = lgb.Dataset(X_train.sample(frac=1, random_state=i), 
-                             y_train.sample(frac=1, random_state=i), 
-                             categorical_feature=CAT, free_raw_data=False)
+        dtrain = lgb.Dataset(X_train, y_train, categorical_feature=CAT, free_raw_data=False)
         
-        folds = group_kfold.split(X_train.sample(frac=1, random_state=i), 
-                                  sub_train['y'].sample(frac=1, random_state=i), 
-                                  sub_train['g'].sample(frac=1, random_state=i))
+        folds = group_kfold.split(X_train, sub_train['y'], sub_train['g'])
         
         gc.collect()
         param['seed'] = i
