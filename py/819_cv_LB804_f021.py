@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Sun Jul 22 13:33:43 2018
+Created on Sun Aug 26 13:41:06 2018
 
 @author: Kazuki
 """
@@ -27,7 +27,7 @@ SEED = 71
 
 NFOLD = 6
 
-new_features = ['f022']
+new_features = ['f021']
 
 COMMENT = new_features
 
@@ -86,8 +86,9 @@ print(f'X.shape {X.shape}')
 gc.collect()
 
 CAT = list( set(X.columns) & set(loader.category()) )
+CAT += [new_features[0]+'_user_id']
 
-tmp = pd.read_csv('../data/user_id_v3.csv.gz').set_index('SK_ID_CURR') # TODO: change
+tmp = pd.read_csv('../data/user_id_v2.csv.gz').set_index('SK_ID_CURR') # TODO: change
 sub_train = pd.read_csv('../input/application_train.csv.zip', usecols=['SK_ID_CURR']).set_index('SK_ID_CURR')
 sub_train['user_id'] = tmp.user_id
 sub_train['g'] = sub_train.user_id % NFOLD
@@ -124,6 +125,7 @@ imp['total'] = imp['split'] + imp['gain']
 imp.sort_values('total', ascending=False, inplace=True)
 imp.reset_index(drop=True, inplace=True)
 
+imp.to_csv('LOG/imp_f021.csv', index=False)
 # =============================================================================
 # 
 # =============================================================================
@@ -138,9 +140,10 @@ for new_feature in imp[imp.split!=0][imp.feature.str.startswith(new_features[0])
 X_ = pd.concat([pd.read_feather(f) for f in tqdm(files, mininterval=60)
                 ], axis=1)
 
-for i in range(10,100,10):
+for i in range(30,100,10):
     X_new = pd.concat([X, X_.iloc[:,:i] ], axis=1)
-
+    CAT = list( set(X_new.columns) & set(loader.category()+[new_features[0]+'_user_id']) )
+    
     dtrain = lgb.Dataset(X_new, y, categorical_feature=CAT )
     gc.collect()
     
@@ -154,34 +157,4 @@ for i in range(10,100,10):
     result = f"CV auc-mean({COMMENT, i}): {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
     print(result)
     utils.send_line(result)
-
-
-
-# =============================================================================
-# cv loop
-# =============================================================================
-from sklearn.metrics import roc_auc_score
-
-dtrain = lgb.Dataset(X, y, categorical_feature=CAT, free_raw_data=False)
-gc.collect()
-
-y_pred = pd.Series(0, index=y.index)
-
-for i in range(5):
-    ret, models = lgb.cv(param, dtrain, 99999, nfold=7,
-                         early_stopping_rounds=100, verbose_eval=50,
-                         seed=i)
-    
-    y_pred += ex.eval_oob(X, y, models, i).rank()
-
-y_pred /= y_pred.max()
-
-roc_auc_score(y, y_pred)
-
-
-#==============================================================================
-utils.end(__file__)
-#utils.stop_instance()
-
-
 
