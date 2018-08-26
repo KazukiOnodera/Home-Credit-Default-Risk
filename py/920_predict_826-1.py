@@ -10,7 +10,6 @@ import numpy as np
 import pandas as pd
 from tqdm import tqdm
 import gc, os
-from collections import defaultdict
 import sys
 argv = sys.argv
 sys.path.append(f'/home/{os.environ.get("USER")}/PythonLibrary')
@@ -67,9 +66,9 @@ loader = utils_best.Loader('LB804')
 #==============================================================================
 
 imp = pd.read_csv('LOG/imp_f022.csv')
-features = imp[imp.split!=0][imp.feature.str.startswith('f022')].head(HEAD).feature
 
-def mk_submit():
+def mk_submit(HEAD=HEAD):
+    features = imp[imp.split!=0][imp.feature.str.startswith('f022')].head(HEAD).feature
     
     files_tr = ('../feature/train_' + features  + '.f').tolist()
     files_te = ('../feature/test_'  + features + '.f').tolist()
@@ -108,16 +107,38 @@ def mk_submit():
     X_test = pd.concat([X_test, X_test_], axis=1)[COL]
     
     # =============================================================================
+    # groupKfold
+    # =============================================================================
+    user_id = pd.read_csv('../data/user_id_v3.csv.gz').set_index('SK_ID_CURR')
+    sub_train = pd.read_csv('../input/application_train.csv.zip', usecols=['SK_ID_CURR']).set_index('SK_ID_CURR')
+    sub_train['user_id'] = user_id.user_id
+    sub_train['g'] = sub_train.user_id % NFOLD
+    
+    sub_train['y'] = y_train.values
+    
+    group_kfold = GroupKFold(n_splits=NFOLD)
+    
+    
+    
+    # =============================================================================
     # training with cv
     # =============================================================================
-    dtrain = lgb.Dataset(X_train, y_train, categorical_feature=CAT, free_raw_data=False)
+    
     
     model_all = []
     y_pred = pd.Series(0, index=y_train.index)
     for i in range(LOOP):
+        dtrain = lgb.Dataset(X_train.sample(frac=1, random_state=i), 
+                             y_train.sample(frac=1, random_state=i), 
+                             categorical_feature=CAT, free_raw_data=False)
+        
+        folds = group_kfold.split(X_train.sample(frac=1, random_state=i), 
+                                  sub_train['y'].sample(frac=1, random_state=i), 
+                                  sub_train['g'].sample(frac=1, random_state=i))
+        
         gc.collect()
         param['seed'] = i
-        ret, models = lgb.cv(param, dtrain, 10, nfold=NFOLD,
+        ret, models = lgb.cv(param, dtrain, 9999, folds=folds, 
                              early_stopping_rounds=100, verbose_eval=50,
                              seed=i)
         model_all += models
