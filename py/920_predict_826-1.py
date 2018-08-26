@@ -109,12 +109,12 @@ def mk_submit(HEAD=HEAD):
     # =============================================================================
     # groupKfold
     # =============================================================================
-    user_id = pd.read_csv('../data/user_id_v3.csv.gz').set_index('SK_ID_CURR')
-    sub_train = pd.read_csv('../input/application_train.csv.zip', usecols=['SK_ID_CURR']).set_index('SK_ID_CURR')
-    sub_train['user_id'] = user_id.user_id
-    sub_train['g'] = sub_train.user_id % NFOLD
+    sk_tbl = pd.read_csv('../data/user_id_v3.csv.gz')#.set_index('SK_ID_CURR')
+    user_tbl = sk_tbl.user_id.drop_duplicates().reset_index(drop=True).to_frame()
     
+    sub_train = pd.read_csv('../input/application_train.csv.zip', usecols=['SK_ID_CURR']).set_index('SK_ID_CURR')
     sub_train['y'] = y_train.values
+#    sub_train['user_id'] = user_id.user_id
     
     group_kfold = GroupKFold(n_splits=NFOLD)
     
@@ -128,6 +128,13 @@ def mk_submit(HEAD=HEAD):
     for i in range(LOOP):
         dtrain = lgb.Dataset(X_train, y_train, categorical_feature=CAT, free_raw_data=False)
         
+        # shuffle fold
+        ids = list(range(user_tbl.shape[0]))
+        np.random.shuffle(ids)
+        user_tbl['g'] = np.array(ids) % NFOLD
+        sk_tbl_ = pd.merge(sk_tbl, user_tbl, on='user_id', how='left').set_index('SK_ID_CURR')
+        
+        sub_train['g'] = sk_tbl_.g
         folds = group_kfold.split(X_train, sub_train['y'], sub_train['g'])
         
         gc.collect()
