@@ -31,10 +31,10 @@ NFOLD = 7
 
 SUBMIT_FILE_PATH = '../output/827-1.csv.gz'
 
-HEAD = 30
+HEAD = 50
 
-EXE_SUBMIT = False
-COMMENT = 'CV(single): 0.80597 631features'
+EXE_SUBMIT = True
+COMMENT = 'CV(single): 0.807158 651features'
 
 param = {
          'objective': 'binary',
