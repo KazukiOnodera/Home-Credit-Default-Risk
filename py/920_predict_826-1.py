@@ -32,7 +32,7 @@ SUBMIT_FILE_PATH = '../output/826-1.csv.gz'
 
 HEAD = 30
 
-EXE_SUBMIT = False
+EXE_SUBMIT = True
 COMMENT = 'CV(single): 0.80597 631features'
 
 param = {
@@ -121,10 +121,8 @@ def mk_submit(HEAD=HEAD):
     # =============================================================================
     # training with cv
     # =============================================================================
-    
-    
     model_all = []
-    y_pred = pd.Series(0, index=y_train.index)
+    auc_mean = 0
     for i in range(LOOP):
         dtrain = lgb.Dataset(X_train, y_train, categorical_feature=CAT, free_raw_data=False)
         
@@ -139,14 +137,13 @@ def mk_submit(HEAD=HEAD):
         
         gc.collect()
         param['seed'] = i
-        ret, models = lgb.cv(param, dtrain, 9999, folds=folds, 
+        ret, models = lgb.cv(param, dtrain, 20, folds=folds, 
                              early_stopping_rounds=100, verbose_eval=50,
                              seed=i)
         model_all += models
-        y_pred += ex.eval_oob(X_train, y_train, models, i).rank()
-    y_pred /= y_pred.max()
-
-    auc_mean = roc_auc_score(y_train, y_pred)
+        auc_mean += ret['auc-mean'][-1]
+    auc_mean /= LOOP
+    
     result = f"CV auc-mean(feature {HEAD}): {auc_mean}"
     print(result)
     utils.send_line(result)
