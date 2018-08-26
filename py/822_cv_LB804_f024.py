@@ -125,7 +125,7 @@ imp['total'] = imp['split'] + imp['gain']
 imp.sort_values('total', ascending=False, inplace=True)
 imp.reset_index(drop=True, inplace=True)
 
-imp.to_csv('LOG/imp_f023.csv', index=False)
+imp.to_csv('LOG/imp_f024.csv', index=False)
 # =============================================================================
 # 
 # =============================================================================
