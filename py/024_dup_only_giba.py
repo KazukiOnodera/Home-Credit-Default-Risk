@@ -1,23 +1,19 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Sun Aug 26 23:58:07 2018
+Created on Mon Aug 27 02:08:31 2018
 
 @author: Kazuki
-
-Onodera + Giba
-
 """
-
 
 import pandas as pd
 import numpy as np
 import utils, os
 #utils.start(__file__)
 #==============================================================================
-PREF = 'f023_'
+PREF = 'f024_'
 
-path_user_id = '../data/user_id_v4.csv.zip'
+path_user_id = '../data/user_id_v5.csv.zip'
 
 KEY = 'SK_ID_CURR'
 
@@ -25,6 +21,14 @@ os.system(f'rm ../feature/t*_{PREF}*')
 #==============================================================================
 
 user_id = pd.read_csv(path_user_id)
+
+user_unq = user_id[user_id.user_id==1]
+user_dup = user_id[user_id.user_id!=1]
+
+start = user_dup.user_id.max()+1
+user_unq['user_id'] = range(start, start+user_unq.shape[0])
+
+user_id = pd.concat([user_unq, user_dup])
 
 train  = pd.read_csv('../input/application_train.csv.zip')
 train['is_train'] = 1
@@ -71,6 +75,13 @@ col = ['user_id'] + col
 # =============================================================================
 dup.sort_values(['user_id', 'DAYS_REGISTRATION'], inplace=True)
 #dup.sort_values(['user_id', 'DAYS_BIRTH'], inplace=True)
+
+#tmp1 = dup.sort_values(['user_id', 'DAYS_REGISTRATION'], )
+#tmp2 = dup.sort_values(['user_id', 'DAYS_BIRTH'], )
+#
+#tmp1.equals(tmp2)
+
+
 feature = dup[['SK_ID_CURR']].set_index('SK_ID_CURR')
 gr = dup.groupby('dup_id')
 
@@ -110,6 +121,7 @@ utils.to_feature(tmp.add_prefix(PREF),  '../feature/test')
 
 #==============================================================================
 #utils.end(__file__)
+
 
 
 
