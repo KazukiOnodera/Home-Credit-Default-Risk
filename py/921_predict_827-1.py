@@ -26,7 +26,7 @@ utils.start(__file__)
 
 SEED = 71
 
-LOOP = 5
+LOOP = 3
 NFOLD = 7
 
 SUBMIT_FILE_PATH = '../output/827-1.csv.gz'
