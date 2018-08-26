@@ -88,7 +88,17 @@ gc.collect()
 CAT = list( set(X.columns) & set(loader.category()) )
 CAT += [new_features[0]+'_user_id']
 
-tmp = pd.read_csv('../data/user_id_v5.csv.zip').set_index('SK_ID_CURR') # TODO: change
+user_id = pd.read_csv('../data/user_id_v5.csv.zip').set_index('SK_ID_CURR') # TODO: change
+user_unq = user_id[user_id.user_id==1]
+user_dup = user_id[user_id.user_id!=1]
+
+start = user_dup.user_id.max()+1
+user_unq['user_id'] = range(start, start+user_unq.shape[0])
+
+tmp = pd.concat([user_unq, user_dup])
+
+
+
 sub_train = pd.read_csv('../input/application_train.csv.zip', usecols=['SK_ID_CURR']).set_index('SK_ID_CURR')
 sub_train['user_id'] = tmp.user_id
 sub_train['g'] = sub_train.user_id % NFOLD
