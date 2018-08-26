@@ -88,16 +88,25 @@ gr = dup.groupby('dup_id')
 
 # last
 for c in col[2:]:
-    feature[f'last_{c}'] = gr[c].shift().values
+    feature[f'last_{c}'] = gr[c].shift(1).values
     feature[f'lastlast_{c}'] = gr[c].shift(2).values
+    
+    feature[f'last_{c}_r'] = gr[c].shift(-1).values
+    feature[f'lastlast_{c}_r'] = gr[c].shift(-2).values
 
 # other
 for c in col[3:]:
-    feature[f'{c}_diff'] = gr[c].diff().values
-    feature[f'{c}_ratio'] = ( dup[c] / gr[c].shift() ).values
-    feature[f'{c}_min'] = pd.concat([ dup[c], gr[c].shift()], axis=1).min(1).values
-    feature[f'{c}_max'] = pd.concat([ dup[c], gr[c].shift()], axis=1).max(1).values
-    feature[f'{c}_mean'] = pd.concat([ dup[c], gr[c].shift()], axis=1).mean(1).values
+    feature[f'{c}_diff'] = gr[c].diff(1).values
+    feature[f'{c}_ratio'] = ( dup[c] / gr[c].shift(1) ).values
+    feature[f'{c}_min'] = pd.concat([ dup[c], gr[c].shift(1), gr[c].shift(2)], axis=1).min(1).values
+    feature[f'{c}_max'] = pd.concat([ dup[c], gr[c].shift(1), gr[c].shift(2)], axis=1).max(1).values
+    feature[f'{c}_mean'] = pd.concat([ dup[c], gr[c].shift(1), gr[c].shift(2)], axis=1).mean(1).values
+    
+    feature[f'{c}_diff_r'] = gr[c].diff(-1).values
+    feature[f'{c}_ratio_r'] = ( dup[c] / gr[c].shift(-1) ).values
+    feature[f'{c}_min_r'] = pd.concat([ dup[c], gr[c].shift(-1), gr[c].shift(-2)], axis=1).min(1).values
+    feature[f'{c}_max_r'] = pd.concat([ dup[c], gr[c].shift(-1), gr[c].shift(-2)], axis=1).max(1).values
+    feature[f'{c}_mean_r'] = pd.concat([ dup[c], gr[c].shift(-1), gr[c].shift(-2)], axis=1).mean(1).values
 
 feature.dropna(how='all', inplace=True)
 
