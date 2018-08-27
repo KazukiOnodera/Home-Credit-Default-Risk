@@ -126,6 +126,12 @@ imp.sort_values('total', ascending=False, inplace=True)
 imp.reset_index(drop=True, inplace=True)
 
 imp.to_csv('LOG/imp_f023.csv', index=False)
+
+"""
+
+imp = pd.read_csv('LOG/imp_f023.csv')
+
+"""
 # =============================================================================
 # 
 # =============================================================================
@@ -140,7 +146,7 @@ for new_feature in imp[imp.split!=0][imp.feature.str.startswith(new_features[0])
 X_ = pd.concat([pd.read_feather(f) for f in tqdm(files, mininterval=60)
                 ], axis=1)
 
-for i in range(30,100,10):
+for i in range(120,1000,30):
     X_new = pd.concat([X, X_.iloc[:,:i] ], axis=1)
     CAT = list( set(X_new.columns) & set(loader.category()+[new_features[0]+'_user_id']) )
     

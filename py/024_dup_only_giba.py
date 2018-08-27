@@ -29,6 +29,7 @@ start = user_dup.user_id.max()+1
 user_unq['user_id'] = range(start, start+user_unq.shape[0])
 
 user_id = pd.concat([user_unq, user_dup])
+user_id.to_csv(path_user_id.replace('zip', 'gz'), index=False, compression='gzip')
 
 train  = pd.read_csv('../input/application_train.csv.zip')
 train['is_train'] = 1
@@ -73,7 +74,8 @@ col = ['user_id'] + col
 # =============================================================================
 # 
 # =============================================================================
-dup.sort_values(['user_id', 'DAYS_REGISTRATION'], inplace=True)
+dup.sort_values(['user_id', 'DAYS_BIRTH'], ascending=[True, False], inplace=True)
+#dup.sort_values(['user_id', 'DAYS_REGISTRATION'], ascending=[True, False], inplace=True)
 #dup.sort_values(['user_id', 'DAYS_BIRTH'], inplace=True)
 
 #tmp1 = dup.sort_values(['user_id', 'DAYS_REGISTRATION'], )

@@ -69,7 +69,7 @@ col = ['user_id'] + col
 # =============================================================================
 # 
 # =============================================================================
-dup.sort_values(['user_id', 'DAYS_REGISTRATION'], inplace=True)
+dup.sort_values(['user_id', 'DAYS_BIRTH'], ascending=[True, False], inplace=True)
 #dup.sort_values(['user_id', 'DAYS_BIRTH'], inplace=True)
 feature = dup[['SK_ID_CURR']].set_index('SK_ID_CURR')
 gr = dup.groupby('dup_id')
@@ -99,7 +99,6 @@ for c in col[3:]:
 
 
 feature.dropna(how='all', inplace=True)
-
 utils.remove_feature(feature, var_limit=0, corr_limit=0.98, sample_size=19999)
 
 

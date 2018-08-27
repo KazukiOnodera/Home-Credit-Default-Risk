@@ -88,7 +88,7 @@ gc.collect()
 CAT = list( set(X.columns) & set(loader.category()) )
 CAT += [new_features[0]+'_user_id']
 
-user_id = pd.read_csv('../data/user_id_v5.csv.zip').set_index('SK_ID_CURR') # TODO: change
+user_id = pd.read_csv('../data/user_id_v5.csv.gz').set_index('SK_ID_CURR') # TODO: change
 user_unq = user_id[user_id.user_id==1]
 user_dup = user_id[user_id.user_id!=1]
 
