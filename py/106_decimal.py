@@ -31,7 +31,7 @@ os.system(f'rm ../feature/t*_{PREF}*')
 prev = utils.read_pickles('../data/previous_application', ['SK_ID_CURR', 'DAYS_DECISION']+col_binary)
 #base = prev[[KEY]].drop_duplicates().set_index(KEY)
 
-prev.sort_values(['SK_ID_CURR', 'DAYS_DECISION'], inplace=True, ascending=[True, False])
+prev.sort_values(['SK_ID_CURR', 'DAYS_DECISION'], inplace=True) # top is latest
 
 col_binary_di = {}
 

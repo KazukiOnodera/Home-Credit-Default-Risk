@@ -256,8 +256,11 @@ if True:
         """
         df = utils.read_pickles('../data/previous_application')
         """
-        df = pd.merge(pd.read_csv('../input/previous_application.csv.zip'),
+        
+        df = pd.merge(pd.read_csv('../data/prev_new_v2.csv.gz'),
                       get_trte(), on='SK_ID_CURR', how='left')
+#        df = pd.merge(pd.read_csv('../input/previous_application.csv.zip'),
+#                      get_trte(), on='SK_ID_CURR', how='left')
         prep_prev(df)
         df['FLAG_LAST_APPL_PER_CONTRACT'] = (df['FLAG_LAST_APPL_PER_CONTRACT']=='Y')*1
         
