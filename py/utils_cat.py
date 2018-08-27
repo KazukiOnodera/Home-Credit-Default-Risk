@@ -67,6 +67,38 @@ f109 = ['f109_NAME_CONTRACT_TYPE',
          'f109_NAME_YIELD_GROUP',
          'f109_PRODUCT_COMBINATION']
 
+f158 =['f158_NAME_CONTRACT_TYPE',
+         'f158_WEEKDAY_APPR_PROCESS_START',
+         'f158_NAME_CASH_LOAN_PURPOSE',
+         'f158_NAME_CONTRACT_STATUS',
+         'f158_NAME_PAYMENT_TYPE',
+         'f158_CODE_REJECT_REASON',
+         'f158_NAME_TYPE_SUITE',
+         'f158_NAME_CLIENT_TYPE',
+         'f158_NAME_GOODS_CATEGORY',
+         'f158_NAME_PORTFOLIO',
+         'f158_NAME_PRODUCT_TYPE',
+         'f158_CHANNEL_TYPE',
+         'f158_NAME_SELLER_INDUSTRY',
+         'f158_NAME_YIELD_GROUP',
+         'f158_PRODUCT_COMBINATION']
+
+
+f159 =['f159_NAME_CONTRACT_TYPE',
+         'f159_WEEKDAY_APPR_PROCESS_START',
+         'f159_NAME_CASH_LOAN_PURPOSE',
+         'f159_NAME_CONTRACT_STATUS',
+         'f159_NAME_PAYMENT_TYPE',
+         'f159_CODE_REJECT_REASON',
+         'f159_NAME_TYPE_SUITE',
+         'f159_NAME_CLIENT_TYPE',
+         'f159_NAME_GOODS_CATEGORY',
+         'f159_NAME_PORTFOLIO',
+         'f159_NAME_PRODUCT_TYPE',
+         'f159_CHANNEL_TYPE',
+         'f159_NAME_SELLER_INDUSTRY',
+         'f159_NAME_YIELD_GROUP',
+         'f159_PRODUCT_COMBINATION']
 
 # =============================================================================
 # 
