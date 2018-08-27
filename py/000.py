@@ -948,6 +948,262 @@ if True:
         
         utils.to_pickles(df, '../data/bureau_balance', utils.SPLIT_SIZE)
     
+    elif p==7:
+        # =============================================================================
+        # future
+        # =============================================================================
+        df = pd.merge(pd.read_csv('../data/future_application_v1.csv.gz'),
+                      get_trte(), on='SK_ID_CURR', how='left')
+#        df = pd.merge(pd.read_csv('../input/previous_application.csv.zip'),
+#                      get_trte(), on='SK_ID_CURR', how='left')
+        prep_prev(df)
+        df['FLAG_LAST_APPL_PER_CONTRACT'] = (df['FLAG_LAST_APPL_PER_CONTRACT']=='Y')*1
+        
+        # day
+        for c in ['DAYS_FIRST_DRAWING', 'DAYS_FIRST_DUE', 'DAYS_LAST_DUE_1ST_VERSION', 
+                  'DAYS_LAST_DUE', 'DAYS_TERMINATION']:
+            df.loc[df[c]==365243, c] = np.nan
+        df['days_fdue-m-fdrw'] = df['DAYS_FIRST_DUE'] - df['DAYS_FIRST_DRAWING']
+        df['days_ldue1-m-fdrw'] = df['DAYS_LAST_DUE_1ST_VERSION'] - df['DAYS_FIRST_DRAWING']
+        df['days_ldue-m-fdrw'] = df['DAYS_LAST_DUE'] - df['DAYS_FIRST_DRAWING'] # total span
+        df['days_trm-m-fdrw'] = df['DAYS_TERMINATION'] - df['DAYS_FIRST_DRAWING']
+        
+        df['days_ldue1-m-fdue'] = df['DAYS_LAST_DUE_1ST_VERSION'] - df['DAYS_FIRST_DUE']
+        df['days_ldue-m-fdue'] = df['DAYS_LAST_DUE'] - df['DAYS_FIRST_DUE']
+        df['days_trm-m-fdue'] = df['DAYS_TERMINATION'] - df['DAYS_FIRST_DUE']
+        
+        df['days_ldue-m-ldue1'] = df['DAYS_LAST_DUE'] - df['DAYS_LAST_DUE_1ST_VERSION']
+        df['days_trm-m-ldue1'] = df['DAYS_TERMINATION'] - df['DAYS_LAST_DUE_1ST_VERSION']
+        
+        df['days_trm-m-ldue'] = df['DAYS_TERMINATION'] - df['DAYS_LAST_DUE']
+        
+        # money
+        df['total_debt'] = df['AMT_ANNUITY'] * df['CNT_PAYMENT']
+        df['AMT_CREDIT-d-total_debt'] = df['AMT_CREDIT'] / df['total_debt']
+        df['AMT_GOODS_PRICE-d-total_debt'] = df['AMT_GOODS_PRICE'] / df['total_debt']
+        df['AMT_GOODS_PRICE-d-AMT_CREDIT'] = df['AMT_GOODS_PRICE'] / df['AMT_CREDIT']
+        
+        # app & money
+        df['AMT_ANNUITY-d-app_AMT_INCOME_TOTAL']     = df['AMT_ANNUITY']     / df['app_AMT_INCOME_TOTAL']
+        df['AMT_APPLICATION-d-app_AMT_INCOME_TOTAL'] = df['AMT_APPLICATION'] / df['app_AMT_INCOME_TOTAL']
+        df['AMT_CREDIT-d-app_AMT_INCOME_TOTAL']      = df['AMT_CREDIT']      / df['app_AMT_INCOME_TOTAL']
+        df['AMT_GOODS_PRICE-d-app_AMT_INCOME_TOTAL'] = df['AMT_GOODS_PRICE'] / df['app_AMT_INCOME_TOTAL']
+        
+        df['AMT_ANNUITY-m-app_AMT_INCOME_TOTAL']     = df['AMT_ANNUITY']     - df['app_AMT_INCOME_TOTAL']
+        df['AMT_APPLICATION-m-app_AMT_INCOME_TOTAL'] = df['AMT_APPLICATION'] - df['app_AMT_INCOME_TOTAL']
+        df['AMT_CREDIT-m-app_AMT_INCOME_TOTAL']      = df['AMT_CREDIT']      - df['app_AMT_INCOME_TOTAL']
+        df['AMT_GOODS_PRICE-m-app_AMT_INCOME_TOTAL'] = df['AMT_GOODS_PRICE'] - df['app_AMT_INCOME_TOTAL']
+        
+        df['AMT_ANNUITY-d-app_AMT_CREDIT']     = df['AMT_ANNUITY']     / df['app_AMT_CREDIT']
+        df['AMT_APPLICATION-d-app_AMT_CREDIT'] = df['AMT_APPLICATION'] / df['app_AMT_CREDIT']
+        df['AMT_CREDIT-d-app_AMT_CREDIT']      = df['AMT_CREDIT']      / df['app_AMT_CREDIT']
+        df['AMT_GOODS_PRICE-d-app_AMT_CREDIT'] = df['AMT_GOODS_PRICE'] / df['app_AMT_CREDIT']
+        
+        df['AMT_ANNUITY-m-app_AMT_CREDIT']     = df['AMT_ANNUITY']     - df['app_AMT_CREDIT']
+        df['AMT_APPLICATION-m-app_AMT_CREDIT'] = df['AMT_APPLICATION'] - df['app_AMT_CREDIT']
+        df['AMT_CREDIT-m-app_AMT_CREDIT']      = df['AMT_CREDIT']      - df['app_AMT_CREDIT']
+        df['AMT_GOODS_PRICE-m-app_AMT_CREDIT'] = df['AMT_GOODS_PRICE'] - df['app_AMT_CREDIT']
+        
+        df['AMT_ANNUITY-m-app_AMT_CREDIT-d-app_AMT_INCOME_TOTAL']     = (df['AMT_ANNUITY']     - df['app_AMT_CREDIT']) / df['app_AMT_INCOME_TOTAL']
+        df['AMT_APPLICATION-m-app_AMT_CREDIT-d-app_AMT_INCOME_TOTAL'] = (df['AMT_APPLICATION'] - df['app_AMT_CREDIT']) / df['app_AMT_INCOME_TOTAL']
+        df['AMT_CREDIT-m-app_AMT_CREDIT-d-app_AMT_INCOME_TOTAL']      = (df['AMT_CREDIT']      - df['app_AMT_CREDIT']) / df['app_AMT_INCOME_TOTAL']
+        df['AMT_GOODS_PRICE-m-app_AMT_CREDIT-d-app_AMT_INCOME_TOTAL'] = (df['AMT_GOODS_PRICE'] - df['app_AMT_CREDIT']) / df['app_AMT_INCOME_TOTAL']
+        
+        
+        df['AMT_ANNUITY-d-app_AMT_ANNUITY']     = df['AMT_ANNUITY']     / df['app_AMT_ANNUITY']
+        df['AMT_APPLICATION-d-app_AMT_ANNUITY'] = df['AMT_APPLICATION'] / df['app_AMT_ANNUITY']
+        df['AMT_CREDIT-d-app_AMT_ANNUITY']      = df['AMT_CREDIT']      / df['app_AMT_ANNUITY']
+        df['AMT_GOODS_PRICE-d-app_AMT_ANNUITY'] = df['AMT_GOODS_PRICE'] / df['app_AMT_ANNUITY']
+        
+        df['AMT_ANNUITY-m-app_AMT_ANNUITY']     = df['AMT_ANNUITY']     - df['app_AMT_ANNUITY']
+        df['AMT_APPLICATION-m-app_AMT_ANNUITY'] = df['AMT_APPLICATION'] - df['app_AMT_ANNUITY']
+        df['AMT_CREDIT-m-app_AMT_ANNUITY']      = df['AMT_CREDIT']      - df['app_AMT_ANNUITY']
+        df['AMT_GOODS_PRICE-m-app_AMT_ANNUITY'] = df['AMT_GOODS_PRICE'] - df['app_AMT_ANNUITY']
+        
+        df['AMT_ANNUITY-m-app_AMT_ANNUITY-d-app_AMT_INCOME_TOTAL']     = (df['AMT_ANNUITY']     - df['app_AMT_ANNUITY']) / df['app_AMT_INCOME_TOTAL']
+        df['AMT_APPLICATION-m-app_AMT_ANNUITY-d-app_AMT_INCOME_TOTAL'] = (df['AMT_APPLICATION'] - df['app_AMT_ANNUITY']) / df['app_AMT_INCOME_TOTAL']
+        df['AMT_CREDIT-m-app_AMT_ANNUITY-d-app_AMT_INCOME_TOTAL']      = (df['AMT_CREDIT']      - df['app_AMT_ANNUITY']) / df['app_AMT_INCOME_TOTAL']
+        df['AMT_GOODS_PRICE-m-app_AMT_ANNUITY-d-app_AMT_INCOME_TOTAL'] = (df['AMT_GOODS_PRICE'] - df['app_AMT_ANNUITY']) / df['app_AMT_INCOME_TOTAL']
+        
+        df['AMT_ANNUITY-d-app_AMT_GOODS_PRICE']     = df['AMT_ANNUITY']     / df['app_AMT_GOODS_PRICE']
+        df['AMT_APPLICATION-d-app_AMT_GOODS_PRICE'] = df['AMT_APPLICATION'] / df['app_AMT_GOODS_PRICE']
+        df['AMT_CREDIT-d-app_AMT_GOODS_PRICE']      = df['AMT_CREDIT']      / df['app_AMT_GOODS_PRICE']
+        df['AMT_GOODS_PRICE-d-app_AMT_GOODS_PRICE'] = df['AMT_GOODS_PRICE'] / df['app_AMT_GOODS_PRICE']
+        
+        df['AMT_ANNUITY-m-app_AMT_GOODS_PRICE']     = df['AMT_ANNUITY']     - df['app_AMT_GOODS_PRICE']
+        df['AMT_APPLICATION-m-app_AMT_GOODS_PRICE'] = df['AMT_APPLICATION'] - df['app_AMT_GOODS_PRICE']
+        df['AMT_CREDIT-m-app_AMT_GOODS_PRICE']      = df['AMT_CREDIT']      - df['app_AMT_GOODS_PRICE']
+        df['AMT_GOODS_PRICE-m-app_AMT_GOODS_PRICE'] = df['AMT_GOODS_PRICE'] - df['app_AMT_GOODS_PRICE']
+        
+        df['AMT_ANNUITY-m-app_AMT_GOODS_PRICE-d-app_AMT_INCOME_TOTAL']     = (df['AMT_ANNUITY']     - df['app_AMT_GOODS_PRICE']) / df['app_AMT_INCOME_TOTAL']
+        df['AMT_APPLICATION-m-app_AMT_GOODS_PRICE-d-app_AMT_INCOME_TOTAL'] = (df['AMT_APPLICATION'] - df['app_AMT_GOODS_PRICE']) / df['app_AMT_INCOME_TOTAL']
+        df['AMT_CREDIT-m-app_AMT_GOODS_PRICE-d-app_AMT_INCOME_TOTAL']      = (df['AMT_CREDIT']      - df['app_AMT_GOODS_PRICE']) / df['app_AMT_INCOME_TOTAL']
+        df['AMT_GOODS_PRICE-m-app_AMT_GOODS_PRICE-d-app_AMT_INCOME_TOTAL'] = (df['AMT_GOODS_PRICE'] - df['app_AMT_GOODS_PRICE']) / df['app_AMT_INCOME_TOTAL']
+        
+        # nejumi
+        f_name='nejumi'; init_rate=0.9; n_iter=500
+        df['AMT_ANNUITY_d_AMT_CREDIT_temp'] = df.AMT_ANNUITY / df.AMT_CREDIT   
+        df[f_name] = df['AMT_ANNUITY_d_AMT_CREDIT_temp']*((1 + init_rate)**df.CNT_PAYMENT - 1)/((1 + init_rate)**df.CNT_PAYMENT)
+        for i in range(n_iter):
+            df[f_name] = df['AMT_ANNUITY_d_AMT_CREDIT_temp']*((1 + df[f_name])**df.CNT_PAYMENT - 1)/((1 + df[f_name])**df.CNT_PAYMENT) 
+        df.drop(['AMT_ANNUITY_d_AMT_CREDIT_temp'], axis=1, inplace=True)
+        
+        df.sort_values(['SK_ID_CURR', 'DAYS_DECISION'], inplace=True)
+        df.reset_index(drop=True, inplace=True)
+        
+        col = [
+                'total_debt',
+                'AMT_CREDIT-d-total_debt',
+                'AMT_GOODS_PRICE-d-total_debt',
+                'AMT_GOODS_PRICE-d-AMT_CREDIT',
+                'AMT_ANNUITY-d-app_AMT_INCOME_TOTAL',
+                'AMT_APPLICATION-d-app_AMT_INCOME_TOTAL',
+                'AMT_CREDIT-d-app_AMT_INCOME_TOTAL',
+                'AMT_GOODS_PRICE-d-app_AMT_INCOME_TOTAL',
+                
+                'AMT_ANNUITY-d-app_AMT_CREDIT',
+                'AMT_APPLICATION-d-app_AMT_CREDIT',
+                'AMT_CREDIT-d-app_AMT_CREDIT',
+                'AMT_GOODS_PRICE-d-app_AMT_CREDIT',
+                
+                'AMT_ANNUITY-d-app_AMT_ANNUITY',
+                'AMT_APPLICATION-d-app_AMT_ANNUITY',
+                'AMT_CREDIT-d-app_AMT_ANNUITY',
+                'AMT_GOODS_PRICE-d-app_AMT_ANNUITY',
+                
+                'AMT_ANNUITY-d-app_AMT_GOODS_PRICE',
+                'AMT_APPLICATION-d-app_AMT_GOODS_PRICE',
+                'AMT_CREDIT-d-app_AMT_GOODS_PRICE',
+                'AMT_GOODS_PRICE-d-app_AMT_GOODS_PRICE',
+                
+                'AMT_ANNUITY-m-app_AMT_INCOME_TOTAL',
+                'AMT_APPLICATION-m-app_AMT_INCOME_TOTAL',
+                'AMT_CREDIT-m-app_AMT_INCOME_TOTAL',
+                'AMT_GOODS_PRICE-m-app_AMT_INCOME_TOTAL',
+                'AMT_ANNUITY-m-app_AMT_CREDIT',
+                'AMT_APPLICATION-m-app_AMT_CREDIT',
+                'AMT_CREDIT-m-app_AMT_CREDIT',
+                'AMT_GOODS_PRICE-m-app_AMT_CREDIT',
+                'AMT_ANNUITY-m-app_AMT_CREDIT-d-app_AMT_INCOME_TOTAL',
+                'AMT_APPLICATION-m-app_AMT_CREDIT-d-app_AMT_INCOME_TOTAL',
+                'AMT_CREDIT-m-app_AMT_CREDIT-d-app_AMT_INCOME_TOTAL',
+                'AMT_GOODS_PRICE-m-app_AMT_CREDIT-d-app_AMT_INCOME_TOTAL',
+                'AMT_ANNUITY-m-app_AMT_ANNUITY',
+                'AMT_APPLICATION-m-app_AMT_ANNUITY',
+                'AMT_CREDIT-m-app_AMT_ANNUITY',
+                'AMT_GOODS_PRICE-m-app_AMT_ANNUITY',
+                'AMT_ANNUITY-m-app_AMT_ANNUITY-d-app_AMT_INCOME_TOTAL',
+                'AMT_APPLICATION-m-app_AMT_ANNUITY-d-app_AMT_INCOME_TOTAL',
+                'AMT_CREDIT-m-app_AMT_ANNUITY-d-app_AMT_INCOME_TOTAL',
+                'AMT_GOODS_PRICE-m-app_AMT_ANNUITY-d-app_AMT_INCOME_TOTAL',
+                'AMT_ANNUITY-m-app_AMT_GOODS_PRICE',
+                'AMT_APPLICATION-m-app_AMT_GOODS_PRICE',
+                'AMT_CREDIT-m-app_AMT_GOODS_PRICE',
+                'AMT_GOODS_PRICE-m-app_AMT_GOODS_PRICE',
+                'AMT_ANNUITY-m-app_AMT_GOODS_PRICE-d-app_AMT_INCOME_TOTAL',
+                'AMT_APPLICATION-m-app_AMT_GOODS_PRICE-d-app_AMT_INCOME_TOTAL',
+                'AMT_CREDIT-m-app_AMT_GOODS_PRICE-d-app_AMT_INCOME_TOTAL',
+                'AMT_GOODS_PRICE-m-app_AMT_GOODS_PRICE-d-app_AMT_INCOME_TOTAL',    
+                'nejumi'
+               ]
+        
+        def multi_prev(c):
+            ret_diff = []
+            ret_pctchng = []
+            key_bk = x_bk = None
+            for key, x in df[['SK_ID_CURR', c]].values:
+#            for key, x in tqdm(df[['SK_ID_CURR', c]].values, mininterval=30):
+                
+                if key_bk is None:
+                    ret_diff.append(None)
+                    ret_pctchng.append(None)
+                else:
+                    if key_bk == key:
+                        ret_diff.append(x - x_bk)
+                        ret_pctchng.append( (x_bk-x) / x_bk)
+                    else:
+                        ret_diff.append(None)
+                        ret_pctchng.append(None)
+                key_bk = key
+                x_bk = x
+                
+            ret_diff = pd.Series(ret_diff, name=f'{c}_diff')
+            ret_pctchng = pd.Series(ret_pctchng, name=f'{c}_pctchange')
+            ret = pd.concat([ret_diff, ret_pctchng], axis=1)
+            
+            return ret
+        
+        pool = Pool(len(col))
+        callback = pd.concat(pool.map(multi_prev, col), axis=1)
+        print('===== PREV ====')
+        print(callback.columns.tolist())
+        pool.close()
+        df = pd.concat([df, callback], axis=1)
+        
+        
+        
+        # app & day
+        col_prev = ['DAYS_FIRST_DRAWING', 'DAYS_FIRST_DUE', 'DAYS_LAST_DUE_1ST_VERSION', 
+                    'DAYS_LAST_DUE', 'DAYS_TERMINATION']
+        for c1 in col_prev:
+            for c2 in col_app_day:
+#                print(f"'{c1}-m-{c2}',")
+                df[f'{c1}-m-{c2}'] = df[c1] - df[c2]
+                df[f'{c1}-d-{c2}'] = df[c1] / df[c2]
+        
+        df['cnt_paid'] = df.apply(lambda x: min( np.ceil(x['DAYS_FIRST_DUE']/-30), x['CNT_PAYMENT'] ), axis=1)
+        df['cnt_paid_ratio'] = df['cnt_paid'] / df['CNT_PAYMENT']
+        df['cnt_unpaid'] = df['CNT_PAYMENT'] - df['cnt_paid']
+        df['amt_paid'] = df['AMT_ANNUITY'] * df['cnt_paid']
+#        df['amt_paid_ratio'] = df['amt_paid'] / df['total_debt'] # same as cnt_paid_ratio
+        df['amt_unpaid'] = df['total_debt'] - df['amt_paid']
+        
+        df['active'] = (df['cnt_unpaid']>0)*1
+        df['completed'] = (df['cnt_unpaid']==0)*1
+        
+        # future payment
+        df_tmp = pd.DataFrame()
+        print('future payment')
+        rem_max = df['cnt_unpaid'].max() # 80
+#        rem_max = 1
+        df['cnt_unpaid_tmp'] = df['cnt_unpaid']
+        for i in range(int( rem_max )):
+            c = f'future_payment_{i+1}m'
+            df_tmp[c] = df['cnt_unpaid_tmp'].map(lambda x: min(x, 1)) * df['AMT_ANNUITY']
+            df_tmp.loc[df_tmp[c]==0, c] = np.nan
+            df['cnt_unpaid_tmp'] -= 1
+            df['cnt_unpaid_tmp'] = df['cnt_unpaid_tmp'].map(lambda x: max(x, 0))
+#        df['prev_future_payment_max'] = df.filter(regex='^prev_future_payment_').max(1)
+        
+        del df['cnt_unpaid_tmp']
+        df = pd.concat([df, df_tmp], axis=1)
+        
+        
+        # past payment
+        df_tmp = pd.DataFrame()
+        print('past payment')
+        rem_max = df['cnt_paid'].max() # 72
+        df['cnt_paid_tmp'] = df['cnt_paid']
+        for i in range(int( rem_max )):
+            c = f'past_payment_{i+1}m'
+            df_tmp[c] = df['cnt_paid_tmp'].map(lambda x: min(x, 1)) * df['AMT_ANNUITY']
+            df_tmp.loc[df_tmp[c]==0, c] = np.nan
+            df['cnt_paid_tmp'] -= 1
+            df['cnt_paid_tmp'] = df['cnt_paid_tmp'].map(lambda x: max(x, 0))
+#        df['prev_past_payment_max'] = df.filter(regex='^prev_past_payment_').max(1)
+        
+        del df['cnt_paid_tmp']
+        df = pd.concat([df, df_tmp], axis=1)
+        
+        df['APP_CREDIT_PERC'] = df['AMT_APPLICATION'] / df['AMT_CREDIT']
+        
+        #df.filter(regex='^amt_future_payment_')
+        
+        df.replace(np.inf, np.nan, inplace=True) # TODO: any other plan?
+        df.replace(-np.inf, np.nan, inplace=True)
+        
+        utils.to_pickles(df, '../data/future_application', utils.SPLIT_SIZE)
+    
     else:
         pass
 #        return
