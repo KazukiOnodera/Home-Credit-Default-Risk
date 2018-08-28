@@ -45,5 +45,5 @@ imp2 = pd.read_csv('/Users/Kazuki/Downloads/imp_801_imp_lgb.py-2-2.csv').set_ind
 
 tmp = (imp1.total + imp2.total).sort_values(ascending=False).to_frame().reset_index()
 
-
+tmp.to_csv('/Users/Kazuki/Downloads/imp_801_imp_lgb.py-2.csv', index=False)
 
