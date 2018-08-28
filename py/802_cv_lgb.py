@@ -73,6 +73,15 @@ sub_train['y'] = y.values
 
 group_kfold = GroupKFold(n_splits=NFOLD)
 
+# =============================================================================
+# shuffle fold
+# =============================================================================
+ids = list(range(user_tbl.shape[0]))
+np.random.shuffle(ids)
+user_tbl['g'] = np.array(ids) % NFOLD
+sk_tbl_ = pd.merge(sk_tbl, user_tbl, on='user_id', how='left').set_index('SK_ID_CURR')
+
+sub_train['g'] = sk_tbl_.g
 
 for HEAD in HEADS:
     files = ('../feature/train_' + imp.head(HEAD).feature + '.f').tolist()
@@ -93,18 +102,8 @@ for HEAD in HEADS:
     gc.collect()
     
     CAT = list( set(X.columns)&set(utils_cat.ALL))
-    
-    # =============================================================================
-    # shuffle fold
-    # =============================================================================
-    ids = list(range(user_tbl.shape[0]))
-    np.random.shuffle(ids)
-    user_tbl['g'] = np.array(ids) % NFOLD
-    sk_tbl_ = pd.merge(sk_tbl, user_tbl, on='user_id', how='left').set_index('SK_ID_CURR')
-    
-    sub_train['g'] = sk_tbl_.g
     folds = group_kfold.split(X, sub_train['y'], sub_train['g'])
-
+    
     # =============================================================================
     # cv
     # =============================================================================
