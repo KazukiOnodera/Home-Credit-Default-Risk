@@ -92,7 +92,7 @@ for HEAD in HEADS:
                     pd.read_feather(f) for f in tqdm(files, mininterval=60)
                    ], axis=1)
     
-    X['nejumi'] = np.load('../feature_someone/train_nejumi.npy')
+#    X['nejumi'] = np.load('../feature_someone/train_nejumi.npy')
     
     if X.columns.duplicated().sum()>0:
         raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
