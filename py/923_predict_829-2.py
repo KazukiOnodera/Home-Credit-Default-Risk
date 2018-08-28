@@ -94,7 +94,7 @@ def mk_submit():
     
     gc.collect()
     
-    CAT = list( set(X_train.columns) & set(utils_cat.ALL) )
+    CAT = list( set(X_train.columns) & set(loader.category()) )
     
     COL = X_train.columns.tolist()
     
