@@ -48,9 +48,6 @@ col = train.columns.tolist() + [c for c in dup.columns if c not in train.columns
 dup = dup[col]
 
 
-
-
-
 dup.loc[dup['DAYS_EMPLOYED']==365243, 'DAYS_EMPLOYED'] = np.nan
 
 dup['seq'] = 1
@@ -71,6 +68,8 @@ col = ['user_id'] + col
 # =============================================================================
 dup.sort_values(['user_id', 'DAYS_BIRTH'], ascending=[True, False], inplace=True)
 dup = dup[dup.groupby('dup_id')['DAYS_BIRTH'].diff()!=0]
+
+dup = dup[dup.duplicated('user_id', False)]
 
 #dup.sort_values(['user_id', 'DAYS_BIRTH'], inplace=True)
 feature = dup[['SK_ID_CURR']].set_index('SK_ID_CURR')
