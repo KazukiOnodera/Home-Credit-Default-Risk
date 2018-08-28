@@ -146,6 +146,7 @@ X = pd.concat([
                ], axis=1)
 y = utils.read_pickles('../data/label').TARGET
 
+X['nejumi'] = np.load('../feature_someone/train_nejumi.npy')
 
 if X.columns.duplicated().sum()>0:
     raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
@@ -204,13 +205,13 @@ imp.reset_index(drop=True, inplace=True)
 imp.to_csv(f'LOG/imp_{__file__}-2.csv', index=False)
 
 
-def multi_touch(arg):
-    os.system(f'touch "../feature_unused/{arg}.f"')
-
-col = imp[imp['split']==0]['feature'].tolist()
-pool = Pool(cpu_count())
-pool.map(multi_touch, col)
-pool.close()
+#def multi_touch(arg):
+#    os.system(f'touch "../feature_unused/{arg}.f"')
+#
+#col = imp[imp['split']==0]['feature'].tolist()
+#pool = Pool(cpu_count())
+#pool.map(multi_touch, col)
+#pool.close()
 
 if EXE_802:
     os.system(f'nohup python -u 802_cv_lgb.py > LOG/log_802_cv_lgb.py.txt &')
