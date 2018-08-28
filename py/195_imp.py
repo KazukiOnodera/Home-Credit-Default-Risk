@@ -107,10 +107,10 @@ def multi_touch(arg):
     os.system(f'touch "../feature_unused/{arg}.f"')
 
 
-col = imp[imp['split']==0][imp['feature'].str.startswith('f1')]['feature'].tolist()
-pool = Pool(cpu_count())
-pool.map(multi_touch, col)
-pool.close()
+#col = imp[imp['split']==0][imp['feature'].str.startswith('f1')]['feature'].tolist()
+#pool = Pool(cpu_count())
+#pool.map(multi_touch, col)
+#pool.close()
 
 
 #==============================================================================
