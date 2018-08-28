@@ -36,7 +36,7 @@ ONLY_ME = False
 
 EXE_802 = True
 
-REMOVE_FEATURES = ['f023', 'f024']
+#REMOVE_FEATURES = ['f023', 'f024']
 
 param = {
          'objective': 'binary',
@@ -124,19 +124,21 @@ if RESET:
 # =============================================================================
 # all data
 # =============================================================================
-files = utils.get_use_files(use_files, True)
+#files = utils.get_use_files(use_files, True)
 
-tmp = []
-for f in files:
-    sw = False # skip switch
-    for r in REMOVE_FEATURES:
-        if r in f:
-            sw = True
-            break
-    if not sw:
-        tmp.append(f)
+#tmp = []
+#for f in files:
+#    sw = False # skip switch
+#    for r in REMOVE_FEATURES:
+#        if r in f:
+#            sw = True
+#            break
+#    if not sw:
+#        tmp.append(f)
+#files = tmp
 
-files = tmp
+files = ('../feature/train_' + pd.read_csv('LOG/imp_atleast_use.csv').feature + '.f').tolist()
+
 print('features:', len(files))
 
 X = pd.concat([
