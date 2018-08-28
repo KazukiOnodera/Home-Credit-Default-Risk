@@ -17,7 +17,7 @@ import utils, os
 #==============================================================================
 PREF = 'f025_'
 
-path_user_id = '../data/user_id_v7.csv.gz'
+path_user_id = '../data/user_id_v8.csv.gz'
 
 KEY = 'SK_ID_CURR'
 
