@@ -51,12 +51,28 @@ param = {
 
 use_files = ['train_f0', 'train_f1']
 
+REMOVE_FEATURES = ['f023', 'f024']
 
 # =============================================================================
 # load
 # =============================================================================
 
 files = utils.get_use_files(use_files, True)
+
+tmp = []
+for f in files:
+    sw = False # skip switch
+    for r in REMOVE_FEATURES:
+        if r in f:
+            sw = True
+            break
+    if not sw:
+        tmp.append(f)
+
+files = tmp
+print('features:', len(files))
+
+
 
 X = pd.concat([
                 pd.read_feather(f).head(HEAD) for f in tqdm(files, mininterval=60)
