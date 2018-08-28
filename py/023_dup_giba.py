@@ -70,6 +70,8 @@ col = ['user_id'] + col
 # 
 # =============================================================================
 dup.sort_values(['user_id', 'DAYS_BIRTH'], ascending=[True, False], inplace=True)
+dup = dup[dup.groupby('dup_id')['DAYS_BIRTH'].diff()!=0]
+
 #dup.sort_values(['user_id', 'DAYS_BIRTH'], inplace=True)
 feature = dup[['SK_ID_CURR']].set_index('SK_ID_CURR')
 gr = dup.groupby('dup_id')
@@ -80,8 +82,8 @@ for c in col[2:]:
     feature[f'last_{c}'] = gr[c].shift(1).values
     feature[f'lastlast_{c}'] = gr[c].shift(2).values
     
-    feature[f'last_{c}_r'] = gr[c].shift(-1).values
-    feature[f'lastlast_{c}_r'] = gr[c].shift(-2).values
+    feature[f'next_{c}'] = gr[c].shift(-1).values
+    feature[f'nextnext_{c}'] = gr[c].shift(-2).values
 
 # other
 for c in col[3:]:

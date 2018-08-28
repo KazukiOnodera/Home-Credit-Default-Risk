@@ -146,7 +146,7 @@ for new_feature in imp[imp.split!=0][imp.feature.str.startswith(new_features[0])
 X_ = pd.concat([pd.read_feather(f) for f in tqdm(files, mininterval=60)
                 ], axis=1)
 
-for i in range(120,1000,30):
+for i in range(30,1000,30):
     X_new = pd.concat([X, X_.iloc[:,:i] ], axis=1)
     CAT = list( set(X_new.columns) & set(loader.category()+[new_features[0]+'_user_id']) )
     
