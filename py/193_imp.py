@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Fri Jul 13 15:36:39 2018
+Created on Tue Aug 28 16:42:39 2018
 
 @author: kazuki.onodera
 """
@@ -49,7 +49,7 @@ param = {
 
 
 
-use_files = ['train_f0', 'train_f1']
+use_files = ['train_f0', 'train_f103']
 
 #REMOVE_FEATURES = ['f023', 'f024']
 
@@ -114,6 +114,7 @@ pool.close()
 #==============================================================================
 utils.end(__file__)
 #utils.stop_instance()
+
 
 
 
