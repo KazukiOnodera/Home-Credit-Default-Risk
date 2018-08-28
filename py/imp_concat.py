@@ -8,11 +8,11 @@ Created on Tue Aug 28 20:00:33 2018
 
 import pandas as pd
 
-li = ['/Users/kazuki.onodera/Downloads/imp_191_imp.py.csv',
-      '/Users/kazuki.onodera/Downloads/imp_192_imp.py.csv',
-      '/Users/kazuki.onodera/Downloads/imp_193_imp.py.csv',
-      '/Users/kazuki.onodera/Downloads/imp_194_imp.py.csv',
-      '/Users/kazuki.onodera/Downloads/imp_195_imp.py.csv',
+li = ['/Users/Kazuki/Downloads/imp_191_imp.py.csv',
+      '/Users/Kazuki/Downloads/imp_192_imp.py.csv',
+      '/Users/Kazuki/Downloads/imp_193_imp.py.csv',
+      '/Users/Kazuki/Downloads/imp_194_imp.py.csv',
+      '/Users/Kazuki/Downloads/imp_195_imp.py.csv',
       '/Users/kazuki.onodera/Downloads/imp_798_imp.py.csv',
       
       ]

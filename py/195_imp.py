@@ -51,7 +51,7 @@ param = {
 
 use_files = ['train_f0', 
              'train_f105', 'train_f106', 'train_f108', 'train_f109', 
-             'train_f155', 'train_f166', 'train_f188', 'train_f159', ]
+             'train_f155', 'train_f156', 'train_f158', 'train_f159', ]
 
 #REMOVE_FEATURES = ['f023', 'f024']
 
