@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Mon Jul 30 11:58:10 2018
+Created on Tue Aug 28 16:56:35 2018
 
 @author: kazuki.onodera
 """
@@ -21,7 +21,7 @@ import utils
 utils.start(__file__)
 #==============================================================================
 
-HEAD = 80000
+HEAD = 60000
 
 SEED = 71
 
@@ -49,8 +49,9 @@ param = {
 
 
 
-use_files = ['train_f0', 'train_f2', 'train_f3', 'train_f4', 
-             'train_f5', 'train_f6', 'train_f7']
+use_files = ['train_f0', 
+             'train_f105', 'train_f106', 'train_f108', 'train_f109', 
+             'train_f155', 'train_f166', 'train_f188', 'train_f159', ]
 
 #REMOVE_FEATURES = ['f023', 'f024']
 
@@ -69,8 +70,8 @@ files = utils.get_use_files(use_files, True)
 #            break
 #    if not sw:
 #        tmp.append(f)
-#
 #files = tmp
+
 print('features:', len(files))
 
 
@@ -106,7 +107,7 @@ def multi_touch(arg):
     os.system(f'touch "../feature_unused/{arg}.f"')
 
 
-col = imp[imp['split']==0]['feature'].tolist()
+col = imp[imp['split']==0][imp['feature'].str.startswith('f1')]['feature'].tolist()
 pool = Pool(cpu_count())
 pool.map(multi_touch, col)
 pool.close()
@@ -114,6 +115,7 @@ pool.close()
 
 #==============================================================================
 utils.end(__file__)
+#utils.stop_instance()
 
 
 
