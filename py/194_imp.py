@@ -49,7 +49,7 @@ param = {
 
 
 
-use_files = ['train_f0', 'train_f104']
+use_files = ['train_f0', 'train_f104', 'train_f154']
 
 #REMOVE_FEATURES = ['f023', 'f024']
 
