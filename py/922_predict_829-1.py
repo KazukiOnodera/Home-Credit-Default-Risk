@@ -34,6 +34,7 @@ SUBMIT_FILE_PATH = '../output/829-1.csv.gz'
 HEAD = 600
 
 EXE_SUBMIT = False
+
 COMMENT = 'CV(single): 0.806418 + 0.002499 600features'
 
 param = {
