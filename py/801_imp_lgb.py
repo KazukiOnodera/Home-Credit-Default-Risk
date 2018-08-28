@@ -9,6 +9,7 @@ Created on Tue Jun  5 12:39:16 2018
 import gc, os
 from tqdm import tqdm
 import pandas as pd
+import numpy as np
 import sys
 sys.path.append(f'/home/{os.environ.get("USER")}/PythonLibrary')
 import lgbextension as ex
@@ -16,6 +17,7 @@ import lightgbm as lgb
 from multiprocessing import cpu_count, Pool
 from collections import defaultdict
 #from glob import glob
+from sklearn.model_selection import GroupKFold
 import count
 import utils, utils_cat
 utils.start(__file__)
@@ -24,7 +26,8 @@ utils.start(__file__)
 SEED = 72
 
 HEAD = 1000 * 100
-#HEAD = None
+
+NFOLD = 6
 
 RESET = False
 
@@ -140,12 +143,26 @@ gc.collect()
 CAT = list( set(X.columns)&set(utils_cat.ALL))
 print(f'CAT: {CAT}')
 
-## =============================================================================
-## train
-## =============================================================================
-#dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
-#model = lgb.train(param, dtrain, 3000)
-#imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
+# =============================================================================
+# groupKfold
+# =============================================================================
+sk_tbl = pd.read_csv('../data/user_id_v4.csv.zip') # TODO: check
+user_tbl = sk_tbl.user_id.drop_duplicates().reset_index(drop=True).to_frame()
+
+sub_train = pd.read_csv('../input/application_train.csv.zip', usecols=['SK_ID_CURR']).set_index('SK_ID_CURR')
+sub_train['y'] = y.values
+
+group_kfold = GroupKFold(n_splits=NFOLD)
+
+
+# shuffle fold
+ids = list(range(user_tbl.shape[0]))
+np.random.shuffle(ids)
+user_tbl['g'] = np.array(ids) % NFOLD
+sk_tbl_ = pd.merge(sk_tbl, user_tbl, on='user_id', how='left').set_index('SK_ID_CURR')
+
+sub_train['g'] = sk_tbl_.g
+folds = group_kfold.split(X, sub_train['y'], sub_train['g'])
 
 # =============================================================================
 # cv
@@ -153,7 +170,7 @@ print(f'CAT: {CAT}')
 dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
 gc.collect()
 
-ret, models = lgb.cv(param, dtrain, 9999, nfold=6,
+ret, models = lgb.cv(param, dtrain, 9999, folds=folds, 
                      early_stopping_rounds=100, verbose_eval=50,
                      seed=SEED)
 

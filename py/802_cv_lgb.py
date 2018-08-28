@@ -19,12 +19,15 @@ import lgbextension as ex
 import lightgbm as lgb
 from multiprocessing import cpu_count, Pool
 from glob import glob
+from sklearn.model_selection import GroupKFold
 import count
 import utils, utils_cat
 utils.start(__file__)
 #==============================================================================
 
 SEED = 71
+
+NFOLD = 7
 
 HEADS = list(range(400, 2300, 100))
 
@@ -57,6 +60,19 @@ imp = pd.read_csv('LOG/imp_801_imp_lgb.py-2.csv')
 
 imp.sort_values('total', ascending=False, inplace=True)
 
+y = utils.read_pickles('../data/label').TARGET
+
+# =============================================================================
+# groupKfold
+# =============================================================================
+sk_tbl = pd.read_csv('../data/user_id_v4.csv.zip') # TODO: check
+user_tbl = sk_tbl.user_id.drop_duplicates().reset_index(drop=True).to_frame()
+
+sub_train = pd.read_csv('../input/application_train.csv.zip', usecols=['SK_ID_CURR']).set_index('SK_ID_CURR')
+sub_train['y'] = y.values
+
+group_kfold = GroupKFold(n_splits=NFOLD)
+
 
 for HEAD in HEADS:
     files = ('../feature/train_' + imp.head(HEAD).feature + '.f').tolist()
@@ -66,7 +82,6 @@ for HEAD in HEADS:
     X = pd.concat([
                     pd.read_feather(f) for f in tqdm(files, mininterval=60)
                    ], axis=1)
-    y = utils.read_pickles('../data/label').TARGET
     
     X['nejumi'] = np.load('../feature_someone/train_nejumi.npy')
     
@@ -80,12 +95,23 @@ for HEAD in HEADS:
     CAT = list( set(X.columns)&set(utils_cat.ALL))
     
     # =============================================================================
+    # shuffle fold
+    # =============================================================================
+    ids = list(range(user_tbl.shape[0]))
+    np.random.shuffle(ids)
+    user_tbl['g'] = np.array(ids) % NFOLD
+    sk_tbl_ = pd.merge(sk_tbl, user_tbl, on='user_id', how='left').set_index('SK_ID_CURR')
+    
+    sub_train['g'] = sk_tbl_.g
+    folds = group_kfold.split(X, sub_train['y'], sub_train['g'])
+
+    # =============================================================================
     # cv
     # =============================================================================
     dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
     gc.collect()
     
-    ret, models = lgb.cv(param, dtrain, 9999, nfold=7,
+    ret, models = lgb.cv(param, dtrain, 9999, nfold=folds,
                          early_stopping_rounds=100, verbose_eval=50,
                          seed=SEED)
     
