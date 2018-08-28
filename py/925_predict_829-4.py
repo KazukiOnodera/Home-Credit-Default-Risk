@@ -107,7 +107,7 @@ def mk_submit():
     # =============================================================================
     # groupKfold
     # =============================================================================
-    sk_tbl = pd.read_csv('../data/user_id_v7.csv.gz') # TODO: check
+    sk_tbl = pd.read_csv('../data/user_id_v8.csv.gz') # TODO: check
     user_tbl = sk_tbl.user_id.drop_duplicates().reset_index(drop=True).to_frame()
     
     sub_train = pd.read_csv('../input/application_train.csv.zip', usecols=['SK_ID_CURR']).set_index('SK_ID_CURR')
