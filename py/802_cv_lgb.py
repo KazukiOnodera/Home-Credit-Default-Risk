@@ -110,7 +110,7 @@ for HEAD in HEADS:
     dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
     gc.collect()
     
-    ret, models = lgb.cv(param, dtrain, 9999, nfold=folds,
+    ret, models = lgb.cv(param, dtrain, 9999, nfolds=folds,
                          early_stopping_rounds=100, verbose_eval=50,
                          seed=SEED)
     
