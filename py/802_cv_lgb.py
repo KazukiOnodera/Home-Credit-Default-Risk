@@ -25,7 +25,7 @@ import utils, utils_cat
 utils.start(__file__)
 #==============================================================================
 
-SEED = 71
+SEED = np.random.randint(9999)
 
 NFOLD = 7
 
