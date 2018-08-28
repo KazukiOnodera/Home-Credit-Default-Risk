@@ -27,7 +27,8 @@ SEED = 71
 
 NFOLD = 6
 
-new_features = ['f023_last_TARGET', 'f023_next_TARGET', 'f15']
+#new_features = ['f023_last_TARGET', 'f023_next_TARGET', 'f15']
+new_features = ['f023', 'f15']
 
 COMMENT = new_features
 
