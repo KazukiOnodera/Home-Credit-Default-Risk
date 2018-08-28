@@ -27,7 +27,7 @@ SEED = 72
 
 HEAD = 1000 * 100
 
-NFOLD = 6
+NFOLD = 4
 
 RESET = False
 
