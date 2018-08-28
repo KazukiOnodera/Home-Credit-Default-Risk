@@ -23,7 +23,8 @@ import utils, utils_cat
 utils.start(__file__)
 #==============================================================================
 
-SEED = 72
+SEED = np.random.randint(9999)
+print('SEED:', SEED)
 
 HEAD = 1000 * 100
 
@@ -31,9 +32,11 @@ NFOLD = 4
 
 RESET = False
 
-ONLY_ME = True
+ONLY_ME = False
 
 EXE_802 = True
+
+REMOVE_FEATURES = ['f023', 'f024']
 
 param = {
          'objective': 'binary',
@@ -63,10 +66,6 @@ if ONLY_ME:
 else:
     use_files = ['train_']
 
-#imp = pd.read_csv('LOG/imp_801_imp_lgb.py-2.csv')
-#imp.sort_values('total', ascending=False, inplace=True)
-#
-#files = ('../feature/train_' + imp.head(3000).feature + '.f').tolist()
 
 # =============================================================================
 # reset load
@@ -127,6 +126,19 @@ if RESET:
 # =============================================================================
 files = utils.get_use_files(use_files, True)
 
+tmp = []
+for f in files:
+    sw = False # skip switch
+    for r in REMOVE_FEATURES:
+        if r in f:
+            sw = True
+            break
+    if not sw:
+        tmp.append(f)
+
+files = tmp
+
+
 X = pd.concat([
                 pd.read_feather(f) for f in tqdm(files, mininterval=60)
                ], axis=1)
@@ -146,7 +158,7 @@ print(f'CAT: {CAT}')
 # =============================================================================
 # groupKfold
 # =============================================================================
-sk_tbl = pd.read_csv('../data/user_id_v4.csv.zip') # TODO: check
+sk_tbl = pd.read_csv('../data/user_id_v7.csv.gz') # TODO: check
 user_tbl = sk_tbl.user_id.drop_duplicates().reset_index(drop=True).to_frame()
 
 sub_train = pd.read_csv('../input/application_train.csv.zip', usecols=['SK_ID_CURR']).set_index('SK_ID_CURR')
