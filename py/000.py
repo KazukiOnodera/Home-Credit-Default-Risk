@@ -257,7 +257,7 @@ if True:
         df = utils.read_pickles('../data/previous_application')
         """
         
-        df = pd.merge(pd.read_csv('../data/prev_new_v2.csv.gz'),
+        df = pd.merge(pd.read_csv('../data/prev_new_v3.csv.gz'),
                       get_trte(), on='SK_ID_CURR', how='left')
 #        df = pd.merge(pd.read_csv('../input/previous_application.csv.zip'),
 #                      get_trte(), on='SK_ID_CURR', how='left')
@@ -952,7 +952,7 @@ if True:
         # =============================================================================
         # future
         # =============================================================================
-        df = pd.merge(pd.read_csv('../data/future_application_v1.csv.gz'),
+        df = pd.merge(pd.read_csv('../data/future_application_v2.csv.gz'),
                       get_trte(), on='SK_ID_CURR', how='left')
 #        df = pd.merge(pd.read_csv('../input/previous_application.csv.zip'),
 #                      get_trte(), on='SK_ID_CURR', how='left')
