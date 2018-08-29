@@ -30,11 +30,13 @@ HEAD = 1000 * 100
 
 NFOLD = 4
 
+LOOP = 3
+
 RESET = False
 
 ONLY_ME = False
 
-EXE_802 = True
+EXE_802 = False
 
 #REMOVE_FEATURES = ['f023', 'f024']
 
@@ -66,6 +68,7 @@ if ONLY_ME:
 else:
     use_files = ['train_']
 
+new_train_users = pd.read_csv('../data/new_train_users.csv').SK_ID_CURR
 
 # =============================================================================
 # reset load
@@ -137,7 +140,7 @@ if RESET:
 #        tmp.append(f)
 #files = tmp
 
-files = ('../feature/train_' + pd.read_csv('LOG/imp_atleast_use.csv').feature + '.f').tolist()
+files = ('../feature/train_' + pd.read_csv('LOG/imp_remove-f15.csv').feature + '.f').tolist()
 
 print('features:', len(files))
 
@@ -161,23 +164,30 @@ print(f'CAT: {CAT}')
 # =============================================================================
 # groupKfold
 # =============================================================================
-sk_tbl = pd.read_csv('../data/user_id_v7.csv.gz') # TODO: check
-user_tbl = sk_tbl.user_id.drop_duplicates().reset_index(drop=True).to_frame()
+#sk_tbl = pd.read_csv('../data/user_id_v8.csv.gz') # TODO: check
+#user_tbl = sk_tbl.user_id.drop_duplicates().reset_index(drop=True).to_frame()
+#
+#sub_train = pd.read_csv('../input/application_train.csv.zip', usecols=['SK_ID_CURR']).set_index('SK_ID_CURR')
+#sub_train['y'] = y.values
+#
+#group_kfold = GroupKFold(n_splits=NFOLD)
+#
+#
+## shuffle fold
+#ids = list(range(user_tbl.shape[0]))
+#np.random.shuffle(ids)
+#user_tbl['g'] = np.array(ids) % NFOLD
+#sk_tbl_ = pd.merge(sk_tbl, user_tbl, on='user_id', how='left').set_index('SK_ID_CURR')
+#
+#sub_train['g'] = sk_tbl_.g
+#folds = group_kfold.split(X, sub_train['y'], sub_train['g'])
 
-sub_train = pd.read_csv('../input/application_train.csv.zip', usecols=['SK_ID_CURR']).set_index('SK_ID_CURR')
-sub_train['y'] = y.values
 
-group_kfold = GroupKFold(n_splits=NFOLD)
-
-
-# shuffle fold
-ids = list(range(user_tbl.shape[0]))
-np.random.shuffle(ids)
-user_tbl['g'] = np.array(ids) % NFOLD
-sk_tbl_ = pd.merge(sk_tbl, user_tbl, on='user_id', how='left').set_index('SK_ID_CURR')
-
-sub_train['g'] = sk_tbl_.g
-folds = group_kfold.split(X, sub_train['y'], sub_train['g'])
+# =============================================================================
+# remove old users
+# =============================================================================
+X = X[new_train_users]
+y = y[new_train_users]
 
 # =============================================================================
 # cv
@@ -185,9 +195,12 @@ folds = group_kfold.split(X, sub_train['y'], sub_train['g'])
 dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
 gc.collect()
 
-ret, models = lgb.cv(param, dtrain, 9999, folds=folds, 
-                     early_stopping_rounds=100, verbose_eval=50,
-                     seed=SEED)
+model_all = []
+for i in range(LOOP):
+    ret, models = lgb.cv(param, dtrain, 9999, nfold=NFOLD, 
+                         early_stopping_rounds=100, verbose_eval=50,
+                         seed=SEED)
+    model_all += models
 
 result = f"CV auc-mean: {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
 print(result)
