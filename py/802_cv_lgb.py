@@ -63,6 +63,7 @@ imp.sort_values('total', ascending=False, inplace=True)
 y = utils.read_pickles('../data/label').TARGET
 
 drop_ids = pd.read_csv('../data/drop_ids.csv')['SK_ID_CURR']
+SK_ID_CURR = utils.load_train(['SK_ID_CURR'])
 
 # =============================================================================
 # groupKfold
@@ -97,7 +98,7 @@ for HEAD in HEADS:
     # =============================================================================
     # remove old users
     # =============================================================================
-    X['SK_ID_CURR'] = utils.load_train(['SK_ID_CURR'])
+    X['SK_ID_CURR'] = SK_ID_CURR
     
     y = y[~X.SK_ID_CURR.isin(drop_ids)]
     X = X[~X.SK_ID_CURR.isin(drop_ids)].drop('SK_ID_CURR', axis=1)
