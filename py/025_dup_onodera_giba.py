@@ -71,7 +71,15 @@ dup = dup[dup.groupby('dup_id')['DAYS_BIRTH'].diff()!=0]
 
 dup = dup[dup.duplicated('user_id', False)]
 
-#dup.sort_values(['user_id', 'DAYS_BIRTH'], inplace=True)
+"""
+feature['is_train'] = dup.is_train.values
+feature.groupby('is_train').last_TARGET.describe()
+feature.groupby('is_train').next_TARGET.describe()
+
+feature[feature['is_train']==0][~feature.next_TARGET.isnull()].index
+
+"""
+
 feature = dup[['SK_ID_CURR']].set_index('SK_ID_CURR')
 gr = dup.groupby('dup_id')
 
@@ -81,8 +89,8 @@ for c in col[2:]:
     feature[f'last_{c}'] = gr[c].shift(1).values
     feature[f'lastlast_{c}'] = gr[c].shift(2).values
     
-    feature[f'next_{c}'] = gr[c].shift(-1).values
-    feature[f'nextnext_{c}'] = gr[c].shift(-2).values
+#    feature[f'next_{c}'] = gr[c].shift(-1).values
+#    feature[f'nextnext_{c}'] = gr[c].shift(-2).values
 
 # other
 for c in col[3:]:
@@ -92,11 +100,11 @@ for c in col[3:]:
     feature[f'{c}_max'] = pd.concat([ dup[c], gr[c].shift(1), gr[c].shift(2)], axis=1).max(1).values
     feature[f'{c}_mean'] = pd.concat([ dup[c], gr[c].shift(1), gr[c].shift(2)], axis=1).mean(1).values
     
-    feature[f'{c}_diff_r'] = gr[c].diff(-1).values
-    feature[f'{c}_ratio_r'] = ( dup[c] / gr[c].shift(-1) ).values
-    feature[f'{c}_min_r'] = pd.concat([ dup[c], gr[c].shift(-1), gr[c].shift(-2)], axis=1).min(1).values
-    feature[f'{c}_max_r'] = pd.concat([ dup[c], gr[c].shift(-1), gr[c].shift(-2)], axis=1).max(1).values
-    feature[f'{c}_mean_r'] = pd.concat([ dup[c], gr[c].shift(-1), gr[c].shift(-2)], axis=1).mean(1).values
+#    feature[f'{c}_diff_r'] = gr[c].diff(-1).values
+#    feature[f'{c}_ratio_r'] = ( dup[c] / gr[c].shift(-1) ).values
+#    feature[f'{c}_min_r'] = pd.concat([ dup[c], gr[c].shift(-1), gr[c].shift(-2)], axis=1).min(1).values
+#    feature[f'{c}_max_r'] = pd.concat([ dup[c], gr[c].shift(-1), gr[c].shift(-2)], axis=1).max(1).values
+#    feature[f'{c}_mean_r'] = pd.concat([ dup[c], gr[c].shift(-1), gr[c].shift(-2)], axis=1).mean(1).values
 
 
 feature.dropna(how='all', inplace=True)
@@ -115,7 +123,13 @@ utils.to_feature(tmp.add_prefix(PREF), '../feature/train')
 tmp = pd.merge(test, feature, on=KEY, how='left').drop(KEY, axis=1)
 utils.to_feature(tmp.add_prefix(PREF),  '../feature/test')
 
+# =============================================================================
+# drop old user
+# =============================================================================
+drop_ids = dup.drop_duplicates('user_id')['SK_ID_CURR']
 
+tmp = train['SK_ID_CURR'].isin(drop_ids).to_frame()==False
+tmp.to_csv('../data/new_train_users.csv', index=False)
 
 
 #==============================================================================
