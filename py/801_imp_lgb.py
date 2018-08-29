@@ -206,7 +206,7 @@ result = f"CV auc-mean: {ret['auc-mean'][-1]} + {ret['auc-stdv'][-1]}"
 print(result)
 
 utils.send_line(result)
-imp = ex.getImp(models)
+imp = ex.getImp(model_all)
 imp['split'] /= imp['split'].max()
 imp['gain'] /= imp['gain'].max()
 imp['total'] = imp['split'] + imp['gain']
