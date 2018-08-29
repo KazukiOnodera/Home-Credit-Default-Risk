@@ -111,17 +111,6 @@ def mk_submit():
     X_test = pd.concat([X_test, X_test_], axis=1)[COL]
     
     # =============================================================================
-    # groupKfold
-    # =============================================================================
-    sk_tbl = pd.read_csv('../data/user_id_v8.csv.gz') # TODO: check
-    user_tbl = sk_tbl.user_id.drop_duplicates().reset_index(drop=True).to_frame()
-    
-    sub_train = pd.read_csv('../input/application_train.csv.zip', usecols=['SK_ID_CURR']).set_index('SK_ID_CURR')
-    sub_train['y'] = y_train.values
-    
-    group_kfold = GroupKFold(n_splits=NFOLD)
-    
-    # =============================================================================
     # training with cv
     # =============================================================================
     model_all = []
@@ -129,18 +118,9 @@ def mk_submit():
     for i in range(LOOP):
         dtrain = lgb.Dataset(X_train, y_train, categorical_feature=CAT, free_raw_data=False)
         
-        # shuffle fold
-        ids = list(range(user_tbl.shape[0]))
-        np.random.shuffle(ids)
-        user_tbl['g'] = np.array(ids) % NFOLD
-        sk_tbl_ = pd.merge(sk_tbl, user_tbl, on='user_id', how='left').set_index('SK_ID_CURR')
-        
-        sub_train['g'] = sk_tbl_.g
-        folds = group_kfold.split(X_train, sub_train['y'], sub_train['g'])
-        
         gc.collect()
         param['seed'] = i
-        ret, models = lgb.cv(param, dtrain, 9999, folds=folds, 
+        ret, models = lgb.cv(param, dtrain, 9999, nfolds=NFOLD, 
                              early_stopping_rounds=100, verbose_eval=50,
                              seed=i)
         model_all += models
