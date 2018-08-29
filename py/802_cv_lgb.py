@@ -62,6 +62,8 @@ imp.sort_values('total', ascending=False, inplace=True)
 
 y = utils.read_pickles('../data/label').TARGET
 
+new_train_users = pd.read_csv('../data/new_train_users.csv').SK_ID_CURR
+
 # =============================================================================
 # groupKfold
 # =============================================================================
@@ -92,7 +94,11 @@ for HEAD in HEADS:
                     pd.read_feather(f) for f in tqdm(files, mininterval=60)
                    ], axis=1)
     
-#    X['nejumi'] = np.load('../feature_someone/train_nejumi.npy')
+    # =============================================================================
+    # remove old users
+    # =============================================================================
+    X = X[new_train_users]
+    y = y[new_train_users]
     
     if X.columns.duplicated().sum()>0:
         raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
