@@ -10,4 +10,5 @@ gcloud compute --project "dena-ai-training-14-gcp" ssh --zone "us-east1-b" "Kazu
 gcloud compute --project "dena-ai-training-14-gcp" ssh --zone "us-east1-b" "Kazuki@instance-3-clone9"
 
 
+gcloud compute --project "dena-ai-training-14-gcp" ssh --zone "us-east1-b" "Kazuki@instance-3-clone5-1"
 
