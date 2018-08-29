@@ -30,7 +30,7 @@ HEAD = 1000 * 100
 
 NFOLD = 4
 
-LOOP = 3
+LOOP = 1
 
 RESET = False
 
