@@ -63,7 +63,7 @@ np.random.seed(SEED)
 # =============================================================================
 # load
 # =============================================================================
-drop_ids = pd.read_csv('../data/drop_ids.csv')['SK_ID_CURR']
+drop_ids = pd.read_csv('../data/drop-past-app-experiment.csv')['SK_ID_CURR']
 SK_ID_CURR = utils.load_train(['SK_ID_CURR'])
 
 imp = pd.read_csv('LOG/imp_801_imp_lgb.py-2.csv')
