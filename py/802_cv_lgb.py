@@ -29,7 +29,7 @@ SEED = np.random.randint(9999)
 
 NFOLD = 7
 
-HEADS = list(range(400, 2300, 100))
+HEADS = list(range(500, 2300, 100))
 
 param = {
          'objective': 'binary',
@@ -92,7 +92,7 @@ for HEAD in HEADS:
                     pd.read_feather(f) for f in tqdm(files, mininterval=60)
                    ], axis=1)
     
-    X['nejumi'] = np.load('../feature_someone/train_nejumi.npy')
+#    X['nejumi'] = np.load('../feature_someone/train_nejumi.npy')
     
     if X.columns.duplicated().sum()>0:
         raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
