@@ -69,7 +69,7 @@ SK_ID_CURR = utils.load_train(['SK_ID_CURR'])
 imp = pd.read_csv('LOG/imp_801_imp_lgb.py-2.csv')
 imp.sort_values('total', ascending=False, inplace=True)
 
-features = imp.head(600).feature # TODO: check
+features = imp.head(700).feature # TODO: check
 
 
 def mk_submit():
