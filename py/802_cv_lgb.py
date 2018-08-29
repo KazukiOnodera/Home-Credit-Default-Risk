@@ -62,7 +62,7 @@ imp.sort_values('total', ascending=False, inplace=True)
 
 y = utils.read_pickles('../data/label').TARGET
 
-new_train_users = pd.read_csv('../data/new_train_users.csv').SK_ID_CURR
+drop_ids = pd.read_csv('../data/drop_ids.csv')['SK_ID_CURR']
 
 # =============================================================================
 # groupKfold
@@ -97,8 +97,10 @@ for HEAD in HEADS:
     # =============================================================================
     # remove old users
     # =============================================================================
-    X = X[new_train_users]
-    y = y[new_train_users]
+    X['SK_ID_CURR'] = utils.load_train(['SK_ID_CURR'])
+    
+    y = y[~X.SK_ID_CURR.isin(drop_ids)]
+    X = X[~X.SK_ID_CURR.isin(drop_ids)].drop('SK_ID_CURR', axis=1)
     
     if X.columns.duplicated().sum()>0:
         raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')

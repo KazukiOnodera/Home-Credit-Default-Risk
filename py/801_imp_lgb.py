@@ -16,7 +16,7 @@ import lgbextension as ex
 import lightgbm as lgb
 from multiprocessing import cpu_count, Pool
 from collections import defaultdict
-#from glob import glob
+from glob import glob
 from sklearn.model_selection import GroupKFold
 import count
 import utils, utils_cat
@@ -36,7 +36,7 @@ RESET = False
 
 ONLY_ME = False
 
-EXE_802 = False
+EXE_802 = True
 
 #REMOVE_FEATURES = ['f023', 'f024']
 
@@ -68,7 +68,7 @@ if ONLY_ME:
 else:
     use_files = ['train_']
 
-new_train_users = pd.read_csv('../data/new_train_users.csv').SK_ID_CURR
+drop_ids = pd.read_csv('../data/drop_ids.csv')['SK_ID_CURR']
 
 # =============================================================================
 # reset load
@@ -129,18 +129,9 @@ if RESET:
 # =============================================================================
 #files = utils.get_use_files(use_files, True)
 
-#tmp = []
-#for f in files:
-#    sw = False # skip switch
-#    for r in REMOVE_FEATURES:
-#        if r in f:
-#            sw = True
-#            break
-#    if not sw:
-#        tmp.append(f)
-#files = tmp
-
 files = ('../feature/train_' + pd.read_csv('LOG/imp_remove-f15.csv').feature + '.f').tolist()
+files += sorted(glob('../feature/train_f025_*.f'))
+files = sorted(set(files))
 
 print('features:', len(files))
 
@@ -150,6 +141,15 @@ X = pd.concat([
 y = utils.read_pickles('../data/label').TARGET
 
 X['nejumi'] = np.load('../feature_someone/train_nejumi.npy')
+
+# =============================================================================
+# remove old users
+# =============================================================================
+X['SK_ID_CURR'] = utils.load_train(['SK_ID_CURR'])
+
+y = y[~X.SK_ID_CURR.isin(drop_ids)]
+X = X[~X.SK_ID_CURR.isin(drop_ids)].drop('SK_ID_CURR', axis=1)
+
 
 if X.columns.duplicated().sum()>0:
     raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
@@ -183,11 +183,6 @@ print(f'CAT: {CAT}')
 #folds = group_kfold.split(X, sub_train['y'], sub_train['g'])
 
 
-# =============================================================================
-# remove old users
-# =============================================================================
-X = X[new_train_users]
-y = y[new_train_users]
 
 # =============================================================================
 # cv

@@ -73,10 +73,19 @@ dup = dup[dup.duplicated('user_id', False)]
 
 """
 feature['is_train'] = dup.is_train.values
+feature['user_id'] = dup.user_id.values
+feature['TARGET'] = dup.TARGET.values
+
 feature.groupby('is_train').last_TARGET.describe()
 feature.groupby('is_train').next_TARGET.describe()
 
 feature[feature['is_train']==0][~feature.next_TARGET.isnull()].index
+
+feature[['SK_ID_CURR', 'user_id', 'is_train', 'TARGET', 'last_TARGET']]
+feature[feature.SK_ID_CURR.isin(drop_ids)][['SK_ID_CURR', 'user_id', 'is_train', 'TARGET', 'last_TARGET']]
+feature[feature.SK_ID_CURR.isin(drop_ids)][ 'last_TARGET']
+feature[~feature.SK_ID_CURR.isin(drop_ids)][ 'last_TARGET']
+
 
 """
 
@@ -87,7 +96,7 @@ gr = dup.groupby('dup_id')
 # last
 for c in col[2:]:
     feature[f'last_{c}'] = gr[c].shift(1).values
-    feature[f'lastlast_{c}'] = gr[c].shift(2).values
+#    feature[f'lastlast_{c}'] = gr[c].shift(2).values
     
 #    feature[f'next_{c}'] = gr[c].shift(-1).values
 #    feature[f'nextnext_{c}'] = gr[c].shift(-2).values
@@ -126,11 +135,18 @@ utils.to_feature(tmp.add_prefix(PREF),  '../feature/test')
 # =============================================================================
 # drop old user
 # =============================================================================
-drop_ids = dup.drop_duplicates('user_id')['SK_ID_CURR']
+dup_tr = dup[dup.is_train==1]
+drop_ids = dup_tr.drop_duplicates('user_id')[['SK_ID_CURR']]
 
-tmp = train['SK_ID_CURR'].isin(drop_ids).to_frame()==False
-tmp.to_csv('../data/new_train_users.csv', index=False)
+drop_ids.to_csv('../data/drop_ids.csv', index=False)
 
+
+# =============================================================================
+# check
+# =============================================================================
+
+a = pd.read_feather('../feature/train_f025_last_TARGET.f')['f025_last_TARGET'].to_frame()
+a[tmp]
 
 #==============================================================================
 #utils.end(__file__)
