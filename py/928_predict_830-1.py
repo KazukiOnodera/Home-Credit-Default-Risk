@@ -92,7 +92,9 @@ def mk_submit():
     X_train['SK_ID_CURR'] = SK_ID_CURR
     
     y_train = y_train[~X_train.SK_ID_CURR.isin(drop_ids)]
-    X_train = X_train[~X_train.SK_ID_CURR.isin(drop_ids)].drop('SK_ID_CURR', axis=1)
+    X_train = X_train[~X_train.SK_ID_CURR.isin(drop_ids)]
+    oof_train = X_train[['SK_ID_CURR']]
+    X_train.drop('SK_ID_CURR', axis=1, inplace=True)
     
     
     X_train.head().to_csv(SUBMIT_FILE_PATH.replace('.csv', '_X.csv'), 
@@ -143,8 +145,8 @@ def mk_submit():
     utils.send_line(result)
     
     # save
-    SK_ID_CURR['oof'] = y_pred
-    SK_ID_CURR.to_csv('../output/onodera-last-oof.csv', index=False)
+    oof_train['oof'] = y_pred
+    oof_train.to_csv('../output/onodera-last-oof.csv', index=False)
     
     # =============================================================================
     # predict
