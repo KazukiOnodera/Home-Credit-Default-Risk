@@ -136,9 +136,33 @@ utils.to_feature(tmp.add_prefix(PREF),  '../feature/test')
 # drop old user
 # =============================================================================
 dup_tr = dup[dup.is_train==1]
-drop_ids = dup_tr.drop_duplicates('user_id')[['SK_ID_CURR']]
 
-drop_ids.to_csv('../data/drop_ids.csv', index=False)
+dup_tr['seq'] = 1
+dup_tr['seq'] = dup_tr.groupby('user_id').seq.cumsum()-1
+
+dup_tr['seq_max'] = dup_tr.groupby('user_id').seq.transform('max')
+
+dup_tr[['SK_ID_CURR', 'user_id', 'seq', 'seq_max', 'is_train']]
+
+
+dup_tr[dup_tr.seq != dup_tr.seq_max][['SK_ID_CURR', 'user_id', 'seq', 'seq_max', 'is_train']]
+
+
+
+
+
+
+
+
+
+a = dup_tr.drop_duplicates('user_id', keep='last')['SK_ID_CURR'].tolist()
+b = dup_tr[dup_tr.duplicated('user_id', keep=False)]['SK_ID_CURR'].tolist()
+
+c = set(b)-set(a)
+len(a), len(b), len(c)
+
+
+#drop_ids.to_csv('../data/drop_ids.csv', index=False)
 
 
 # =============================================================================
