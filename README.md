@@ -13,16 +13,16 @@ Following are the features I made
 ### 1. Current Application
 ### 2. Previous Application
 ### 3. POS CASH balance
-・ Aggregated features
+* Aggregated features
 ### 4. Installments Payments
-・ Aggregated features
-・・ 1y
+* Aggregated features
+**  1y
 ### 5. Credit Card Balance
-・ Aggregated features
+* Aggregated features
 ### 6. Bureau
-・ Aggregated features
+* Aggregated features
 ### 7. Bureau Balance
-・ Aggregated features
+* Aggregated features
 ### 8. Other
-・
+* 
 
