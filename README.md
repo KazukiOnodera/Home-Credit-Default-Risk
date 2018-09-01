@@ -15,14 +15,13 @@ Following are the features I made
 ### 3. POS CASH balance
 * Aggregated features
 ### 4. Installments Payments
-* Aggregated features
-**  1y
+* Aggregated features(1year, 2years, 3years)
 ### 5. Credit Card Balance
-* Aggregated features
+* Aggregated features(1year, 2years, 3years)
 ### 6. Bureau
-* Aggregated features
+* Aggregated features(1year, 2years, 3years)
 ### 7. Bureau Balance
-* Aggregated features
+* Aggregated features(1year, 2years, 3years)
 ### 8. Other
-* 
+* Aggregated features using above data(1year, 2years, 3years)
 
