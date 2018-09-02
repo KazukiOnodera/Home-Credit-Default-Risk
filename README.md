@@ -4,7 +4,7 @@ https://www.kaggle.com/c/home-credit-default-risk/leaderboard
 https://www.kaggle.com/c/home-credit-default-risk/discussion/64722
 
 I was in charge of feature engineering in this team.
-
+![Private LB](https://github.com/KazukiOnodera/Home-Credit-Default-Risk/blob/master/LB/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202018-08-30%2013.42.37.png)
 ![Model Pipeline](https://github.com/KazukiOnodera/Home-Credit-Default-Risk/blob/master/other/model_structure_v8_blending.png)
 
 Following are the features I made
@@ -12,8 +12,9 @@ Following are the features I made
 ## Features
 ### 1. Current Application
 ### 2. Previous Application
+* Aggregated features(1year, 2years, 3years)
 ### 3. POS CASH balance
-* Aggregated features
+* Aggregated features(1year, 2years, 3years)
 ### 4. Installments Payments
 * Aggregated features(1year, 2years, 3years)
 ### 5. Credit Card Balance
