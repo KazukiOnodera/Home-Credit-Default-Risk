@@ -1,8 +1,10 @@
 # Home-Credit-Default-Risk
-LeaderBoard
+LeaderBoard:
+
 https://www.kaggle.com/c/home-credit-default-risk/leaderboard
 
-Discussion
+Discussion:
+
 https://www.kaggle.com/c/home-credit-default-risk/discussion/64722
 
 I was in charge of feature engineering in this team.
