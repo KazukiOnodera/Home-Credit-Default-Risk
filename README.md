@@ -11,7 +11,7 @@ Following are the features I made
 
 ## Features
 ### 1. Current Application
-* Simple caluculation(delta, ratio, etc...)
+* Simple calculation(delta, ratio, etc...)
 ### 2. Previous Application
 * Aggregated features(1year, 2years, 3years)
 * last and first application
