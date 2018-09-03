@@ -85,6 +85,7 @@ def mk_submit():
     gc.collect()
     
     CAT = list( set(X_train.columns) & set(utils_best.category()) )
+    print('CAT :', CAT)
     
     COL = X_train.columns.tolist()
     
