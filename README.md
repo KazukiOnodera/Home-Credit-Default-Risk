@@ -1,6 +1,8 @@
 # Home-Credit-Default-Risk
+LeaderBoard
 https://www.kaggle.com/c/home-credit-default-risk/leaderboard
 
+Discussion
 https://www.kaggle.com/c/home-credit-default-risk/discussion/64722
 
 I was in charge of feature engineering in this team.
@@ -11,8 +13,10 @@ Following are the features I made
 
 ## Features
 ### 1. Current Application
+* Simple caluculation(delta, ratio, etc...)
 ### 2. Previous Application
 * Aggregated features(1year, 2years, 3years)
+* last and first application
 ### 3. POS CASH balance
 * Aggregated features(1year, 2years, 3years)
 ### 4. Installments Payments
@@ -21,6 +25,7 @@ Following are the features I made
 * Aggregated features(1year, 2years, 3years)
 ### 6. Bureau
 * Aggregated features(1year, 2years, 3years)
+* last and first application
 ### 7. Bureau Balance
 * Aggregated features(1year, 2years, 3years)
 ### 8. Other
