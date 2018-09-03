@@ -1,0 +1,143 @@
+
+#==============================================================================
+# START!!! 154_aggregate-3y.py    PID: 63633    time: 2018-08-28 22:54:21.695305
+#==============================================================================
+
+  0%|          | 0/20 [00:00<?, ?it/s] 50%|█████     | 10/20 [00:00<00:00, 99.04it/s] 65%|██████▌   | 13/20 [00:01<00:01,  6.92it/s] 80%|████████  | 16/20 [00:02<00:00,  7.10it/s] 90%|█████████ | 18/20 [00:02<00:00,  7.44it/s]100%|██████████| 20/20 [00:02<00:00,  7.69it/s]
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:00<00:11,  1.71it/s] 10%|█         | 2/20 [00:01<00:09,  1.93it/s] 15%|█▌        | 3/20 [00:01<00:08,  2.07it/s] 20%|██        | 4/20 [00:01<00:07,  2.12it/s] 25%|██▌       | 5/20 [00:02<00:06,  2.15it/s] 30%|███       | 6/20 [00:02<00:06,  2.14it/s] 35%|███▌      | 7/20 [00:03<00:07,  1.76it/s] 40%|████      | 8/20 [00:04<00:06,  1.76it/s] 45%|████▌     | 9/20 [00:04<00:05,  1.84it/s] 50%|█████     | 10/20 [00:05<00:05,  1.86it/s] 55%|█████▌    | 11/20 [00:06<00:04,  1.83it/s] 60%|██████    | 12/20 [00:06<00:04,  1.87it/s] 65%|██████▌   | 13/20 [00:06<00:03,  1.87it/s] 70%|███████   | 14/20 [00:07<00:03,  1.85it/s] 75%|███████▌  | 15/20 [00:07<00:02,  1.89it/s] 80%|████████  | 16/20 [00:08<00:02,  1.91it/s] 85%|████████▌ | 17/20 [00:08<00:01,  1.93it/s] 90%|█████████ | 18/20 [00:09<00:01,  1.95it/s] 95%|█████████▌| 19/20 [00:09<00:00,  1.97it/s]100%|██████████| 20/20 [00:10<00:00,  1.99it/s]
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:00<00:02,  7.51it/s] 10%|█         | 2/20 [00:00<00:02,  6.02it/s] 15%|█▌        | 3/20 [00:00<00:02,  6.71it/s] 25%|██▌       | 5/20 [00:00<00:01,  8.97it/s] 35%|███▌      | 7/20 [00:00<00:01, 10.21it/s] 50%|█████     | 10/20 [00:00<00:00, 11.69it/s] 60%|██████    | 12/20 [00:01<00:00, 11.45it/s] 70%|███████   | 14/20 [00:01<00:00, 11.35it/s] 80%|████████  | 16/20 [00:01<00:00, 11.60it/s] 90%|█████████ | 18/20 [00:01<00:00, 11.70it/s]100%|██████████| 20/20 [00:01<00:00, 11.88it/s]
+['NAME_CONTRACT_STATUS', 'Approved', 'approved_']
+['NAME_CONTRACT_STATUS', 'Refused', 'refused_']
+['active', 1, 'active_']
+['NAME_YIELD_GROUP', 'middle', 'nyg-middle_']
+['NAME_YIELD_GROUP', 'low_normal', 'nyg-low_normal_']
+['completed', 1, 'completed_']
+['NAME_YIELD_GROUP', 'low_action', 'nyg-low_action_']
+['NAME_YIELD_GROUP', 'high', 'nyg-high_']
+remove var<=0: Index(['active_AMT_DOWN_PAYMENT_std', 'active_RATE_DOWN_PAYMENT_std',
+       'active_active_min', 'active_active_mean', 'active_active_max',
+       'active_active_std', 'active_completed_min', 'active_completed_mean',
+       'active_completed_max', 'active_completed_std', 'active_completed_sum',
+       'active_NAME_CONTRACT_STATUS_Approved_mean',
+       'active_CODE_REJECT_REASON_XAP_mean', 'active_active_std-d-mean',
+       'active_active_max-d-min'],
+      dtype='object')remove var<=0: Index(['nyg-high_AMT_DOWN_PAYMENT_min', 'nyg-high_AMT_DOWN_PAYMENT_mean',
+       'nyg-high_AMT_DOWN_PAYMENT_max', 'nyg-high_RATE_DOWN_PAYMENT_min',
+       'nyg-high_RATE_DOWN_PAYMENT_mean', 'nyg-high_RATE_DOWN_PAYMENT_max',
+       'nyg-high_active_min', 'nyg-high_active_mean', 'nyg-high_active_max',
+       'nyg-high_active_sum',
+       ...
+       'nyg-high_AMT_ANNUITY-m-app_AMT_CREDIT-d-app_AMT_INCOME_TOTAL_pctchange_max-d-min',
+       'nyg-high_AMT_ANNUITY-m-app_AMT_ANNUITY_diff_max-d-min',
+       'nyg-high_AMT_ANNUITY-m-app_AMT_ANNUITY_pctchange_max-d-min',
+       'nyg-high_AMT_ANNUITY-m-app_AMT_ANNUITY-d-app_AMT_INCOME_TOTAL_diff_max-d-min',
+       'nyg-high_AMT_ANNUITY-m-app_AMT_ANNUITY-d-app_AMT_INCOME_TOTAL_pctchange_max-d-min',
+       'nyg-high_AMT_ANNUITY-m-app_AMT_GOODS_PRICE_diff_max-d-min',
+       'nyg-high_AMT_ANNUITY-m-app_AMT_GOODS_PRICE_pctchange_max-d-min',
+       'nyg-high_AMT_ANNUITY-m-app_AMT_GOODS_PRICE-d-app_AMT_INCOME_TOTAL_diff_max-d-min',
+       'nyg-high_AMT_ANNUITY-m-app_AMT_GOODS_PRICE-d-app_AMT_INCOME_TOTAL_pctchange_max-d-min',
+       'nyg-high_PREV_COUNT'],
+      dtype='object', length=154)
+
+remove var<=0: Index(['nyg-middle_AMT_DOWN_PAYMENT_min', 'nyg-middle_AMT_DOWN_PAYMENT_mean',
+       'nyg-middle_AMT_DOWN_PAYMENT_max', 'nyg-middle_RATE_DOWN_PAYMENT_min',
+       'nyg-middle_RATE_DOWN_PAYMENT_mean', 'nyg-middle_RATE_DOWN_PAYMENT_max',
+       'nyg-middle_completed_min', 'nyg-middle_completed_mean',
+       'nyg-middle_completed_max', 'nyg-middle_completed_sum',
+       'nyg-middle_NAME_YIELD_GROUP_middle_mean',
+       'nyg-middle_DAYS_FIRST_DUE-m-app_DAYS_BIRTH_max-d-min',
+       'nyg-middle_DAYS_FIRST_DUE-m-app_DAYS_EMPLOYED_max-d-min',
+       'nyg-middle_DAYS_FIRST_DUE-m-app_DAYS_REGISTRATION_max-d-min',
+       'nyg-middle_DAYS_FIRST_DUE-m-app_DAYS_ID_PUBLISH_max-d-min',
+       'nyg-middle_DAYS_FIRST_DUE-m-app_DAYS_LAST_PHONE_CHANGE_max-d-min',
+       'nyg-middle_DAYS_LAST_DUE_1ST_VERSION-m-app_DAYS_BIRTH_max-d-min',
+       'nyg-middle_DAYS_LAST_DUE_1ST_VERSION-m-app_DAYS_EMPLOYED_max-d-min',
+       'nyg-middle_DAYS_LAST_DUE_1ST_VERSION-m-app_DAYS_REGISTRATION_max-d-min',
+       'nyg-middle_DAYS_LAST_DUE_1ST_VERSION-m-app_DAYS_ID_PUBLISH_max-d-min',
+       'nyg-middle_DAYS_LAST_DUE_1ST_VERSION-m-app_DAYS_LAST_PHONE_CHANGE_max-d-min',
+       'nyg-middle_DAYS_LAST_DUE-m-app_DAYS_BIRTH_max-d-min',
+       'nyg-middle_DAYS_LAST_DUE-m-app_DAYS_EMPLOYED_max-d-min',
+       'nyg-middle_DAYS_LAST_DUE-m-app_DAYS_REGISTRATION_max-d-min',
+       'nyg-middle_DAYS_LAST_DUE-m-app_DAYS_ID_PUBLISH_max-d-min',
+       'nyg-middle_DAYS_LAST_DUE-m-app_DAYS_LAST_PHONE_CHANGE_max-d-min',
+       'nyg-middle_DAYS_TERMINATION-m-app_DAYS_BIRTH_max-d-min',
+       'nyg-middle_DAYS_TERMINATION-m-app_DAYS_EMPLOYED_max-d-min',
+       'nyg-middle_DAYS_TERMINATION-m-app_DAYS_REGISTRATION_max-d-min',
+       'nyg-middle_DAYS_TERMINATION-m-app_DAYS_ID_PUBLISH_max-d-min',
+       'nyg-middle_DAYS_TERMINATION-m-app_DAYS_LAST_PHONE_CHANGE_max-d-min',
+       'nyg-middle_DAYS_FIRST_DUE-d-app_DAYS_BIRTH_max-d-min',
+       'nyg-middle_DAYS_FIRST_DUE-d-app_DAYS_EMPLOYED_max-d-min',
+       'nyg-middle_DAYS_FIRST_DUE-d-app_DAYS_REGISTRATION_max-d-min',
+       'nyg-middle_DAYS_FIRST_DUE-d-app_DAYS_ID_PUBLISH_max-d-min',
+       'nyg-middle_DAYS_FIRST_DUE-d-app_DAYS_LAST_PHONE_CHANGE_max-d-min',
+       'nyg-middle_DAYS_LAST_DUE_1ST_VERSION-d-app_DAYS_BIRTH_max-d-min',
+       'nyg-middle_DAYS_LAST_DUE_1ST_VERSION-d-app_DAYS_EMPLOYED_max-d-min',
+       'nyg-middle_DAYS_LAST_DUE_1ST_VERSION-d-app_DAYS_REGISTRATION_max-d-min',
+       'nyg-middle_DAYS_LAST_DUE_1ST_VERSION-d-app_DAYS_ID_PUBLISH_max-d-min',
+       'nyg-middle_DAYS_LAST_DUE_1ST_VERSION-d-app_DAYS_LAST_PHONE_CHANGE_max-d-min',
+       'nyg-middle_DAYS_LAST_DUE-d-app_DAYS_BIRTH_max-d-min',
+       'nyg-middle_DAYS_LAST_DUE-d-app_DAYS_EMPLOYED_max-d-min',
+       'nyg-middle_DAYS_LAST_DUE-d-app_DAYS_REGISTRATION_max-d-min',
+       'nyg-middle_DAYS_LAST_DUE-d-app_DAYS_ID_PUBLISH_max-d-min',
+       'nyg-middle_DAYS_LAST_DUE-d-app_DAYS_LAST_PHONE_CHANGE_max-d-min',
+       'nyg-middle_DAYS_TERMINATION-d-app_DAYS_BIRTH_max-d-min',
+       'nyg-middle_DAYS_TERMINATION-d-app_DAYS_EMPLOYED_max-d-min',
+       'nyg-middle_DAYS_TERMINATION-d-app_DAYS_REGISTRATION_max-d-min',
+       'nyg-middle_DAYS_TERMINATION-d-app_DAYS_ID_PUBLISH_max-d-min',
+       'nyg-middle_DAYS_TERMINATION-d-app_DAYS_LAST_PHONE_CHANGE_max-d-min',
+       'nyg-middle_cnt_paid_max-d-min', 'nyg-middle_cnt_paid_ratio_max-d-min',
+       'nyg-middle_cnt_unpaid_max-d-min', 'nyg-middle_amt_paid_max-d-min',
+       'nyg-middle_amt_unpaid_max-d-min', 'nyg-middle_active_max-d-min'],
+      dtype='object')
+remove var<=0: Index(['nyg-low_normal_completed_min', 'nyg-low_normal_completed_mean',
+       'nyg-low_normal_completed_max', 'nyg-low_normal_completed_sum',
+       'nyg-low_normal_NAME_YIELD_GROUP_low_normal_mean',
+       'nyg-low_normal_DAYS_LAST_DUE-m-app_DAYS_BIRTH_max-d-min',
+       'nyg-low_normal_DAYS_LAST_DUE-m-app_DAYS_EMPLOYED_max-d-min',
+       'nyg-low_normal_DAYS_LAST_DUE-m-app_DAYS_REGISTRATION_max-d-min',
+       'nyg-low_normal_DAYS_LAST_DUE-m-app_DAYS_ID_PUBLISH_max-d-min',
+       'nyg-low_normal_DAYS_LAST_DUE-m-app_DAYS_LAST_PHONE_CHANGE_max-d-min',
+       'nyg-low_normal_DAYS_TERMINATION-m-app_DAYS_BIRTH_max-d-min',
+       'nyg-low_normal_DAYS_TERMINATION-m-app_DAYS_EMPLOYED_max-d-min',
+       'nyg-low_normal_DAYS_TERMINATION-m-app_DAYS_REGISTRATION_max-d-min',
+       'nyg-low_normal_DAYS_TERMINATION-m-app_DAYS_ID_PUBLISH_max-d-min',
+       'nyg-low_normal_DAYS_TERMINATION-m-app_DAYS_LAST_PHONE_CHANGE_max-d-min',
+       'nyg-low_normal_DAYS_LAST_DUE-d-app_DAYS_BIRTH_max-d-min',
+       'nyg-low_normal_DAYS_LAST_DUE-d-app_DAYS_EMPLOYED_max-d-min',
+       'nyg-low_normal_DAYS_LAST_DUE-d-app_DAYS_REGISTRATION_max-d-min',
+       'nyg-low_normal_DAYS_LAST_DUE-d-app_DAYS_ID_PUBLISH_max-d-min',
+       'nyg-low_normal_DAYS_LAST_DUE-d-app_DAYS_LAST_PHONE_CHANGE_max-d-min',
+       'nyg-low_normal_DAYS_TERMINATION-d-app_DAYS_BIRTH_max-d-min',
+       'nyg-low_normal_DAYS_TERMINATION-d-app_DAYS_EMPLOYED_max-d-min',
+       'nyg-low_normal_DAYS_TERMINATION-d-app_DAYS_REGISTRATION_max-d-min',
+       'nyg-low_normal_DAYS_TERMINATION-d-app_DAYS_ID_PUBLISH_max-d-min',
+       'nyg-low_normal_DAYS_TERMINATION-d-app_DAYS_LAST_PHONE_CHANGE_max-d-min',
+       'nyg-low_normal_active_max-d-min'],
+      dtype='object')
+remove var<=0: Index(['approved_AMT_DOWN_PAYMENT_std', 'approved_RATE_DOWN_PAYMENT_std',
+       'approved_active_min', 'approved_active_mean', 'approved_active_max',
+       'approved_active_std', 'approved_completed_min',
+       'approved_completed_mean', 'approved_completed_max',
+       'approved_completed_std', 'approved_completed_sum',
+       'approved_NAME_CONTRACT_STATUS_Approved_mean',
+       'approved_CODE_REJECT_REASON_XAP_mean', 'approved_active_std-d-mean',
+       'approved_active_max-d-min'],
+      dtype='object')
+remove var<=0: Index(['refused_cnt_paid_sum', 'refused_cnt_unpaid_sum',
+       'refused_amt_paid_sum', 'refused_amt_unpaid_sum', 'refused_active_min',
+       'refused_active_mean', 'refused_active_max', 'refused_active_sum',
+       'refused_completed_min', 'refused_completed_mean',
+       'refused_completed_max', 'refused_completed_sum',
+       'refused_NAME_CONTRACT_STATUS_Refused_mean',
+       'refused_NAME_CLIENT_TYPE_Repeater_mean',
+       'refused_NAME_GOODS_CATEGORY_XNA_mean',
+       'refused_NAME_PRODUCT_TYPE_x-sell_mean',
+       'refused_CHANNEL_TYPE_Credit-and-cash-offices_mean',
+       'refused_NAME_SELLER_INDUSTRY_XNA_mean'],
+      dtype='object')
+
+#==============================================================================
+# SUCCESS !!! 154_aggregate-3y.py
+#==============================================================================
+
+time: 6.93min
