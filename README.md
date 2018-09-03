@@ -13,19 +13,19 @@ Following are the features I made
 ### 1. Current Application
 * Simple calculation(delta, ratio, etc...)
 ### 2. Previous Application
-* Aggregated features(1year, 2years, 3years)
+* Aggregated features(all, 1year, 2years, 3years)
 * last and first application
 ### 3. POS CASH balance
-* Aggregated features(1year, 2years, 3years)
+* Aggregated features(all, 1year, 2years, 3years)
 ### 4. Installments Payments
-* Aggregated features(1year, 2years, 3years)
+* Aggregated features(all, 1year, 2years, 3years)
 ### 5. Credit Card Balance
-* Aggregated features(1year, 2years, 3years)
+* Aggregated features(all, 1year, 2years, 3years)
 ### 6. Bureau
-* Aggregated features(1year, 2years, 3years)
+* Aggregated features(all, 1year, 2years, 3years)
 * last and first application
 ### 7. Bureau Balance
-* Aggregated features(1year, 2years, 3years)
+* Aggregated features(all, 1year, 2years, 3years)
 ### 8. Other
-* Aggregated features using above data(1year, 2years, 3years)
+* Aggregated features using above data(all, 1year, 2years, 3years)
 
