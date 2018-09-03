@@ -30,7 +30,7 @@ NFOLD = 7
 SUBMIT_FILE_PATH = '../output/903-1.csv.gz'
 
 EXE_SUBMIT = True
-COMMENT = 'CV(single): LB804 without f702'
+COMMENT = 'LB804 without f702'
 
 param = {
          'objective': 'binary',
