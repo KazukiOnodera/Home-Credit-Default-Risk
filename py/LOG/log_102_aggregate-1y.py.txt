@@ -1,12 +1,12 @@
 
 #==============================================================================
-# START!!! 102_aggregate-1y.py    PID: 8911    time: 2018-08-11 15:44:32.333989
+# START!!! 102_aggregate-1y.py    PID: 46901    time: 2018-08-28 23:08:01.079827
 #==============================================================================
 
-rm: cannot remove '../feature/t*_f102_*': No such file or directory
-  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:02<00:51,  2.70s/it] 10%|█         | 2/20 [00:05<00:46,  2.57s/it] 15%|█▌        | 3/20 [00:07<00:43,  2.53s/it] 20%|██        | 4/20 [00:10<00:40,  2.52s/it] 25%|██▌       | 5/20 [00:12<00:37,  2.50s/it] 30%|███       | 6/20 [00:14<00:34,  2.49s/it] 35%|███▌      | 7/20 [00:17<00:32,  2.50s/it] 40%|████      | 8/20 [00:19<00:29,  2.49s/it] 45%|████▌     | 9/20 [00:22<00:27,  2.49s/it] 50%|█████     | 10/20 [00:24<00:24,  2.48s/it] 55%|█████▌    | 11/20 [00:27<00:22,  2.48s/it] 60%|██████    | 12/20 [00:29<00:19,  2.48s/it] 65%|██████▌   | 13/20 [00:32<00:17,  2.47s/it] 70%|███████   | 14/20 [00:34<00:14,  2.47s/it] 75%|███████▌  | 15/20 [00:37<00:12,  2.48s/it] 80%|████████  | 16/20 [00:39<00:09,  2.47s/it] 85%|████████▌ | 17/20 [00:42<00:07,  2.48s/it] 90%|█████████ | 18/20 [00:44<00:04,  2.48s/it] 95%|█████████▌| 19/20 [00:47<00:02,  2.48s/it]100%|██████████| 20/20 [00:49<00:00,  2.48s/it]
-  0%|          | 0/20 [00:00<?, ?it/s] 25%|██▌       | 5/20 [00:00<00:00, 40.97it/s] 35%|███▌      | 7/20 [00:00<00:00, 31.04it/s] 45%|████▌     | 9/20 [00:00<00:00, 11.70it/s] 55%|█████▌    | 11/20 [00:01<00:01,  8.44it/s] 60%|██████    | 12/20 [00:01<00:01,  7.74it/s] 65%|██████▌   | 13/20 [00:01<00:00,  7.46it/s] 70%|███████   | 14/20 [00:01<00:00,  7.42it/s] 75%|███████▌  | 15/20 [00:02<00:00,  6.95it/s] 80%|████████  | 16/20 [00:02<00:00,  6.73it/s] 85%|████████▌ | 17/20 [00:02<00:00,  6.44it/s] 90%|█████████ | 18/20 [00:02<00:00,  6.20it/s] 95%|█████████▌| 19/20 [00:03<00:00,  6.10it/s]100%|██████████| 20/20 [00:03<00:00,  5.96it/s]
-  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:00<00:02,  6.75it/s] 20%|██        | 4/20 [00:00<00:01, 14.51it/s] 30%|███       | 6/20 [00:00<00:00, 15.09it/s] 45%|████▌     | 9/20 [00:00<00:00, 15.16it/s] 55%|█████▌    | 11/20 [00:00<00:00, 15.39it/s] 65%|██████▌   | 13/20 [00:00<00:00, 15.37it/s] 75%|███████▌  | 15/20 [00:01<00:00, 14.81it/s] 85%|████████▌ | 17/20 [00:01<00:00, 14.93it/s] 95%|█████████▌| 19/20 [00:01<00:00, 15.17it/s]100%|██████████| 20/20 [00:01<00:00, 15.40it/s]
+sh: 1: rm: Argument list too long
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:23<07:33, 23.89s/it] 10%|█         | 2/20 [00:47<07:11, 23.97s/it] 15%|█▌        | 3/20 [01:10<06:41, 23.63s/it] 20%|██        | 4/20 [01:27<05:51, 21.94s/it] 25%|██▌       | 5/20 [01:30<04:32, 18.18s/it] 30%|███       | 6/20 [01:51<04:21, 18.66s/it] 35%|███▌      | 7/20 [02:15<04:11, 19.37s/it] 40%|████      | 8/20 [02:40<04:01, 20.11s/it] 45%|████▌     | 9/20 [03:04<03:45, 20.48s/it] 50%|█████     | 10/20 [03:29<03:29, 20.93s/it] 55%|█████▌    | 11/20 [03:55<03:12, 21.37s/it] 60%|██████    | 12/20 [04:20<02:53, 21.72s/it] 65%|██████▌   | 13/20 [04:46<02:34, 22.03s/it] 70%|███████   | 14/20 [05:09<02:12, 22.11s/it] 75%|███████▌  | 15/20 [05:34<01:51, 22.29s/it] 80%|████████  | 16/20 [06:00<01:30, 22.52s/it] 85%|████████▌ | 17/20 [06:24<01:07, 22.63s/it] 90%|█████████ | 18/20 [06:51<00:45, 22.85s/it] 95%|█████████▌| 19/20 [07:17<00:23, 23.01s/it]100%|██████████| 20/20 [07:20<00:00, 22.05s/it]
+  0%|          | 0/20 [00:00<?, ?it/s] 10%|█         | 2/20 [00:00<00:01, 17.84it/s] 25%|██▌       | 5/20 [00:00<00:00, 19.81it/s] 40%|████      | 8/20 [00:00<00:00, 20.32it/s] 55%|█████▌    | 11/20 [00:00<00:00, 14.67it/s] 65%|██████▌   | 13/20 [00:01<00:00,  8.51it/s] 70%|███████   | 14/20 [00:01<00:00,  7.58it/s] 75%|███████▌  | 15/20 [00:02<00:00,  6.95it/s] 80%|████████  | 16/20 [00:02<00:00,  6.31it/s] 85%|████████▌ | 17/20 [00:02<00:00,  5.90it/s] 90%|█████████ | 18/20 [00:03<00:00,  5.65it/s] 95%|█████████▌| 19/20 [00:03<00:00,  5.44it/s]100%|██████████| 20/20 [00:03<00:00,  5.21it/s]
+  0%|          | 0/20 [00:00<?, ?it/s] 10%|█         | 2/20 [00:00<00:01, 15.63it/s] 20%|██        | 4/20 [00:00<00:00, 16.17it/s] 30%|███       | 6/20 [00:00<00:00, 15.37it/s] 40%|████      | 8/20 [00:00<00:00, 16.22it/s] 50%|█████     | 10/20 [00:00<00:00, 16.77it/s] 60%|██████    | 12/20 [00:00<00:00, 16.65it/s] 70%|███████   | 14/20 [00:00<00:00, 16.07it/s] 80%|████████  | 16/20 [00:01<00:00, 15.56it/s] 90%|█████████ | 18/20 [00:01<00:00, 15.59it/s]100%|██████████| 20/20 [00:01<00:00, 15.49it/s]
 ['NAME_CONTRACT_STATUS', 'Approved', 'approved_']
 ['NAME_CONTRACT_STATUS', 'Refused', 'refused_']
 ['NAME_YIELD_GROUP', 'high', 'nyg-high_']
@@ -16,7 +16,6 @@ rm: cannot remove '../feature/t*_f102_*': No such file or directory
 ['active', 1, 'active_']
 ['completed', 1, 'completed_']
 remove var<=0: Index(['nyg-low_action_NAME_YIELD_GROUP_low_action_mean'], dtype='object')
-remove var<=0: Index(['nyg-high_NAME_YIELD_GROUP_high_mean'], dtype='object')
 remove var<=0: Index(['completed_cnt_paid_ratio_min', 'completed_cnt_paid_ratio_mean',
        'completed_cnt_paid_ratio_max', 'completed_cnt_paid_ratio_std',
        'completed_cnt_unpaid_min', 'completed_cnt_unpaid_mean',
@@ -28,83 +27,56 @@ remove var<=0: Index(['completed_cnt_paid_ratio_min', 'completed_cnt_paid_ratio_
        'completed_active_std', 'completed_active_sum',
        'completed_completed_min', 'completed_completed_mean',
        'completed_completed_max', 'completed_completed_std',
-       'completed_NAME_CASH_LOAN_PURPOSE_Buying-a-holiday-home-/-land_mean',
-       'completed_NAME_CASH_LOAN_PURPOSE_Buying-a-holiday-home-/-land_sum',
-       'completed_NAME_CASH_LOAN_PURPOSE_Hobby_mean',
-       'completed_NAME_CASH_LOAN_PURPOSE_Hobby_sum',
        'completed_NAME_CONTRACT_STATUS_Approved_mean',
        'completed_cnt_paid_ratio_std-d-mean', 'completed_completed_std-d-mean',
        'completed_cnt_paid_ratio_max-d-min', 'completed_completed_max-d-min'],
+      dtype='object')
+remove var<=0: Index(['nyg-high_NAME_YIELD_GROUP_high_mean'], dtype='object')
+remove var<=0: Index(['nyg-middle_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_mean',
+       'nyg-middle_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_sum',
+       'nyg-middle_NAME_GOODS_CATEGORY_Other_mean',
+       'nyg-middle_NAME_GOODS_CATEGORY_Other_sum',
+       'nyg-middle_NAME_YIELD_GROUP_middle_mean'],
       dtype='object')
 remove var<=0: Index(['refused_cnt_paid_sum', 'refused_cnt_unpaid_sum',
        'refused_amt_paid_sum', 'refused_amt_unpaid_sum', 'refused_active_min',
        'refused_active_mean', 'refused_active_max', 'refused_active_std',
        'refused_active_sum', 'refused_completed_min', 'refused_completed_mean',
        'refused_completed_max', 'refused_completed_std',
-       'refused_completed_sum', 'refused_NAME_CONTRACT_STATUS_Refused_mean',
-       'refused_CODE_REJECT_REASON_SYSTEM_mean',
-       'refused_CODE_REJECT_REASON_SYSTEM_sum',
+       'refused_completed_sum',
+       'refused_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_mean',
+       'refused_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_sum',
+       'refused_NAME_CONTRACT_STATUS_Refused_mean',
        'refused_NAME_GOODS_CATEGORY_Insurance_mean',
-       'refused_NAME_GOODS_CATEGORY_Insurance_sum'],
+       'refused_NAME_GOODS_CATEGORY_Insurance_sum',
+       'refused_NAME_GOODS_CATEGORY_Weapon_mean',
+       'refused_NAME_GOODS_CATEGORY_Weapon_sum'],
       dtype='object')
-remove var<=0: Index(['nyg-middle_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_mean',
-       'nyg-middle_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_sum',
-       'nyg-middle_CODE_REJECT_REASON_SYSTEM_mean',
-       'nyg-middle_CODE_REJECT_REASON_SYSTEM_sum',
-       'nyg-middle_NAME_GOODS_CATEGORY_Education_mean',
-       'nyg-middle_NAME_GOODS_CATEGORY_Education_sum',
-       'nyg-middle_NAME_GOODS_CATEGORY_Insurance_mean',
-       'nyg-middle_NAME_GOODS_CATEGORY_Insurance_sum',
-       'nyg-middle_NAME_GOODS_CATEGORY_Other_mean',
-       'nyg-middle_NAME_GOODS_CATEGORY_Other_sum',
-       'nyg-middle_NAME_YIELD_GROUP_middle_mean'],
+remove var<=0: Index(['nyg-low_normal_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_mean',
+       'nyg-low_normal_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_sum',
+       'nyg-low_normal_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_mean',
+       'nyg-low_normal_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_sum',
+       'nyg-low_normal_NAME_GOODS_CATEGORY_Animals_mean',
+       'nyg-low_normal_NAME_GOODS_CATEGORY_Animals_sum',
+       'nyg-low_normal_NAME_YIELD_GROUP_low_normal_mean'],
       dtype='object')
-remove var<=0: Index(['nyg-low_normal_NAME_YIELD_GROUP_low_normal_mean'], dtype='object')
 remove var<=0: Index(['active_active_min', 'active_active_mean', 'active_active_max',
        'active_active_std', 'active_completed_min', 'active_completed_mean',
        'active_completed_max', 'active_completed_std', 'active_completed_sum',
-       'active_NAME_CASH_LOAN_PURPOSE_Buying-a-garage_mean',
-       'active_NAME_CASH_LOAN_PURPOSE_Buying-a-garage_sum',
-       'active_NAME_CASH_LOAN_PURPOSE_Hobby_mean',
-       'active_NAME_CASH_LOAN_PURPOSE_Hobby_sum',
        'active_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_mean',
        'active_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_sum',
-       'active_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_mean',
-       'active_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_sum',
        'active_NAME_CONTRACT_STATUS_Approved_mean',
-       'active_NAME_GOODS_CATEGORY_Insurance_mean',
-       'active_NAME_GOODS_CATEGORY_Insurance_sum', 'active_active_std-d-mean',
+       'active_NAME_GOODS_CATEGORY_Other_mean',
+       'active_NAME_GOODS_CATEGORY_Other_sum', 'active_active_std-d-mean',
        'active_active_max-d-min'],
       dtype='object')
-remove var<=0: Index(['approved_NAME_CASH_LOAN_PURPOSE_Business-development_mean',
-       'approved_NAME_CASH_LOAN_PURPOSE_Business-development_sum',
-       'approved_NAME_CASH_LOAN_PURPOSE_Buying-a-holiday-home-/-land_mean',
-       'approved_NAME_CASH_LOAN_PURPOSE_Buying-a-holiday-home-/-land_sum',
-       'approved_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_mean',
+remove var<=0: Index(['approved_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_mean',
        'approved_NAME_CASH_LOAN_PURPOSE_Money-for-a-third-person_sum',
        'approved_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_mean',
        'approved_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_sum',
        'approved_NAME_CONTRACT_STATUS_Approved_mean',
-       'approved_NAME_GOODS_CATEGORY_Additional-Service_mean',
-       'approved_NAME_GOODS_CATEGORY_Additional-Service_sum',
        'approved_NAME_GOODS_CATEGORY_Animals_mean',
        'approved_NAME_GOODS_CATEGORY_Animals_sum',
-       'approved_NAME_GOODS_CATEGORY_Other_mean',
-       'approved_NAME_GOODS_CATEGORY_Other_sum',
-       'approved_NAME_GOODS_CATEGORY_Weapon_mean',
-       'approved_NAME_GOODS_CATEGORY_Weapon_sum',
-       'approved_NAME_PORTFOLIO_XNA_mean', 'approved_NAME_PORTFOLIO_XNA_sum',
-       'approved_PRODUCT_COMBINATION_Cash_mean',
-       'approved_PRODUCT_COMBINATION_Cash_sum',
-       'approved_DAYS_FIRST_DRAWING-m-app_DAYS_BIRTH_max-d-min',
-       'approved_DAYS_FIRST_DRAWING-m-app_DAYS_EMPLOYED_max-d-min',
-       'approved_DAYS_FIRST_DRAWING-m-app_DAYS_REGISTRATION_max-d-min',
-       'approved_DAYS_FIRST_DRAWING-m-app_DAYS_ID_PUBLISH_max-d-min',
-       'approved_DAYS_FIRST_DRAWING-m-app_DAYS_LAST_PHONE_CHANGE_max-d-min',
-       'approved_DAYS_FIRST_DRAWING-d-app_DAYS_BIRTH_max-d-min',
-       'approved_DAYS_FIRST_DRAWING-d-app_DAYS_EMPLOYED_max-d-min',
-       'approved_DAYS_FIRST_DRAWING-d-app_DAYS_REGISTRATION_max-d-min',
-       'approved_DAYS_FIRST_DRAWING-d-app_DAYS_ID_PUBLISH_max-d-min',
        'approved_DAYS_FIRST_DRAWING-d-app_DAYS_LAST_PHONE_CHANGE_max-d-min'],
       dtype='object')
 
@@ -112,4 +84,4 @@ remove var<=0: Index(['approved_NAME_CASH_LOAN_PURPOSE_Business-development_mean
 # SUCCESS !!! 102_aggregate-1y.py
 #==============================================================================
 
-time: 30.86min
+time: 27.07min

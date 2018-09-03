@@ -1,12 +1,11 @@
 
 #==============================================================================
-# START!!! 104_aggregate-3y.py    PID: 16980    time: 2018-08-11 16:19:28.493150
+# START!!! 104_aggregate-3y.py    PID: 50910    time: 2018-08-28 05:31:11.499848
 #==============================================================================
 
-rm: cannot remove '../feature/t*_f104_*': No such file or directory
-  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:02<00:54,  2.84s/it] 10%|█         | 2/20 [00:05<00:48,  2.69s/it] 15%|█▌        | 3/20 [00:08<00:50,  2.97s/it] 20%|██        | 4/20 [00:13<00:52,  3.28s/it] 25%|██▌       | 5/20 [00:17<00:51,  3.41s/it] 30%|███       | 6/20 [00:20<00:48,  3.49s/it] 35%|███▌      | 7/20 [00:30<00:56,  4.37s/it] 40%|████      | 8/20 [00:37<00:56,  4.71s/it] 45%|████▌     | 9/20 [00:45<00:55,  5.03s/it] 50%|█████     | 10/20 [00:52<00:52,  5.24s/it] 55%|█████▌    | 11/20 [00:59<00:48,  5.39s/it] 60%|██████    | 12/20 [01:06<00:44,  5.52s/it] 65%|██████▌   | 13/20 [01:13<00:39,  5.66s/it] 70%|███████   | 14/20 [01:20<00:34,  5.73s/it] 75%|███████▌  | 15/20 [01:30<00:30,  6.02s/it] 80%|████████  | 16/20 [01:37<00:24,  6.09s/it] 85%|████████▌ | 17/20 [01:44<00:18,  6.14s/it] 90%|█████████ | 18/20 [01:51<00:12,  6.20s/it] 95%|█████████▌| 19/20 [01:58<00:06,  6.24s/it]100%|██████████| 20/20 [02:03<00:00,  6.20s/it]
-  0%|          | 0/20 [00:00<?, ?it/s] 15%|█▌        | 3/20 [00:00<00:00, 21.47it/s] 25%|██▌       | 5/20 [00:00<00:00, 20.20it/s] 40%|████      | 8/20 [00:00<00:00, 19.83it/s] 55%|█████▌    | 11/20 [00:00<00:00, 19.34it/s] 75%|███████▌  | 15/20 [00:00<00:00, 21.86it/s] 95%|█████████▌| 19/20 [00:00<00:00, 23.63it/s]100%|██████████| 20/20 [00:00<00:00, 23.92it/s]
-  0%|          | 0/20 [00:00<?, ?it/s] 90%|█████████ | 18/20 [00:00<00:00, 177.74it/s]100%|██████████| 20/20 [00:00<00:00, 179.74it/s]
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:00<00:13,  1.37it/s] 10%|█         | 2/20 [00:02<00:24,  1.38s/it] 15%|█▌        | 3/20 [00:05<00:33,  1.98s/it] 20%|██        | 4/20 [00:09<00:39,  2.47s/it] 25%|██▌       | 5/20 [00:12<00:38,  2.60s/it] 30%|███       | 6/20 [00:16<00:37,  2.68s/it] 35%|███▌      | 7/20 [00:19<00:35,  2.74s/it] 40%|████      | 8/20 [00:22<00:34,  2.84s/it] 45%|████▌     | 9/20 [00:25<00:31,  2.87s/it] 50%|█████     | 10/20 [00:28<00:28,  2.89s/it] 55%|█████▌    | 11/20 [00:32<00:26,  2.91s/it] 60%|██████    | 12/20 [00:35<00:23,  2.92s/it] 65%|██████▌   | 13/20 [00:38<00:20,  2.94s/it] 70%|███████   | 14/20 [00:41<00:17,  2.95s/it] 75%|███████▌  | 15/20 [00:44<00:14,  2.96s/it] 80%|████████  | 16/20 [00:47<00:11,  2.96s/it] 85%|████████▌ | 17/20 [00:50<00:08,  2.97s/it] 90%|█████████ | 18/20 [00:53<00:05,  2.99s/it] 95%|█████████▌| 19/20 [00:56<00:02,  3.00s/it]100%|██████████| 20/20 [01:00<00:00,  3.00s/it]
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:00<00:07,  2.50it/s] 10%|█         | 2/20 [00:00<00:06,  2.91it/s] 15%|█▌        | 3/20 [00:01<00:05,  2.90it/s] 20%|██        | 4/20 [00:01<00:04,  3.30it/s] 25%|██▌       | 5/20 [00:01<00:04,  3.51it/s] 30%|███       | 6/20 [00:01<00:03,  3.54it/s] 35%|███▌      | 7/20 [00:01<00:03,  3.63it/s] 40%|████      | 8/20 [00:02<00:03,  3.80it/s] 45%|████▌     | 9/20 [00:02<00:03,  3.61it/s] 50%|█████     | 10/20 [00:02<00:02,  3.65it/s] 55%|█████▌    | 11/20 [00:02<00:02,  3.67it/s] 60%|██████    | 12/20 [00:03<00:02,  3.83it/s] 65%|██████▌   | 13/20 [00:03<00:01,  3.83it/s] 70%|███████   | 14/20 [00:03<00:01,  3.87it/s] 75%|███████▌  | 15/20 [00:03<00:01,  3.90it/s] 80%|████████  | 16/20 [00:04<00:01,  3.91it/s] 85%|████████▌ | 17/20 [00:04<00:00,  3.73it/s] 90%|█████████ | 18/20 [00:04<00:00,  3.74it/s] 95%|█████████▌| 19/20 [00:05<00:00,  3.73it/s]100%|██████████| 20/20 [00:05<00:00,  3.79it/s]
+  0%|          | 0/20 [00:00<?, ?it/s] 15%|█▌        | 3/20 [00:00<00:00, 24.35it/s] 35%|███▌      | 7/20 [00:00<00:00, 28.87it/s] 45%|████▌     | 9/20 [00:00<00:00, 24.58it/s] 55%|█████▌    | 11/20 [00:00<00:00, 23.36it/s] 65%|██████▌   | 13/20 [00:00<00:00, 20.14it/s] 75%|███████▌  | 15/20 [00:00<00:00, 19.08it/s] 85%|████████▌ | 17/20 [00:00<00:00, 17.87it/s]100%|██████████| 20/20 [00:01<00:00, 18.48it/s]
 ['NAME_CONTRACT_STATUS', 'Approved', 'approved_']
 ['NAME_CONTRACT_STATUS', 'Refused', 'refused_']
 ['NAME_YIELD_GROUP', 'high', 'nyg-high_']
@@ -30,24 +29,20 @@ remove var<=0: Index(['active_active_min', 'active_active_mean', 'active_active_
        'active_CODE_REJECT_REASON_XAP_mean', 'active_active_std-d-mean',
        'active_active_max-d-min'],
       dtype='object')
-remove var<=0: Index(['nyg-high_NAME_CASH_LOAN_PURPOSE_Buying-a-new-car_mean',
-       'nyg-high_NAME_CASH_LOAN_PURPOSE_Buying-a-new-car_sum',
+remove var<=0: Index(['nyg-high_NAME_CASH_LOAN_PURPOSE_Hobby_mean',
+       'nyg-high_NAME_CASH_LOAN_PURPOSE_Hobby_sum',
        'nyg-high_NAME_GOODS_CATEGORY_Education_mean',
        'nyg-high_NAME_GOODS_CATEGORY_Education_sum',
-       'nyg-high_CHANNEL_TYPE_Channel-of-corporate-sales_mean',
-       'nyg-high_CHANNEL_TYPE_Channel-of-corporate-sales_sum',
        'nyg-high_NAME_YIELD_GROUP_high_mean'],
       dtype='object')
-remove var<=0: Index(['nyg-low_normal_NAME_CASH_LOAN_PURPOSE_Journey_mean',
-       'nyg-low_normal_NAME_CASH_LOAN_PURPOSE_Journey_sum',
-       'nyg-low_normal_NAME_GOODS_CATEGORY_Weapon_mean',
-       'nyg-low_normal_NAME_GOODS_CATEGORY_Weapon_sum',
+remove var<=0: Index(['nyg-low_normal_CODE_REJECT_REASON_SYSTEM_mean',
+       'nyg-low_normal_CODE_REJECT_REASON_SYSTEM_sum',
        'nyg-low_normal_NAME_YIELD_GROUP_low_normal_mean'],
       dtype='object')
-remove var<=0: Index(['nyg-middle_NAME_CASH_LOAN_PURPOSE_Buying-a-garage_mean',
-       'nyg-middle_NAME_CASH_LOAN_PURPOSE_Buying-a-garage_sum',
-       'nyg-middle_NAME_CASH_LOAN_PURPOSE_Car-repairs_mean',
-       'nyg-middle_NAME_CASH_LOAN_PURPOSE_Car-repairs_sum',
+remove var<=0: Index(['nyg-middle_NAME_CASH_LOAN_PURPOSE_Gasification-/-water-supply_mean',
+       'nyg-middle_NAME_CASH_LOAN_PURPOSE_Gasification-/-water-supply_sum',
+       'nyg-middle_NAME_GOODS_CATEGORY_Insurance_mean',
+       'nyg-middle_NAME_GOODS_CATEGORY_Insurance_sum',
        'nyg-middle_NAME_YIELD_GROUP_middle_mean'],
       dtype='object')
 remove var<=0: Index(['completed_cnt_paid_ratio_min', 'completed_cnt_paid_ratio_mean',
@@ -63,6 +58,8 @@ remove var<=0: Index(['completed_cnt_paid_ratio_min', 'completed_cnt_paid_ratio_
        'completed_completed_max', 'completed_completed_std',
        'completed_NAME_CASH_LOAN_PURPOSE_Buying-a-garage_mean',
        'completed_NAME_CASH_LOAN_PURPOSE_Buying-a-garage_sum',
+       'completed_NAME_CASH_LOAN_PURPOSE_Gasification-/-water-supply_mean',
+       'completed_NAME_CASH_LOAN_PURPOSE_Gasification-/-water-supply_sum',
        'completed_NAME_CASH_LOAN_PURPOSE_Hobby_mean',
        'completed_NAME_CASH_LOAN_PURPOSE_Hobby_sum',
        'completed_NAME_CONTRACT_STATUS_Approved_mean',
@@ -78,6 +75,8 @@ remove var<=0: Index(['approved_NAME_CASH_LOAN_PURPOSE_Buying-a-garage_mean',
        'approved_NAME_CASH_LOAN_PURPOSE_Refusal-to-name-the-goal_sum',
        'approved_NAME_CONTRACT_STATUS_Approved_mean',
        'approved_CODE_REJECT_REASON_XAP_mean',
+       'approved_NAME_GOODS_CATEGORY_Insurance_mean',
+       'approved_NAME_GOODS_CATEGORY_Insurance_sum',
        'approved_DAYS_FIRST_DRAWING-m-app_DAYS_BIRTH_max-d-min',
        'approved_DAYS_FIRST_DRAWING-m-app_DAYS_EMPLOYED_max-d-min',
        'approved_DAYS_FIRST_DRAWING-m-app_DAYS_REGISTRATION_max-d-min',
@@ -94,4 +93,4 @@ remove var<=0: Index(['approved_NAME_CASH_LOAN_PURPOSE_Buying-a-garage_mean',
 # SUCCESS !!! 104_aggregate-3y.py
 #==============================================================================
 
-time: 19.46min
+time: 30.20min

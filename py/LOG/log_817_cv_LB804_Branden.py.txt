@@ -1,0 +1,88 @@
+
+#==============================================================================
+# START!!! 817_cv_LB804_Branden.py    PID: 9016    time: 2018-08-17 07:14:43.823533
+#==============================================================================
+
+seed: 10359
+  0%|          | 0/20 [00:00<?, ?it/s] 20%|██        | 4/20 [00:00<00:00, 38.28it/s] 70%|███████   | 14/20 [00:00<00:00, 65.93it/s]100%|██████████| 20/20 [00:00<00:00, 84.91it/s]
+no dup :) 
+X.shape (307511, 8326)
+category: ['f510_CREDIT_TYPE', 'f002_NAME_EDUCATION_TYPE', 'f002_NAME_INCOME_TYPE', 'f002_WEEKDAY_APPR_PROCESS_START', 'f002_OCCUPATION_TYPE', 'f509_CREDIT_TYPE', 'f108_NAME_TYPE_SUITE', 'f002_ORGANIZATION_TYPE', 'f109_PRODUCT_COMBINATION', 'f109_NAME_GOODS_CATEGORY', 'f108_PRODUCT_COMBINATION', 'f002_WALLSMATERIAL_MODE', 'f108_NAME_GOODS_CATEGORY', 'f002_NAME_FAMILY_STATUS', 'Bra_papp_max_SK_ID_CURR_WEEKDAY_APPR_PROCESS_START_int', 'Bra_papp_min_SK_ID_CURR_PRODUCT_COMBINATION_int', 'Bra_WEEKDAY_APPR_PROCESS_START_int', 'Bra_papp_max_SK_ID_CURR_NAME_TYPE_SUITE_int', 'Bra_papp_min_SK_ID_CURR_NAME_GOODS_CATEGORY_int', 'Bra_papp_min_SK_ID_CURR_WEEKDAY_APPR_PROCESS_START_int', 'Bra_papp_min_SK_ID_CURR_NAME_SELLER_INDUSTRY_int', 'Bra_CODE_GENDER_int', 'Bra_papp_min_SK_ID_CURR_CODE_REJECT_REASON_int', 'Bra_papp_max_SK_ID_CURR_PRODUCT_COMBINATION_int', 'Bra_papp_min_SK_ID_CURR_NAME_CONTRACT_STATUS_int', 'Bra_NAME_FAMILY_STATUS_int', 'Bra_papp_max_SK_ID_CURR_NAME_GOODS_CATEGORY_int', 'Bra_OCCUPATION_TYPE_int', 'Bra_papp_max_SK_ID_CURR_NAME_SELLER_INDUSTRY_int', 'Bra_papp_max_SK_ID_CURR_CODE_REJECT_REASON_int', 'Bra_papp_min_SK_ID_CURR_NAME_YIELD_GROUP_int', 'Bra_papp_min_SK_ID_CURR_NAME_PRODUCT_TYPE_int', 'Bra_papp_max_SK_ID_CURR_CHANNEL_TYPE_int', 'Bra_WALLSMATERIAL_MODE_int', 'Bra_ORGANIZATION_TYPE_int', 'Bra_papp_min_SK_ID_CURR_NAME_CLIENT_TYPE_int', 'Bra_papp_min_SK_ID_CURR_NAME_CASH_LOAN_PURPOSE_int', 'Bra_papp_max_SK_ID_CURR_NAME_CONTRACT_STATUS_int', 'Bra_papp_min_SK_ID_CURR_NAME_PORTFOLIO_int', 'Bra_papp_max_SK_ID_CURR_NAME_YIELD_GROUP_int', 'Bra_papp_min_SK_ID_CURR_CHANNEL_TYPE_int', 'Bra_NAME_EDUCATION_TYPE_int', 'Bra_FONDKAPREMONT_MODE_int', 'Bra_papp_max_SK_ID_CURR_NAME_PRODUCT_TYPE_int', 'Bra_NAME_INCOME_TYPE_int', 'Bra_papp_min_SK_ID_CURR_NAME_CONTRACT_TYPE_int', 'Bra_papp_min_SK_ID_CURR_NAME_TYPE_SUITE_int', 'Bra_NAME_TYPE_SUITE_int', 'Bra_NAME_HOUSING_TYPE_int', 'Bra_papp_max_SK_ID_CURR_NAME_PAYMENT_TYPE_int', 'Bra_papp_max_SK_ID_CURR_NAME_CLIENT_TYPE_int', 'Bra_papp_min_SK_ID_CURR_NAME_PAYMENT_TYPE_int', 'Bra_papp_max_SK_ID_CURR_NAME_CONTRACT_TYPE_int', 'Bra_papp_max_SK_ID_CURR_NAME_CASH_LOAN_PURPOSE_int']
+[50]	cv_agg's auc: 0.77113 + 0.00453737
+[100]	cv_agg's auc: 0.77559 + 0.00432148
+[150]	cv_agg's auc: 0.779277 + 0.00408076
+[200]	cv_agg's auc: 0.78248 + 0.00388231
+[250]	cv_agg's auc: 0.785313 + 0.00374469
+[300]	cv_agg's auc: 0.787832 + 0.00358013
+[350]	cv_agg's auc: 0.78983 + 0.00345836
+[400]	cv_agg's auc: 0.791496 + 0.00331462
+[450]	cv_agg's auc: 0.792876 + 0.00322413
+[500]	cv_agg's auc: 0.794033 + 0.00314065
+[550]	cv_agg's auc: 0.794953 + 0.00310046
+[600]	cv_agg's auc: 0.79573 + 0.00309276
+[650]	cv_agg's auc: 0.796442 + 0.00303324
+[700]	cv_agg's auc: 0.797038 + 0.00297704
+[750]	cv_agg's auc: 0.797563 + 0.00289932
+[800]	cv_agg's auc: 0.798052 + 0.00288947
+[850]	cv_agg's auc: 0.79848 + 0.00284295
+[900]	cv_agg's auc: 0.79885 + 0.0027892
+[950]	cv_agg's auc: 0.799209 + 0.00274281
+[1000]	cv_agg's auc: 0.799483 + 0.00269664
+[1050]	cv_agg's auc: 0.799746 + 0.00267083
+[1100]	cv_agg's auc: 0.800004 + 0.00263061
+[1150]	cv_agg's auc: 0.800271 + 0.0026006
+[1200]	cv_agg's auc: 0.800477 + 0.00257216
+[1250]	cv_agg's auc: 0.800679 + 0.00254691
+[1300]	cv_agg's auc: 0.80089 + 0.00252118
+[1350]	cv_agg's auc: 0.801092 + 0.00249553
+[1400]	cv_agg's auc: 0.801269 + 0.00244907
+[1450]	cv_agg's auc: 0.801383 + 0.00246866
+[1500]	cv_agg's auc: 0.801557 + 0.00246378
+[1550]	cv_agg's auc: 0.801711 + 0.00247743
+[1600]	cv_agg's auc: 0.801867 + 0.00246145
+[1650]	cv_agg's auc: 0.802042 + 0.0024447
+[1700]	cv_agg's auc: 0.80217 + 0.00247178
+[1750]	cv_agg's auc: 0.802275 + 0.00247883
+[1800]	cv_agg's auc: 0.802383 + 0.00247102
+[1850]	cv_agg's auc: 0.802495 + 0.00245219
+[1900]	cv_agg's auc: 0.802585 + 0.0024744
+[1950]	cv_agg's auc: 0.802692 + 0.00247525
+[2000]	cv_agg's auc: 0.802796 + 0.0024888
+[2050]	cv_agg's auc: 0.802856 + 0.0024883
+[2100]	cv_agg's auc: 0.802911 + 0.00249941
+[2150]	cv_agg's auc: 0.802976 + 0.00250255
+[2200]	cv_agg's auc: 0.803001 + 0.00248649
+[2250]	cv_agg's auc: 0.803069 + 0.00247188
+[2300]	cv_agg's auc: 0.803117 + 0.00247409
+[2350]	cv_agg's auc: 0.803171 + 0.00246553
+[2400]	cv_agg's auc: 0.803225 + 0.00248661
+[2450]	cv_agg's auc: 0.803304 + 0.00247033
+[2500]	cv_agg's auc: 0.803337 + 0.00244936
+[2550]	cv_agg's auc: 0.803398 + 0.00244497
+[2600]	cv_agg's auc: 0.803426 + 0.00244659
+[2650]	cv_agg's auc: 0.803463 + 0.00244764
+[2700]	cv_agg's auc: 0.803514 + 0.00243827
+[2750]	cv_agg's auc: 0.803547 + 0.00241209
+[2800]	cv_agg's auc: 0.80358 + 0.00238422
+[2850]	cv_agg's auc: 0.803583 + 0.0023697
+[2900]	cv_agg's auc: 0.803602 + 0.0023532
+[2950]	cv_agg's auc: 0.803603 + 0.00235976
+[3000]	cv_agg's auc: 0.803616 + 0.00235041
+[3050]	cv_agg's auc: 0.803622 + 0.002332
+[3100]	cv_agg's auc: 0.803636 + 0.00233288
+[3150]	cv_agg's auc: 0.803623 + 0.00233547
+CV auc-mean(seed:10359): 0.8036465847367159 + 0.0023326218168167167
+0.8038456138242313
+0.807439865702004
+0.8050500436854966
+0.8026037323141719
+0.7994670299361885
+0.8048099696394054
+0.8022807813717217
+
+#==============================================================================
+# SUCCESS !!! 817_cv_LB804_Branden.py
+#==============================================================================
+
+time: 186.12min
+Stopping instance(s) instance-3...
