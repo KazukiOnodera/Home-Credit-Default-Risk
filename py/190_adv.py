@@ -65,13 +65,13 @@ files_te = []
 
 for p in imp_files:
     imp = pd.read_csv(p)
-    imp = imp[imp.gain>0]
+    imp = imp[imp.split>2]
     files_tr += ('../feature/train_' + imp.feature + '.f').tolist()
     files_te += ('../feature/test_' + imp.feature + '.f').tolist()
 
 files_tr = sorted(set(files_tr))
 files_te = sorted(set(files_te))
-print('features:', len(files_te))
+print('features:', len(files_tr))
 
 
 
@@ -87,7 +87,7 @@ X_te['y'] = 1
 
 train_len = X_tr.shape[0]
 
-X = pd.concat([X_tr, X_te], ignore_idnex=True)
+X = pd.concat([X_tr, X_te], ignore_idnex=True); del X_tr, X_te
 y = X['y']; del X['y']
 
 if X.columns.duplicated().sum()>0:
@@ -129,9 +129,19 @@ print(result)
 utils.send_line(result)
 
 
+y_pred.name = 'f190_adv'
+y_pred = y_pred.to_frame()
+
+# =============================================================================
+# output
+# =============================================================================
+train = y_pred.iloc[:train_len,]
+test  = y_pred.iloc[train_len:,]
+
+utils.to_feature(train, '../feature/train')
+utils.to_feature(test, '../feature/test')
+
+
 #==============================================================================
 utils.end(__file__)
 utils.stop_instance()
-
-
-
