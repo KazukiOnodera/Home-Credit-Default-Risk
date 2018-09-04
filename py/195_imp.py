@@ -50,8 +50,7 @@ param = {
 
 
 use_files = ['train_f0', 
-             'train_f105', 'train_f106', 'train_f108', 'train_f109', 
-             'train_f155', 'train_f156', 'train_f158', 'train_f159', ]
+             'train_f105', 'train_f106', 'train_f108', 'train_f109' ]
 
 #REMOVE_FEATURES = ['f023', 'f024']
 
@@ -103,9 +102,9 @@ imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
 
 imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
 
-def multi_touch(arg):
-    os.system(f'touch "../feature_unused/{arg}.f"')
-
+#def multi_touch(arg):
+#    os.system(f'touch "../feature_unused/{arg}.f"')
+#
 
 #col = imp[imp['split']==0][imp['feature'].str.startswith('f1')]['feature'].tolist()
 #pool = Pool(cpu_count())
