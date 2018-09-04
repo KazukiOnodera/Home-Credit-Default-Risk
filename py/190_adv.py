@@ -87,7 +87,7 @@ X_te['y'] = 1
 
 train_len = X_tr.shape[0]
 
-X = pd.concat([X_tr, X_te], ignore_idnex=True); del X_tr, X_te
+X = pd.concat([X_tr, X_te], ignore_index=True); del X_tr, X_te
 y = X['y']; del X['y']
 
 if X.columns.duplicated().sum()>0:
