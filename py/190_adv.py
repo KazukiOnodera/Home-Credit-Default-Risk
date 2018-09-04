@@ -42,8 +42,8 @@ param = {
          
          'colsample_bytree': 0.7,
          'subsample': 0.5,
-         'nthread': 16,
-#         'nthread': cpu_count(),
+#         'nthread': 16,
+         'nthread': cpu_count(),
          'bagging_freq': 1,
          'verbose':-1,
          'seed': SEED
