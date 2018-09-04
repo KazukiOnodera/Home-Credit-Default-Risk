@@ -15,15 +15,17 @@ import lgbextension as ex
 import lightgbm as lgb
 from multiprocessing import cpu_count, Pool
 #from glob import glob
-import count
+from sklearn.metrics import roc_auc_score
 import utils_cat
 import utils
 utils.start(__file__)
 #==============================================================================
 
-HEAD = 60000
-
 SEED = 71
+
+LOOP = 3
+
+NFOLD = 5
 
 param = {
          'objective': 'binary',
@@ -49,71 +51,87 @@ param = {
 
 
 
-use_files = ['train_f0', 'train_f1']
-
-#REMOVE_FEATURES = ['f023', 'f024']
+imp_files = ['LOG/imp_181_imp.py.csv', 
+         'LOG/imp_182_imp.py.csv', 
+         'LOG/imp_183_imp.py.csv', 
+         'LOG/imp_184_imp.py.csv', 
+         'LOG/imp_185_imp.py.csv', ]
 
 # =============================================================================
 # load
 # =============================================================================
+files_tr = []
+files_te = []
 
-files = utils.get_use_files(use_files, True)
+for p in imp_files:
+    imp = pd.read_csv(p)
+    imp = imp[imp.gain>0]
+    files_tr += ('../feature/train_' + imp.feature + '.f').tolist()
+    files_te += ('../feature/test_' + imp.feature + '.f').tolist()
 
-#tmp = []
-#for f in files:
-#    sw = False # skip switch
-#    for r in REMOVE_FEATURES:
-#        if r in f:
-#            sw = True
-#            break
-#    if not sw:
-#        tmp.append(f)
-#files = tmp
-
-print('features:', len(files))
+files_tr = sorted(set(files_tr))
+files_te = sorted(set(files_te))
+print('features:', len(files_te))
 
 
 
-X = pd.concat([
-                pd.read_feather(f).head(HEAD) for f in tqdm(files, mininterval=60)
+X_tr = pd.concat([
+                pd.read_feather(f) for f in tqdm(files_tr, mininterval=60)
                ], axis=1)
-y = utils.read_pickles('../data/label').head(HEAD).TARGET
+X_tr['y'] = 0
 
+X_te = pd.concat([
+                pd.read_feather(f) for f in tqdm(files_te, mininterval=60)
+               ], axis=1)
+X_te['y'] = 1
+
+train_len = X_tr.shape[0]
+
+X = pd.concat([X_tr, X_te], ignore_idnex=True)
+y = X['y']; del X['y']
 
 if X.columns.duplicated().sum()>0:
     raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
 print('no dup :) ')
 print(f'X.shape {X.shape}')
 
-#X = X.rank(method='dense')
 gc.collect()
 
 CAT = list( set(X.columns)&set(utils_cat.ALL))
 
 # =============================================================================
-# imp
+# training with cv
 # =============================================================================
-dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
-#model = lgb.train(param, dtrain, len(ret['auc-mean']))
-model = lgb.train(param, dtrain, 2000)
-imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
+dtrain = lgb.Dataset(X, y, categorical_feature=CAT, 
+                     free_raw_data=False)
 
+model_all = []
+y_pred = pd.Series(0, index=y.index)
+for i in range(LOOP):
+    gc.collect()
+    param['seed'] = i
+    ret, models = lgb.cv(param, dtrain, 9999, nfold=NFOLD,
+                         early_stopping_rounds=100, verbose_eval=50,
+                         seed=i)
+    model_all += models
+    y_pred += ex.eval_oob(X, y, models, i)
+    
+    auc_mean = roc_auc_score(y, y_pred)
+    result = f"CV auc-mean(loop {i}): {auc_mean} {ret['auc-mean'][-1]}"
+    print(result)
+    utils.send_line(result)
+    
+y_pred /= LOOP
 
-imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
-
-def multi_touch(arg):
-    os.system(f'touch "../feature_unused/{arg}.f"')
-
-
-col = imp[imp['split']==0][imp['feature'].str.startswith('f1')]['feature'].tolist()
-pool = Pool(cpu_count())
-pool.map(multi_touch, col)
-pool.close()
+auc_mean = roc_auc_score(y, y_pred)
+result = f"CV auc-mean: {auc_mean}"
+print(result)
+utils.send_line(result)
 
 
 #==============================================================================
 utils.end(__file__)
-#utils.stop_instance()
+utils.stop_instance()
 
 
 
