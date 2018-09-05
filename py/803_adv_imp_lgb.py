@@ -25,7 +25,7 @@ print('SEED:', SEED)
 
 NFOLD = 5
 
-LOOP = 100
+LOOP = 10
 
 param = {
          'objective': 'binary',
@@ -124,7 +124,7 @@ imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
 
 #==============================================================================
 utils.end(__file__)
-#utils.stop_instance()
+utils.stop_instance()
 
 
 
