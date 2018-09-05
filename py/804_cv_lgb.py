@@ -14,10 +14,8 @@ import sys
 sys.path.append(f'/home/{os.environ.get("USER")}/PythonLibrary')
 import lgbextension as ex
 import lightgbm as lgb
-from multiprocessing import cpu_count, Pool
+from multiprocessing import cpu_count
 from glob import glob
-from sklearn.model_selection import GroupKFold
-import count
 import utils, utils_cat
 utils.start(__file__)
 #==============================================================================
@@ -60,26 +58,6 @@ imp.sort_values('total', ascending=False, inplace=True)
 y = utils.read_pickles('../data/label').TARGET
 
 
-# =============================================================================
-# groupKfold
-# =============================================================================
-#sk_tbl = pd.read_csv('../data/user_id_v7.csv.gz') # TODO: check
-#user_tbl = sk_tbl.user_id.drop_duplicates().reset_index(drop=True).to_frame()
-#
-#sub_train = pd.read_csv('../input/application_train.csv.zip', usecols=['SK_ID_CURR']).set_index('SK_ID_CURR')
-#sub_train['y'] = y.values
-#
-#group_kfold = GroupKFold(n_splits=NFOLD)
-
-# =============================================================================
-# shuffle fold
-# =============================================================================
-#ids = list(range(user_tbl.shape[0]))
-#np.random.shuffle(ids)
-#user_tbl['g'] = np.array(ids) % NFOLD
-#sk_tbl_ = pd.merge(sk_tbl, user_tbl, on='user_id', how='left').set_index('SK_ID_CURR')
-#
-#sub_train['g'] = sk_tbl_.g
 
 for HEAD in HEADS:
     files = ('../feature/train_' + imp.head(HEAD).feature + '.f').tolist()
@@ -98,7 +76,6 @@ for HEAD in HEADS:
     gc.collect()
     
     CAT = list( set(X.columns)&set(utils_cat.ALL))
-#    folds = group_kfold.split(X, sub_train['y'], sub_train['g'])
     
     # =============================================================================
     # cv
