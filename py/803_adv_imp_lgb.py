@@ -14,7 +14,7 @@ import sys
 sys.path.append(f'/home/{os.environ.get("USER")}/PythonLibrary')
 import lgbextension as ex
 import lightgbm as lgb
-from multiprocessing import cpu_count, Pool
+from multiprocessing import cpu_count
 from glob import glob
 import utils, utils_cat
 utils.start(__file__)
