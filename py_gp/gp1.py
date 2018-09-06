@@ -16,8 +16,8 @@ from sklearn.model_selection import KFold, StratifiedKFold
 from sklearn.preprocessing import StandardScaler,LabelEncoder
 from sklearn.metrics import roc_auc_score
 
-import utils
-utils.start(__file__)
+#import utils
+#utils.start(__file__)
 #==============================================================================
 
 
@@ -829,17 +829,10 @@ test = UseGPFeatures(test)
 # =============================================================================
 # output
 # =============================================================================
-utils.mkdir_p('../feature_gp')
 train.reset_index(drop=True).to_feather('../data/train_gp1.f')
 test.reset_index(drop=True).to_feather('../data/test_gp1.f')
 
 
-
-
-
-
-
 #==============================================================================
-utils.end(__file__)
 
 
