@@ -17,7 +17,6 @@ import lightgbm as lgb
 from multiprocessing import cpu_count, Pool
 from collections import defaultdict
 from glob import glob
-from sklearn.model_selection import GroupKFold
 import count
 import utils, utils_cat
 utils.start(__file__)
@@ -26,17 +25,15 @@ utils.start(__file__)
 SEED = np.random.randint(9999)
 print('SEED:', SEED)
 
-HEAD = 1000 * 100
-
 NFOLD = 4
 
-LOOP = 1
+LOOP = 2
 
 RESET = False
 
 ONLY_ME = False
 
-EXE_802 = True
+EXE_802 = False
 
 #REMOVE_FEATURES = ['f023', 'f024']
 
@@ -53,8 +50,8 @@ param = {
          'reg_lambda': 0.5,  # L2 regularization term on weights.
          'reg_alpha': 0.5,  # L1 regularization term on weights.
          
-         'colsample_bytree': 0.9,
-         'subsample': 0.9,
+         'colsample_bytree': 0.5,
+         'subsample': 0.5,
 #         'nthread': 32,
          'nthread': cpu_count(),
          'bagging_freq': 1,
@@ -62,94 +59,33 @@ param = {
          'seed': SEED
          }
 
-
-if ONLY_ME:
-    use_files = ['train_f']
-else:
-    use_files = ['train_']
-
-drop_ids = pd.read_csv('../data/drop_ids.csv')['SK_ID_CURR']
-
-# =============================================================================
-# reset load
-# =============================================================================
-if RESET:
-    os.system(f'rm -rf ../feature_unused')
-    os.system(f'mkdir ../feature_unused')
-
-    files = utils.get_use_files(use_files, True)
-    
-    if HEAD is not None:
-        X = pd.concat([
-                        pd.read_feather(f).head(HEAD) for f in tqdm(files, mininterval=60)
-                       ], axis=1)
-        y = utils.read_pickles('../data/label').head(HEAD).TARGET
-    else:
-        X = pd.concat([
-                        pd.read_feather(f) for f in tqdm(files, mininterval=60)
-                       ], axis=1)
-        y = utils.read_pickles('../data/label').TARGET
-    
-    
-    if X.columns.duplicated().sum()>0:
-        raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
-    print('no dup :) ')
-    print(f'X.shape {X.shape}')
-    
-    gc.collect()
-    
-    CAT = list( set(X.columns)&set(utils_cat.ALL))
-    print(f'CAT: {CAT}')
-    
-    # =============================================================================
-    # imp
-    # =============================================================================
-    dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
-    model = lgb.train(param, dtrain, 1000)
-    imp = ex.getImp(model).sort_values(['gain', 'feature'], ascending=[False, True])
-    
-    
-    imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
-    
-    """
-    imp = pd.read_csv('LOG/imp_801_imp_lgb.py.csv')
-    """
-    
-    def multi_touch(arg):
-        os.system(f'touch "../feature_unused/{arg}.f"')
-    
-    
-    col = imp[imp['split']==0]['feature'].tolist()
-    pool = Pool(cpu_count())
-    pool.map(multi_touch, col)
-    pool.close()
+imp_files = ['LOG/imp_181_imp.py.csv', 
+             'LOG/imp_182_imp.py.csv', 
+             'LOG/imp_183_imp.py.csv', 
+             'LOG/imp_184_imp.py.csv', 
+             'LOG/imp_185_imp.py.csv', 
+             'LOG/imp_790_imp.py.csv', ]
 
 # =============================================================================
 # all data
 # =============================================================================
-#files = utils.get_use_files(use_files, True)
+files_tr = []
 
-files = ('../feature/train_' + pd.read_csv('LOG/imp_remove-f15.csv').feature + '.f').tolist()
-files += sorted(glob('../feature/train_f025_*.f'))
-files = sorted(set(files))
+for p in imp_files:
+    imp = pd.read_csv(p)
+    imp = imp[imp.split>2]
+    files_tr += ('../feature/train_' + imp.feature + '.f').tolist()
 
-print('features:', len(files))
+files_tr = sorted(set(files_tr))
+
+print('features:', len(files_tr))
 
 X = pd.concat([
-                pd.read_feather(f) for f in tqdm(files, mininterval=60)
+                pd.read_feather(f) for f in tqdm(files_tr, mininterval=60)
                ], axis=1)
 y = utils.read_pickles('../data/label').TARGET
 
-X['nejumi'] = np.load('../feature_someone/train_nejumi.npy')
-
-# =============================================================================
-# remove old users
-# =============================================================================
-X['SK_ID_CURR'] = utils.load_train(['SK_ID_CURR'])
-
-y = y[~X.SK_ID_CURR.isin(drop_ids)]
-X = X[~X.SK_ID_CURR.isin(drop_ids)].drop('SK_ID_CURR', axis=1)
-
+#X['nejumi'] = np.load('../feature_someone/train_nejumi.npy')
 
 if X.columns.duplicated().sum()>0:
     raise Exception(f'duplicated!: { X.columns[X.columns.duplicated()] }')
@@ -161,37 +97,16 @@ gc.collect()
 CAT = list( set(X.columns)&set(utils_cat.ALL))
 print(f'CAT: {CAT}')
 
-# =============================================================================
-# groupKfold
-# =============================================================================
-#sk_tbl = pd.read_csv('../data/user_id_v8.csv.gz') # TODO: check
-#user_tbl = sk_tbl.user_id.drop_duplicates().reset_index(drop=True).to_frame()
-#
-#sub_train = pd.read_csv('../input/application_train.csv.zip', usecols=['SK_ID_CURR']).set_index('SK_ID_CURR')
-#sub_train['y'] = y.values
-#
-#group_kfold = GroupKFold(n_splits=NFOLD)
-#
-#
-## shuffle fold
-#ids = list(range(user_tbl.shape[0]))
-#np.random.shuffle(ids)
-#user_tbl['g'] = np.array(ids) % NFOLD
-#sk_tbl_ = pd.merge(sk_tbl, user_tbl, on='user_id', how='left').set_index('SK_ID_CURR')
-#
-#sub_train['g'] = sk_tbl_.g
-#folds = group_kfold.split(X, sub_train['y'], sub_train['g'])
-
-
 
 # =============================================================================
 # cv
 # =============================================================================
-dtrain = lgb.Dataset(X, y, categorical_feature=CAT )
+dtrain = lgb.Dataset(X, y, categorical_feature=CAT, free_raw_data=False)
 gc.collect()
 
 model_all = []
 for i in range(LOOP):
+    gc.collect()
     ret, models = lgb.cv(param, dtrain, 9999, nfold=NFOLD, 
                          early_stopping_rounds=100, verbose_eval=50,
                          seed=SEED)
@@ -210,7 +125,7 @@ imp.sort_values('total', ascending=False, inplace=True)
 imp.reset_index(drop=True, inplace=True)
 
 
-imp.to_csv(f'LOG/imp_{__file__}-2.csv', index=False)
+imp.to_csv(f'LOG/imp_{__file__}.csv', index=False)
 
 
 #def multi_touch(arg):
